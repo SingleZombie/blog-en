@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。 但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。 为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。我在这个暑假计划写完200道题。每场比赛都">
+<meta name="keywords" content="ACM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019暑假ACM训练进度（持续更新）">
+<meta property="og:url" content="https://zhouyifan.net/2019/07/19/ACM2019/index.html">
+<meta property="og:site_name" content="周弈帆的博客">
+<meta property="og:description" content="在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。 但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。 为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。我在这个暑假计划写完200道题。每场比赛都">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2021-08-21T03:39:38.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019暑假ACM训练进度（持续更新）">
+<meta name="twitter:description" content="在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。 但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。 为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。我在这个暑假计划写完200道题。每场比赛都">
+
+
+
+
+
+
+  <link rel="canonical" href="https://zhouyifan.net/2019/07/19/ACM2019/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2019暑假ACM训练进度（持续更新） | 周弈帆的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">周弈帆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/07/19/ACM2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019暑假ACM训练进度（持续更新）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-19 20:50:29" itemprop="dateCreated datePublished" datetime="2019-07-19T20:50:29+08:00">2019-07-19</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/作业-练习/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。</p>
+<p>但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。</p>
+<p>为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。<strong>我在这个暑假计划写完200道题</strong>。每场比赛都能补7~8题的话，就已经能够完成150题了，可见这个目标的达成并不困难。但是，我希望我写每一道题都能认真地去思考，有质量地完成，并顺便补习题目中出现的不会的知识。</p>
+<p>9.7：虽然暑假过了，但是过题清单统计到所有网络赛打完吧</p>
+<p>9.17：虽然我没有完成我的目标，但我这个暑假还算是投入了很多精力在ACM上，学到了不少了东西的。开学后做的题目会另开一个文章来存。</p>
+<p>下面是每道题完成的情况及题解链接（如果有题解的话）：</p>
+<p><u>下划线</u>表示这道题很有价值/我很喜欢</p>
+<p><strong>进度(120/200)</strong>  </p>
+<h4 id="7-18"><a href="#7-18" class="headerlink" title="7.18"></a>7.18</h4><p><strong>共计4题</strong><br>2019牛客1A（笛卡尔树)<br>2019牛客1B（数学）<br>2019牛客1F（找规律）<br>2019牛客1J（水）    </p>
+<h4 id="7-19"><a href="#7-19" class="headerlink" title="7.19"></a>7.19</h4><p><strong>共计4题</strong><br>2019牛客1C（贪心、数学）<br>2019牛客1E（贪心、dp）<br>2019牛客1H（线性基）<br><u>2019牛客1I（二维点，线段树）</u>      </p>
+<h4 id="7-20"><a href="#7-20" class="headerlink" title="7.20"></a>7.20</h4><p><strong>共计2题</strong><br>2019牛客2F（蛮力搜索)<br>2019牛客2H（单调栈）</p>
+<h4 id="7-21"><a href="#7-21" class="headerlink" title="7.21"></a>7.21</h4><p><strong>共计8题</strong><br>2019CCPC江西省赛1<br>2019CCPC江西省赛4<br>2019CCPC江西省赛6<br>2019CCPC江西省赛7<br>2019CCPC江西省赛8<br>2019CCPC江西省赛9<br>2019CCPC江西省赛10<br>2019CCPC江西省赛11<br>(今天题比较水)  </p>
+<h4 id="7-22"><a href="#7-22" class="headerlink" title="7.22"></a>7.22</h4><p><strong>共计3题</strong><br>2019HDU多校1-2（区间异或和最大）<br>2019HDU多校1-4（思维）<br>2019HDU多校1-9（序列自动机、贪心）  </p>
+<h4 id="7-24"><a href="#7-24" class="headerlink" title="7.24"></a>7.24</h4><p><strong>共计5题</strong><br>2019HDU多校1-1（dp）<br>2019HDU多校1-12（组合数学、卷积）<br>2019HDU多校2-I（回文树）<br>2019HDU多校2-J（签到）<br>2019HDU多校2-K（可持久化线段树）  </p>
+<h4 id="7-25"><a href="#7-25" class="headerlink" title="7.25"></a>7.25</h4><p><strong>共计1题</strong><br>2019牛客3-F（st表、双向队列维护区间最值）  </p>
+<h4 id="7-26"><a href="#7-26" class="headerlink" title="7.26"></a>7.26</h4><p><strong>共计4题</strong><br>2019牛客3-G（笛卡尔树上区间二分）<br>2019HDU多校1-6（后缀自动机）<br>2019HDU多校2-H（最小割）<br>2019HDU多校2-L（线段树维护信息）      </p>
+<h4 id="7-27"><a href="#7-27" class="headerlink" title="7.27"></a>7.27</h4><p><strong>共计3题</strong><br>2019牛客4-A（树形DP）<br>2019牛客4-I（后缀自动机、回文树）<br>2019牛客4-J（分层图（令边权为0）） </p>
+<h4 id="7-28"><a href="#7-28" class="headerlink" title="7.28"></a>7.28</h4><p><strong>共计2题</strong><br>2019HDU多校2-F（FWT）<br>2019牛客4-C（笛卡尔树、区间最值）  </p>
+<h4 id="7-29"><a href="#7-29" class="headerlink" title="7.29"></a>7.29</h4><p><strong>共计2题</strong><br>2019HDU多校3-4（二分、线段树/平衡树）<br>2019HDU多校3-7（二分、线段树/平衡树）   </p>
+<h4 id="7-30"><a href="#7-30" class="headerlink" title="7.30"></a>7.30</h4><p><strong>共计2题</strong><br>2019HDU多校1-11(莫比乌斯反演)<br>2019HDU多校2-E(期望、简单dp)  </p>
+<h4 id="7-31"><a href="#7-31" class="headerlink" title="7.31"></a>7.31</h4><p><strong>共计3题</strong><br>2019HDU多校4-3（思维）<br>2019HDU多校4-7（结论题）<br>2019HDU多校4-8（二分、可持久化线段树）</p>
+<h4 id="8-1"><a href="#8-1" class="headerlink" title="8.1"></a>8.1</h4><p><strong>共计3题</strong><br>2019牛客5-G（中等dp）<br><u>2019牛客5-F（思考、补图、二分图最小覆盖方案）</u><br>2019牛客5-H（字符串前后关系转化成对图求环）  </p>
+<h4 id="8-3"><a href="#8-3" class="headerlink" title="8.3"></a>8.3</h4><p><strong>共计4题</strong><br>2019牛客6-D（暴力模拟）<br><u>2019牛客6-E（构造自补图）</u><br>2019牛客6-J（简单dp）<br><u>2019HDU多校4-6（思维、斜率优化）</u>  </p>
+<h4 id="8-5"><a href="#8-5" class="headerlink" title="8.5"></a>8.5</h4><p><strong>共计1题</strong><br>2019HDU多校5-6（exkmp签到）</p>
+<h4 id="8-7"><a href="#8-7" class="headerlink" title="8.7"></a>8.7</h4><p><strong>共计5题</strong><br><u>2019HDU多校6-4（两颗权值线段树）</u><br>2019HDU多校6-6（曼哈顿距离模意义下性质）<br>2019HDU多校6-8（暴力）<br>CodeForeces 674C（斜率优化DP）<br>2019HDU多校5-1（分母最小的给定范围下的分数）  </p>
+<h4 id="8-8"><a href="#8-8" class="headerlink" title="8.8"></a>8.8</h4><p><strong>共计4题</strong><br>2019牛客6-A（最小表示法暴力DP）<br>2019牛客6-B（三次以上多项式必可因式分解结论）<br>2019牛客6-D（签到）<br><u>2019牛客6-H（繁琐的数位DP）</u>  </p>
+<h4 id="8-9"><a href="#8-9" class="headerlink" title="8.9"></a>8.9</h4><p><strong>共计5题</strong><br>Comet8-A（签到）<br>Comet8-B（签到）<br>2019HDU多校6-2（随机数据、LIS、暴力重构）<br>2019HDU多校6-5（线段树维护最大子段和）<br>2019HDU多校6-12（签到）</p>
+<h4 id="8-10"><a href="#8-10" class="headerlink" title="8.10"></a>8.10</h4><p><strong>共计1题</strong><br>2019牛客8-C（找规律）  </p>
+<h4 id="8-11"><a href="#8-11" class="headerlink" title="8.11"></a>8.11</h4><p><strong>共计7题</strong><br>Comet8-C（dp或者线段树维护最大子段和）<br>Comet8-D（思考、树状数组）<br>2019牛客8-A（单调栈、最大矩形去重）<br>2019牛客8-B（签到、单独考虑贡献）<br>2019牛客8-D（暴力BFS重构最短曼哈顿距离）<br>2019牛客8-G（签到）<br><u>2019牛客8-J（组合数学、容斥原理）</u>  </p>
+<h4 id="8-12"><a href="#8-12" class="headerlink" title="8.12"></a>8.12</h4><p><strong>共计1题</strong><br><u>2019HDU多校7-8（思考）</u></p>
+<h4 id="8-13"><a href="#8-13" class="headerlink" title="8.13"></a>8.13</h4><p><strong>共计5题</strong><br>2019HDU多校7-1（高精度模拟）<br>2019HDU多校7-6（思维）<br>2019HDU多校7-7（思考、dp、二分转移）<br>2019HDU多校7-10（思维、map排序）<br>2019HDU多校7-11（期望dp）    </p>
+<h4 id="8-14"><a href="#8-14" class="headerlink" title="8.14"></a>8.14</h4><p><strong>共计3题</strong><br>2019HDU多校8-4（构造）<br>2019HDU多校8-9（离散化后DFS）<br>2019HDU多校8-11（思维）   </p>
+<h4 id="8-15"><a href="#8-15" class="headerlink" title="8.15"></a>8.15</h4><p><strong>共计2题</strong><br>2019牛客9-B（模意义方程、二次剩余）<br>2019牛客9-E（并查集）  </p>
+<h4 id="8-17"><a href="#8-17" class="headerlink" title="8.17"></a>8.17</h4><p><strong>共计6题</strong><br>2019牛客10-B（递归）<br>2019牛客10-D（Java写的中国剩余定理）<br>2019牛客10-F（线段树维护最值）<br>2019百度之星初赛-1（签到）<br>2019百度之星初赛-2（签到）<br>2019百度之星初赛-5（找规律）  </p>
+<h4 id="8-18"><a href="#8-18" class="headerlink" title="8.18"></a>8.18</h4><p><strong>共计3题</strong><br>cf-A (水题)<br>cf-B (无向图最短环)<br>2019HDU多校8-6（树形dp）     </p>
+<h4 id="8-19"><a href="#8-19" class="headerlink" title="8.19"></a>8.19</h4><p><strong>共计1题</strong><br>2019HDU多校9-3（硬核折半搜索+基数排序）</p>
+<h4 id="8-21"><a href="#8-21" class="headerlink" title="8.21"></a>8.21</h4><p><strong>共计2题</strong><br>2019HDU多校10-3（简单概率）<br>2019HDU多校10-9（签到DFS）<strong>（全场一血）</strong>  </p>
+<h4 id="8-23"><a href="#8-23" class="headerlink" title="8.23"></a>8.23</h4><p><strong>共计1题</strong><br>2019CCPC网络赛1（签到）</p>
+<h4 id="8-31"><a href="#8-31" class="headerlink" title="8.31"></a>8.31</h4><p><strong>共计6题</strong><br>2019百度之星复赛-A（树形dp）<br>2019百度之星复赛-B（思维）<br>2019百度之星复赛-C（贪心）<br>2019银川网络赛C（签到）<br>2019银川网络赛D（猜结论概率）<br>2019银川网络赛H（贪心排序） </p>
+<h4 id="9-1"><a href="#9-1" class="headerlink" title="9.1"></a>9.1</h4><p><strong>共计3题</strong><br>2019南京网络赛B（欧拉降幂）<br>2019南京网络赛F（区间最值）<br><u>2019南京网络赛G（组合数学）</u>   </p>
+<h4 id="9-7"><a href="#9-7" class="headerlink" title="9.7"></a>9.7</h4><p><strong>共计4题</strong><br>2019徐州网络赛G（回文树）<br>2019徐州网络赛I（区间询问，固定右端点）<br>2019徐州网络赛L（打表，TSP问题）<br>2019徐州网络赛M（序列自动机贪心）   </p>
+<h4 id="9-8"><a href="#9-8" class="headerlink" title="9.8"></a>9.8</h4><p><strong>共计2题</strong><br>2019银川网络赛重赛E（水）<br>2019南昌网络赛E（约瑟夫问题）   </p>
+<h4 id="9-9"><a href="#9-9" class="headerlink" title="9.9"></a>9.9</h4><p><strong>共计3题</strong><br>min_25筛入门题X3</p>
+<h4 id="9-14"><a href="#9-14" class="headerlink" title="9.14"></a>9.14</h4><p><strong>共计2题</strong><br>2019沈阳网络赛F（二分查找）<br>2019沈阳网络赛G（物理） </p>
+<h4 id="9-15"><a href="#9-15" class="headerlink" title="9.15"></a>9.15</h4><p><strong>共计3题</strong><br>2019上海网络赛B（离散化、区间异或）<br>2019上海网络赛C（FFT、简单容斥、不同数据量不同算法）<br><u>2019上海网络赛E（指数生成函数）</u>       </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ACM/" rel="tag"># ACM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/25/recurrence-relation-and-generating-function/" rel="next" title="组合数学：递推关系与生成函数">
+                <i class="fa fa-chevron-left"></i> 组合数学：递推关系与生成函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/22/2019Nowcoder-Contest1/" rel="prev" title="2019牛客暑期多校训练营（第一场）部分题解（缺D、G）">
+                2019牛客暑期多校训练营（第一场）部分题解（缺D、G） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhou Yifan</p>
+              <p class="site-description motion-element" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-18"><span class="nav-number">1.</span> <span class="nav-text">7.18</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-19"><span class="nav-number">2.</span> <span class="nav-text">7.19</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-20"><span class="nav-number">3.</span> <span class="nav-text">7.20</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-21"><span class="nav-number">4.</span> <span class="nav-text">7.21</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-22"><span class="nav-number">5.</span> <span class="nav-text">7.22</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-24"><span class="nav-number">6.</span> <span class="nav-text">7.24</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-25"><span class="nav-number">7.</span> <span class="nav-text">7.25</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-26"><span class="nav-number">8.</span> <span class="nav-text">7.26</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-27"><span class="nav-number">9.</span> <span class="nav-text">7.27</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-28"><span class="nav-number">10.</span> <span class="nav-text">7.28</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-29"><span class="nav-number">11.</span> <span class="nav-text">7.29</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-30"><span class="nav-number">12.</span> <span class="nav-text">7.30</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-31"><span class="nav-number">13.</span> <span class="nav-text">7.31</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1"><span class="nav-number">14.</span> <span class="nav-text">8.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-3"><span class="nav-number">15.</span> <span class="nav-text">8.3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-5"><span class="nav-number">16.</span> <span class="nav-text">8.5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-7"><span class="nav-number">17.</span> <span class="nav-text">8.7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-8"><span class="nav-number">18.</span> <span class="nav-text">8.8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-9"><span class="nav-number">19.</span> <span class="nav-text">8.9</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-10"><span class="nav-number">20.</span> <span class="nav-text">8.10</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-11"><span class="nav-number">21.</span> <span class="nav-text">8.11</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-12"><span class="nav-number">22.</span> <span class="nav-text">8.12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-13"><span class="nav-number">23.</span> <span class="nav-text">8.13</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-14"><span class="nav-number">24.</span> <span class="nav-text">8.14</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-15"><span class="nav-number">25.</span> <span class="nav-text">8.15</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-17"><span class="nav-number">26.</span> <span class="nav-text">8.17</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-18"><span class="nav-number">27.</span> <span class="nav-text">8.18</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-19"><span class="nav-number">28.</span> <span class="nav-text">8.19</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-21"><span class="nav-number">29.</span> <span class="nav-text">8.21</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-23"><span class="nav-number">30.</span> <span class="nav-text">8.23</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-31"><span class="nav-number">31.</span> <span class="nav-text">8.31</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-1"><span class="nav-number">32.</span> <span class="nav-text">9.1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-7"><span class="nav-number">33.</span> <span class="nav-text">9.7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-8"><span class="nav-number">34.</span> <span class="nav-text">9.8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-9"><span class="nav-number">35.</span> <span class="nav-text">9.9</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-14"><span class="nav-number">36.</span> <span class="nav-text">9.14</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-15"><span class="nav-number">37.</span> <span class="nav-text">9.15</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Description给m个由A,C,G,T组成的DNA片段。现在你需要构造一些长度为n的字符串，使这些字符串完全被这些DNA片段覆盖。求构造方案数 $mod$ $1e9+9$ 。（DNA片段之间可以互相重叠） 长度 $n\leq1000$，片段个数 $m\leq10$，片段长度不大于10. Sample Input &amp;amp; Output6 2CATTACT   2 （CATCAT和CATAC">
+<meta name="keywords" content="计算机科学,ACM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CodeForces-86C Genetic engineering">
+<meta property="og:url" content="https://zhouyifan.net/2019/04/25/CF-86C/index.html">
+<meta property="og:site_name" content="周弈帆的博客">
+<meta property="og:description" content="Description给m个由A,C,G,T组成的DNA片段。现在你需要构造一些长度为n的字符串，使这些字符串完全被这些DNA片段覆盖。求构造方案数 $mod$ $1e9+9$ 。（DNA片段之间可以互相重叠） 长度 $n\leq1000$，片段个数 $m\leq10$，片段长度不大于10. Sample Input &amp;amp; Output6 2CATTACT   2 （CATCAT和CATAC">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2021-08-21T03:39:38.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CodeForces-86C Genetic engineering">
+<meta name="twitter:description" content="Description给m个由A,C,G,T组成的DNA片段。现在你需要构造一些长度为n的字符串，使这些字符串完全被这些DNA片段覆盖。求构造方案数 $mod$ $1e9+9$ 。（DNA片段之间可以互相重叠） 长度 $n\leq1000$，片段个数 $m\leq10$，片段长度不大于10. Sample Input &amp;amp; Output6 2CATTACT   2 （CATCAT和CATAC">
+
+
+
+
+
+
+  <link rel="canonical" href="https://zhouyifan.net/2019/04/25/CF-86C/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CodeForces-86C Genetic engineering | 周弈帆的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">周弈帆的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/04/25/CF-86C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CodeForces-86C Genetic engineering
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-25 13:22:48" itemprop="dateCreated datePublished" datetime="2019-04-25T13:22:48+08:00">2019-04-25</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/作业-练习/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>给m个由A,C,G,T组成的DNA片段。现在你需要构造一些长度为n的字符串，使这些字符串完全被这些DNA片段覆盖。求构造方案数 $mod$ $1e9+9$ 。（DNA片段之间可以互相重叠）</p>
+<p>长度 $n\leq1000$，片段个数 $m\leq10$，片段长度不大于10.</p>
+<h2 id="Sample-Input-amp-Output"><a href="#Sample-Input-amp-Output" class="headerlink" title="Sample Input &amp; Output"></a>Sample Input &amp; Output</h2><p>6 2<br>CAT<br>TACT  </p>
+<p>2</p>
+<p>（CATCAT和CATACT是可行的方案）</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>DNA间可以相互重叠，也就是匹配完某个DNA后，匹配下一个DNA时不一定会从头开始，而是从下一个DNA的某个前缀开始（这个前缀也是当前DNA的后缀）。为了表示这种关系，肯定会想到使用AC自动机来表示匹配的状态。</p>
+<p>有了AC自动机，我们就可以把所有 $4^n$个字符串全部输入自动机，保证状态转移“合法”，统计出最终所有满足条件的状态就行了。现在我们要做的事情有三件：统计状态，判断状态转移是否合法，判断结果是否满足条件。我们一件一件来解决。</p>
+<p>每个状态对应AC自动机上的一个节点，因此用一个dp[MAX_NODE]数组就可以存处于当前状态的方案数。每多放入一个字符，状态就会发生转移。理论上，当前字符数的状态只与上一字符数的状态有关，拿两个dp数组循环用就行了。但为了书写方便还是先定义成dp[MAXN][MAX_NODE]，每次dp[i]由dp[i - 1]转移而来。</p>
+<p>接下来来判断合法的状态。所有字符串都要被DNA覆盖，也就是在AC自动机上转移的时候，不能还没走到终点（DNA的结束点），就跑到另一个DNA字符串的前缀去了。只有当走到了终点的时候，才可以随意地走下一步（但是不能走回根）。</p>
+<p>统计答案也很简单，只有那些DNA字符串结束点对应的状态才能被统计进最终答案。</p>
+<p>根据以上分析可以写出以下式子：  </p>
+<p>$当j 为终点:$<br>$dp[i][j.next[k]] += dp[i - 1][j] (j.next[k] \neq root, k \in {A, C, G, T})$<br>$否则:$<br>$dp[i][j.next[k]] += dp[i - 1][j] (j.next[k] 不通过fail转移, k \in {A, C, G, T})$  </p>
+<p>提交上述代码会得到WA的结果。</p>
+<p>考虑下面的例子: 3 3 ACCC A C。ACC显然是一个满足条件的字符串，但在自动机上，ACC却不是一个字符串的结尾，最终不会被统计答案。</p>
+<p>那我是不是应该把字符串结尾通过fail传递下去呢？也就是说，只要一个字符串的后缀是某个更短的字符串的结尾，那这个字符串也被认为是满足条件的字符串。这样更不对了。考虑例子：2 2 ACC C，AC不满足条件，却因为有后缀C被错误地统计进了答案。</p>
+<p>这个时候我们发现，怎么样都无法合理地表示答案。换句话说，现在这种定义状态的方式，会混淆一些本质不同的状态。在定义一个状态时，只是记录这个状态处于AC自动机的哪个节点是不够的，还得记录一些其它的东西。</p>
+<p>从本质上思考，一个满足条件的字符串可以分成两部分，后一部分是最后一个被覆盖的DNA，前一部分是之前匹配好的一堆DNA。前一部分和后一部分可以重复。对于AC自动机上的一个状态，它的最长的DNA后缀是确定的，但是它之前已经被匹配好的长度是不确定的。而一旦我们确定了这两个值，我们只要判断之前匹配好的长度加上最长的DNA的后缀长度是否大于等于整个当前字符串的长度即可（等价于前一部分和后一部分正好拼接或覆盖）。我们在dp中还要加一维，记录某个状态被匹配的长度。顺便，为了之后的判断，AC自动机上每个节点的长度和最长DNA后缀的长度也要提前统计好来，后者可以通过fail边来转移。</p>
+<p>和开始一样，继续解决三个问题：状态定义、答案判断、合法转移判断。</p>
+<p>现在，$dp[i][j][k]$被定义为放第$i$个字符时，处于AC自动机上$j$号节点，在自动机前面已经匹配好了长度为$k$（而不是总长度已经匹配好了$k$）的方案数。$j.len,j.low$分别表示某个节点的长度，最长DNA后缀长度。</p>
+<p>对于某个$j,k$，若$j.low + k  \geq j.len$，则说明这个状态满足条件。最终$dp[n][j][k]$中满足条件的状态的dp值之和就是题目的答案。</p>
+<p>转移时，我们不再死板通过判断一条边是否是通过fail转移的来判断这个转移合不合法。在当前一个非答案状态$i,j,k$上，对于下一状态$j.next$，只要$j.next.len + k &gt; j.len$，就能保证在状态转移时中间没有“断掉”。下一个状态的最长匹配长度为$j.next.len + k - j.len - 1$。也就是说:<br>$dp[i + 1][j.next][j.next.len + k - j.len - 1] += dp[i][j][k]$  </p>
+<p>对于某个状态，如果它已经满足了被覆盖的条件，则下一状态的最长匹配长度一定是下一状态的长度减1（因为多出了一个新的未匹配字符），写成式子的话：<br>$dp[i + 1][j.next][j.next.len - 1] += dp[i][j][k]$</p>
+<p>至此，题目顺利解完。dp数组是1000 <em> 100 </em> 10的，时间复杂度$O(n|str|\sum|str|)$</p>
+<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>题解部分应该是正常的思考过程，发现二维不够后用三维dp，这也是我写这题从WA改到AC的过程。</p>
+<p>之前我一直以为，AC自动机中dp都很容易，只和处于哪个节点有关。看完题面后，我立马敲了一个二维dp出来，很快WA了。</p>
+<p>在cf上对着样例调试多次后，我才发现怎么定义dp都不行。看了一眼题解，发现状态要多定义一维后，我重新地把题目考虑了一遍，定义出了新的状态。</p>
+<p>后来状态转移我差不多写完了，交上去WA了一个大的样例。仔细思考过后我发现，非答案状态在转移时，它的最长匹配长度可能会变的，这一步转移需要认真考虑。改完这一处后总算AC了。</p>
+<p>这题对我最大的启示和警示是，AC自动机的dp不一定都那么简单，很多时候但靠节点来定义状态是不够的。</p>
+<p>在用dp时，一定要把状态的每一个变量的转移都考虑好。尤其是在重新定义了dp状态后，最好能完全从头推一遍递推关系。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
+          
+            <a href="/tags/ACM/" rel="tag"># ACM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/17/HelloWorld/" rel="next" title="我为什么要写博客 ~ Hello World">
+                <i class="fa fa-chevron-left"></i> 我为什么要写博客 ~ Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/25/HowToWriteSolutionToACMProblem/" rel="prev" title="如何写ACM解题记录 ~ Introspection">
+                如何写ACM解题记录 ~ Introspection <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zhou Yifan</p>
+              <p class="site-description motion-element" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample-Input-amp-Output"><span class="nav-number">2.</span> <span class="nav-text">Sample Input &amp; Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">3.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Review"><span class="nav-number">4.</span> <span class="nav-text">Review</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
