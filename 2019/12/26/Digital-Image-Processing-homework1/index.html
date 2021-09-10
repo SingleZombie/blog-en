@@ -1,131 +1,57 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.0.1',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="数字图像处理小作业1最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。 代码仓库https://github.com/SingleZombie/RGB-CMY-HSI-transformer-homework 需求分析 原图像一张RGB（彩色图像） 分别在">
-<meta name="keywords" content="计算机科学,数字图像处理,C++,代码,OpenCV">
+  <meta name="description" content="数字图像处理小作业1最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。 代码仓库https:&#x2F;&#x2F;github.com&#x2F;SingleZombie&#x2F;RGB-CMY-HSI-transformer-homework 需求分析 原图像一张RGB（彩色图像） 分别在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字图像处理小作业1：RGB转CMY转HCI及简单风格化（附OpenCV安装及基本使用方法）">
 <meta property="og:url" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
-<meta property="og:description" content="数字图像处理小作业1最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。 代码仓库https://github.com/SingleZombie/RGB-CMY-HSI-transformer-homework 需求分析 原图像一张RGB（彩色图像） 分别在">
-<meta property="og:locale" content="en">
+<meta property="og:description" content="数字图像处理小作业1最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。 代码仓库https:&#x2F;&#x2F;github.com&#x2F;SingleZombie&#x2F;RGB-CMY-HSI-transformer-homework 需求分析 原图像一张RGB（彩色图像） 分别在">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/0.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/1RGB.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/2CMY.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/3HSI.jpg">
-<meta property="og:updated_time" content="2021-08-21T03:39:38.202Z">
+<meta property="article:published_time" content="2019-12-26T07:11:59.000Z">
+<meta property="article:modified_time" content="2021-08-21T03:39:38.202Z">
+<meta property="article:author" content="Zhou Yifan">
+<meta property="article:tag" content="计算机科学">
+<meta property="article:tag" content="数字图像处理">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="代码">
+<meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数字图像处理小作业1：RGB转CMY转HCI及简单风格化（附OpenCV安装及基本使用方法）">
-<meta name="twitter:description" content="数字图像处理小作业1最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。 代码仓库https://github.com/SingleZombie/RGB-CMY-HSI-transformer-homework 需求分析 原图像一张RGB（彩色图像） 分别在">
 <meta name="twitter:image" content="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/0.jpg">
 
+<link rel="canonical" href="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/">
 
 
-
-
-
-  <link rel="canonical" href="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
   };
 </script>
 
@@ -137,15 +63,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -154,9 +73,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -170,149 +88,68 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">周弈帆的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">周弈帆的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-about">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -320,132 +157,79 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">数字图像处理小作业1：RGB转CMY转HCI及简单风格化（附OpenCV安装及基本使用方法）
-
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          数字图像处理小作业1：RGB转CMY转HCI及简单风格化（附OpenCV安装及基本使用方法）
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2019-12-26 15:11:59" itemprop="dateCreated datePublished" datetime="2019-12-26T15:11:59+08:00">2019-12-26</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="数字图像处理小作业1"><a href="#数字图像处理小作业1" class="headerlink" title="数字图像处理小作业1"></a>数字图像处理小作业1</h1><p>最近软件工程课要我们用博客记录项目。我感觉这样做挺好的，一来可以让项目的开发更规范化，二来可以给博客和github添加一些内容，不让大学生活看起来很空虚。以后我所有项目作业尽量都建立仓库和博客。</p>
@@ -522,403 +306,156 @@
 <p>HSI风格转换结果</p>
 <h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>写博客真浪费时间。</p>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
-          
-            <a href="/tags/数字图像处理/" rel="tag"># 数字图像处理</a>
-          
-            <a href="/tags/C/" rel="tag"># C++</a>
-          
-            <a href="/tags/代码/" rel="tag"># 代码</a>
-          
-            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/12/23/Software-Engineering-Project/" rel="next" title="软件工程个人项目：数独软件">
-                <i class="fa fa-chevron-left"></i> 软件工程个人项目：数独软件
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
+              <a href="/tags/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag"># 数字图像处理</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81/" rel="tag"># 代码</a>
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/12/30/Digital-Image-Processing-homework2/" rel="prev" title="数字图像处理小作业2：图像扭曲与修复（高斯模糊、高斯噪声、维纳滤波）">
-                数字图像处理小作业2：图像扭曲与修复（高斯模糊、高斯噪声、维纳滤波） <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/23/Software-Engineering-Project/" rel="prev" title="软件工程个人项目：数独软件">
+      <i class="fa fa-chevron-left"></i> 软件工程个人项目：数独软件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/30/Digital-Image-Processing-homework2/" rel="next" title="数字图像处理小作业2：图像扭曲与修复（高斯模糊、高斯噪声、维纳滤波）">
+      数字图像处理小作业2：图像扭曲与修复（高斯模糊、高斯噪声、维纳滤波） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-              <p class="site-description motion-element" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">47</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">categories</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">tags</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数字图像处理小作业1"><span class="nav-number">1.</span> <span class="nav-text">数字图像处理小作业1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码仓库"><span class="nav-number">1.1.</span> <span class="nav-text">代码仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求分析"><span class="nav-number">1.2.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术学习"><span class="nav-number">1.3.</span> <span class="nav-text">技术学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenCV入门"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenCV入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV安装与配置"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">OpenCV安装与配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV-像素获取与修改"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">OpenCV 像素获取与修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV输入输出图像"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">OpenCV输入输出图像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RGB转CMY、HSI"><span class="nav-number">1.3.2.</span> <span class="nav-text">RGB转CMY、HSI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RGB转CMY"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">RGB转CMY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RGB转HSI"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">RGB转HSI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#风格转换"><span class="nav-number">1.3.3.</span> <span class="nav-text">风格转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构设计"><span class="nav-number">1.4.</span> <span class="nav-text">结构设计 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序设计"><span class="nav-number">1.5.</span> <span class="nav-text">程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序概览"><span class="nav-number">1.5.1.</span> <span class="nav-text">程序概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写程序过程中碰到的问题"><span class="nav-number">1.5.2.</span> <span class="nav-text">写程序过程中碰到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理结果"><span class="nav-number">1.6.</span> <span class="nav-text">处理结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#感想"><span class="nav-number">1.7.</span> <span class="nav-text">感想</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
-
-
-
 
 <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
     }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%B0%8F%E4%BD%9C%E4%B8%9A1"><span class="nav-number">1.</span> <span class="nav-text">数字图像处理小作业1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">代码仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.</span> <span class="nav-text">技术学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenCV%E5%85%A5%E9%97%A8"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenCV入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">OpenCV安装与配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV-%E5%83%8F%E7%B4%A0%E8%8E%B7%E5%8F%96%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">OpenCV 像素获取与修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenCV%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%9B%BE%E5%83%8F"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">OpenCV输入输出图像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RGB%E8%BD%ACCMY%E3%80%81HSI"><span class="nav-number">1.3.2.</span> <span class="nav-text">RGB转CMY、HSI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RGB%E8%BD%ACCMY"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">RGB转CMY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RGB%E8%BD%ACHSI"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">RGB转HSI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A3%8E%E6%A0%BC%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.3.</span> <span class="nav-text">风格转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.4.</span> <span class="nav-text">结构设计 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.5.</span> <span class="nav-text">程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%A6%82%E8%A7%88"><span class="nav-number">1.5.1.</span> <span class="nav-text">程序概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E7%A8%8B%E5%BA%8F%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%A2%B0%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.2.</span> <span class="nav-text">写程序过程中碰到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C"><span class="nav-number">1.6.</span> <span class="nav-text">处理结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E6%83%B3"><span class="nav-number">1.7.</span> <span class="nav-text">感想</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhou Yifan</p>
+  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
 
 
 
@@ -927,113 +464,43 @@
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=7.0.1"></script>
-
-  <script src="/js/src/motion.js?v=7.0.1"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
 
 
 
 
-  
-  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
-<script src="/js/src/post-details.js?v=7.0.1"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
-
-
-  
-  
-
-
-  
-
-
-  
 
 
 
 
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
 
 
-  
-
-  
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
 
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
 
   
 

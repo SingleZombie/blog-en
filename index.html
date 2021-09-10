@@ -1,100 +1,24 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.0.1',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
 <meta property="og:type" content="website">
@@ -102,23 +26,20 @@
 <meta property="og:url" content="https://zhouyifan.net/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Zhou Yifan">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="周弈帆的博客">
-<meta name="twitter:description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+
+<link rel="canonical" href="https://zhouyifan.net/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://zhouyifan.net/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
   };
 </script>
 
@@ -130,15 +51,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -147,9 +61,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -163,150 +76,68 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">周弈帆的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">周弈帆的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home menu-item-active">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-about">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -314,126 +145,68 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content index posts-expand">
             
-  <section id="posts" class="posts-expand">
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/09/09/20210827-FridayAfternoon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/09/09/20210827-FridayAfternoon/" class="post-title-link" itemprop="url">星期五的下午</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/09/20210827-FridayAfternoon/" class="post-title-link" itemprop="url">星期五的下午</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
+              <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-09-09 22:52:30" itemprop="dateCreated datePublished" datetime="2021-09-09T22:52:30+08:00">2021-09-09</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/散文/" itemprop="url" rel="index"><span itemprop="name">散文</span></a></span>
-
-                
-                
-              
+              <time title="Created: 2021-09-09 22:52:30 / Modified: 22:53:54" itemprop="dateCreated datePublished" datetime="2021-09-09T22:52:30+08:00">2021-09-09</time>
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E6%95%A3%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">散文</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -441,12 +214,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="星期五的下午"><a href="#星期五的下午" class="headerlink" title="星期五的下午"></a>星期五的下午</h1><p>星期五的下午。</p>
+          <h1 id="星期五的下午"><a href="#星期五的下午" class="headerlink" title="星期五的下午"></a>星期五的下午</h1><p>星期五的下午。</p>
 <p>教室里的气氛逐渐热闹了起来，老师也放慢了语速。</p>
 <p>下课铃一响，就像刚煮开的水一样，教室里顿时充满了吵闹声、桌椅的碰撞声。</p>
 <p>几个同学笑嘻嘻地朝我冲了过来。</p>
@@ -496,156 +264,75 @@
 <h1 id="写博文的感想"><a href="#写博文的感想" class="headerlink" title="写博文的感想"></a>写博文的感想</h1><p>用简练的文字把意思表达清楚，这是写文章必要而又需要花时间练习的事。熟练之后，文章简练了，写文章的时间也会缩短。恰好我最近常常有很多感想，却又担心时间不够，不敢下笔，我有着锻炼写短文的需要。正逢今天时间有多，我可以快速地写一篇小短文，抒发一下心里的感想，练习一下写作。写博客又不是什么特别的任务，没必要非得长篇大论。我争取尽快习惯简明扼要地表达思想，多多记录一些所见所闻、所思所想。</p>
 <p>文章很简短，我却边想边写，写了很久才写完。恐怕是因为文章中融入了不少回忆与感情吧。蕴含在文字中的微妙的感悟，只有有经历的人才能看得出来吧。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/08/19/20210813-PytorchInstall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/08/19/20210813-PytorchInstall/" class="post-title-link" itemprop="url">Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/19/20210813-PytorchInstall/" class="post-title-link" itemprop="url">Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-08-19 02:24:42" itemprop="dateCreated datePublished" datetime="2021-08-19T02:24:42+08:00">2021-08-19</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/工具用法指南/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-10 16:26:40" itemprop="dateModified" datetime="2021-09-10T16:26:40+08:00">2021-09-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E5%B7%A5%E5%85%B7%E7%94%A8%E6%B3%95%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -653,19 +340,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）"><a href="#Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）" class="headerlink" title="Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）"></a>Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）</h1><p>安装一个编程环境/编程库的过程是无比烦人的。安装环境时不可避免地涉及一些和该环境有关的知识，而配环境的人多半是新手，面对未知的知识时总会碰到许多麻烦。比如第一次配和C++有关的库的时候，新手就不知道.dll应该加入环境变量，.h应该加入include。而在写教程的时候，也一般都是新手在写教程，老手们对配环境这一“简单”的事情不屑一顾。因此，我们一般只能在网上看到新手写的配环境教程，上面都是按部就班地介绍一步一步的操作，讲不出每一步操作为什么要这样做，那些操作可以更改或者跳过，碰到了问题又怎么样。教程的不详细同样是配编程环境令人感到烦人的原因。</p>
+          <h1 id="Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）"><a href="#Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）" class="headerlink" title="Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）"></a>Pytorch安装教程（包含对齐cuda、cudnn版本，VSCode中Anaconda的设置）</h1><p>安装一个编程环境/编程库的过程是无比烦人的。安装环境时不可避免地涉及一些和该环境有关的知识，而配环境的人多半是新手，面对未知的知识时总会碰到许多麻烦。比如第一次配和C++有关的库的时候，新手就不知道.dll应该加入环境变量，.h应该加入include。而在写教程的时候，也一般都是新手在写教程，老手们对配环境这一“简单”的事情不屑一顾。因此，我们一般只能在网上看到新手写的配环境教程，上面都是按部就班地介绍一步一步的操作，讲不出每一步操作为什么要这样做，那些操作可以更改或者跳过，碰到了问题又怎么样。教程的不详细同样是配编程环境令人感到烦人的原因。</p>
 <p>基于上述情况，配编程环境考察的是人利用搜索引擎的能力。在配环境时，应该多参考几篇文章，有英文阅读能力的应该去参考官方给的配置教程。出了问题把问题的出错信息放到搜索引擎上去查。一般多踩几次坑，多花点时间，环境总能配好。</p>
 <p>也正是基于这些原因，我觉得写一篇环境配置的文章很没有意思。没有技术性和原创性、繁琐而无趣。但恰逢我第三次配置pytorch环境，一切都轻车熟路了。我准备在等待文件下载安装之余截几张图，水一篇文章。</p>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>去搜索引擎搜索<code>pytorch安装  你的操作系统</code>。比如我这次是在win10上安装，就选择输入”pytorch 安装 win10”.当然，一般会用到Anaconda来安装python上的一些库。在搜索中加入”anaconda”关键字可以搜到更多的教程。</p>
-<p>当然，官方网站上也已经给出了不少信息了：<a href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener">https://pytorch.org/get-started/locally/</a></p>
+<p>当然，官方网站上也已经给出了不少信息了：<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
 <p>我的博客是随手写的，看这篇文章可能解决不了所有问题。正如前言中所说，应该多参考几篇教程。</p>
 <h2 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h2><p>Anaconda可以让用户更好地管理python包，配置pytorch需要先安装Anaconda。我说不出它的优点，反正大家都在用，我也一直在用。</p>
-<p><a href="https://www.anaconda.com/products/individual#Downloads这里可以下载Anaconda" target="_blank" rel="noopener">https://www.anaconda.com/products/individual#Downloads这里可以下载Anaconda</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anaconda.com/products/individual#Downloads">https://www.anaconda.com/products/individual#Downloads</a> 这里可以下载Anaconda</p>
 <p>如果使用的是Windows，下载以后，点击任务栏中的搜索框，搜索Anaconda，打开<code>Anaconda Powershell Prompt (Anaconda)</code>或者<code>Anaconda Prompt (Anaconda)</code>。Ubuntu貌似进入命令行进入了Anaconda。</p>
 <p>在conda命令行中输入<code>conda create --name env_name python=3.7</code></p>
 <p><code>env_name</code>是虚拟环境的名字。装Python库，就好像在一个新房子里放家具一样，时间久了东西越来越乱。Anaconda给了你无限创造新房子的机会。你可以在一个完全没有“家具”，甚至连Python都没有的虚拟环境里，重新配置库文件。<code>env_name</code>就是虚拟环境的名字，我一般命名为<code>pt</code>，这样输入起来很快。后面的<code>python=3.7</code>是可选的，python版本可选，这句话加不加也可选。没加的话晚点安装python也行。</p>
@@ -676,175 +358,94 @@
 <p>这个时候，为了避免GPU版教程的干扰，应该在搜索引擎中搜索<code>Pytorch CPU 你的操作系统</code></p>
 <p>一般输入<code>conda install pytorch-cpu torchvision-cpu -c pytorch</code>就可以安装好了。但这个时候，一般有一个坑会碰到：下载速度奇慢无比。</p>
 <p>这个时候，应该去网上搜索<code>conda 下载慢</code>类似的关键字。网上一般会给出以下几个办法：换源、直接下载安装包、用pip下载。源就是下载的来源网站，在国内的话最好切换到国内的下载网站比较快。我选择换conda源的方法下载。明确了方法后，要继续换搜索的关键字，应搜索<code>conda 换源</code>。我搜索到的办法是：输入<code>conda config --set show_channel_urls yes</code>。之后在用户根目录(比如C:\Users\Yifan Zhou)下编辑<code>.condarc</code>，加入以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/</span><br><span class="line">ssl_verify: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/</span><br><span class="line">ssl_verify: true</span><br></pre></td></tr></table></figure>
 <p>我发现换了源还是下载得很慢，于是直接挂了个VPN再下载（哈哈哈）</p>
 <p>比较好的方式开始用换了源的pip</p>
 <p>下好之后稍微验证以下。比如安装之后，继续在Anaconda的虚拟环境中输入以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import torch</span><br><span class="line">print(torch.__verion__)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import torch</span><br><span class="line">print(torch.__verion__)</span><br></pre></td></tr></table></figure>
 <h2 id="GPU版本的Pytorch"><a href="#GPU版本的Pytorch" class="headerlink" title="GPU版本的Pytorch"></a>GPU版本的Pytorch</h2><h3 id="确认显卡驱动"><a href="#确认显卡驱动" class="headerlink" title="确认显卡驱动"></a>确认显卡驱动</h3><p>在安装GPU版本Pytorch之前，还要保证电脑中有<strong>版本正确</strong>的cuda和cudnn。cuda是一套GPU上的编程库，cudnn是基于cuda的深度学习库。Pytorch依赖这两个库，而cudnn版本依赖cuda版本。而由于cuda貌似更新比Pytorch快，出于向下兼容的考虑，应该先在电脑支持的CUDA版本和Pytorch支持的CUDA版本中选择一个较小者，再下载该版本的CUDA和CUDNN。</p>
 <p>但是，在安装这些东西之前，还可能碰到一个坑——显卡没装驱动。这里默认电脑使用的是N卡。在控制台中输入<code>nvidia-smi</code>，如果出现了类似下面这种信息：</p>
 <p><img src="/2021/08/19/20210813-PytorchInstall/p2.jpg" alt></p>
 <p>就说明驱动已经安装好了。如果没有，请搜索<code>显卡驱动</code>，适当加入”Nvidia Cuda Cudnn pytorch tensorflow python”等关键词，多看几篇教程总能把驱动装好。</p>
 <p>输出信息中的CUDA Version就是电脑显卡最高支持的CUDA版本。到网上下CUDA也应该不超过这个版本。</p>
-<h3 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h3><p>记录下<code>nvidia-smi</code>命令输出的CUDA版本（比如我的是11.1），再在<a href="https://pytorch.org/get-started/previous-versions/查Pytorch是否支持该CUDA版本。如果不支持，就选一个网站上有，且版本小于命令输出的CUDA版本的。之后去https://developer.nvidia.com/cuda-toolkit-archive找到合适的CUDA版本，选择版本后选择自己对应的操作系统。下载了可执行文件后直接运行安装。" target="_blank" rel="noopener">https://pytorch.org/get-started/previous-versions/查Pytorch是否支持该CUDA版本。如果不支持，就选一个网站上有，且版本小于命令输出的CUDA版本的。之后去https://developer.nvidia.com/cuda-toolkit-archive找到合适的CUDA版本，选择版本后选择自己对应的操作系统。下载了可执行文件后直接运行安装。</a></p>
-<h3 id="CUDNN"><a href="#CUDNN" class="headerlink" title="CUDNN"></a>CUDNN</h3><p>打开<a href="https://developer.nvidia.com/rdp/cudnn-archive这个网站。注册账号并登录。根据CUDA版本，找到合适版本在合适操作系统下的CUDNN。（注意是下载`cuDNN" target="_blank" rel="noopener">https://developer.nvidia.com/rdp/cudnn-archive这个网站。注册账号并登录。根据CUDA版本，找到合适版本在合适操作系统下的CUDNN。（注意是下载`cuDNN</a> Library<code>，比如</code>[cuDNN Library for Windows10 (x86)]`）</p>
+<h3 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h3><p>记录下<code>nvidia-smi</code>命令输出的CUDA版本（比如我的是11.1），再在 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/">https://pytorch.org/get-started/previous-versions/</a> 查Pytorch是否支持该CUDA版本。如果不支持，就选一个网站上有，且版本小于命令输出的CUDA版本的。之后去 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">https://developer.nvidia.com/cuda-toolkit-archive</a> 找到合适的CUDA版本，选择版本后选择自己对应的操作系统。下载了可执行文件后直接运行安装。</p>
+<h3 id="CUDNN"><a href="#CUDNN" class="headerlink" title="CUDNN"></a>CUDNN</h3><p>打开 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive">https://developer.nvidia.com/rdp/cudnn-archive</a> 这个网站。注册账号并登录。根据CUDA版本，找到合适版本在合适操作系统下的CUDNN。（注意是下载<code>cuDNN Library</code>，比如<code>[cuDNN Library for Windows10 (x86)]</code>）</p>
 <p>正如前面所描述的，CUDNN是个库，不需要安装，只需要把其文件复制到CUDA文件夹下即可使用。要把CUDNN中的bin，include，lib都复制到CUDA的对应目录下。</p>
 <p>注意，CUDA的bin文件夹应该被添加进环境变量。用默认设置安装CUDA时一般该文件夹会自动被加入环境变量。</p>
-<h3 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h3><p>在<a href="https://pytorch.org/get-started/locally/中，选择合适的操作系统和CUDA版本。参考**CPU版本的Pytorch**这一小节的内容，用conda一键下好pytorch。如果网速慢，请利用搜索引擎解决问题。" target="_blank" rel="noopener">https://pytorch.org/get-started/locally/中，选择合适的操作系统和CUDA版本。参考**CPU版本的Pytorch**这一小节的内容，用conda一键下好pytorch。如果网速慢，请利用搜索引擎解决问题。</a></p>
+<h3 id="Pytorch"><a href="#Pytorch" class="headerlink" title="Pytorch"></a>Pytorch</h3><p>在 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a> 中，选择合适的操作系统和CUDA版本。参考<strong>CPU版本的Pytorch</strong>这一小节的内容，用conda一键下好pytorch。如果网速慢，请利用搜索引擎解决问题。</p>
 <p>一切都下载完后，在环境中输入以下内容，看到True就是胜利。</p>
 <p><img src="/2021/08/19/20210813-PytorchInstall/p3.jpg" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import torch</span><br><span class="line">import torchvision</span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import torch</span><br><span class="line">import torchvision</span><br><span class="line">torch.cuda.is_available() </span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/08/05/20210801-RainyNight/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/08/05/20210801-RainyNight/" class="post-title-link" itemprop="url">风雨夜行记 ~ Adventure in a Rainy Night</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/05/20210801-RainyNight/" class="post-title-link" itemprop="url">风雨夜行记 ~ Adventure in a Rainy Night</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-08-05 00:58:54" itemprop="dateCreated datePublished" datetime="2021-08-05T00:58:54+08:00">2021-08-05</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/记叙文/" itemprop="url" rel="index"><span itemprop="name">记叙文</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-09 22:20:21" itemprop="dateModified" datetime="2021-09-09T22:20:21+08:00">2021-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%AE%B0%E5%8F%99%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">记叙文</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -852,12 +453,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="风雨夜行记-Adventure-in-a-Rainy-Night"><a href="#风雨夜行记-Adventure-in-a-Rainy-Night" class="headerlink" title="风雨夜行记 ~ Adventure in a Rainy Night"></a>风雨夜行记 ~ Adventure in a Rainy Night</h1><p>初到上海，老天爷就隆重地请来嘉宾”烟花“迎接我的到来。一场突如其来的台风席卷了城市，大雨倾盆而下，把人们关在了家中，连多家知名餐馆都停止了外卖服务。傍晚，我在生活用品尚不齐全的新房间里，摸着空空如也的肚子暗自叹息。怎么办？是吃点零食，全身脏兮兮地回床上避难？还是一往无前，出门购买食物和所需的生活用品？向来喜欢追求成果上限的我自然是选择后者。</p>
+          <h1 id="风雨夜行记-Adventure-in-a-Rainy-Night"><a href="#风雨夜行记-Adventure-in-a-Rainy-Night" class="headerlink" title="风雨夜行记 ~ Adventure in a Rainy Night"></a>风雨夜行记 ~ Adventure in a Rainy Night</h1><p>初到上海，老天爷就隆重地请来嘉宾”烟花“迎接我的到来。一场突如其来的台风席卷了城市，大雨倾盆而下，把人们关在了家中，连多家知名餐馆都停止了外卖服务。傍晚，我在生活用品尚不齐全的新房间里，摸着空空如也的肚子暗自叹息。怎么办？是吃点零食，全身脏兮兮地回床上避难？还是一往无前，出门购买食物和所需的生活用品？向来喜欢追求成果上限的我自然是选择后者。</p>
 <p>出门之前，我先在脑子里进行了任务计划。我的主要目标是吃饭，次要目标是购买生活物品。既然出了门，就要吃得好一点，并且去大超市买东西。我的住处附近恰好有一个大商场，附近必然有不错的餐馆。我在地图上看好了路线，背上用于运货的书包，带上心爱的遮阳挡雨两用自动伞，就头也不回地出门了。</p>
 <p>刚一出门，我就意识到了今晚行动的困难性。屋外风雨交加，骤雨把漆黑的天空和昏暗的街道融为一体，雨点落地声甚至盖过了地铁启动时的轰鸣。今天晚上，我的行动恐怕和在RPG里做主线任务一样充满挑战吧。</p>
 <p>果不其然，我很快就碰到了第一道关卡。在我的住处和大马路之间，有一条必经的小道。小道没什么人维护，平日里看起来幽雅宁静，下雨时还因积水形成了一条小溪，真多亏了它糟糕的排水系统。我把第一个场景命名为”积水巷道“。在积水巷道上，电动车驾驶员都得小心翼翼地行驶着，生怕把水溅到身体上，我一个撑着伞的行人又该怎么通过呢？我倒是不慌，想着：凡是游戏里的关卡，必然设置了通关的方法。很幸运，我发现路对面有一条较窄的人行道，上面没有积水，可以安稳地通过这条小道。想来这条路的建设者并不是没有注意到路面会有积水的现象，还非常贴心地建了一条下雨专用人行道。看得出这个建设者以前应该是个程序员，碰到解决不了的BUG，就给用户另一个更复杂的操作步骤来绕过BUG。凭借着细心的观察和对程序员的理解，我顺利利用人行道离开了积水巷道关卡。</p>
@@ -877,156 +473,75 @@
 <p>雨势渐小，积水巷道里的水却依然没有消退。和出来的时候不同，我熟练地走上了人行道，回忆起了今天的奇遇。今天我的行动称不上旅行，用”冒险“来形容恐怕更恰当一些。正如我以前写道的，旅行的意义在于旅行的体验。其实今天吃饭、买东西的任务都在其次，最令我难忘的是一路的见闻、经历。虽说老天不是很给面子，让台风来迎接我的到来，但也多亏了这风雨交加的夜晚，给了我这独一无二的体验。这换成其他任何人，或者其他任何时候，都很难有这样的情况出现吧。再往大了想，人生的快乐也不是那么奢侈的事情。都说”偷得浮生半日闲“，再平淡的生活，亦或是再艰苦的生活，也是能通过一些方法找到乐趣的吧。</p>
 <p>满载着战利品，我回到了家中。今天采取了这么多应对下雨的策略，应该取得了不错的效果。结果我一坐下，屁股一凉，才发现我的短袖裤子和短袖T恤都湿了，鞋子也湿了个透心凉。不能说我的撑伞法、过街法不好，只能说雨下得太大，要挑战的难度太大。今天我的主要任务和次要任务都完成了，虽然没有做到无伤，但也是不小的成就了。今天过得非常好，希望以后我在自我挑战中能够再接再厉。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/08/01/20210624-GreenLeaf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/08/01/20210624-GreenLeaf/" class="post-title-link" itemprop="url">初夏，一片绿叶悄然飘落</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/01/20210624-GreenLeaf/" class="post-title-link" itemprop="url">初夏，一片绿叶悄然飘落</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-08-01 00:50:59" itemprop="dateCreated datePublished" datetime="2021-08-01T00:50:59+08:00">2021-08-01</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/散文/" itemprop="url" rel="index"><span itemprop="name">散文</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E6%95%A3%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">散文</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1034,12 +549,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="初夏，一片绿叶悄然飘落"><a href="#初夏，一片绿叶悄然飘落" class="headerlink" title="初夏，一片绿叶悄然飘落"></a>初夏，一片绿叶悄然飘落</h1><h2 id="一片绿叶"><a href="#一片绿叶" class="headerlink" title="一片绿叶"></a>一片绿叶</h2><p>六月，北京的气温开始升高。风和日丽的春天突然离去，闷热的空气充斥了整栋宿舍楼。傍晚，热气依然没有离开宿舍的意思，我只好先它一步，跑到宿舍外散步乘凉。</p>
+          <h1 id="初夏，一片绿叶悄然飘落"><a href="#初夏，一片绿叶悄然飘落" class="headerlink" title="初夏，一片绿叶悄然飘落"></a>初夏，一片绿叶悄然飘落</h1><h2 id="一片绿叶"><a href="#一片绿叶" class="headerlink" title="一片绿叶"></a>一片绿叶</h2><p>六月，北京的气温开始升高。风和日丽的春天突然离去，闷热的空气充斥了整栋宿舍楼。傍晚，热气依然没有离开宿舍的意思，我只好先它一步，跑到宿舍外散步乘凉。</p>
 <p>散步时无事可做，我只好欣赏起校园里那些不起眼的花草树木起来。经历了漫漫长冬后，在第一阵春风的引导下，植物开始竞相生长。大树又一次长满了树叶，和草坪一起，构成了一幅放眼望去只有绿色的单调画面。好在有各色的花朵在路旁点缀，给枯燥的以理工科为主的大学勉强增添上了一分色彩。</p>
 <p>经历了一个春天的滋补，初夏的植物都茂盛地生长着。我偶然低头看去，突然发现树下竟然有几片落叶。与秋天落木萧萧的美景不同，此时地上的落叶只有零星的几片，树上也看不到有任何树叶要落下的迹象。想必这几片落叶只是不成器的失败者，看它们枯黄的颜色就知道，和正在生长的绿叶相比，它们并没有得到足够的养分，最后体力不支被风吹到地上。</p>
 <p>忽然，一阵风吹过，又一片树叶从树上落下。我的内心一阵欣喜，因为自己的猜想算是得到了证明：哪怕在夏天，依然会有些发育不良的树叶被吹落。但我定睛一看，却又是一阵震惊：树叶从大树深处的阴影中落下，却在灯光下显得绿得发亮；明明是从高处跌落，最终必将驻留在地上，却在风中迟迟不肯落地。</p>
@@ -1066,156 +576,75 @@
 <h1 id="真·后记"><a href="#真·后记" class="headerlink" title="真·后记"></a>真·后记</h1><p>写完这篇文章后，我觉得内容有些羞耻，就立刻把文档关掉，再也没打开过。一个多月后重读这篇文章，还是觉得内容有点不太适合发表出来。不过仔细分析了一下后，我觉得这篇文章里并没有过多地反映我个人的信息，而是很好地刻画了一个人的心理活动，并且表达出了一些思想，对于他人来说还是有一些阅读价值的。照相记录画面，录音记录声音，那么文字则是能把思想、情感保存下来，供愿意欣赏的人品味。我最终还是准备把这篇文章发表出来。</p>
 <p>如今我已经有了毕业的去向。我不会嘲笑自己之前的焦虑，毕竟这些都是宝贵的人生体验；我也不会因有了去处就得意忘形，因为这本来就是我应得的。这件事其实不是本文的重点。最重要的是文章中提及的对人生的态度，即如何决定自己未来的发展。不论何时，我都会坚持这样的态度。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/06/19/20210614-HappyPeopleAlwaysSuccess/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/06/19/20210614-HappyPeopleAlwaysSuccess/" class="post-title-link" itemprop="url">“悬梁刺股”不如“乐此不疲”</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/06/19/20210614-HappyPeopleAlwaysSuccess/" class="post-title-link" itemprop="url">“悬梁刺股”不如“乐此不疲”</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-06-19 15:28:53" itemprop="dateCreated datePublished" datetime="2021-06-19T15:28:53+08:00">2021-06-19</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/议论文/" itemprop="url" rel="index"><span itemprop="name">议论文</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%AE%AE%E8%AE%BA%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">议论文</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1223,12 +652,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="“悬梁刺股”不如“乐此不疲”"><a href="#“悬梁刺股”不如“乐此不疲”" class="headerlink" title="“悬梁刺股”不如“乐此不疲”"></a>“悬梁刺股”不如“乐此不疲”</h1><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>大学四年中，我有了许多新的感悟。其中，我认为最重要的一项收获是：与其“悬梁刺股”般督促自己艰苦地奋斗，不如在任务中寻找令自己快乐的成分，从而乐此不疲地达成目标。我在大学中印象最深刻的两段经历印证了这一道理。</p>
+          <h1 id="“悬梁刺股”不如“乐此不疲”"><a href="#“悬梁刺股”不如“乐此不疲”" class="headerlink" title="“悬梁刺股”不如“乐此不疲”"></a>“悬梁刺股”不如“乐此不疲”</h1><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>大学四年中，我有了许多新的感悟。其中，我认为最重要的一项收获是：与其“悬梁刺股”般督促自己艰苦地奋斗，不如在任务中寻找令自己快乐的成分，从而乐此不疲地达成目标。我在大学中印象最深刻的两段经历印证了这一道理。</p>
 <h3 id="一、因为热爱，所以成功"><a href="#一、因为热爱，所以成功" class="headerlink" title="一、因为热爱，所以成功"></a>一、因为热爱，所以成功</h3><p>第一段经历是我在大一暑假参加的算法竞赛集训。当时，我有幸受到了学长学姐的邀请，提前加入了集训队。我既要和其他大一同学一样，学习新的竞赛知识，又要和其他高年级集训队的同学一起参加模拟赛。作为大一的学生，我要每两天上一次课，每次完成数十道习题；作为集训队的一员，我每周要参加四场训练赛，每场比赛持续五小时，赛后还需要回顾比赛中没写出来的题目。在旁人眼中，我每天都要完成大量的题目，日子过得十分辛苦。然而，我自己知道，我从小就不是一个刻苦的人。我之所以能每天坚持写完那么多题目，是因为我乐在其中。当我思路深陷泥潭，绞尽脑汁也想不出解题之道时，屏幕上一行行的“答案错误”就仿佛是对我的付出所发出的一声声嘲笑；而当我柳暗花明，总算把题目解出来时，屏幕上那一行“答案正确”就是对我最好的盛赞。这句对我的赞美，胜过了之前所受的所有嘲笑，让我收获到了极大的成就感。我享受学习新算法时的恍然大悟，享受想题时的冥思苦想，享受解题失败后的心烦意乱，享受解题时的灵光一闪，享受题目最终通过时的开怀大笑。我热爱算法竞赛的一切。</p>
 <p>正是因为我对算法竞赛的这份热爱，让我不知不觉中完成了大量的习题，竞赛水平突飞猛进。在暑假集训前，由于我在高中没有竞赛基础，我的水平在同年级中算不上拔尖。而集训结束后，我的水平得到了质的飞跃，在大大小小的比赛中都取得了不错的成绩。暑假结束后，在程序实践课的期末考试中，所有同学要求组队在两个小时里完成五道题目。我单人参赛，50分钟不到就以全年级最快速度写完了所有题目。之后，我首次参加正式的算法比赛，我们团队获得了银牌。一个月后，我参加国际大学生程序设计竞赛亚洲区域赛。凭借着我通过的一道中等难度的题目，我们队伍拿下了北理2018年第一块算法竞赛金牌。</p>
 <p>我在算法竞赛中获得的金牌，为我带来了许多利益上的收获。但是，在参与算法竞赛中最令我难忘的经历，不是登上金牌领奖台的那一刻，而是我大一暑假集训时，那乐在其中的每一天。我的热爱为我带来了成功，但我不是为了获得成就而去热爱，而只是单纯觉得参加竞赛很有趣而已。在参加算法竞赛的过程中，我不仅每天都过得十分开心，更是学会了一个道理：热爱自己的事业，能够取得成功。</p>
@@ -1256,156 +680,75 @@
 <p>倒数第二段虽然比前一段短，却包含了更多的深意。这里的内容其实已经和本文没关了，应该在另一个主题里提及。但为了让自己写得爽一些，我直接就开始把想写的东西全写了。这一段的内容不知道读起来是不是很奇怪，但内容绝对不是乱写的，而是有逻辑，有一些文字背后的深意的。</p>
 <p>总结来看，这篇文章是一篇要提交上去的文章，虽然我认为质量已经足够，但缺点还是很多。文笔不够好，这是自然的。文章后面有点违和，这是由于我为了凑字数，转换了写作思路导致的。评价起任何一种艺术作品来何其容易，但真做起来还是很难的。比如这篇文章，我知道有哪些地方不够好，但就是不好改，甚至我没有能力去改。不管怎么说，我认为这篇文章还算是合格，可以提交上去，也可以发到博客上分享一下。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/05/10/20210322-PoissonImgaeEditImplementation/" class="post-title-link" itemprop="url">Poisson Image Editing 论文方法实现</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/10/20210322-PoissonImgaeEditImplementation/" class="post-title-link" itemprop="url">Poisson Image Editing 论文方法实现</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-05-10 22:42:52" itemprop="dateCreated datePublished" datetime="2021-05-10T22:42:52+08:00">2021-05-10</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/科研/" itemprop="url" rel="index"><span itemprop="name">科研</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1413,12 +756,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="“Poisson-Image-Editing”论文方法实现"><a href="#“Poisson-Image-Editing”论文方法实现" class="headerlink" title="“Poisson Image Editing”论文方法实现"></a>“Poisson Image Editing”论文方法实现</h1><p>在<a href="https://zhouyifan.net/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/">上上篇博文</a>中（现在是上上上了），我介绍了一下这篇图像融合的经典论文。今天，我将记录一下这篇论文的C++代码实现。我已经三个多月没碰C++了，手很生。但是，我会凭借着我高超的编程底力和过人的天赋，三小时内完成代码实现。稍微对工作量有一点了解的人都会产生疑问：“你在开玩笑吧？论文实现不比写算法题，你要先去看懂论文，再调一调别人的库函数，写代码之前有很多准备工作要做。你这不可能完成。”肯定有人这样想。但是，我可以说，包括学习前置知识在内，我可以三小时完成实现。这是一个七年编程王者应该有的自信。这篇博文的正文和会按之前的格式对项目的实现做一个比较全面的记录，最后一个章节会写下我完成此项目的实况。</p>
+          <h1 id="“Poisson-Image-Editing”论文方法实现"><a href="#“Poisson-Image-Editing”论文方法实现" class="headerlink" title="“Poisson Image Editing”论文方法实现"></a>“Poisson Image Editing”论文方法实现</h1><p>在<a href="https://zhouyifan.net/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/">上上篇博文</a>中（现在是上上上了），我介绍了一下这篇图像融合的经典论文。今天，我将记录一下这篇论文的C++代码实现。我已经三个多月没碰C++了，手很生。但是，我会凭借着我高超的编程底力和过人的天赋，三小时内完成代码实现。稍微对工作量有一点了解的人都会产生疑问：“你在开玩笑吧？论文实现不比写算法题，你要先去看懂论文，再调一调别人的库函数，写代码之前有很多准备工作要做。你这不可能完成。”肯定有人这样想。但是，我可以说，包括学习前置知识在内，我可以三小时完成实现。这是一个七年编程王者应该有的自信。这篇博文的正文和会按之前的格式对项目的实现做一个比较全面的记录，最后一个章节会写下我完成此项目的实况。</p>
 <p>代码仓库：<a href="https://github.com/SingleZombie/Gradient-Domain-Image-Processing-Cpp" target="_blank" rel="noopener">https://github.com/SingleZombie/Gradient-Domain-Image-Processing-Cpp</a></p>
 <p>由于种种原因，在记录了编程的实况后，我就把这篇博文搁置下来了。但马上要写毕业论文了，这篇博文和论文的内容有很多重合之处，我打算先把博文写完。</p>
 <h2 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h2><p>在代码实现前，我们先整理一下实现方法的整体思路，再提取出实现中涉及的知识点，对每个知识点有关的实现方法和具体的实现技术进行介绍，最后对方法的核心——结果图像求解进行一个详细的介绍。</p>
@@ -1527,156 +865,75 @@
 <p>当然，你要说我每个方面的表现都很好吗？也不是这样的。我自己也承认，理解论文的时候急躁了一些，学库函数的时候学的不仔细了一些，导致我这个第一版的程序，出现了一点小小的偏差。不过真要说起来，我今天确实有点急于求成。因为立下了3小时完成的flag，所以我做事火急火燎，忽略了工作质量，结果败给了自己。如果一开始没有这个flag，我能不能3小时内完成呢？你可能会认为我会说：“会”。好，实际情况是，我不立这个flag，我今天会玩一个晚上，不会来做这个项目，哈哈。</p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1].  Pérez P, Gangnet M, Blake A. Poisson image editing[M]//ACM SIGGRAPH 2003 Papers. 2003: 313-318.</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/03/30/20210326-VS2019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/03/30/20210326-VS2019/" class="post-title-link" itemprop="url">Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/30/20210326-VS2019/" class="post-title-link" itemprop="url">Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-03-30 02:14:31" itemprop="dateCreated datePublished" datetime="2021-03-30T02:14:31+08:00">2021-03-30</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/工具用法指南/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-09-09 22:20:21" itemprop="dateModified" datetime="2021-09-09T22:20:21+08:00">2021-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E5%B7%A5%E5%85%B7%E7%94%A8%E6%B3%95%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1684,12 +941,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>最近买了台新电脑，所有编程都需要重新配置，可以写很多水博文了。</p>
+          <p>最近买了台新电脑，所有编程都需要重新配置，可以写很多水博文了。</p>
 <h1 id="Visual-Studio-2019（VS2019）安装教程（解决VS-scanf问题）"><a href="#Visual-Studio-2019（VS2019）安装教程（解决VS-scanf问题）" class="headerlink" title="Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）"></a>Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）</h1><p>准确来说，这是VS2019在Windows 10下为了配置C++编程环境而写的教程。</p>
 <p>在下载前，请务必保证C盘的空间比较充裕，因为不论安装在哪，VS都会挤占C盘的很多空间。</p>
 <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
@@ -1747,156 +999,75 @@
 <p><img src="/2021/03/30/20210326-VS2019/20.jpg" alt="20"></p>
 <p>在左侧点击C/C++，把右边的SDL检查改成“否”。这样就可以使用C语言中<code>scanf</code>等不太安全的标准库函数了。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/03/20/20210314-Mendeley/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/03/20/20210314-Mendeley/" class="post-title-link" itemprop="url">十分钟学会用Mendeley进行文献管理</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/20/20210314-Mendeley/" class="post-title-link" itemprop="url">十分钟学会用Mendeley进行文献管理</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-03-20 15:33:33" itemprop="dateCreated datePublished" datetime="2021-03-20T15:33:33+08:00">2021-03-20</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/工具用法指南/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E5%B7%A5%E5%85%B7%E7%94%A8%E6%B3%95%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">工具用法指南</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1904,12 +1075,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="用Mendeley进行文献管理"><a href="#用Mendeley进行文献管理" class="headerlink" title="用Mendeley进行文献管理"></a>用Mendeley进行文献管理</h1><p>在做一个有关科研的项目时，我常常把该项目相关的论文全部放到同一文件夹下。一个pdf文件刚下载下来的时候，我还能分辨出这个文件是哪篇论文。但过了一两天，我还想找这篇论文时，就只能望着文件夹里乱七八糟的pdf文件名而不知所措了（论文pdf的命名方式五花八门）。我深知对论文进行管理的重要性，但由于之前的项目涉及的论文数量较少，我勉勉强强没有在搜索文献时碰到太多困难，出于懒惰，我没有对文献进行管理。最近，我要开始写毕业论文了，恰好有了一个让自己开始学习文献管理的理由。</p>
+          <h1 id="用Mendeley进行文献管理"><a href="#用Mendeley进行文献管理" class="headerlink" title="用Mendeley进行文献管理"></a>用Mendeley进行文献管理</h1><p>在做一个有关科研的项目时，我常常把该项目相关的论文全部放到同一文件夹下。一个pdf文件刚下载下来的时候，我还能分辨出这个文件是哪篇论文。但过了一两天，我还想找这篇论文时，就只能望着文件夹里乱七八糟的pdf文件名而不知所措了（论文pdf的命名方式五花八门）。我深知对论文进行管理的重要性，但由于之前的项目涉及的论文数量较少，我勉勉强强没有在搜索文献时碰到太多困难，出于懒惰，我没有对文献进行管理。最近，我要开始写毕业论文了，恰好有了一个让自己开始学习文献管理的理由。</p>
 <p>我用极快的速度在网上搜索文献管理软件有关信息，在知乎上稍微浏览一会儿后，选择了Mendeley这款软件。我没用过其他软件，无法给出不同软件之间的优劣，只能根据别人的信息，学习一下Mendeley这款文献管理软件的用法，并把这些有用的信息分享出来。本文将包括以下内容：</p>
 <ul>
 <li>Mendeley基本安装使用方法</li>
@@ -1968,156 +1134,75 @@
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我向来觉得写一篇大部分都是信息（比如软件安装方法）的文章没什么意义。网上参考资料那么多，何必要再写一些原创性较低的东西呢？但最后我还是完成了这样一篇”工具使用指南“的文章，介绍了Mendeley这个文献管理软件的用法。其原因是，我写这篇文章的目的是为了让我自己有动力去学习这个软件的使用方法，并通过费曼学习法，利用向他人重述来加深自己对信息的记忆。</p>
 <p>这篇文章主要面向的是没有用过Mendeley的读者，尤其是从未用过文献管理软件的读者。读者通过文章前半部分，在没有下载软件的情况下，能大致知道Mendeley有哪些功能；下载了软件后，可以知道如何使用这些功能。文章后半部分对科研经验尚浅的人较有帮助，提出了一些简单的文献管理需求，并探讨了如何结合软件达成这些需求。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/" class="post-title-link" itemprop="url">Poisson Image Editing 图像融合经典文献阅读</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/" class="post-title-link" itemprop="url">Poisson Image Editing 图像融合经典文献阅读</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-03-12 00:03:48" itemprop="dateCreated datePublished" datetime="2021-03-12T00:03:48+08:00">2021-03-12</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/" itemprop="url" rel="index"><span itemprop="name">记录</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/记录/科研/" itemprop="url" rel="index"><span itemprop="name">科研</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -2125,12 +1210,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="Poisson-Image-Editing-图像融合-图像无缝编辑经典文献阅读"><a href="#Poisson-Image-Editing-图像融合-图像无缝编辑经典文献阅读" class="headerlink" title="Poisson Image Editing 图像融合/图像无缝编辑经典文献阅读"></a>Poisson Image Editing 图像融合/图像无缝编辑经典文献阅读</h1><p>想不想把自己的头P到别人的图片中？</p>
+          <h1 id="Poisson-Image-Editing-图像融合-图像无缝编辑经典文献阅读"><a href="#Poisson-Image-Editing-图像融合-图像无缝编辑经典文献阅读" class="headerlink" title="Poisson Image Editing 图像融合/图像无缝编辑经典文献阅读"></a>Poisson Image Editing 图像融合/图像无缝编辑经典文献阅读</h1><p>想不想把自己的头P到别人的图片中？</p>
 <p>想不想把别人图片里的彩虹放进自己拍的风景照中？</p>
 <p>想不想自己修掉脸上的皱纹？</p>
 <p>掌握图像融合技术，以上的一切图像编辑任务都可以轻松完成。</p>
@@ -2158,156 +1238,75 @@
 <p>[2] <a href="https://www.cnblogs.com/bigmonkey/p/9519387.html" target="_blank" rel="noopener">https://www.cnblogs.com/bigmonkey/p/9519387.html</a></p>
 <p>[3] <a href="https://github.com/cheind/poisson-image-editing" target="_blank" rel="noopener">https://github.com/cheind/poisson-image-editing</a></p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/01/28/phd-email/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2021/01/28/phd-email/" class="post-title-link" itemprop="url">如果套磁信可以用中文写</a>
-              
-            
-          </h1>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/28/phd-email/" class="post-title-link" itemprop="url">如果套磁信可以用中文写</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2021-01-28 14:42:58" itemprop="dateCreated datePublished" datetime="2021-01-28T14:42:58+08:00">2021-01-28</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/杂谈/趣文/" itemprop="url" rel="index"><span itemprop="name">趣文</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%B6%A3%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">趣文</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -2315,12 +1314,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>套磁，据传来自北京方言，意为“套近乎”，特指在申请出国留学时，提前给导师发邮件推荐自己，以增加录取几率。套磁信都是拿英文写的，我写起来很不顺手。现在，我打算解开封印，用中文写出一篇套磁信，让任何阅读者仅通过文字就能感觉到我的强大之处。</p>
+          <p>套磁，据传来自北京方言，意为“套近乎”，特指在申请出国留学时，提前给导师发邮件推荐自己，以增加录取几率。套磁信都是拿英文写的，我写起来很不顺手。现在，我打算解开封印，用中文写出一篇套磁信，让任何阅读者仅通过文字就能感觉到我的强大之处。</p>
 <h1 id="如果套磁信可以用中文写"><a href="#如果套磁信可以用中文写" class="headerlink" title="如果套磁信可以用中文写"></a>如果套磁信可以用中文写</h1><p>尊敬的教授：</p>
 <p>您好。</p>
 <p>我是北京理工大学一名计算机专业的大四学生。我正在申请你们学校的博士。我对您的研究十分感兴趣。我没有名列前茅的排名或顶会的论文的来证明我的实力，但我依然敢断言，我是一名非常优秀的学生，我能够为您的研究做出贡献。请允许我介绍自己的背景，以及我为什么很适合加入您的研究团队。</p>
@@ -2343,47 +1337,20 @@
 <p>抛开信本身的写作方法不谈，光谈内容。我认为，一个厉害的导师，看到了我的信，一定会认为我是一个厉害的学生；如果他看了我的信没有什么反应，说明他不是一个厉害的导师，那么我不被接受也没有任何遗憾。有人读到这，可能会说，你太狂妄了吧？你本科还没毕业吧？你成绩不是很好吧？你凭什么这么说啊？作为一个读者，你读完后会这样想吗？对此，我只能说，因为你不会，所以你才会。你”不会“对这件事进行深刻的分析，所以你”才会“得出这样的观点。首先，我想说，什么是厉害的导师？没有一个这样的定义。那么，可以说，我认为一个导师厉害，那么这个导师就厉害，因为是我在选导师，不是把这个导师推荐给别人。一个导师没有通过我的筛选，那么我通不通过他的筛选已经无所谓了。有点逻辑思维的人看了我这段解释，又会说：”看了你的邮件接受了你的导师，就是厉害的导师，你就跟着导师干，这不是废话吗？导师不接受你，你想跟着他干也没用啊。“我承认我的第一个解释不太对。那么，我真正想说的是，通过和我的美国导师以及一个优秀的同学的交流，我得出了评价博士录取的最重要的因素。一个人的科研潜力远比客观的证明材料重要，虽然这种潜力难以被挖掘。我对自己的语言表达能力十分自信，我通过文字很好地展示了自己的能力。那么，一个当上了教授的人，自然知道该如何选择学生，自然会被我的语言所打动。</p>
 <p>扯了这么多，我是否能被最终录取还是个未知数。这只能算一个套磁信的分享与分析。我说的对不对，我想的能不能成，已经不重要了。做为读者，你学到了什么，才是最重要的。当然对于我来说，能不能成功录取还是有点重要的；哪怕事情没那么顺利，也问题不大。总之，我认为这封套磁信非常有趣，非常欢迎大家来阅读。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
-  </section>
 
   
   <nav class="pagination">
@@ -2395,476 +1362,159 @@
           </div>
           
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-              <p class="site-description motion-element" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">47</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">categories</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">tags</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
-
-
-
-
 <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
     }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>
+          
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
 
-  
-
-
-  <script src="/js/src/utils.js?v=7.0.1"></script>
-
-  <script src="/js/src/motion.js?v=7.0.1"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
-
-
-
-
-  
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
-
-
-  
-  
-
-
-
-  
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhou Yifan</p>
+  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
   
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
 
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-      for (i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-<style>
-.MathJax_Display {
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-</style>
-
-    
-  
+        
 
 
-  
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
-  
+<script src="/js/schemes/muse.js"></script>
 
-  
 
-  
+<script src="/js/next-boot.js"></script>
 
-  
+
+
 
   
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 

@@ -1,126 +1,49 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.0.1',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="和上一篇文章一样，这篇文章的很多内容是我学这门课的时候写的。 计算机组成原理复习：第四章 数值的机器运算本章讲了计算机电路是如何实现运算。计算机中的运算可以整体分成数值计算和逻辑计算。无论多复杂的数值操作，都可以用加减乘除来实现，因此本章讲了加减乘除四则运算的实现；逻辑运算是计算机运算的基础，本章也介绍了与、或、取反等逻辑运算。最后本章讲了运算器的一些具体实现。 进一步来划分一下本章的结构。减法运">
-<meta name="keywords" content="计算机科学,计算机组成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机组成原理复习：第四章 数值的机器运算">
 <meta property="og:url" content="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="和上一篇文章一样，这篇文章的很多内容是我学这门课的时候写的。 计算机组成原理复习：第四章 数值的机器运算本章讲了计算机电路是如何实现运算。计算机中的运算可以整体分成数值计算和逻辑计算。无论多复杂的数值操作，都可以用加减乘除来实现，因此本章讲了加减乘除四则运算的实现；逻辑运算是计算机运算的基础，本章也介绍了与、或、取反等逻辑运算。最后本章讲了运算器的一些具体实现。 进一步来划分一下本章的结构。减法运">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-08-21T03:39:38.211Z">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-06T11:12:01.000Z">
+<meta property="article:modified_time" content="2021-08-21T03:39:38.211Z">
+<meta property="article:author" content="Zhou Yifan">
+<meta property="article:tag" content="计算机科学">
+<meta property="article:tag" content="计算机组成">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="计算机组成原理复习：第四章 数值的机器运算">
-<meta name="twitter:description" content="和上一篇文章一样，这篇文章的很多内容是我学这门课的时候写的。 计算机组成原理复习：第四章 数值的机器运算本章讲了计算机电路是如何实现运算。计算机中的运算可以整体分成数值计算和逻辑计算。无论多复杂的数值操作，都可以用加减乘除来实现，因此本章讲了加减乘除四则运算的实现；逻辑运算是计算机运算的基础，本章也介绍了与、或、取反等逻辑运算。最后本章讲了运算器的一些具体实现。 进一步来划分一下本章的结构。减法运">
+
+<link rel="canonical" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
   };
 </script>
 
@@ -132,15 +55,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -149,9 +65,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -165,149 +80,68 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">周弈帆的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="Toggle navigation bar">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">周弈帆的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-about">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-tags">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
-
-      
-      
-    </ul>
-  
-
-  
-    
-
-  
-
-  
+  </ul>
 </nav>
 
-
-
-  
 
 
 
@@ -315,132 +149,79 @@
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-          <div id="content" class="content">
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
       <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="周弈帆的博客">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">计算机组成原理复习：第四章 数值的机器运算
-
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          计算机组成原理复习：第四章 数值的机器运算
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">Posted on</span>
 
               <time title="Created: 2020-01-06 19:12:01" itemprop="dateCreated datePublished" datetime="2020-01-06T19:12:01+08:00">2020-01-06</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/" itemprop="url" rel="index"><span itemprop="name">学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习/知识/" itemprop="url" rel="index"><span itemprop="name">知识</span></a></span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-21 11:39:38" itemprop="dateModified" datetime="2021-08-21T11:39:38+08:00">2021-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">知识</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>和上一篇文章一样，这篇文章的很多内容是我学这门课的时候写的。</p>
@@ -565,397 +346,153 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
 <li>原码乘法最后还要再移位一次，补码乘法不需要。</li>
 </ul>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/计算机科学/" rel="tag"># 计算机科学</a>
-          
-            <a href="/tags/计算机组成/" rel="tag"># 计算机组成</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/01/06/Principles-of-Computer-Composition-cources-review-3/" rel="next" title="计算机组成原理复习：第三章 指令系统">
-                <i class="fa fa-chevron-left"></i> 计算机组成原理复习：第三章 指令系统
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/" rel="tag"># 计算机组成</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/07/Principles-of-Computer-Composition-cources-review-5/" rel="prev" title="计算机组成原理复习：第五章 存储系统和结构">
-                计算机组成原理复习：第五章 存储系统和结构 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/06/Principles-of-Computer-Composition-cources-review-3/" rel="prev" title="计算机组成原理复习：第三章 指令系统">
+      <i class="fa fa-chevron-left"></i> 计算机组成原理复习：第三章 指令系统
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/07/Principles-of-Computer-Composition-cources-review-5/" rel="next" title="计算机组成原理复习：第五章 存储系统和结构">
+      计算机组成原理复习：第五章 存储系统和结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-              <p class="site-description motion-element" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">47</span>
-                    <span class="site-state-item-name">posts</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">categories</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">31</span>
-                    <span class="site-state-item-name">tags</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机组成原理复习：第四章-数值的机器运算"><span class="nav-number">1.</span> <span class="nav-text">计算机组成原理复习：第四章 数值的机器运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本运算（加法）电路实现"><span class="nav-number">1.1.</span> <span class="nav-text">基本运算（加法）电路实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加法器简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">加法器简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全加器"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">全加器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串行加法器"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">串行加法器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行加法器进位的产生与传递"><span class="nav-number">1.1.2.</span> <span class="nav-text">并行加法器进位的产生与传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行加法器进位的优化"><span class="nav-number">1.1.3.</span> <span class="nav-text">并行加法器进位的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#并行进位法"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">并行进位法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组并行进位"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">分组并行进位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定点加减计算"><span class="nav-number">1.2.</span> <span class="nav-text">定点加减计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原码"><span class="nav-number">1.2.1.</span> <span class="nav-text">原码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码"><span class="nav-number">1.2.2.</span> <span class="nav-text">补码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减法"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">减法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#符号扩展"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">符号扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码溢出"><span class="nav-number">1.2.3.</span> <span class="nav-text">补码溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码运算的电路"><span class="nav-number">1.2.4.</span> <span class="nav-text">补码运算的电路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移位"><span class="nav-number">1.3.</span> <span class="nav-text">移位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移位规则"><span class="nav-number">1.3.1.</span> <span class="nav-text">移位规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#舍入操作"><span class="nav-number">1.3.2.</span> <span class="nav-text">舍入操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定点乘法计算"><span class="nav-number">1.4.</span> <span class="nav-text">定点乘法计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原码一位乘法"><span class="nav-number">1.4.1.</span> <span class="nav-text">原码一位乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码一位乘法"><span class="nav-number">1.4.2.</span> <span class="nav-text">补码一位乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#校正法"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">校正法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Booth乘法"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Booth乘法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码两位乘法"><span class="nav-number">1.4.3.</span> <span class="nav-text">补码两位乘法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定点除法计算"><span class="nav-number">1.5.</span> <span class="nav-text">定点除法计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原码除法"><span class="nav-number">1.5.1.</span> <span class="nav-text">原码除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码除法"><span class="nav-number">1.5.2.</span> <span class="nav-text">补码除法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规格化浮点计算"><span class="nav-number">1.6.</span> <span class="nav-text">规格化浮点计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点加减"><span class="nav-number">1.6.1.</span> <span class="nav-text">浮点加减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点相乘"><span class="nav-number">1.6.2.</span> <span class="nav-text">浮点相乘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点相除"><span class="nav-number">1.6.3.</span> <span class="nav-text">浮点相除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十进制加减"><span class="nav-number">1.7.</span> <span class="nav-text">十进制加减</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算器实现"><span class="nav-number">1.8.</span> <span class="nav-text">运算器实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意事项"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
-
-
-
 
 <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
     }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
     }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
-<script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%95%B0%E5%80%BC%E7%9A%84%E6%9C%BA%E5%99%A8%E8%BF%90%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">计算机组成原理复习：第四章 数值的机器运算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%EF%BC%88%E5%8A%A0%E6%B3%95%EF%BC%89%E7%94%B5%E8%B7%AF%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">基本运算（加法）电路实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95%E5%99%A8%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">加法器简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%8A%A0%E5%99%A8"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">全加器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">串行加法器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8%E8%BF%9B%E4%BD%8D%E7%9A%84%E4%BA%A7%E7%94%9F%E4%B8%8E%E4%BC%A0%E9%80%92"><span class="nav-number">1.1.2.</span> <span class="nav-text">并行加法器进位的产生与传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E5%8A%A0%E6%B3%95%E5%99%A8%E8%BF%9B%E4%BD%8D%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">1.1.3.</span> <span class="nav-text">并行加法器进位的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E8%A1%8C%E8%BF%9B%E4%BD%8D%E6%B3%95"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">并行进位法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E5%B9%B6%E8%A1%8C%E8%BF%9B%E4%BD%8D"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">分组并行进位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E5%8A%A0%E5%87%8F%E8%AE%A1%E7%AE%97"><span class="nav-number">1.2.</span> <span class="nav-text">定点加减计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81"><span class="nav-number">1.2.1.</span> <span class="nav-text">原码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">补码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E6%B3%95"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%8F%E6%B3%95"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">减法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E6%89%A9%E5%B1%95"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">符号扩展</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E6%BA%A2%E5%87%BA"><span class="nav-number">1.2.3.</span> <span class="nav-text">补码溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E8%BF%90%E7%AE%97%E7%9A%84%E7%94%B5%E8%B7%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">补码运算的电路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D"><span class="nav-number">1.3.</span> <span class="nav-text">移位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E4%BD%8D%E8%A7%84%E5%88%99"><span class="nav-number">1.3.1.</span> <span class="nav-text">移位规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%88%8D%E5%85%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">舍入操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E4%B9%98%E6%B3%95%E8%AE%A1%E7%AE%97"><span class="nav-number">1.4.</span> <span class="nav-text">定点乘法计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">原码一位乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">补码一位乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%A1%E6%AD%A3%E6%B3%95"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">校正法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Booth%E4%B9%98%E6%B3%95"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Booth乘法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E4%B8%A4%E4%BD%8D%E4%B9%98%E6%B3%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">补码两位乘法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E9%99%A4%E6%B3%95%E8%AE%A1%E7%AE%97"><span class="nav-number">1.5.</span> <span class="nav-text">定点除法计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%A0%81%E9%99%A4%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">原码除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E7%A0%81%E9%99%A4%E6%B3%95"><span class="nav-number">1.5.2.</span> <span class="nav-text">补码除法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96%E6%B5%AE%E7%82%B9%E8%AE%A1%E7%AE%97"><span class="nav-number">1.6.</span> <span class="nav-text">规格化浮点计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%8A%A0%E5%87%8F"><span class="nav-number">1.6.1.</span> <span class="nav-text">浮点加减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E7%9B%B8%E4%B9%98"><span class="nav-number">1.6.2.</span> <span class="nav-text">浮点相乘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E7%9B%B8%E9%99%A4"><span class="nav-number">1.6.3.</span> <span class="nav-text">浮点相除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E5%8A%A0%E5%87%8F"><span class="nav-number">1.7.</span> <span class="nav-text">十进制加减</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E5%99%A8%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.8.</span> <span class="nav-text">运算器实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhou Yifan</p>
+  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhou Yifan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
 
 
 
@@ -964,160 +501,43 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=7.0.1"></script>
-
-  <script src="/js/src/motion.js?v=7.0.1"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
 
 
 
 
-  
-  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
-<script src="/js/src/post-details.js?v=7.0.1"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
-
-
-  
-  
-
-
-  
-
-
-  
 
 
 
 
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-      for (i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-<style>
-.MathJax_Display {
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-</style>
-
-    
-  
 
 
-  
-
-  
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
 
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
 
   
 
