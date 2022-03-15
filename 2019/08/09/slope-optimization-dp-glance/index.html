@@ -217,7 +217,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>前几天在写<a href="http://acm.hdu.edu.cn/showproblem.php?pid=6619" target="_blank" rel="noopener">HDU6619</a>的时候，问题最终转化成了一个形如下式的DP：</p>
+        <p>前几天在写<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=6619">HDU6619</a>的时候，问题最终转化成了一个形如下式的DP：</p>
 <script type="math/tex; mode=display">
 dp[i] =
 \left\{
@@ -261,7 +261,7 @@ dp[a] - dp[b] &> (n - i)(sum[a] - sum[b]) \\
 <p>也就是说，可能作为上一个最优状态的点，它们的$(sum[j], dp[j])$构成的二维点的斜率永远是单调递减的。这个单调性，是斜率优化DP的根本原因。</p>
 <p>有了上述的分析，选上一个最优状态，不再需要枚举每一个之前的状态，而是维护一个可能作为上一状态的集合就可以了。这个集合从左到右存了一系列的可能的状态。每次要找最优状态的话，就像之前分析的那样，找到第一个斜率小于的$n - i$的左边的点，那个点对应状态就是最优的上一状态。由于单调性的存在，这个过程可以用二分完成。但由于我们每次的$n - i$是一个递减的量，也就是说我们每次需要找的斜率只会越来越小。那么那些斜率很大的点都可以扔掉去。因此，在本题中，可以不去二分查找，而去删掉前面那些已经斜率过大的点。最后剩下来的第一个点，它和下一个点的斜率小于$n - i$，它就是本次要寻找的最优上一状态。这个集合可以用双端队列Deque来维护。</p>
 <p>同时，这个集合还需要进行维护。每次新得到了一个dp值后，我们就要试图把新的状态加入这个集合中。为了保证集合中点斜率的单调性，我们要取出集合最后两个点，拿它们和当前的点算出两个斜率，看看这个斜率是否满足单调递减的性质。如果不满足，就把中间的那个点去掉，也就是把原来集合中的最后一个点去掉。</p>
-<h2 id="Deque实现斜率优化DP方法简述"><a href="#Deque实现斜率优化DP方法简述" class="headerlink" title="Deque实现斜率优化DP方法简述"></a>Deque实现斜率优化DP方法简述</h2><p>其实上面那道题并不适合用来学习斜率DP，因为它实际上牵扯的细节很多，dp式子并没有上面写得那么简单。<a href="http://acm.hdu.edu.cn/showproblem.php?pid=3507" target="_blank" rel="noopener">HDU3507</a>应该是最适合写的第一道斜率优化DP题。</p>
+<h2 id="Deque实现斜率优化DP方法简述"><a href="#Deque实现斜率优化DP方法简述" class="headerlink" title="Deque实现斜率优化DP方法简述"></a>Deque实现斜率优化DP方法简述</h2><p>其实上面那道题并不适合用来学习斜率DP，因为它实际上牵扯的细节很多，dp式子并没有上面写得那么简单。<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=3507">HDU3507</a>应该是最适合写的第一道斜率优化DP题。</p>
 <p>这道题状态转移的式子比上面那个例子要复杂一点，而且是取最小值，需要维护的斜率应该满足单调递增而不是单调递减，但本质还是对前缀和什么的做一些运算，再进行斜率的比较，最终优化的方法还是完全一样的。</p>
 <p>这道题中，不等式右边的与当前状态$i$有关的值是$sum[i]$，它是一个单调递增的量，正好与我们维护的是一个单调递增的斜率集合“相符合”（这里“符合”的意义比较微妙，也就是说，如果这里$sum[i]$不是单调递减，是递增或是无规律的，那么就不能用Deque来做了）。因此，我们在找最优状态的时候，不用去二分的找第一个斜率大于某个值的点，而是把前面斜率小的点都删掉去，把剩下来的第一个点作为上一状态。这个东西可以用Deque维护。</p>
 <p>因此，在写代码时，应该按照下列步骤。</p>
@@ -276,7 +276,7 @@ dp[a] - dp[b] &> (n - i)(sum[a] - sum[b]) \\
 <li>for循环结束</li>
 <li>输出dp数组中的答案。</li>
 </ol>
-<h2 id="二分查找实现斜率优化DP方法简述"><a href="#二分查找实现斜率优化DP方法简述" class="headerlink" title="二分查找实现斜率优化DP方法简述"></a>二分查找实现斜率优化DP方法简述</h2><p><a href="http://codeforces.com/problemset/problem/674/C" target="_blank" rel="noopener">CodeForces 674C</a>也是一道斜率优化DP的题目。这道题递推式子相较之前两题更复杂了一些，而且它进行比较的和$i$有关的关键值并不是单调的。因此，这题不能再用Deque来维护最优上一答案，而是要用一个vector来存可能的状态，并进行二分查找。</p>
+<h2 id="二分查找实现斜率优化DP方法简述"><a href="#二分查找实现斜率优化DP方法简述" class="headerlink" title="二分查找实现斜率优化DP方法简述"></a>二分查找实现斜率优化DP方法简述</h2><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/674/C">CodeForces 674C</a>也是一道斜率优化DP的题目。这道题递推式子相较之前两题更复杂了一些，而且它进行比较的和$i$有关的关键值并不是单调的。因此，这题不能再用Deque来维护最优上一答案，而是要用一个vector来存可能的状态，并进行二分查找。</p>
 <p>写代码的步骤也类似，只是寻找上一最优答案的过程有所变更。</p>
 <ol>
 <li>读入数据，初始化dp等数组，求好所需变量。</li>

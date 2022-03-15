@@ -40,8 +40,8 @@
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="计算机科学">
 <meta property="article:tag" content="C++">
-<meta property="article:tag" content="代码">
 <meta property="article:tag" content="自然语言处理">
+<meta property="article:tag" content="代码">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
 
@@ -232,12 +232,12 @@
 <p>这个项目是我NLP的第二个大作业。在这个大作业中，老师要求做一个能完成某个功能（而不是做句法分析等预处理工作）的NLP程序。选题时可以从老师给定的题目中选，也可以自己找一个题目。当时我时间并不是很充足（感觉这学期我就没有在时间充裕的情况下写过项目），准备尽快把项目做完，因此决定从老师给的题目里挑一个来实现。一开始我挑了垃圾评论检测，因为老师明确指出，只要实现一篇论文的内容就行了。我去搜了那篇论文，却发现论文的数据集不是公开的，想获取数据集需要发邮件去申请，十分麻烦。我只好在剩下的题目中再找一个题目出来。排除掉了一些看上去不是那么实用的题目后，我选择了”汉语自动纠错系统“这个题目。在论文中，这个问题被称作”中文拼写检查(Chinese Spelling Check)”。</p>
 <p>我很快搜索到了一篇非常好的综述博客[4]。根据博客中的介绍，我去读了几篇论文。比较幸运的是，这些论文中的算法对我来说非常简单，我很快就理解了算法的细节。比较了各种方法的实现难度并参考了综述博客对各种方法的比较结果后，我选择了[3]中的方法。一般来说，拼写检查问题可以分成两个部分：先对句子进行分词，再根据分词结果进行拼写检查。[3]的方法可以同时完成这个两个步骤，处理起来比较方便。</p>
 <p>我很快实现了分词算法，并且按照评估标准评价了我的程序的表现。我本以为这个项目就这样结束了，但我对我程序极差的表现产生了一丝怀疑。我更仔细地阅读了一下论文，发现论文除了提出分词算法外，还提出了一种利用数据统计文字错误概率的方法。文章利用了谷歌1T的数据库来训练。我难以获取这个数据库，哪怕获取了电脑也存不下，哪怕存得下训练时间我也接受不了。考虑到这是大作业，老师不会只按结果给分，而更看重程序的原理、工作量。我于是决定用其他数据来代替论文中的1T数据，用论文中同样的方法来统计文字出错概率。</p>
-<p>找数据又花费了我很多工夫。我需要一个包含文字错误的语料，标注可有可无。我找来找去，总算在Github上一个比较出名的中文语料库中找到了一个<a href="https://github.com/zake7749/Gossiping-Chinese-Corpus" target="_blank" rel="noopener">台湾论坛聊天语料</a>。虽然数据量不够，但勉强可以在这个语料库上执行文章中的训练算法了。</p>
+<p>找数据又花费了我很多工夫。我需要一个包含文字错误的语料，标注可有可无。我找来找去，总算在Github上一个比较出名的中文语料库中找到了一个<a target="_blank" rel="noopener" href="https://github.com/zake7749/Gossiping-Chinese-Corpus">台湾论坛聊天语料</a>。虽然数据量不够，但勉强可以在这个语料库上执行文章中的训练算法了。</p>
 <p>在统计文字出错概率之前，需要先用一个分词语料库训练出一个语言模型。我用的是比较常用的北大人民日报语料。但是，所有的中文拼写检查都是基于繁体字的，这就出现了一个问题：语言模型仅用了简体语料，无法处理繁体字。我决定把人民日报语料转换成繁体。一开始我用word转换，一按简繁转换按钮程序就卡死了。我又去网上随便下了一个简繁转换程序。这个程序的转换速度倒是很快，但我发现转换结果有一些问题：一个简体字可能对应多个繁体字，比如简体”后“字有”(皇)后“，”後(面)“这两个对应的繁体字，而转换程序只能进行一对一的转换。最后我在Github上找了一个运用了NLP技术的简繁体转换程序，总算得到了一个能用的繁体语料库了。</p>
 <p>至此，我总算解决了所有的问题，准备好了编程所需的所有资源。剩下的编程、写实验报告的工作就没什么值得讲的了。</p>
 <p>这次项目对我来说意义很大。倒不是说我在这个项目中学到了多少NLP知识，或者说留下了一段比较有趣的工作过程。我在这次项目中，最大的收获是初步掌握了检索文献并了解一个领域前沿知识的能力。我第一次了解了什么是综述，虽然这篇综述放在博客上，并不是按照标准的论文格式写的。我第一次读懂论文并实现了论文的算法。我之前一直觉得论文都很高深，涉及的方法非常复杂。多亏这几篇论文算法相对来说比较简单，给了我读论文的自信。在这个项目之后，我还碰到了很多需要自主学习领域前沿知识的项目。得益于这次项目的经验，我能够快速搜索到一篇好的综述文章并开展学习，高效率地完成对相关领域前沿知识的了解。</p>
 <p>以下项目介绍绝大多数内容摘自实验报告。</p>
-<h1 id="中文拼写检查器（基于图网格，C-实现）"><a href="#中文拼写检查器（基于图网格，C-实现）" class="headerlink" title="中文拼写检查器（基于图网格，C++实现）"></a>中文拼写检查器（基于图网格，C++实现）</h1><h2 id="Github链接"><a href="#Github链接" class="headerlink" title="Github链接"></a>Github链接</h2><p><a href="https://github.com/SingleZombie/Simple-Chinese-Spelling-Checker" target="_blank" rel="noopener">https://github.com/SingleZombie/Simple-Chinese-Spelling-Checker</a></p>
+<h1 id="中文拼写检查器（基于图网格，C-实现）"><a href="#中文拼写检查器（基于图网格，C-实现）" class="headerlink" title="中文拼写检查器（基于图网格，C++实现）"></a>中文拼写检查器（基于图网格，C++实现）</h1><h2 id="Github链接"><a href="#Github链接" class="headerlink" title="Github链接"></a>Github链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/SingleZombie/Simple-Chinese-Spelling-Checker">https://github.com/SingleZombie/Simple-Chinese-Spelling-Checker</a></p>
 <h2 id="任务定义"><a href="#任务定义" class="headerlink" title="任务定义"></a>任务定义</h2><ol>
 <li><p>找出一个句子中出错字的位置。</p>
 </li>
@@ -314,10 +314,10 @@
 <p>ELA:63.7000% ELP:22.8448% ELR:17.6667% ELF1:19.9248%</p>
 <p>LA:16.3000% CA:15.2000% CP:37.1638%</p>
 <h2 id="使用的公共资源"><a href="#使用的公共资源" class="headerlink" title="使用的公共资源"></a>使用的公共资源</h2><h3 id="语言模型"><a href="#语言模型" class="headerlink" title="语言模型"></a>语言模型</h3><p>北大人民日报语料库</p>
-<p>新华成语词典：<a href="https://github.com/pwxcoo/chinese-xinhua" target="_blank" rel="noopener">https://github.com/pwxcoo/chinese-xinhua</a></p>
+<p>新华成语词典：<a target="_blank" rel="noopener" href="https://github.com/pwxcoo/chinese-xinhua">https://github.com/pwxcoo/chinese-xinhua</a></p>
 <h3 id="混淆集"><a href="#混淆集" class="headerlink" title="混淆集"></a>混淆集</h3><p>原始混淆集：<code>SIGHAN2013 ConfusionSet</code></p>
-<p>训练用互联网语料：<a href="https://github.com/zake7749/Gossiping-Chinese-Corpus" target="_blank" rel="noopener">https://github.com/zake7749/Gossiping-Chinese-Corpus</a></p>
-<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>简体繁体转换程序：<a href="https://github.com/hankcs/HanLP" target="_blank" rel="noopener">https://github.com/hankcs/HanLP</a></p>
+<p>训练用互联网语料：<a target="_blank" rel="noopener" href="https://github.com/zake7749/Gossiping-Chinese-Corpus">https://github.com/zake7749/Gossiping-Chinese-Corpus</a></p>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>简体繁体转换程序：<a target="_blank" rel="noopener" href="https://github.com/hankcs/HanLP">https://github.com/hankcs/HanLP</a></p>
 <h3 id="测试集"><a href="#测试集" class="headerlink" title="测试集"></a>测试集</h3><p>  <code>SIGHAN2013 finalTest</code></p>
 <h2 id="程序实用说明"><a href="#程序实用说明" class="headerlink" title="程序实用说明"></a>程序实用说明</h2><p>输入文件的格式必须是Unicode BE。</p>
 <p>   txt文件描述：</p>
@@ -337,7 +337,7 @@
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1].  Shih-Hung Wu, Chao-Lin Liu, and Lung-Hao Lee (2013). Chinese Spelling Check Evaluation at SIGHAN Bake-off 2013. Proceedings of the 7th SIGHAN Workshop on Chinese Language Processing (SIGHAN’13), Nagoya, Japan, 14 October, 2013, pp. 35-42.</p>
 <p>[2].  Chao-Lin Liu, Min-Hua Lai, Kan-Wen Tien, Yi-Hsuan Chuang, Shih-Hung Wu, and Chia-Ying Lee. Visually and Phonologically similar characters in incorrect Chinese Words: analyses, Identification, and Applications. ACM Transactions on Asian Language Information Processing, 10(2), 10:1-39.</p>
 <p>[3].  Hsieh Y M, Bai M H, Huang S L, et al. Correcting Chinese spelling errors with word lattice decoding[J]. ACM Transactions on Asian and Low-Resource Language Information Processing (TALLIP), 2015, 14(4): 18.</p>
-<p>[4].  hqc888688.中文输入纠错任务整理[EB/OL].<a href="https://blog.csdn.net/hqc888688/article/details/74858126,2017-07-09" target="_blank" rel="noopener">https://blog.csdn.net/hqc888688/article/details/74858126,2017-07-09</a>.</p>
+<p>[4].  hqc888688.中文输入纠错任务整理[EB/OL].<a target="_blank" rel="noopener" href="https://blog.csdn.net/hqc888688/article/details/74858126,2017-07-09">https://blog.csdn.net/hqc888688/article/details/74858126,2017-07-09</a>.</p>
 
     </div>
 
@@ -349,8 +349,8 @@
           <div class="post-tags">
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
               <a href="/tags/C/" rel="tag"># C++</a>
-              <a href="/tags/%E4%BB%A3%E7%A0%81/" rel="tag"># 代码</a>
               <a href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="tag"># 自然语言处理</a>
+              <a href="/tags/%E4%BB%A3%E7%A0%81/" rel="tag"># 代码</a>
           </div>
 
         
