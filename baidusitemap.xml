@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
+    <lastmod>2022-03-18</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/08/19/20210813-PytorchInstall/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2020/02/01/DIP-image-segmentation-project-2/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/12/30/Digital-Image-Processing-homework2/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/11/08/HDU-6562/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/04/30/CF-1149C/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/04/25/CF-86C/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/03/30/20210326-VS2019/</loc>
+    <lastmod>2022-03-15</lastmod>
+  </url>  <url>
     <loc>https://zhouyifan.net/2022/03/08/20220123-everyone-is-lonely/</loc>
     <lastmod>2022-03-15</lastmod>
   </url>  <url>
@@ -34,16 +70,10 @@
     <loc>https://zhouyifan.net/2021/09/21/20210916-git-note/</loc>
     <lastmod>2021-09-20</lastmod>
   </url>  <url>
-    <loc>https://zhouyifan.net/2021/08/19/20210813-PytorchInstall/</loc>
-    <lastmod>2021-09-10</lastmod>
-  </url>  <url>
     <loc>https://zhouyifan.net/2021/09/09/20210827-FridayAfternoon/</loc>
     <lastmod>2021-09-09</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2021/08/05/20210801-RainyNight/</loc>
-    <lastmod>2021-09-09</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2021/03/30/20210326-VS2019/</loc>
     <lastmod>2021-09-09</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2019/06/25/recurrence-relation-and-generating-function/</loc>
@@ -121,31 +151,10 @@
     <loc>https://zhouyifan.net/2019/11/17/Good-day/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
-    <loc>https://zhouyifan.net/2019/11/08/HDU-6562/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2019/12/30/Digital-Image-Processing-homework2/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
     <loc>https://zhouyifan.net/2020/01/29/DIP-paper-code-reading/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2020/02/01/DIP-image-segmentation-project-2/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2019/04/25/CF-86C/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2021/08/01/20210624-GreenLeaf/</loc>
@@ -154,13 +163,7 @@
     <loc>https://zhouyifan.net/2019/07/19/ACM2019/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
-    <loc>https://zhouyifan.net/2019/04/30/CF-1149C/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
     <loc>https://zhouyifan.net/2021/06/19/20210614-HappyPeopleAlwaysSuccess/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2021/03/20/20210314-Mendeley/</loc>
