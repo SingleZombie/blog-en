@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhouyifan.net/about/index.html</loc>
+    
+    <lastmod>2022-03-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
     
     <lastmod>2022-03-18</lastmod>
@@ -185,13 +192,6 @@
   
   <url>
     <loc>https://zhouyifan.net/categories/index.html</loc>
-    
-    <lastmod>2021-08-21</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhouyifan.net/about/index.html</loc>
     
     <lastmod>2021-08-21</lastmod>
     
