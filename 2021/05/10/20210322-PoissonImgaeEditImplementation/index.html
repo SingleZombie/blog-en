@@ -27,19 +27,19 @@
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="“Poisson Image Editing”论文方法实现在上上篇博文中（现在是上上上了），我介绍了一下这篇图像融合的经典论文。今天，我将记录一下这篇论文的C++代码实现。我已经三个多月没碰C++了，手很生。但是，我会凭借着我高超的编程底力和过人的天赋，三小时内完成代码实现。稍微对工作量有一点了解的人都会产生疑问：“你在开玩笑吧？论文实现不比写算法题，你要先去看懂论文，再调一调别人的库函数，写代码">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/f1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/f2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/f3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/a1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/a2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/a3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/4.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/4_2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/f1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/f2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/f3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/a1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/a2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/a3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/4.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/4_2.jpg">
 <meta property="article:published_time" content="2021-05-10T14:42:52.000Z">
-<meta property="article:modified_time" content="2022-03-15T08:59:26.899Z">
+<meta property="article:modified_time" content="2022-03-20T03:18:33.834Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="计算机科学">
 <meta property="article:tag" content="数字图像处理">
@@ -49,7 +49,7 @@
 <meta property="article:tag" content="OpenCV">
 <meta property="article:tag" content="Eigen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/20210322-PoissonImgaeEditImplementation/2.jpg">
+<meta name="twitter:image" content="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/2.jpg">
 
 <link rel="canonical" href="https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/">
 
@@ -238,7 +238,7 @@
 <p>代码仓库：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/Gradient-Domain-Image-Processing-Cpp">https://github.com/SingleZombie/Gradient-Domain-Image-Processing-Cpp</a></p>
 <p>由于种种原因，在记录了编程的实况后，我就把这篇博文搁置下来了。但马上要写毕业论文了，这篇博文和论文的内容有很多重合之处，我打算先把博文写完。</p>
 <h2 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h2><p>在代码实现前，我们先整理一下实现方法的整体思路，再提取出实现中涉及的知识点，对每个知识点有关的实现方法和具体的实现技术进行介绍，最后对方法的核心——结果图像求解进行一个详细的介绍。</p>
-<h3 id="方法思想"><a href="#方法思想" class="headerlink" title="方法思想"></a>方法思想</h3><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/2.jpg" alt></p>
+<h3 id="方法思想"><a href="#方法思想" class="headerlink" title="方法思想"></a>方法思想</h3><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/2.jpg" alt></p>
 <p>整个方法的总流程图如上。和普通的图像复制类似，方法需要输入一幅源图像、一幅目标图像及复制区域（步骤1），输出一幅融合好的图像（步骤4）。为了得到最终的图像，需要先计算出源图像的梯度（步骤2），再根据目标图像在复制区域边缘的像素值和源图像复制区域的梯度值对结果图像求解（步骤3）。实际上，其他步骤都十分简单，方法的关键就在于第三步结果图像求解。</p>
 <p>方法中设计的知识点有：</p>
 <ol>
@@ -248,7 +248,7 @@
 <li>图像拼接：最后输出前，要把处理过的图像区域和整幅目标图像拼起来。OpenCV提供了方便的图像区域覆盖函数。</li>
 </ol>
 <p>本程序设计的图像处理操作都十分基础，用一些简单的OpenCV库函数即可。如前面多次强调的，该程序的关键是第三步。下一节将对第三步进行详细介绍。</p>
-<h3 id="结果图像的问题建立与求解"><a href="#结果图像的问题建立与求解" class="headerlink" title="结果图像的问题建立与求解"></a>结果图像的问题建立与求解</h3><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/3.jpg" alt></p>
+<h3 id="结果图像的问题建立与求解"><a href="#结果图像的问题建立与求解" class="headerlink" title="结果图像的问题建立与求解"></a>结果图像的问题建立与求解</h3><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/3.jpg" alt></p>
 <p>(导向插值标记，来自论文[1])</p>
 <p>一般来说，用公式描述一件事是方便描述者，而折磨倾听者的。但是，为了把问题准确无误的描述出来，有时不得不使用严谨的公式标记。</p>
 <p>在此问题中，我们把图像看成一个函数。如图所示，$S$是一个二维点的集合，即一堆可以用$(x,y)$这样的坐标描述的点。集合$S$就是图像函数的定义域。图像的值域呢？自然是图像的像素值了，这取决于实际情况，比如RGB像素值的范围是$[0, 2^{24})$。</p>
@@ -256,30 +256,30 @@
 <p>$v$是$g$的梯度，$\partial\Omega$是区域$\Omega$的梯度，这两个量都是计算得到的。</p>
 <p>我们还要引入一个符号——梯度算子$\triangledown$。$v$是$g$的梯度，可以写成$v=\triangledown g$。</p>
 <p>重申一下结果图像求解的思想：在融合区域边缘的颜色和目标图像一样的前提下，让源图像的梯度尽可能不变（最小化差值）。用数学语言就是：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/f1.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/f1.jpg" alt></p>
 <p>如果理解了求解的思想，那么看懂，或者说推导出这个公式是十分简单的。</p>
 <p>这个公式是理想情况：图像在一个连续的二维数集上定义。但实际上，我们图像是离散是，只有在整数的位置处有值。我们要把问题用离散的形式表达出来。这里又要提出一些标记，对于$S$中的每个像素$p$，令$N<em>p$为其4邻域中仍在$S$的像素集合。也就是说，这个符号表示的某个像素上下左右这四个像素的集合，在这些像素没有跑出整幅图像的前提下。令$<p,q>$为一个像素对，其中$q\in N_p$。再令$v</p,q></em>{pq}$表示$pq$两点间的像素值之差，即p到q方向的梯度值。则上面那个离散化的式子可以被转换成：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/f2.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/f2.jpg" alt></p>
 <p>能看懂之前的式子，看懂新的式子也不难。</p>
 <p>经过一系列数学推导，上面这个离散域的最优化问题可以被转换成一个线性方程组：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/f3.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/f3.jpg" alt></p>
 <p>这个方程组就比较难懂了。不过，可以用一个直观的方法描述出来：待求解的结果图像的每个像素与周围四个像素的像素值之差（梯度）的求和等于源图像与周围四个点的像素值之差（梯度）的求和。公式中结果图像的每个像素与周围的梯度的求和分了两部分，是因为如果这个像素来自图像边界，则这个值是指定的（来自约束条件，边界像素值等于目标图像的像素值），在等式右边；如果像素不来自边界，则这个值是未知的，在等式左边。</p>
 <p>有了联立的线性方程组，问题就变成了纯粹的数学问题，有很多的工具和方法来求解。</p>
 <h2 id="程序实现"><a href="#程序实现" class="headerlink" title="程序实现"></a>程序实现</h2><h3 id="程序结构图"><a href="#程序结构图" class="headerlink" title="程序结构图"></a>程序结构图</h3><p>在理想情况下，程序的结构图如下：（目前的代码很乱，没有严格按照这个图来）</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/1.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/1.jpg" alt></p>
 <p>整体分成输入、输出、和图像处理模块，非常简明。</p>
 <p>如方法思想中所介绍的，图像处理可以分成图像梯度计算和目标图像求解。而求解又可以分成方程组建立和方程组求解。</p>
 <p>这里仅介绍图像处理模块的实现细节。该模块整体的伪代码如下：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/a1.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/a1.jpg" alt></p>
 <p>这份伪代码只能算是把整个流程用英文表达出来了而已，前文的梯度计算、方程组建立、方程组求解等内容均有体现。接下来几节介绍这三个重要步骤的细节。其他诸如获取图像的一个区域、填充图形一个区域的操作十分简单，可以用OpenCV轻松实现。OpenCV用<code>Rect</code>表示一个矩形区域，假设其有实例<code>rect</code>。令<code>mat</code>为任意一个图像，则<code>mat[rect]</code>就是图像的一个区域，可以执行读写操作。</p>
 <h3 id="图像梯度计算"><a href="#图像梯度计算" class="headerlink" title="图像梯度计算"></a>图像梯度计算</h3><p>梯度计算是学数字图像处理时的一个基本作业，由于有库函数的帮助，实现起来很方便，其伪代码如下：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/a2.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/a2.jpg" alt></p>
 <p>拉普拉斯滤波器就是</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[0, -1, 0],</span><br><span class="line">[-1, 4, -1],</span><br><span class="line">[0, -1, 0]]</span><br></pre></td></tr></table></figure>
 <p>这样一个3X3的滤波器。手动建立一个滤波器后，调用OpenCV的filter2D就可以完成滤波了。</p>
 <h3 id="方程组建立"><a href="#方程组建立" class="headerlink" title="方程组建立"></a>方程组建立</h3><p>问题的方程组就是“结果图像的问题建立与求解”一节中最后一个公式所表示的方程组。只有彻底理解了那个公式中每一项的由来，才能把方程组建好。方程组求解时用到了矩阵，这其实就是把方程组的所有有关参数塞入了一个二维的存储结构中，没有太深奥的东西。</p>
 <p>方程组主要有3项：系数矩阵项，边缘像素值项和梯度项。系数矩阵是方程组的左端项，后两者之和就是方程组的右端项。这一步的伪代码如下：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/a3.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/a3.jpg" alt></p>
 <p>系数矩阵项<code>lhs</code>只由融合区域的大小决定。设矩阵的第<code>i</code>行表示第<code>i</code>个像素有关的方程，则第<code>i</code>列就是表示<code>i</code>像素自己的系数，由公式可知系数值是$|N_p|$；而其他至多4个在这个像素上下左右，且在融合区域内部的像素的系数是$-1$。</p>
 <p>边缘像素值来自原问题的限制条件：融合区域的边缘像素值等于目标图像在此处的像素值。因此，这一部分的值要根据目标图像及融合区域得到。由于边缘项的出现没有什么规律，实际实现时可以在计算系数矩阵的同时计算边缘项：对每个像素四周判断，如果这一项在边缘上，则更新返回的边缘项；否则更新系数矩阵。</p>
 <p>梯度项则完全来自源图像区域的梯度，甚至每个元素的位置都没有变，只要把它的形状改成列数为1的矩阵。</p>
@@ -289,11 +289,11 @@
 <p>求解完方程组，程序其实就基本写完了。</p>
 <p>UPD：<code>SparseLU</code>并不是求解此问题的最佳方法。<code>SimplicialLDLT</code>适用于正定对称矩阵，在此问题中有更高的性能（我并不知道其中的原因，但是官网上明确写出这个方法适用于2D泊松问题，我就把结论拿来用了，哈哈）。只要把上述代码的<code>SparseLU</code>替换掉即可。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Eigen::SimplicialLDLT&lt;Eigen::SparseMatrix&lt;<span class="keyword">float</span>&gt;&gt; solver;</span><br><span class="line">solver.<span class="built_in">analyzePattern</span>(A);</span><br><span class="line">solver.<span class="built_in">factorize</span>(A);</span><br><span class="line">Eigen::VectorXf tmpRes = solver.<span class="built_in">solve</span>(b);Eigen::SparseLU&lt;Eigen::SparseMatrix&lt;<span class="keyword">float</span>&gt;&gt; solver;</span><br><span class="line">solver.<span class="built_in">analyzePattern</span>(A);</span><br><span class="line">solver.<span class="built_in">factorize</span>(A);</span><br><span class="line">Eigen::VectorXf tmpRes = solver.<span class="built_in">solve</span>(b);</span><br></pre></td></tr></table></figure>
-<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/4.jpg" alt></p>
+<h2 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h2><p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/4.jpg" alt></p>
 <p>如图，(a)是源图像，(b)是目标图像，(c)是直接复制的结果，(d)是图像融合的结果。从视觉上来看，图像融合的效果还是不错的。如果能够用套索工具代替方框工具选择区域。用套索工具的话，难点在于实现套索工具本身，这已经脱离了本程序的主要任务了。有了套索的选定区域后，就是获取边缘项烦了一点，大部分的步骤还是一样的。</p>
 <p>UPD:</p>
 <p>程序里发现了一个BUG！！！方程右端的边缘项应该是相加，我写成了直接赋值。上面的结果图片是错的，正确的图片如下：</p>
-<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/./20210322-PoissonImgaeEditImplementation/4_2.jpg" alt></p>
+<p><img src="/2021/05/10/20210322-PoissonImgaeEditImplementation/4_2.jpg" alt></p>
 <h2 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h2><p>在下面的”实况记录“一节中，你会发现，我5个小时不到就完成了没有bug的程序，基本完成了整个毕业设计。得知了这一事实，你能得到哪些结论？</p>
 <p>首先，你会说：”哇，你好强啊，这么快就把一个看上去那么复杂的项目写完了。“确实，这说得很正确。但这对于我来说是基本操作，甚至我还对自己有些不够满意，写代码的时候急躁了一点，不然可以更快写完。比起学东西，写论文和博客等文档的时间，实际编程的时间确实占比很小。</p>
 <p>层次高一点的人，会评论道：”你这项目太水了吧！你干了什么？不久求个线性方程组？高中生都会解这种问题，叫一个大一新生学一学也能写出求解线性方程组的程序。“这说得不错。确实这个项目实现起来很简单。但是，你要注意到，这是一个科研性质的毕业设计。什么是科研？写代码是科研吗？不是。科研是要针对一个问题，提出某些解法，或者说改进现有的解法。重点是思路。我刚刚也说了，我的大多数时间其实花在了看文章、学习上面。这十分合理。</p>
