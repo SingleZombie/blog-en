@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://zhouyifan.net/2021/09/21/20210916-git-note/</loc>
-    <lastmod>2022-04-23</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
-    <lastmod>2022-04-23</lastmod>
+    <loc>https://zhouyifan.net/2022/05/10/DLS-note-2/</loc>
+    <lastmod>2022-05-10</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2022/04/23/DLS-note-1/</loc>
+    <lastmod>2022-05-10</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
+    <lastmod>2022-04-24</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2019/04/25/HowToWriteSolutionToACMProblem/</loc>
+    <lastmod>2022-04-24</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/09/21/20210916-git-note/</loc>
     <lastmod>2022-04-23</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2020/01/05/Principles-of-Computer-Composition-cources-review-1/</loc>
@@ -143,9 +149,6 @@
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2019/03/17/HelloWorld/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2019/04/25/HowToWriteSolutionToACMProblem/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2019/08/02/Introspection-of-Perfectionism/</loc>
