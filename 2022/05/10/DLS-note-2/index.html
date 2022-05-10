@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="课堂笔记这堂课要学习的是逻辑回归——一种求解二分类任务的算法。同时，这堂课会补充实现逻辑回归必备的数学知识、编程知识。学完这堂课后，同学们应该能够用Python实现一个简单的小猫判定器。 本节课的目标在这节课里，我们要完成一个二分类任务。所谓二分类任务，就是给一个问题，然后给出一个“是”或“否”的回答。比如给出一张照片，问照片里是否有一只猫。 这节课中，我们用到的方法是逻辑回归。逻辑回归可以看成是">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/0.png">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/1.png">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/2.png">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/3.png">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/4.png">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/0.png">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/1.png">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/2.png">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/3.png">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/4.png">
 <meta property="article:published_time" content="2022-05-10T09:16:34.000Z">
-<meta property="article:modified_time" content="2022-05-10T09:16:34.677Z">
+<meta property="article:modified_time" content="2022-05-10T10:16:26.129Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/DLS-note-2/0.png">
+<meta name="twitter:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/0.png">
 
 <link rel="canonical" href="https://zhouyifan.net/2022/05/10/DLS-note-2/">
 
@@ -226,10 +226,10 @@
 <h2 id="本节课的目标"><a href="#本节课的目标" class="headerlink" title="本节课的目标"></a>本节课的目标</h2><p>在这节课里，我们要完成一个二分类任务。所谓二分类任务，就是给一个问题，然后给出一个“是”或“否”的回答。比如给出一张照片，问照片里是否有一只猫。</p>
 <p>这节课中，我们用到的方法是逻辑回归。逻辑回归可以看成是一个非常简单的神经网络。</p>
 <h3 id="符号标记"><a href="#符号标记" class="headerlink" title="符号标记"></a>符号标记</h3><p>从这节课开始，我们会用到一套统一的符号标记：</p>
-<p>$(x, y)$ 是一个训练样本。其中，$x$ 是一个长度为 $n_x$ 的一维向量，即 $x \in \R^{n_x}$。$y$ 是一个实数，取0或1，即$y \in {0, 1}$。取0表示问题的的答案为“否”，取1表示问题的答案为“是”。</p>
+<p>$(x, y)$ 是一个训练样本。其中，$x$ 是一个长度为 $n_x$ 的一维向量，即 $x \in \mathcal{R}^{n_x}$。$y$ 是一个实数，取0或1，即$y \in {0, 1}$。取0表示问题的的答案为“否”，取1表示问题的答案为“是”。</p>
 <blockquote>
 <p>这套课默认读者对统计机器学习有基本的认识，似乎没有过多介绍训练集是什么。在有监督统计机器学习中，会给出<strong>训练数据</strong>。训练数据中的每一条<strong>训练样本</strong>包含一个“问题”和“问题的答案”。神经网络根据问题给出一个自己的解答，再和正确的答案对比，通过这样一个“学习”的过程来优化解答能力。</p>
-<p>对计算机知识有所了解的人会知道，在计算机中，颜色主要是通过RGB（红绿蓝）三种颜色通道表示。每一种通道一般用长度8位的整数表示，即用一个0~255的数表示某颜色在红、绿、蓝上的深浅程度。这样，一个颜色就可以用一个长度为3的向量表示。一幅图像，其实就是许多颜色的集合，即许多长度为3的向量的集合。算上某颜色所在像素的位置$(x, y)$，图像就可以看成一个3维张量$I \in \R^{H \times W \times 3}$，其中$H$是图像高度，$W$是图像宽度，$3$是图像的通道数。在把图像输入进逻辑回归时，我们会把图像“拉直”成一个一维向量，就是前面提到的$x$，其中$x$的长度$n_x$满足$n_x = H \times W \times 3$。这里的“拉直”操作就是把张量里的数据按照顺序一个一个填入新的一维向量中。</p>
+<p>对计算机知识有所了解的人会知道，在计算机中，颜色主要是通过RGB（红绿蓝）三种颜色通道表示。每一种通道一般用长度8位的整数表示，即用一个0~255的数表示某颜色在红、绿、蓝上的深浅程度。这样，一个颜色就可以用一个长度为3的向量表示。一幅图像，其实就是许多颜色的集合，即许多长度为3的向量的集合。算上某颜色所在像素的位置$(x, y)$，图像就可以看成一个3维张量$I \in \mathcal{R}^{H \times W \times 3}$，其中$H$是图像高度，$W$是图像宽度，$3$是图像的通道数。在把图像输入进逻辑回归时，我们会把图像“拉直”成一个一维向量，就是前面提到的$x$，其中$x$的长度$n_x$满足$n_x = H \times W \times 3$。这里的“拉直”操作就是把张量里的数据按照顺序一个一个填入新的一维向量中。</p>
 <p>其实向量就是一维的，但我还是很喜欢强调它是“一维”的。这是因为在计算机中所有数据都可以看成是数组（甚至C++的数组就叫<code>vector</code>)。二维数组不过是一维数组的数组，三位数组不过是二维数组的数组。在数学中，为了方便称呼，把一维数组叫“向量”，二维数组叫“矩阵”，三维及以上数组叫“张量”。其实在我看来它们之间只是一个维度的差别而已，叫“三维向量”、“一维张量”这种不是那么严谨的称呼也没什么问题。</p>
 </blockquote>
 <p>实际上，我们有很多个训练样本。第$i$个训练样本叫做$(x^{(i)}, y^{(i)})$。在后面使用其他标记时，也会使用上标$(i)$表示第$i$个训练样本得到的计算结果。样本总数记为$m$。</p>
@@ -242,19 +242,19 @@ X=\left[
   | & | & & |
   \end{matrix}
 \right]
-,X \in \R^{n_x \times m}</script><p>同理，所有真值也构成集合 $Y$:</p>
+,X \in \mathcal{R}^{n_x \times m}</script><p>同理，所有真值也构成集合 $Y$:</p>
 <script type="math/tex; mode=display">
 Y=\left[
   \begin{matrix}
   y^{(1)} & y^{(2)} & ... & y^{(m)} 
   \end{matrix}
 \right]
-,Y \in \R^{m}</script><p>由于每个样本$y^{(i)}$是一个实数，所以集合$Y$是一个向量。</p>
+,Y \in \mathcal{R}^{m}</script><p>由于每个样本$y^{(i)}$是一个实数，所以集合$Y$是一个向量。</p>
 <h2 id="逻辑回归的公式描述"><a href="#逻辑回归的公式描述" class="headerlink" title="逻辑回归的公式描述"></a>逻辑回归的公式描述</h2><p>逻辑回归是一个学习算法，用于对真值只有0或1的“逻辑”问题进行建模。给定输入$x$,逻辑回归输出一个$\hat{y}$。这个$\hat{y}$是对真值$y$的一个估计，准确来说，它描述的是$y=1$的概率，即$\hat{y}=P(y=1 \ | \ x)$</p>
-<p>逻辑回归会使用一个带参数的函数计算$\hat{y}$。这里的参数包括$w \in \R^{n_x}, b \in \R$。</p>
-<p>说起用于拟合的函数，最容易想到的是线性函数$w^Tx+b$（即做点乘再加$b$： $w^Tx+b = (\Sigma_{i=1}^{n_x}w_ix_i)+b $）。但线性函数的值域是$(- \infty,+\infty) $（即全体实数$\R$），概率的取值是$[0, 1]$，我们需要一个定义域为$\R$，值域为$[0, 1]$，把线性函数映射到$[0, 1]$上的一个函数。逻辑回归中用的是sigmoid函数$\sigma$,它的定义为</p>
+<p>逻辑回归会使用一个带参数的函数计算$\hat{y}$。这里的参数包括$w \in \mathcal{R}^{n_x}, b \in \mathcal{R}$。</p>
+<p>说起用于拟合的函数，最容易想到的是线性函数$w^Tx+b$（即做点乘再加$b$： $w^Tx+b = (\Sigma_{i=1}^{n_x}w_ix_i)+b $）。但线性函数的值域是$(- \infty,+\infty) $（即全体实数$\mathcal{R}$），概率的取值是$[0, 1]$，我们需要一个定义域为$\mathcal{R}$，值域为$[0, 1]$，把线性函数映射到$[0, 1]$上的一个函数。逻辑回归中用的是sigmoid函数$\sigma$,它的定义为</p>
 <script type="math/tex; mode=display">\sigma(z)=\frac{1}{1 + e^{-z}}</script><p>这个函数可以有效地完成映射，它的函数图像长这个样子：</p>
-<p><img src="/2022/05/10/DLS-note-2/./DLS-note-2/0.png" alt></p>
+<p><img src="/2022/05/10/DLS-note-2/0.png" alt></p>
 <blockquote>
 <p>这里不用计较为什么使用这个函数，只需要知道这个函数的趋势：$x$越小，$\sigma (x)$越靠近0；$x$越大，$\sigma (x)$越靠近1。</p>
 </blockquote>
@@ -266,7 +266,7 @@ Y=\left[
 <p>误差函数是定义在每个样本上的，而损失函数是定义在整个样本上的，表示所有样本误差的“总和”。这个“总和”其实就是平均值，即损失函数$J(w, b)$为:</p>
 <script type="math/tex; mode=display">J(w, b)=\frac{1}{m}\Sigma_{i=1}^{m}-(y^{(i)} \ log\hat{y}^{(i)} + (1-y^{(i)}) \ log(1-\hat{y}^{(i)}))</script><h2 id="优化算法——梯度下降"><a href="#优化算法——梯度下降" class="headerlink" title="优化算法——梯度下降"></a>优化算法——梯度下降</h2><p>有了优化目标，接下来的问题就是如何用优化算法求出最优值。这里使用的是<strong>梯度下降（Gradient Descent）</strong> 法。梯度下降的思想很符合直觉：如果要让函数值更小，就应该让函数的输入沿着函数值下降最快的方向（梯度的方向）移动。</p>
 <p>以课件中的一元函数为例：</p>
-<p><img src="/2022/05/10/DLS-note-2/./DLS-note-2/1.png" alt></p>
+<p><img src="/2022/05/10/DLS-note-2/1.png" alt></p>
 <p>一元函数的梯度值就是导数值，方向只有正和负两个方向。如果是参数最开始在A点，那么通过求导可以知道，往右走函数值才会变少；反之，对于B点，则应该往左移动。</p>
 <p>每个点都应该向最小值“一小步一小步”地移动，直至抵达最低点。为什么要“一小步”移动呢？可以想象，如果一次移动的“步伐”过大，改变参数不仅不会让优化函数变小，甚至会让待优化函数变大。比如从A点开始，同样是往右移动，如果“步伐”过大，A点就会迈过最低点的红点，甚至跑到B点的上面。那么这样下去，待优化函数会越来越大，优化就失败了。</p>
 <p>为了让优化能顺利进行，梯度下降法使用<strong>学习率（Learning Rate)</strong> 来控制参数优化的“步伐”，即用如下方法更新损失函数$J(w)$参数：</p>
@@ -291,14 +291,14 @@ b & \gets b - \alpha \frac{dJ}{db}
 </blockquote>
 <p>导数即函数每时每刻的变化率，比如位移对时间的导数就是速度。比如，对于直线$y=kx$，函数的变化率时时刻刻都是$k$。对于二次函数$y=x^2$，$x$处的导数是$2x$。</p>
 <h3 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h3><p>其实，所有复杂的数学运算都可以拆成计算图表示法。</p>
-<p><img src="/2022/05/10/DLS-note-2/./DLS-note-2/2.png" alt></p>
+<p><img src="/2022/05/10/DLS-note-2/2.png" alt></p>
 <blockquote>
 <p>计算图中的”图”其实是一个计算机概念，表示由节点和边组成的集合。不熟悉的话，当成日常用语里的图来理解也无妨。</p>
 </blockquote>
 <p>比如上图中，哪怕是简单的运算$2a+b$，也可以拆成两步：先算$2 \times a$，再算$(2a) + b$。</p>
 <p>这里的“步”指原子运算，即最简单的运算。原子运算可以是加减乘除，也可以是求指数、求对数。复杂的运算，只是对简单运算的组合、嵌套。</p>
 <p>明明简简单单可以用一行公式表示的事，要费很大的功夫画一张计算图呢？这是因为，对函数求导满足“链式法则”，借助计算图，可以更方便地用链式法则算出所有参数的导数。比如在上图中求$f$对$a$的导数，使用链式法则的话，可以通过先求$f$对$c$的导数，再求$c$对$a$的导数得到。</p>
-<h3 id="利用计算图对逻辑回归求导"><a href="#利用计算图对逻辑回归求导" class="headerlink" title="利用计算图对逻辑回归求导"></a>利用计算图对逻辑回归求导</h3><p>逻辑回归有运算图：<br><img src="/2022/05/10/DLS-note-2/./DLS-note-2/3.png" alt></p>
+<h3 id="利用计算图对逻辑回归求导"><a href="#利用计算图对逻辑回归求导" class="headerlink" title="利用计算图对逻辑回归求导"></a>利用计算图对逻辑回归求导</h3><p>逻辑回归有运算图：<br><img src="/2022/05/10/DLS-note-2/3.png" alt></p>
 <p>现在利用链式法则从右向左求导：</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -380,7 +380,7 @@ L & = -(yloga+(1-y)log(1-a)) \\
 <p>接下来，我将按照<strong>数据收集</strong>、<strong>数据处理</strong>、<strong>网络结构</strong>、<strong>损失函数</strong>、<strong>训练</strong>、<strong>测试</strong>这几部分介绍这个项目。之后的笔记也会以这个形式介绍编程项目。</p>
 <h2 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h2><p>说起最经典的二分类任务，大家都会想起小猫分类（或许跟吴恩达老师的课比较流行有关）。在这个项目中，我也顺应潮流，选择了一个猫狗数据集（<a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/fusicfenta/cat-and-dog?resource=download）。">https://www.kaggle.com/datasets/fusicfenta/cat-and-dog?resource=download）。</a></p>
 <p>在此数据集中，数据是按以下结构存储的：</p>
-<p><img src="/2022/05/10/DLS-note-2/./DLS-note-2/4.png" alt></p>
+<p><img src="/2022/05/10/DLS-note-2/4.png" alt></p>
 <p>在二分类任务中，数据的标签为0或1（表示是否是小猫）。而此数据集只是把猫、狗的图片分别放到了不同的文件夹里，这意味着我们待会儿要手动给这些数据打上0或1的标签。</p>
 <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>由于训练集和测试集所在的目录相同，我们先写一个读数据集的函数：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_dataset</span>(<span class="params"><span class="built_in">dir</span>, data_num</span>):</span></span><br><span class="line">    cat_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;cats&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br><span class="line">    dog_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;dogs&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br><span class="line">    cat_tensor = []</span><br><span class="line">    dog_tensor = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> idx, image <span class="keyword">in</span> <span class="built_in">enumerate</span>(cat_images):</span><br><span class="line">        <span class="keyword">if</span> idx &gt;= data_num:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        i = cv2.imread(image) / <span class="number">255</span></span><br><span class="line">        i = cv2.resize(i, input_shape)</span><br><span class="line">        cat_tensor.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> idx, image <span class="keyword">in</span> <span class="built_in">enumerate</span>(dog_images):</span><br><span class="line">        <span class="keyword">if</span> idx &gt;= data_num:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        i = cv2.imread(image) / <span class="number">255</span></span><br><span class="line">        i = cv2.resize(i, input_shape)</span><br><span class="line">        dog_tensor.append(i)</span><br><span class="line"></span><br><span class="line">    X = cat_tensor + dog_tensor</span><br><span class="line">    Y = [<span class="number">1</span>] * <span class="built_in">len</span>(cat_tensor) + [<span class="number">0</span>] * <span class="built_in">len</span>(dog_tensor)</span><br><span class="line">    X_Y = <span class="built_in">list</span>(<span class="built_in">zip</span>(X, Y))</span><br><span class="line">    shuffle(X_Y)</span><br><span class="line">    X, Y = <span class="built_in">zip</span>(*X_Y)</span><br><span class="line">    <span class="keyword">return</span> X, Y</span><br></pre></td></tr></table></figure><br>函数先是用<code>glob</code>读出文件夹下所有猫狗的图片路径，再按文件路径依次把文件读入。接着，函数为数据生成了0或1的标签。最后，函数把数据打乱，并返回数据。让我们来看看这段代码里有哪些要注意的地方。</p>
 <p>在具体介绍代码之前，要说明一下我在这个数据集上做的两个特殊处理：</p>
