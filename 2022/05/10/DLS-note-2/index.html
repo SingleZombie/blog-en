@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/3.png">
 <meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/4.png">
 <meta property="article:published_time" content="2022-05-10T09:16:34.000Z">
-<meta property="article:modified_time" content="2022-05-16T08:37:59.942Z">
+<meta property="article:modified_time" content="2022-05-16T08:56:18.785Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="编程">
@@ -483,7 +483,10 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)}
 </ol>
 <p>熟悉了<code>numpy</code>的API后，实现这两个函数还是很容易的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">resize_input</span>(<span class="params">a: np.ndarray</span>):</span></span><br><span class="line">    h, w, c = a.shape</span><br><span class="line">    a.resize((h * w * c))</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br></pre></td></tr></table></figure></p>
 <p>这里我代码实现上写得有点“脏”，调用<code>resize_input</code>做数据预处理是放在<code>main</code>函数里的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">train_X, train_Y, test_X, test_Y = generate_data()</span><br><span class="line"></span><br><span class="line">train_X = [resize_input(x) <span class="keyword">for</span> x <span class="keyword">in</span> train_X]</span><br><span class="line">test_X = [resize_input(x) <span class="keyword">for</span> x <span class="keyword">in</span> test_X]</span><br><span class="line">train_X = np.array(train_X).T</span><br><span class="line">train_Y = np.array(train_Y)</span><br><span class="line">train_Y.reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">test_X = np.array(test_X).T</span><br><span class="line">test_Y = np.array(test_Y)</span><br><span class="line">test_Y.reshape(-<span class="number">1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">train_X, train_Y, test_X, test_Y = generate_data()</span><br><span class="line"></span><br><span class="line">train_X = [resize_input(x) <span class="keyword">for</span> x <span class="keyword">in</span> train_X]</span><br><span class="line">test_X = [resize_input(x) <span class="keyword">for</span> x <span class="keyword">in</span> test_X]</span><br><span class="line">train_X = np.array(train_X).T</span><br><span class="line">train_Y = np.array(train_Y)</span><br><span class="line">train_Y = train_Y.reshape((<span class="number">1</span>, -<span class="number">1</span>))</span><br><span class="line">test_X = np.array(test_X).T</span><br><span class="line">test_Y = np.array(test_Y)</span><br><span class="line">test_Y = test_Y.reshape((<span class="number">1</span>, -<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>array = array.reshape(a, b)</code> 等价于 <code>array.resize(a, b)</code>。但是，<code>reshape</code>的某一维可以写成<code>-1</code>，表示这一维的大小让程序自己用除法算出来。比如总共有<code>a * b</code>个元素，调用<code>reshape(-1, a)</code>，<code>-1</code>的那一维会变成<code>b</code>。</p>
+</blockquote>
 <p>经过这些预处理代码，X的shape会变成[$n_x$, $m$]，Y的shape会变成[$1$, $m$]，和课堂里讲的内容一致。</p>
 <p>有了sigmoid函数和正确shape的输入，我们可以写出网络的推理函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">w, b, X</span>):</span></span><br><span class="line">    <span class="keyword">return</span> sigmoid(np.dot(w.T, X) + b)</span><br></pre></td></tr></table></figure>
@@ -530,6 +533,7 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)}
 <p>行吧，起码文章的内容不用大改了。逻辑回归太菜了，和代码确实没什么关系。</p>
 <p>其实，这段写bug经历对我来说是很赚的。我学到了：在梯度算得有问题的情况下，网络可以正常训练，甚至loss还会正常降低。但是，网络的正确率肯定会更低。一定要尊重数学规律，老老实实地按照数学推导的结果写公式。如果没有写bug，我反而学不到这么多东西，反而很亏。</p>
 <h1 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h1><p>把这篇文章刚发到博客上的时候，这篇文章有一堆错误：$W,w$不分，损失函数乱写……。写这种教学文章一定要严谨，尤其是涉及了数学运算的。很多时候程序有bug，根本看不出来。希望我能引以为戒，学踏实了，把文章检查了几遍了，再把文章发出来。</p>
+<p>突然又发现一个bug：reshape不是inplace运算。我写得也太潦草了吧！</p>
 
     </div>
 
