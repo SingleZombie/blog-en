@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/3.png">
 <meta property="og:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/4.png">
 <meta property="article:published_time" content="2022-05-10T09:16:34.000Z">
-<meta property="article:modified_time" content="2022-05-16T09:43:35.363Z">
+<meta property="article:modified_time" content="2022-05-22T18:12:15.006Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="编程">
@@ -250,7 +250,7 @@ Y=\left[
 <h2 id="逻辑回归的公式描述"><a href="#逻辑回归的公式描述" class="headerlink" title="逻辑回归的公式描述"></a>逻辑回归的公式描述</h2><p>逻辑回归是一个学习算法，用于对真值只有0或1的“逻辑”问题进行建模。给定输入$x$,逻辑回归输出一个$\hat{y}$。这个$\hat{y}$是对真值$y$的一个估计，准确来说，它描述的是$y=1$的概率，即$\hat{y}=P(y=1 \ | \ x)$</p>
 <p>逻辑回归会使用一个带参数的函数计算$\hat{y}$。这里的参数包括$w \in \mathcal{R}^{n_x}, b \in \mathcal{R}$。</p>
 <p>说起用于拟合的函数，最容易想到的是线性函数$w^Tx+b$（即做点乘再加$b$： $w^Tx+b = (\Sigma_{i=1}^{n_x}w_ix_i)+b $）。但线性函数的值域是$(- \infty,+\infty) $（即全体实数$\mathcal{R}$），概率的取值是$[0, 1]$。我们还需要一个定义域为$\mathcal{R}$，值域为$[0, 1]$，把线性函数映射到$[0, 1]$上的一个函数。</p>
-<p>逻辑回归中，使用的映射函数是sigmoid函数$\sigma$,它的定义为</p>
+<p>逻辑回归中，使用的映射函数是sigmoid函数$\sigma$,它的定义为：</p>
 <script type="math/tex; mode=display">\sigma(z)=\frac{1}{1 + e^{-z}}</script><p>这个函数可以有效地完成映射，它的函数图像长这个样子：</p>
 <p><img src="/2022/05/10/DLS-note-2/0.png" alt></p>
 <blockquote>
@@ -268,7 +268,7 @@ Y=\left[
 <p>一元函数的梯度值就是导数值，方向只有正和负两个方向。我们要根据每个点的导数，让每个点向左或向右“运动”，以使函数值更小。</p>
 <p>从图像里可以看出，如果是参数最开始在A点，则往右走函数值才会变少；反之，对于B点，则应该往左移动。</p>
 <p>每个点都应该向最小值“一小步一小步”地移动，直至抵达最低点。为什么要“一小步”移动呢？可以想象，如果一次移动的“步伐”过大，改变参数不仅不会让优化函数变小，甚至会让待优化函数变大。比如从A点开始，同样是往右移动，如果“步伐”过大，A点就会迈过最低点的红点，甚至跑到B点的上面。那么这样下去，待优化函数会越来越大，优化就失败了。</p>
-<p>为了让优化能顺利进行，梯度下降法使用<strong>学习率（Learning Rate)</strong> 来控制参数优化的“步伐”，即用如下方法更新损失函数$J(w)$参数：</p>
+<p>为了让优化能顺利进行，梯度下降法使用<strong>学习率（Learning Rate)</strong> 来控制参数优化的“步伐”，即用如下方法更新损失函数$J(w)$的参数：</p>
 <script type="math/tex; mode=display">
 Repeat: \\
 w \gets w - \alpha \frac{dJ}{dw}</script><p>这里的 $\alpha$ 就是学习率，它控制了每次梯度更新的幅度。</p>
@@ -291,7 +291,7 @@ b & \gets b - \alpha \frac{dJ}{db}
 <h3 id="求导"><a href="#求导" class="headerlink" title="求导"></a>求导</h3><blockquote>
 <p>这部分对中国学生来说十分简单，因为求导公式是高中教材的内容。</p>
 </blockquote>
-<p>导数即函数每时每刻的变化率，比如位移对时间的导数就是速度。比如，对于直线$y=kx$，函数的变化率时时刻刻都是$k$；对于二次函数$y=x^2$，$x$处的导数是$2x$。</p>
+<p>导数即函数每时每刻的变化率，比如位移对时间的导数就是速度。以常见函数为例，对于直线$y=kx$，函数的变化率时时刻刻都是$k$；对于二次函数$y=x^2$，$x$处的导数是$2x$。</p>
 <h3 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h3><p>其实，所有复杂的数学运算都可以拆成计算图表示法。</p>
 <p><img src="/2022/05/10/DLS-note-2/2.png" alt></p>
 <blockquote>
@@ -327,7 +327,7 @@ L & = -(yloga+(1-y)log(1-a)) \\
 <li>对$m$个样本循环处理</li>
 <li>对$n_x$个权重$w_i$与对应的$x_i$相乘</li>
 </ol>
-<p>直接拿 Python 写这些 for 循环是很慢的，这里最好使用向量化计算。在这一节里我们补充一下 Python 基础知识，下一节介绍怎么用它们实现逻辑回归的向量化实现。</p>
+<p>直接拿 Python 写这些 for 循环，程序会跑得很慢的，这里最好使用向量化计算。在这一节里我们补充一下 Python 基础知识，下一节介绍怎么用它们实现逻辑回归的向量化实现。</p>
 <blockquote>
 <p>课程中提到向量化的好处是可以用<strong>SIMD</strong>（单指令多数据流）优化，这个概念可以理解成计算机会同时对16个或32个数做计算。如果输入的数据是向量的话，相比一个一个做for循环，一次算16,32个数的计算速度会更快。</p>
 <p>但实际上，除了无法使用SIMD以外，Python的低效也是拖慢速度的原因之一。哪怕是不用SIMD，单纯地用C++的for循环实现向量化计算，都能比用Python的循环快上很多。</p>
@@ -390,7 +390,7 @@ dw &=  \frac{1}{m} \left[
   \end{matrix}
 \right]\\
 &= \frac{1}{m}XdZ^T\\
-db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)} 
+db &= \frac{1}{m} \Sigma_{i=1}^m dZ^{(i)} 
 \end{align*}</script><p>用代码描述多样本前向传播和反向传播就是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Z = np.dot(w.T, x)+b</span><br><span class="line">A = sigmoid(Z)</span><br><span class="line">dZ = A-Y</span><br><span class="line">dw = np.dot(X, dZ.T) / m</span><br><span class="line">db = np.mean(dZ)</span><br><span class="line"><span class="comment"># db=np.sum(dZ) / m</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -461,7 +461,7 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)}
 <p>第三节课里讲了激活函数的收敛速度问题。</p>
 </blockquote>
 <p>现在来详细看代码。</p>
-<p>下面的代码用于从文件系统中读取所有文件，并把文件的绝对路径保存进一个list。如果大家有疑问，可以自行搜索<code>glob</code>函数的用法。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;cats&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br><span class="line">dog_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;dogs&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
+<p>下面的代码用于从文件系统中读取所有图片文件，并把文件的绝对路径保存进一个list。如果大家有疑问，可以自行搜索<code>glob</code>函数的用法。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;cats&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br><span class="line">dog_images = glob(osp.join(<span class="built_in">dir</span>, <span class="string">&#x27;dogs&#x27;</span>, <span class="string">&#x27;*.jpg&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
 <p>在之后的两段for循环中，我们通过设定循环次数来控制读取的图片数。在循环里，我们先读入文件，再归一化文件，最后把图片resize到(224, 224)。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> idx, image <span class="keyword">in</span> <span class="built_in">enumerate</span>(cat_images):</span><br><span class="line">    <span class="keyword">if</span> idx &gt;= data_num:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    i = cv2.imread(image) / <span class="number">255</span></span><br><span class="line">    i = cv2.resize(i, input_shape)</span><br><span class="line">    cat_tensor.append(i)</span><br></pre></td></tr></table></figure><br>在这段代码里，归一化是靠</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = cv2.imread(image) / <span class="number">255</span></span><br></pre></td></tr></table></figure>
 <p>实现的。</p>
@@ -557,7 +557,10 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)}
     <a href="/2022/04/23/DLS-note-1/" rel="prev" title="吴恩达《深度学习专项》笔记+代码实战（一）：深度学习入门">
       <i class="fa fa-chevron-left"></i> 吴恩达《深度学习专项》笔记+代码实战（一）：深度学习入门
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/23/DLS-note-3/" rel="next" title="吴恩达《深度学习专项》笔记+代码实战（三）：“浅度”神经网络">
+      吴恩达《深度学习专项》笔记+代码实战（三）：“浅度”神经网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -630,7 +633,7 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dz^{(i)}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
