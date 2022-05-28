@@ -596,8 +596,10 @@ db^{[1]} &= \frac{1}{m} \Sigma_{i=1}^m dZ^{[1](i)}
 <li>在神经网络中使用<strong>缓存</strong>的方法保存数据</li>
 </ul>
 <p>当然，我相信我的项目里还展示了许多编程技术。这些技能严格来说不在本课程的要求范围内，大家可以自行体悟。</p>
-<h2 id="附赠内容：如何画激活函数"><a href="#附赠内容：如何画激活函数" class="headerlink" title="附赠内容：如何画激活函数"></a>附赠内容：如何画激活函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tanh</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.maximum(x, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leaky_relu</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.maximum(x, <span class="number">0.1</span> * x)</span><br></pre></td></tr></table></figure>
-<p>先定义好激活函数的公式。</p>
+<h1 id="附赠内容"><a href="#附赠内容" class="headerlink" title="附赠内容"></a>附赠内容</h1><h2 id="如何画激活函数"><a href="#如何画激活函数" class="headerlink" title="如何画激活函数"></a>如何画激活函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<p>先导入第三方库。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tanh</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">relu</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.maximum(x, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">leaky_relu</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.maximum(x, <span class="number">0.1</span> * x)</span><br></pre></td></tr></table></figure>
+<p>再定义好激活函数的公式。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">100</span>)</span><br><span class="line">y1 = sigmoid(x)</span><br><span class="line">y2 = tanh(x)</span><br><span class="line">y3 = relu(x)</span><br><span class="line">y4 = leaky_relu(x)</span><br></pre></td></tr></table></figure>
 <p>画函数，其实就是生成函数上的一堆点，再把相邻的点用直线两两连接起来。为了生成函数上的点，我们先用<code>np.linspace(-3, 3, 100)</code>生成100个位于[-3, 3]上的x坐标值，用这些x坐标值算出每个函数的y坐标值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.subplot(<span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">plt.axvline(x=<span class="number">0</span>, color=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">plt.axhline(y=<span class="number">0</span>, color=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">plt.plot(x, y1)</span><br><span class="line">plt.title(<span class="string">&#x27;sigmoid&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -606,6 +608,189 @@ db^{[1]} &= \frac{1}{m} \Sigma_{i=1}^m dZ^{[1](i)}
 <p>用类似的方法画完所有函数后，调用<code>plt.show()</code>把图片显示出来就大功告成了。</p>
 <p>这段代码的链接：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos/blob/master/dldemos/ShallowNetwork/plot_activation_func.py">https://github.com/SingleZombie/DL-Demos/blob/master/dldemos/ShallowNetwork/plot_activation_func.py</a></p>
 <p>学API本身没有任何技术含量，知道API能做什么，有需求的时候去查API用法即可。</p>
+<h2 id="画花"><a href="#画花" class="headerlink" title="画花"></a>画花</h2><p>看完上面的内容，有些人肯定会想：“诶，你数据集里那朵花画得挺不错啊，你是不是学过美术的啊？”嘿嘿，你们能这么想，我很荣幸。其实那朵花是用程序生成出来的。作为笔记的赠品，我打算顺手介绍一下该怎么用高中知识画出前面的那朵花。</p>
+<p>代码文件：<code>dldemos/ShallowNetwork/genereate_points.py</code></p>
+<h3 id="流程一览"><a href="#流程一览" class="headerlink" title="流程一览"></a>流程一览</h3><p><img src="/2022/05/23/DLS-note-3/12.jpg" alt></p>
+<p>这幅图足以概括花朵绘制的流程。</p>
+<ol>
+<li>生成半个椭圆。</li>
+<li>合成完整的椭圆。</li>
+<li>把椭圆移到x正半轴。</li>
+<li>复制、旋转椭圆。</li>
+</ol>
+<p>有人会说：“这前三步可以用一步就完成吧？你直接生成一个在x正半轴上的椭圆就好了，干嘛要拆开来？”别急，看了后文你就知道了。我这么做，完全是为了多展示一点知识，可谓是用心良苦啊。</p>
+<h3 id="画半个椭圆"><a href="#画半个椭圆" class="headerlink" title="画半个椭圆"></a>画半个椭圆</h3><p><img src="/2022/05/23/DLS-note-3/13.jpg" alt></p>
+<p>椭圆的公式是$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，其中$a$是椭圆在x轴上的轴长，$b$是在y轴上的轴长。我画的椭圆的长轴为20，短轴为10，其形状和公式如图所示。</p>
+<p>但程序可不认得这个公式。为了生成椭圆上的点，我们可以遍历横坐标x，用公式$y=b\sqrt{1-\frac{x^2}{a^2}}$算出对应的y坐标。</p>
+<p>这段生成半椭圆的代码如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">half_oval</span>(<span class="params">cnt, h=<span class="number">10</span>, w=<span class="number">20</span></span>):</span></span><br><span class="line">    x = np.linspace(-w, w, cnt)</span><br><span class="line">    y = np.sqrt(h * h * (<span class="number">1</span> - x * x / w / w))</span><br><span class="line">    <span class="keyword">return</span> np.stack((x, y), <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">petal1 = half_oval(<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<p><code>hafl_ovel</code>的参数分别表示椭圆上点的数量、y轴上轴长、x轴上轴长。根据刚刚的理论分析，我们在第二、三行算出所有点的x, y坐标。第四行用<code>np.stack((x, y), 1)</code>把坐标合并起来。</p>
+<p>这里要介绍一下<code>stack</code>函数的用法。<code>stack</code>用于把多个张量（第一个参数）按某一维（第二个参数）堆叠起来。第一个参数很好理解，而第二个参数“堆叠的维度”就不是那么好理解了。让我们针对这份代码，看两个取不同维度的例子。</p>
+<p>在我们这份代码中，执行完第二、三行后，<code>x</code>是<code>[x1, x2 ..., xn]</code>这样一个形状为<code>[n]</code>的向量，<code>y</code>也是<code>[y1, y2 ..., yn]</code>这样一个形状为<code>[n]</code>的向量。</p>
+<p>当堆叠维度取0时，<code>x</code>会变成<code>[[x1, x2, ..., xn]]([1, n])</code>的矩阵，<code>y</code>会变成<code>[[y1, y2, ..., yn]]([1, n])</code>的矩阵。之后，两个矩阵的第一维会拼起来，变成<code>[[x1, x2, ..., xn], [y1, y2, ..., yn]]</code>这样一个形状为<code>[2, n]</code>的矩阵。</p>
+<p>当堆叠维度取1时，<code>x</code>会变成<code>[[x1], [x2], ..., [xn]]([n, 1])</code>的矩阵，<code>y</code>会变成<code>[[y1], [y2], ..., [yn]]([n, 1])</code>的矩阵。之后，两个矩阵的第二维会拼起来，变成<code>[[x1, y1], [x2, y2]..., [xn, yn]]</code>这样一个形状为<code>[n, 2]</code>的矩阵。</p>
+<p>我们希望生成一个坐标的数组，即形状为<code>[n 2]</code>的矩阵。因此，我们会堆叠维度1（第二个维度），即使用如下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.stack((x, y), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>总之，经过以上操作，<code>half_oval</code>会返回一个形状为<code>[n, 2]</code>的坐标数组，表示半个花瓣上每个点的坐标。</p>
+<h3 id="翻转合并椭圆"><a href="#翻转合并椭圆" class="headerlink" title="翻转合并椭圆"></a>翻转合并椭圆</h3><p>要把半椭圆垂直翻转,实际上只要令半椭圆上所有点的y坐标取反即可：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x &\gets x \\ 
+   y &\gets -y
+\end{aligned}
+\right.</script><p>但是，这种写法不够高级。我们可以写成矩阵乘法的形式：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\left[
+\begin{aligned}
+   &x  \\
+   &y  
+\end{aligned}
+\right] \gets
+\left[
+\begin{aligned}
+   &1  &0 \\
+   &0  &-1
+\end{aligned}
+\right] \times
+\left[
+\begin{aligned}
+   &x  \\
+   &y  
+\end{aligned}
+\right] \\
+\Rightarrow&\left[
+\begin{aligned}
+   &x  \\
+   &y  
+\end{aligned}
+\right] \gets
+
+\left[
+\begin{aligned}
+   x  \\
+   -y  
+\end{aligned}
+\right]
+\end{align*}</script><blockquote>
+<p>如果你对矩阵乘法不熟，只需要知道</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{aligned}
+   &a  &b \\
+   &c  &d
+\end{aligned}
+\right] \times
+\left[
+\begin{aligned}
+   &x  \\
+   &y  
+\end{aligned}
+\right]=
+\left[
+\begin{aligned}
+   &ax+by  \\
+   &cx+dy  
+\end{aligned}
+\right]</script></blockquote>
+<p>设翻转矩阵为$F$，坐标向量为$p$，则翻转后的向量$p’$可以写成：</p>
+<script type="math/tex; mode=display">
+p'=Fp</script><p>这里我们默认$p$和$p’$都是列向量。但是，刚刚我们生成点的坐标时，每个坐标都是一个行向量。也就是说，$p$和$p’$其实都是行向量。因此，上式应该改成：</p>
+<script type="math/tex; mode=display">
+p'^T=Fp^T</script><p>最后我们要算的是$p’$，因此可以对上式两边再取转置：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p'&=(Fp^T)^T \\
+&=pF^T
+\end{align*}</script><p>有了这些数学上的分析，我们可以写代码了。</p>
+<p>首先是生成翻转矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vertical_flip</span>():</span></span><br><span class="line">    <span class="keyword">return</span> np.array([[<span class="number">1</span>, <span class="number">0</span>], [<span class="number">0</span>, -<span class="number">1</span>]])</span><br></pre></td></tr></table></figure>
+<p>之后生成翻转后的花瓣：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">petal2 = np.dot(half_oval(<span class="number">20</span>), vertical_flip().T)</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们有开始得到的<code>petal1</code>和翻转后的<code>petal2</code>，它们的形状都是<code>[n, 2]</code>。我们希望把这两个坐标数组合并起来。这可以通过下面这行代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">petal = np.concatenate((petal1, petal2), <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><code>concatenate</code>用于按某一维（第二个参数）拼接张量（第一个参数）。回顾一下，刚刚的半椭圆张量的形状<code>[n, 2]</code>表示有<code>n</code>个<code>2</code>维坐标。合并两个半椭圆后，我们应该得到<code>2n</code>个点，即得到一个形状为<code>[2n, 2]</code>的张量。因此，这里我们要把两个半椭圆数组按第一维（<code>0</code>号维度）拼接。</p>
+<p><code>concatenate</code>和刚刚提到的<code>stack</code>有点像。其实，<code>stack</code>就是新建了一个维度，再做<code>concatenate</code>操作。<code>stack</code>一般由于把单独计算出来的<code>x, y, z</code>这样的坐标堆叠成一个坐标数组/坐标张量，<code>concatenate</code>一般用于合并多个性质一样的张量，比如这里的合并两个坐标数组。</p>
+<h3 id="移动椭圆"><a href="#移动椭圆" class="headerlink" title="移动椭圆"></a>移动椭圆</h3><p>移动椭圆很简单，只要给所有坐标加同一个向量就行了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">petal += [<span class="number">25</span>, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>注意，这里的<code>petal</code>是一个形状为<code>[2n, 2]</code>的张量，而<code>[25, 0]</code>是一个形状为<code>[2]</code>的张量。这一个逐元素的加法操作之所以能够被程序正常解读，是因为上周提到的“广播”操作。通过使用广播，<code>[25, 0]</code>这个向量被加到了坐标数组中的每一个坐标里。</p>
+<h3 id="旋转花瓣，生成花朵"><a href="#旋转花瓣，生成花朵" class="headerlink" title="旋转花瓣，生成花朵"></a>旋转花瓣，生成花朵</h3><p><img src="/2022/05/23/DLS-note-3/14.jpg" alt></p>
+<p>如上图1所示，一个坐标$(x, y)$可以用它到原点的距离$r$和与x正半轴夹角$\theta$表示：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x = r \cdot cos\theta \\
+   y = r \cdot sin\theta
+\end{aligned}
+\right.</script><p>那么，如上图2所示，假设现在把一个夹角为$\theta$的$(x_1, y_1)$旋转$\alpha$后得到了$(x_2, y_2)$，$(x_2, y_2)$可以表示为:</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x_2 = r \cdot cos(\theta+\alpha) \\
+   y_2 = r \cdot sin(\theta+\alpha)
+\end{aligned}
+\right.</script><p>但是，我们现在只知道$(x_1, y_1)$这个坐标。给定$x_1, y_1, \alpha$，该怎么计算出$x_2, y_2$呢？</p>
+<p>这里，我们可以用高中学过的三角函数两角和公式，把刚才那个三角函数“拆开”：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x_2 &= r \cdot cos(\theta+\alpha) \\
+   &= r(cos \theta cos\alpha - sin \theta sin\alpha)\\
+   y_2 &= r \cdot sin(\theta+\alpha) \\
+   &= r(sin \theta cos\alpha + cos \theta sin\alpha)
+\end{aligned}
+\right.</script><p>我们又已知：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x_1 = r \cdot cos\theta \\
+   y_1 = r \cdot sin\theta
+\end{aligned}
+\right.</script><p>因此，$x_2, y_2$可以用下面的式子表示：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   x_2 &= r(cos \theta cos\alpha - sin \theta sin\alpha)\\
+   &= cos\alpha \cdot x_1 - sin\alpha \cdot y_1\\
+   y_2 &= r(sin \theta cos\alpha + cos \theta sin\alpha) \\
+   &= cos\alpha \cdot y_1 + sin\alpha \cdot x_1
+\end{aligned}
+\right.</script><p>这个式子用矩阵乘法表达如下：</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{aligned}
+   &x_2  \\
+   &y_2  
+\end{aligned}
+\right]=
+\left[
+\begin{aligned}
+   &cos\alpha  &-sin\alpha \\
+   &sin\alpha  &cos\alpha
+\end{aligned}
+\right] \times
+\left[
+\begin{aligned}
+   &x_1  \\
+   &y_2  
+\end{aligned}
+\right]</script><p>也就是说，旋转操作也可以用一个矩阵表示。我们可以用和刚刚做翻转操作相同的办法，对坐标数组做旋转。以下是代码实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rotate</span>(<span class="params">theta</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.array([[np.cos(theta), -np.sin(theta)],</span><br><span class="line">                     [np.sin(theta), np.cos(theta)]])</span><br></pre></td></tr></table></figure>
+<p>这个函数可以生成一个让坐标旋转<code>theta</code>弧度的矩阵。</p>
+<p>这样，我们如果想让一个坐标数组旋转60度，可以写下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new_petal = np.dot(petal, rotate(np.radians(<span class="number">60</span>)).T)</span><br></pre></td></tr></table></figure>
+<p>在生成花朵时，我们除了生成第一片花瓣外，还要通过旋转生成另外5朵花瓣，并把花瓣合并起来。这整个流程的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">petal1 = half_oval(<span class="number">20</span>)</span><br><span class="line">petal2 = np.dot(half_oval(<span class="number">20</span>), vertical_flip().T)</span><br><span class="line">petal = np.concatenate((petal1, petal2), <span class="number">0</span>)</span><br><span class="line">petal += [<span class="number">25</span>, <span class="number">0</span>]</span><br><span class="line">flower = petal.copy()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    new_petal = np.dot(petal.copy(), rotate(np.radians(<span class="number">60</span>) * (i + <span class="number">1</span>)).T)</span><br><span class="line">    flower = np.concatenate((flower, new_petal), <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>我们可以给每个坐标打上0或1的标签，0表示点是红色，1表示点是绿色。然后，我们把各个花瓣染成不同的颜色：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">label = np.zeros([<span class="number">40</span> * <span class="number">6</span>])</span><br><span class="line">label[<span class="number">0</span>:<span class="number">40</span>] = <span class="number">1</span></span><br><span class="line">label[<span class="number">40</span>:<span class="number">80</span>] = <span class="number">1</span></span><br><span class="line">label[<span class="number">120</span>:<span class="number">160</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>再做一些操作就可以用<code>matplotlib</code>画出花朵了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = flower[:, <span class="number">0</span>]</span><br><span class="line">y = flower[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">c = np.where(label == <span class="number">0</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;g&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.scatter(x, y, c=c)</span><br><span class="line"></span><br><span class="line">plt.xlim(-<span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line">plt.ylim(-<span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h3 id="在数据中加入噪声"><a href="#在数据中加入噪声" class="headerlink" title="在数据中加入噪声"></a>在数据中加入噪声</h3><p>大家可以发现，我生成的花朵数据中，有几个点的颜色“不太对劲”。这是为了模拟训练数据中的噪声数据。让我们看看这些噪声是怎么添加的。</p>
+<p>为了让部分数据的标签出错，我们只需要随机挑选出一些数据，然后令它们的标签取反（0变1，1变0）即可。这里涉及一个问题：该怎样从n个数据中随机挑选出若干个数据呢？</p>
+<p>在我项目中，我使用的方法如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy.random <span class="keyword">import</span> default_rng</span><br><span class="line"></span><br><span class="line">rng = default_rng()</span><br><span class="line">noise_indice1 = rng.choice(<span class="number">40</span> * <span class="number">6</span>, <span class="number">10</span>, replace=<span class="literal">False</span>)</span><br><span class="line">label[noise_indice1] = <span class="number">1</span> - label[noise_indice1]</span><br></pre></td></tr></table></figure></p>
+<p>生成随机数需要一个随机数生成器。这里我用<code>rng = default_rng()</code>生成了一个默认的随机数生成器，它从<strong>均匀分布</strong>生成随机数。</p>
+<p><code>noise_indice1 = rng.choice(40 * 6, 10, replace=False)</code>用于生成多个不重复的随机数。<code>rng.choice</code>的第一个参数<code>40*6</code>表示生成出来的随机数位于区间[1, 40*6]。第二个参数<code>10</code>表示生成10个随机数。<code>replace=False</code>表示生成的随机数不重复。</p>
+<p>最后，我们用<code>label[noise_indice1] = 1 - label[noise_indice1]</code>把随机选中的标签取反。</p>
 <h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>我很早之前就在计划如何构建我的个人IP。没想到，从上周日开始，我不知不觉地开始认真地在公开渠道上发文章了。</p>
 <p>发完文章后，我其实抱有很大的期待，希望能有很多人来读我的文章（哪怕是早已养成了不以他人的评价来评价自己的我，也不能免俗）。很可惜，文章似乎并不是很受欢迎。</p>
 <p>还好我有着强大的自信心，心态一点也不受影响。首先，我自己有着强大的鉴别能力，在我自己来看，我的文章水准不低；其次，我的部署教程经 OpenMMLab 发表，受到了不少赞誉，客观上证明我当前的写作水平很强。文章不受欢迎，肯定另有原因。</p>
@@ -650,7 +835,7 @@ db^{[1]} &= \frac{1}{m} \Sigma_{i=1}^m dZ^{[1](i)}
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/05/10/DLS-note-2/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》笔记+代码实战（三）：简单的神经网络——逻辑回归</a>
+            <a href="/2022/05/10/DLS-note-2/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》笔记+代码实战（二）：简单的神经网络——逻辑回归</a>
         </h2>
 
         <div class="post-meta">
