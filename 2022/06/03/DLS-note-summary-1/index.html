@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/06/03/DLS-note-summary-1/1.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/06/03/DLS-note-summary-1/2.jpg">
 <meta property="article:published_time" content="2022-06-03T12:12:07.000Z">
-<meta property="article:modified_time" content="2022-06-03T12:12:07.210Z">
+<meta property="article:modified_time" content="2022-06-05T12:50:17.686Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="深度学习">
@@ -245,7 +245,7 @@
 <li><p><strong>梯度下降</strong>：对于每个参数$p = w^{[l]} \ or \ b^{[l]}$，用$p := p-\alpha dp$更新参数。其中$\alpha$叫学习率，表示参数更新的速度。</p>
 </li>
 </ol>
-<h2 id="用Numpy实现神经网络"><a href="#用Numpy实现神经网络" class="headerlink" title="用Numpy实现神经网络"></a>用Numpy实现神经网络</h2><ol>
+<h2 id="用numpy实现神经网络"><a href="#用numpy实现神经网络" class="headerlink" title="用numpy实现神经网络"></a>用numpy实现神经网络</h2><ol>
 <li>把输入图片进行“压平”操作：</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">images = np.reshape(images, (-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
@@ -289,7 +289,7 @@
 <li>能用 numpy 实现神经网络的计算细节。</li>
 <li>能用 Python 实现读取数据集、输出精度等繁杂的操作。</li>
 </ul>
-<h1 id="第二阶段知识预览"><a href="#第二阶段知识预览" class="headerlink" title="第二阶段知识预览"></a>第二阶段知识预览</h1><p>《深度学习专项》第二门课的标题是《改进深度学习网络：调整超参数、正则化和优化》。从标题中也能看出，这门课涉及的内容会十分广泛。具体来说，在三周的时间里，我们会学习：</p>
+<h1 id="第二阶段知识预览"><a href="#第二阶段知识预览" class="headerlink" title="第二阶段知识预览"></a>第二阶段知识预览</h1><p>《深度学习专项》第二门课的标题是《改进深度神经网络：调整超参数、正则化和优化》。从标题中也能看出，这门课会介绍广泛的改进深度神经网络性能的技术。具体来说，在三周的时间里，我们会学习：</p>
 <ul>
 <li>第一周：深度学习的实践层面 <ul>
 <li>训练集/开发集/测试集的划分</li>
@@ -297,7 +297,7 @@
 <li>机器学习的基础改进流程</li>
 <li>正则化</li>
 <li>输入归一化</li>
-<li>梯度问题与带权初始化</li>
+<li>梯度问题与加权初始化</li>
 <li>梯度检查</li>
 </ul>
 </li>
@@ -315,7 +315,52 @@
 </ul>
 </li>
 </ul>
+<p>目录还是比较凌乱的，让我们具体看一下每项主要知识点的介绍：</p>
+<ul>
+<li>训练集/开发集/测试集的划分<ul>
+<li>之前我们只把数据集划分成训练集和测试集两个部分。但实际上，我们还需要一个用于调试的“开发集”。</li>
+</ul>
+</li>
+<li>偏差与方差<ul>
+<li>机器学习模型的性能不够好，体现在高偏差和高方差两个方面。前者表示模型的描述能力不足，后者表示模型在训练集上过拟合。</li>
+<li>为了解决过拟合问题，我们要使用添加正则项、dropout等正则化方法。</li>
+</ul>
+</li>
+<li>梯度问题<ul>
+<li>在较深的神经网络中，数值运算结果可能会过大或过小，这会导致梯度爆炸或者梯度弥散。</li>
+<li>加权初始化可以解决这一问题。我们即将认识多种初始化参数的方法。</li>
+</ul>
+</li>
+<li>优化梯度下降<ul>
+<li>使用mini-batch：处理完部分训练数据后就执行梯度下降，而不用等处理完整个训练数据集。</li>
+<li>使用更高级的梯度下降算法，比如让梯度更平滑的momentum优化器，以及结合了多种算法的adam优化器。</li>
+<li>在训练一段时间后，减少学习率也能提高网络的收敛速度。</li>
+</ul>
+</li>
+<li>调参策略<ul>
+<li>在调试神经网络的超参数时，有一些超参数的优先级更高。我们应该按照优先级从高到低的顺序调参。</li>
+<li>在调参时，一种技巧是多次随机选取超参数，观察哪些配置下网络的表现最好。</li>
+</ul>
+</li>
+<li>归一化<ul>
+<li>对输入做归一化能够加速梯度下降。</li>
+<li>除了对输入做归一化外，我们还可以对每一层的输出做批归一化，这项技术能够让我们的网络更加健壮。</li>
+</ul>
+</li>
+<li>多分类问题<ul>
+<li>前几周我们一直关注的是二分类问题。我们将学习如何用类似的公式，把二分类问题推广到多分类问题。</li>
+</ul>
+</li>
+<li>编程框架<ul>
+<li>深度学习编程框架往往带有自动求导的功能，能够极大提升我们的开发效率。学完第二门课后，我们将一直使用TensorFlow来编程。</li>
+<li>我会顺便介绍所有编程任务的 PyTorch 等价实现。</li>
+</ul>
+</li>
+</ul>
 <p>可以看出，第二门课包含的内容非常多。甚至很多知识都只会在课堂上提一两句，得通过阅读原论文才能彻底学会这些知识。但是，这门课的知识都非常重要。学完了第二门课后，我们对于深度学习的理解能提升整整一个台阶。让我们做好准备，迎接下周的学习。</p>
+<hr>
+<p>关注我社交媒体的人，肯定质疑我最近的行为：你最近怎么发文章只注意数量不注意质量啊？怎么一篇文章可以拆开来发好几遍啊？</p>
+<p>这你就不懂了。我最近想看看，这些社交平台究竟有多捞：我提供了这么优质的文字内容，我看你们会不会去认真推广，会不会发掘优质内容。结果，我发现这些平台确实都很捞，根本不去好好推送的。没办法，我只好先写一批质量中等的文章，增加发文的次数。我倒要看看这些平台什么时候能给我符合我文章质量的关注量。文章看的人多，我才有继续创作更优质内容的动力。</p>
 
     </div>
 
@@ -338,7 +383,10 @@
     <a href="/2022/06/01/20220531-styletransfer/" rel="prev" title="Neural Style Transfer 风格迁移经典论文讲解与 PyTorch 实现">
       <i class="fa fa-chevron-left"></i> Neural Style Transfer 风格迁移经典论文讲解与 PyTorch 实现
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/11/DLS-note-5/" rel="next" title="吴恩达《深度学习专项》笔记+代码实战（五）：深度学习的实践层面">
+      吴恩达《深度学习专项》笔记+代码实战（五）：深度学习的实践层面 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -397,7 +445,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">《神经网络与深度学习》知识回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络的训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8Numpy%E5%AE%9E%E7%8E%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.4.</span> <span class="nav-text">用Numpy实现神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0%E6%83%85%E5%86%B5%E8%87%AA%E8%AF%84"><span class="nav-number">2.</span> <span class="nav-text">第一阶段学习情况自评</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-1-%E8%83%BD%E8%B0%88%E8%AE%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">Level 1 能谈论深度学习的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-2-%E8%83%BD%E8%B0%83%E7%94%A8%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">Level 2 能调用深度学习框架的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-3-%E6%8E%8C%E6%8F%A1%E6%89%80%E6%9C%89%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">Level 3 掌握所有知识细节的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-4-%E8%83%BD%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E7%B1%BB%E5%99%A8%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.4.</span> <span class="nav-text">Level 4 能从零开始实现一个分类器的程度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%9F%A5%E8%AF%86%E9%A2%84%E8%A7%88"><span class="nav-number">3.</span> <span class="nav-text">第二阶段知识预览</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">《神经网络与深度学习》知识回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%AE%AD%E7%BB%83"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络的训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8numpy%E5%AE%9E%E7%8E%B0%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">1.4.</span> <span class="nav-text">用numpy实现神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0%E6%83%85%E5%86%B5%E8%87%AA%E8%AF%84"><span class="nav-number">2.</span> <span class="nav-text">第一阶段学习情况自评</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-1-%E8%83%BD%E8%B0%88%E8%AE%BA%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">Level 1 能谈论深度学习的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-2-%E8%83%BD%E8%B0%83%E7%94%A8%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.2.</span> <span class="nav-text">Level 2 能调用深度学习框架的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-3-%E6%8E%8C%E6%8F%A1%E6%89%80%E6%9C%89%E7%9F%A5%E8%AF%86%E7%BB%86%E8%8A%82%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">Level 3 掌握所有知识细节的程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Level-4-%E8%83%BD%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E7%B1%BB%E5%99%A8%E7%9A%84%E7%A8%8B%E5%BA%A6"><span class="nav-number">2.4.</span> <span class="nav-text">Level 4 能从零开始实现一个分类器的程度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%9F%A5%E8%AF%86%E9%A2%84%E8%A7%88"><span class="nav-number">3.</span> <span class="nav-text">第二阶段知识预览</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -411,7 +459,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
