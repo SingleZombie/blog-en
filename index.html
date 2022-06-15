@@ -226,8 +226,8 @@
 <p>其实，我们不一定要等遍历完了整个数据集再做梯度下降。相较于每次遍历完所有$m$个训练样本再更新，我们可以遍历完一小批次(mini-batch)的样本就更新。让我们来看课件里的一个例子：</p>
 <p><img src="/2022/06/15/DLS-note-6/1.jpg" alt></p>
 <p>假设整个数据集大小$m=5,000,000$。我们可以把数据集划分成5000个mini-batch，其中每一个batch包含1000个数据。做梯度下降时，我们每跑完一个batch里的1000个数据，就用它们的平均梯度去更新参数，再去跑下一个batch。</p>
-<p>这里要介绍一个新的标记。设整个数据集$X$的形状是$(n_x, m)(m=5,000,000)$，则<strong>第$i$个数据集的标记</strong>为$X^$,形状为$(n_x, 1000)$。</p>
-<p>再次总结一下标记：$x^{(i)[j]{k}}$中的上标分别表示和第i个样本相关、和第j层相关、和第k个批次的样本集相关。实际上这三个标记几乎不会同时出现。</p>
+<p>这里要介绍一个新的标记。设整个数据集$X$的形状是$(n_x, m)(m=5,000,000)$，则第<strong>$i$个数据集的标记</strong>为 $X^{\lbrace i \rbrace}$ ,形状为$(n_x, 1000)$。</p>
+<p>再次总结一下标记：$x^{(i)[j]\lbrace k\rbrace}$中的上标分别表示和第i个样本相关、和第j层相关、和第k个批次的样本集相关。实际上这三个标记几乎不会同时出现。</p>
 <p>使用了分批梯度下降后，算法的写法由</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">    update parameters</span><br></pre></td></tr></table></figure>
 <p>变成</p>
@@ -266,9 +266,11 @@ t_i=\left\{
 <script type="math/tex; mode=display">
 ma_i=\frac{t_i+t_{i-1}+t_{i-2}+t_{i-3}+t_{i-4}}{5} (1 \leq i \leq 365)</script><p>假如要让计算机<strong>依次输出</strong>每天的移动平均数，该怎么编写算法呢？我们来看几个移动平均数的例子：</p>
 <script type="math/tex; mode=display">
+\begin{aligned}
 ma_5=(t_5+t_4+t_3+t_2+t_1)/5 \\
 ma_6=(t_6+t_5+t_4+t_3+t_2)/5 \\
-ma_7=(t_7+t_6+t_5+t_4+t_3)/5</script><p>通过观察，我们可以发现$ma_6=ma_5+(t_6-t_1)/5$，$ma_7=ma_6+(t_7-t_2)/5$。</p>
+ma_7=(t_7+t_6+t_5+t_4+t_3)/5
+\end{aligned}</script><p>通过观察，我们可以发现$ma_6=ma_5+(t_6-t_1)/5$，$ma_7=ma_6+(t_7-t_2)/5$。</p>
 <p>也就是说，在算n天里的m天移动平均数（我们刚刚计算的是5天移动平均数）时，我们不用在n次的外层循环里再写一个m次的循环，只需要根据前一天的移动平均数，减一个值加一个值即可。这种依次输出移动平均数的算法如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span> temperature[<span class="number">0</span>:n]</span><br><span class="line"><span class="built_in">input</span> m</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_temperature</span>(<span class="params">i</span>):</span></span><br><span class="line">    <span class="keyword">return</span> temperature[i] <span class="keyword">if</span> i &gt;= <span class="number">0</span> <span class="keyword">and</span> i &lt; n <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">ma = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    ma += (get_temperature(i) - get_temperature(i - m)) / m</span><br><span class="line">    ma_i = ma</span><br><span class="line">    output ma_i</span><br></pre></td></tr></table></figure>
 <p>这种求移动平均数的方法确实很高效。但是，我们上面这个算法是基于所有温度值<strong>一次性给出</strong>的情况。假如我们正在算今年每天温度的移动平均数，每天的温度是一天一天给出的，而不是一次性给出的，上面的算法应该怎么修改呢？让我们来看修改后的算法：</p>
