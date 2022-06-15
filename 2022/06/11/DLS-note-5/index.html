@@ -45,7 +45,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/06/11/DLS-note-5/17.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/06/11/DLS-note-5/18.jpg">
 <meta property="article:published_time" content="2022-06-11T07:56:46.000Z">
-<meta property="article:modified_time" content="2022-06-11T07:56:46.132Z">
+<meta property="article:modified_time" content="2022-06-11T08:27:26.676Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="编程">
@@ -409,7 +409,7 @@ w &:= w - \alpha (dw +\frac{\lambda}{m}w) \\
 <blockquote>
 <p>由于在CV（计算机视觉）中，图像的输入规模都很大，数据不足而引起过拟合是一件常见的事。因此，dropout在CV中被广泛应用。</p>
 </blockquote>
-<p>注意，dropout是一种训练策略。在测试的时候，不需要只用dropout。</p>
+<p>注意，dropout是一种训练策略。在测试的时候，不需要使用dropout。</p>
 <p>和刚才一样，我们再来探讨一下为什么dropout能够生效。有了dropout，意味着神经网络的权重不能集中在部分神经元上，因为某个神经元随时都可能会失效。因此，神经网络的权重会更加平均。更加平均，意味着计算参数平方的l2范数会更小。也就是说，dropout令参数更平均，起到了和刚刚添加l2正则类似的效果。</p>
 <h2 id="其他正则化方法"><a href="#其他正则化方法" class="headerlink" title="其他正则化方法"></a>其他正则化方法</h2><ol>
 <li>数据增强</li>
@@ -555,7 +555,7 @@ error=\frac{||\hat{d_{\theta_i}}-d_{\theta_i}||_2}{||\hat{d_{\theta_i}}||_2\cdot
 <li>梯度检查的实现</li>
 </ul>
 <p>这堂课中，<strong>正则化</strong>和<strong>参数带权初始化</strong>是两个很重要的话题，展开来的话有很多东西要学。过段时间，我会在课堂内容的基础上，对这些知识进行拓展介绍。</p>
-<h1 id="代码实战"><a href="#代码实战" class="headerlink" title="代码实战"></a>代码实战</h1><p>在本周的代码实战中，我们将继续以点集分类任务为例，完成<strong>参数初始化</strong>和<strong>正则化</strong> 两项任务。</p>
+<h1 id="代码实战"><a href="#代码实战" class="headerlink" title="代码实战"></a>代码实战</h1><p>在本周的代码实战中，我们将继续以点集分类任务为例，完成<strong>参数初始化</strong>和<strong>正则化</strong>两项任务。</p>
 <h2 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h2><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/Initialization">https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/Initialization</a></p>
 <p>在参数初始化问题中，我们要探究不同初始化方法对梯度更新的影响。假设我们有下面这样一个点集分类数据集：</p>
 <p><img src="/2022/06/11/DLS-note-5/11.jpg" alt></p>
@@ -606,7 +606,10 @@ error=\frac{||\hat{d_{\theta_i}}-d_{\theta_i}||_2}{||\hat{d_{\theta_i}}||_2\cdot
     <a href="/2022/06/03/DLS-note-summary-1/" rel="prev" title="吴恩达《深度学习专项》第一阶段总结与第二阶段预览">
       <i class="fa fa-chevron-left"></i> 吴恩达《深度学习专项》第一阶段总结与第二阶段预览
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/15/DLS-note-6/" rel="next" title="吴恩达《深度学习专项》笔记+代码实战（六）：改进梯度下降算法">
+      吴恩达《深度学习专项》笔记+代码实战（六）：改进梯度下降算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -679,7 +682,7 @@ error=\frac{||\hat{d_{\theta_i}}-d_{\theta_i}||_2}{||\hat{d_{\theta_i}}||_2\cdot
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
