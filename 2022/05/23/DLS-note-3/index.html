@@ -17,31 +17,31 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="在上节课中，我们学习了逻辑回归——一种经典的学习算法。我兴致勃勃地用它训练了一个猫狗分类模型，结果只得到了57%这么个惨淡的准确率。正好，这周开始学习如何实现更复杂的模型了。这次，我一定要一雪前耻！ 开始学这周的课之前，先回忆一下上周我们学习了什么。 对于一个神经网络，我们要定义它的网络结构（一个数学公式），定义损失函数。根据损失函数和网络结构，我们可以对网络的参数求导，并用梯度下降法最小化损失函">
 <meta property="og:type" content="article">
 <meta property="og:title" content="吴恩达《深度学习专项》笔记+代码实战（三）：“浅度”神经网络">
-<meta property="og:url" content="https://zhouyifan.net/2022/05/23/DLS-note-3/index.html">
+<meta property="og:url" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="在上节课中，我们学习了逻辑回归——一种经典的学习算法。我兴致勃勃地用它训练了一个猫狗分类模型，结果只得到了57%这么个惨淡的准确率。正好，这周开始学习如何实现更复杂的模型了。这次，我一定要一雪前耻！ 开始学这周的课之前，先回忆一下上周我们学习了什么。 对于一个神经网络，我们要定义它的网络结构（一个数学公式），定义损失函数。根据损失函数和网络结构，我们可以对网络的参数求导，并用梯度下降法最小化损失函">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/0.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/4.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/5.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/6.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/7.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/8.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/9.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/10.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/11.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/12.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/13.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/14.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/0.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/1.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/2.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/3.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/4.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/5.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/6.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/7.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/8.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/9.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/10.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/11.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/12.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/13.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/14.jpg">
 <meta property="article:published_time" content="2022-05-23T07:36:34.000Z">
 <meta property="article:modified_time" content="2022-05-28T10:44:58.664Z">
 <meta property="article:author" content="Zhou Yifan">
@@ -49,9 +49,9 @@
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2022/05/23/DLS-note-3/0.jpg">
+<meta name="twitter:image" content="https://singlezombie.github.io/2022/05/23/DLS-note-3/0.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2022/05/23/DLS-note-3/">
+<link rel="canonical" href="https://singlezombie.github.io/2022/05/23/DLS-note-3/">
 
 
 <script id="page-configurations">
@@ -184,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/05/23/DLS-note-3/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/05/23/DLS-note-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

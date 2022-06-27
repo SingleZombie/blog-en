@@ -17,17 +17,17 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="本文先对论文“SLIC Superpixels Compared to State-of-the-Art Superpixel Methods”做一个论文阅读报告，再稍微介绍一下其他论文，介绍算法原理。下一篇文章会按之前小作业的格式写技能学习、编程过程、代码结构介绍、实验结果分析与感想。 SLIC论文阅读报告在搜索引擎中可以找到很多分析此论文的中文博客。比如这篇博客分析了代码实现原理。论文中的代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字图像处理大作业：图像分割项目之论文阅读（使用SLIC获取超像素，对超像素使用AP聚类）">
-<meta property="og:url" content="https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/index.html">
+<meta property="og:url" content="https://singlezombie.github.io/2020/01/30/DIP-image-segmentation-project/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="本文先对论文“SLIC Superpixels Compared to State-of-the-Art Superpixel Methods”做一个论文阅读报告，再稍微介绍一下其他论文，介绍算法原理。下一篇文章会按之前小作业的格式写技能学习、编程过程、代码结构介绍、实验结果分析与感想。 SLIC论文阅读报告在搜索引擎中可以找到很多分析此论文的中文博客。比如这篇博客分析了代码实现原理。论文中的代码">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/superpixel.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/01/30/DIP-image-segmentation-project/superpixel.jpg">
 <meta property="article:published_time" content="2020-01-30T11:13:54.000Z">
 <meta property="article:modified_time" content="2021-08-21T03:39:38.195Z">
 <meta property="article:author" content="Zhou Yifan">
@@ -35,9 +35,9 @@
 <meta property="article:tag" content="数字图像处理">
 <meta property="article:tag" content="文献阅读">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/superpixel.jpg">
+<meta name="twitter:image" content="https://singlezombie.github.io/2020/01/30/DIP-image-segmentation-project/superpixel.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/">
+<link rel="canonical" href="https://singlezombie.github.io/2020/01/30/DIP-image-segmentation-project/">
 
 
 <script id="page-configurations">
@@ -170,7 +170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/30/DIP-image-segmentation-project/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/30/DIP-image-segmentation-project/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

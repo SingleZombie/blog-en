@@ -17,24 +17,24 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="和上一篇博文一样，这篇博文也是一个项目回顾与总结。 这个项目是我NLP的第二个大作业。在这个大作业中，老师要求做一个能完成某个功能（而不是做句法分析等预处理工作）的NLP程序。选题时可以从老师给定的题目中选，也可以自己找一个题目。当时我时间并不是很充足（感觉这学期我就没有在时间充裕的情况下写过项目），准备尽快把项目做完，因此决定从老师给的题目里挑一个来实现。一开始我挑了垃圾评论检测，因为老师明确指">
 <meta property="og:type" content="article">
 <meta property="og:title" content="中文拼写检查器（基于图网格，C++实现）">
-<meta property="og:url" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/index.html">
+<meta property="og:url" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="和上一篇博文一样，这篇博文也是一个项目回顾与总结。 这个项目是我NLP的第二个大作业。在这个大作业中，老师要求做一个能完成某个功能（而不是做句法分析等预处理工作）的NLP程序。选题时可以从老师给定的题目中选，也可以自己找一个题目。当时我时间并不是很充足（感觉这学期我就没有在时间充裕的情况下写过项目），准备尽快把项目做完，因此决定从老师给的题目里挑一个来实现。一开始我挑了垃圾评论检测，因为老师明确指">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p4.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p5.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p6.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p7.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p8.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p2.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p3.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p4.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p5.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p6.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p7.jpg">
+<meta property="og:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p8.jpg">
 <meta property="article:published_time" content="2020-02-09T03:48:22.000Z">
 <meta property="article:modified_time" content="2022-03-15T08:58:55.342Z">
 <meta property="article:author" content="Zhou Yifan">
@@ -43,9 +43,9 @@
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="自然语言处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
+<meta name="twitter:image" content="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/">
+<link rel="canonical" href="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/">
 
 
 <script id="page-configurations">
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/02/09/Chinese-Spelling-Checker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

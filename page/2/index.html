@@ -17,20 +17,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="周弈帆的博客">
-<meta property="og:url" content="https://zhouyifan.net/page/2/index.html">
+<meta property="og:url" content="https://singlezombie.github.io/page/2/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Zhou Yifan">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://zhouyifan.net/page/2/">
+<link rel="canonical" href="https://singlezombie.github.io/page/2/">
 
 
 <script id="page-configurations">
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/04/23/DLS-note-1/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/04/23/DLS-note-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -271,7 +271,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/03/18/20220315-custom-op/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/03/18/20220315-custom-op/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -486,7 +486,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/03/08/Code-Optimization-Fun/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/03/08/Code-Optimization-Fun/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -544,7 +544,7 @@
 <p>我的编程任务正式开始了。准确来说，我做的不是编程，是合理而优雅地修改老师给的代码，让这个代码运行速度更快一些，而不改变程序本身的意思。要打比方的话，我是一个拿着手术刀的医生，我需要精准地切掉病变部位，还病人一个更好的身体。比较幸运的是，我的工作可以反复调试，代码出了问题可以重新修改，而不需要担心造成什么破坏性的后果。</p>
 <p>代码的功能是计算化学反应的一些参数。这段代码产生的程序不会产生任何花哨的网页、按钮，只会在默默地运行数十秒中后，冷冰冰地在控制台上输出一行数学计算的结果。运行这段代码就好像把一个优等生关进一个房间，让他把数学卷子全做出来再离开一样。只不过程序在输入的参数完全相同的情况下，每次都会执行一模一样的操作，最终得到完全相同，完全正确的结果。</p>
 <p>这段代码可谓是又臭又长。丝毫没有注释，一个文件里的代码（代码分布在多个文件中）全是看不懂的化学常量，另一个文件的代码全是看似毫无逻辑的计算步骤。在浏览过代码，手足无措数秒钟后，我迅速转换了思维：“化学反应的代码归根结底就是计算一个很长的公式。我没有必要看懂为什么这么做，我只需要知道哪些加减乘除运算可以被我优化就行了。”我的这种冷静能力与思维跳转能力非常惊人。</p>
-<p>在<a href="https://zhouyifan.net/2019/12/23/Software-Engineering-Project/">这个大作业</a>中，我学到了查看代码性能瓶颈的方法。经过检测，代码最耗时的部分竟然是一个<code>exp()</code>自然指数运算。自然指数本身是一个很容易理解的函数，高中数学就讲过这个函数的性质。这个函数在数学上很好表达，在程序中计算起来却非常麻烦。因为这个函数的值往往是一个无限不循环数，而程序只能进行有限的计算。程序只能通过多次的加法、乘法来得到一个十分近似的结果。程序总计进行了3亿次自然指数运算，代码性能瓶颈出现在这确实也情有可原。</p>
+<p>在<a target="_blank" rel="noopener" href="https://zhouyifan.net/2019/12/23/Software-Engineering-Project/">这个大作业</a>中，我学到了查看代码性能瓶颈的方法。经过检测，代码最耗时的部分竟然是一个<code>exp()</code>自然指数运算。自然指数本身是一个很容易理解的函数，高中数学就讲过这个函数的性质。这个函数在数学上很好表达，在程序中计算起来却非常麻烦。因为这个函数的值往往是一个无限不循环数，而程序只能进行有限的计算。程序只能通过多次的加法、乘法来得到一个十分近似的结果。程序总计进行了3亿次自然指数运算，代码性能瓶颈出现在这确实也情有可原。</p>
 <p>程序中的指数运算，需要调用标准库。标准库是高级程序员们反复锤炼，被无数人反复验证的代码。这个自然指数运算对我来说是根本不可能修改的。看到这个情况，我心都凉了半截。</p>
 <p>虽然一上来就碰到如此困难的情况，但我再次调整了心态。指数运算耗费了三成的时间，还有七成的运行时间可以被优化。我把目光又放到了其他运算速度较慢的代码上。凭借多年的高级语言（比较抽象、接近自然语言的程序语言）编程经验，我意气风发，大刀阔斧地对代码进行优化。我主要对代码进行了预处理、循环合并这两类优化。预处理就是把一些程序中不会变动的常量提前算好，避免每次重新计算。就好像你提前买一箱抽纸，这样几个月都不用再去买纸一样。循环合并就是把条件一样，需要反复做的事情，再每个“反复”中一起做掉。比如让你去测全校同学的身高体重，量身高和量体重的仪器摆在一起，这里假设两台仪器不能同时工作。你不能让同学挨个测完身高，回教室休息一下，再一个一个回来量体重。每个人量身高体重的时间虽然没变，但来回教室、排队等待的时间浪费了。最好的方法是每个人先量身高，再量体重。如果你懂编程，你或许能理解，这里的来回教室时间就是CPU从内存中读数据的时间，排队时间可以看成循环变量、控制流耗费的时间，在一个循环里做尽可能多的事能减小时间开销。</p>
 <p>以上两类优化是非常基础的优化。经过优化后，程序运行时间从26秒到了17秒。很可惜，速度还没有达到2倍，我的成绩连及格也没有。我反复查看了其他部分的代码，绞尽脑汁也没有想出哪里可以优化。于是，我只好把目光再次放到了开始的指数运算上。</p>
@@ -597,7 +597,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/03/08/20220123-everyone-is-lonely/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/03/08/20220123-everyone-is-lonely/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -700,7 +700,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/03/04/20220303-Singapore-1/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/03/04/20220303-Singapore-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -841,7 +841,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/02/17/20220216-friend-farewell/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/02/17/20220216-friend-farewell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1025,7 +1025,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/12/31/20211226-goodbye-my-sweet-dream/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/12/31/20211226-goodbye-my-sweet-dream/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1149,7 +1149,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/12/25/20211207-Inscryption/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/12/25/20211207-Inscryption/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1307,7 +1307,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/12/05/20211205-metroid-dread/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/12/05/20211205-metroid-dread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1404,7 +1404,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/12/01/20211115-Can-t-hold-on-or-life-won-t-change/">
+    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/12/01/20211115-Can-t-hold-on-or-life-won-t-change/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
