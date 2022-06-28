@@ -17,20 +17,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="周弈帆的博客">
-<meta property="og:url" content="https://singlezombie.github.io/page/5/index.html">
+<meta property="og:url" content="https://zhouyifan.net/page/5/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Zhou Yifan">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://singlezombie.github.io/page/5/">
+<link rel="canonical" href="https://zhouyifan.net/page/5/">
 
 
 <script id="page-configurations">
@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/29/DIP-paper-code-reading/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/29/DIP-paper-code-reading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -217,7 +217,7 @@
 <p>寒假回家后，我整个人变得很懒，这个学期最后一门课程的大作业也迟迟没有做完。恰好我发现，自从我把博客链接放到了社交媒体上后，有同学看了我的博客。让别人看到自己“作品”的感觉还是很好的。我打算用写博客的方式来更好地完成作业。</p>
 <p>本文按照作业的要求，分为论文概要、代码模块分析、实验结果（使用自己的数据）三个部分。当然，由于我在博客里写东西比较随意，我提交的作业报告肯定会在这篇博客的基础上有所修改。</p>
 <h1 id="论文概要"><a href="#论文概要" class="headerlink" title="论文概要"></a>论文概要</h1><h2 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h2><p>本文解决的是一个非常经典的问题：如何恢复一张被模糊和添加噪声的图片。即假设模糊矩阵是$K$,原图像是$u$，噪声是$N$,模糊图像是$g$。那么$g = Ku+N$。现在我们只知道$g$，如何得到$u$。</p>
-<p>更具体地，本文介绍的是盲去模糊，即不知道模糊卷积核的情况下，应该如何恢复模糊图像。我上次写的<a target="_blank" rel="noopener" href="https://zhouyifan.net/2019/12/30/Digital-Image-Processing-homework2/">第二个小作业</a>解决的是类似的去模糊问题，但那次问题是一个非盲去模糊，即卷积核已知。</p>
+<p>更具体地，本文介绍的是盲去模糊，即不知道模糊卷积核的情况下，应该如何恢复模糊图像。我上次写的<a href="https://zhouyifan.net/2019/12/30/Digital-Image-Processing-homework2/">第二个小作业</a>解决的是类似的去模糊问题，但那次问题是一个非盲去模糊，即卷积核已知。</p>
 <h2 id="文章贡献"><a href="#文章贡献" class="headerlink" title="文章贡献"></a>文章贡献</h2><p>求未知模糊卷积核的问题可以被转换成一个优化问题，即求解某一个损失函数的最小值。文章主要的贡献是提出了一种在损失函数中添加正则化的方法，并且围绕这种方法提供了一套完整的去模糊算法。</p>
 <h2 id="方法思想"><a href="#方法思想" class="headerlink" title="方法思想"></a>方法思想</h2><p>求解模糊卷积核的优化问题有很多的局部最优解。为了获取一个更好的解，需要加入一些正则化项。正则化项似乎可以用在所有的优化问题里，来避免一些局部最优解。但正则化项的原理我一直都不是很理解，感觉这就是一个被人工设置出来的东西，没有比较清晰的理论依据。把一个参数的正则化项加入优化的损失函数，其直观意义就是让参数不能过大。</p>
 <p>在去模糊问题中优化问题中，一般使用的是复原图像的高频图像（后面会详细介绍这个是什么东西）的第一范式（每个分量的和）做为正则化项，加入到需要最小化的损失函数中。该文章发现，噪声增加能让第一范式项也增加，但是模糊却能减少第一范式项。如果单纯地把这一项放进优化目标里，可能得不到好的去模糊效果。文章发现，如果把第一范式和第二范式（每个分量平方和的平方根）的比值做为正则化项的话，无论是模糊增加还是噪声增加，都会让这一项增加。那么，最小化这一项，就能达到同时减少模糊和噪声的效果了。</p>
@@ -309,7 +309,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/11/Software-Engineering-course-review-1/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/11/Software-Engineering-course-review-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -492,7 +492,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/09/Principles-of-Computer-Composition-exam-result/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/09/Principles-of-Computer-Composition-exam-result/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -574,7 +574,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/07/Principles-of-Computer-Composition-cources-review-6/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/07/Principles-of-Computer-Composition-cources-review-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -707,7 +707,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/07/Principles-of-Computer-Composition-cources-review-5/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/07/Principles-of-Computer-Composition-cources-review-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -898,7 +898,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1089,7 +1089,7 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/06/Principles-of-Computer-Composition-cources-review-3/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1202,7 +1202,7 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/05/Principles-of-Computer-Composition-cources-review-2/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/05/Principles-of-Computer-Composition-cources-review-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1282,7 +1282,7 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2020/01/05/Principles-of-Computer-Composition-cources-review-1/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/05/Principles-of-Computer-Composition-cources-review-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1378,7 +1378,7 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2019/12/30/Digital-Image-Processing-homework2/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/12/30/Digital-Image-Processing-homework2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1497,7 +1497,7 @@ B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶�
 <h4 id="图像与卷积核在频域的计算"><a href="#图像与卷积核在频域的计算" class="headerlink" title="图像与卷积核在频域的计算"></a>图像与卷积核在频域的计算</h4><p>这部分没什么新的内容，就是把代码组合了一下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get frequent field of origin image</span></span><br><span class="line">cv::Mat fOrigin = <span class="built_in">grayImageFFT</span>(origin);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get frequent field of kernel and rearrange it</span></span><br><span class="line">cv::Mat h = <span class="built_in">getKernal</span>(..........);</span><br><span class="line">cv::Mat funcH = <span class="built_in">psf2otf</span>(h, mat.<span class="built_in">size</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Execute complex number multiply</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; fOrigin.rows; i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; fOrigin.cols; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="function">std::complex&lt;<span class="keyword">double</span>&gt; <span class="title">g</span><span class="params">(fOrigin.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">0</span>], fOrigin.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">1</span>])</span></span>;</span><br><span class="line">		<span class="function">std::complex&lt;<span class="keyword">double</span>&gt; <span class="title">h</span><span class="params">(funcH.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">0</span>], funcH.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">1</span>])</span></span>;</span><br><span class="line"></span><br><span class="line">		g *= h;</span><br><span class="line"></span><br><span class="line">		fOrigin.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">0</span>] = g.<span class="built_in">real</span>();</span><br><span class="line">		fOrigin.at&lt;cv::Vec2f&gt;(i, j)[<span class="number">1</span>] = g.<span class="built_in">imag</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Do IFFT</span></span><br><span class="line">cv::Mat matRes = <span class="built_in">grayImageIFFT</span>(fOrigin);</span><br><span class="line">cv::Mat result = cv::<span class="built_in">Mat</span>(matRes, cv::<span class="built_in">Rect</span>(<span class="number">0</span>, <span class="number">0</span>, origin.cols, origin.rows));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>以上代码算半个伪代码，完成了普通的频域相乘操作。如果要做其它的操作（比如维纳滤波），改循环里的公式就行了。</p>
-<h2 id="结构设计"><a href="#结构设计" class="headerlink" title="结构设计"></a>结构设计</h2><p>同<a target="_blank" rel="noopener" href="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/#structure">上次任务</a>。</p>
+<h2 id="结构设计"><a href="#结构设计" class="headerlink" title="结构设计"></a>结构设计</h2><p>同<a href="https://zhouyifan.net/2019/12/26/Digital-Image-Processing-homework1/#structure">上次任务</a>。</p>
 <p>其中图像处理分成两个模块：退化图像生成与退化图像修复。</p>
 <p>退化图像生成又分两个模块：模糊和加噪声。</p>
 <p>最终实现的时候又加了一个交互模块，可以动态调参。这个模块要调用退化图像生成模块和退化图像修复模块。模块化设计的好处在这里就体现出来了。</p>

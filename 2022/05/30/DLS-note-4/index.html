@@ -17,19 +17,19 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="体验完了“浅度”神经网络后，我们终于等到了这门课的正题——深度神经网络了。 其实这节课并没有引入太多新的知识，只是把上节课的2层网络拓展成了L层网络。对于编程能力强的同学（或者认真研究了我上节课的编程实战代码的同学，嘿嘿嘿），学完了上节课的内容后，就已经有能力完成这节课的作业了。 课堂笔记深度神经网络概述与符号标记 所谓深度神经网络，只是神经网络的隐藏层数量比较多而已，它的本质结构和前两课中的神经">
 <meta property="og:type" content="article">
 <meta property="og:title" content="吴恩达《深度学习专项》笔记+代码实战（四）：深层神经网络">
-<meta property="og:url" content="https://singlezombie.github.io/2022/05/30/DLS-note-4/index.html">
+<meta property="og:url" content="https://zhouyifan.net/2022/05/30/DLS-note-4/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="体验完了“浅度”神经网络后，我们终于等到了这门课的正题——深度神经网络了。 其实这节课并没有引入太多新的知识，只是把上节课的2层网络拓展成了L层网络。对于编程能力强的同学（或者认真研究了我上节课的编程实战代码的同学，嘿嘿嘿），学完了上节课的内容后，就已经有能力完成这节课的作业了。 课堂笔记深度神经网络概述与符号标记 所谓深度神经网络，只是神经网络的隐藏层数量比较多而已，它的本质结构和前两课中的神经">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://singlezombie.github.io/2022/05/30/DLS-note-4/1.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2022/05/30/DLS-note-4/2.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2022/05/30/DLS-note-4/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/30/DLS-note-4/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/30/DLS-note-4/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2022/05/30/DLS-note-4/3.jpg">
 <meta property="article:published_time" content="2022-05-30T11:30:24.000Z">
 <meta property="article:modified_time" content="2022-06-03T13:59:57.886Z">
 <meta property="article:author" content="Zhou Yifan">
@@ -37,9 +37,9 @@
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://singlezombie.github.io/2022/05/30/DLS-note-4/1.jpg">
+<meta name="twitter:image" content="https://zhouyifan.net/2022/05/30/DLS-note-4/1.jpg">
 
-<link rel="canonical" href="https://singlezombie.github.io/2022/05/30/DLS-note-4/">
+<link rel="canonical" href="https://zhouyifan.net/2022/05/30/DLS-note-4/">
 
 
 <script id="page-configurations">
@@ -172,7 +172,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2022/05/30/DLS-note-4/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/05/30/DLS-note-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -326,7 +326,7 @@ dA^{[l-1]} & \gets W^{[l]T}dZ^{[l]} &use \ W^{[l]} \\
 <li>为什么用更深的网络</li>
 <li>分辨超参数与参数</li>
 </ul>
-<p>如果大家对神经网络的前向传播或反向传播还有问题，欢迎去回顾上一篇笔记：<a target="_blank" rel="noopener" href="https://zhouyifan.net/2022/05/23/DLS-note-3/。">https://zhouyifan.net/2022/05/23/DLS-note-3/。</a></p>
+<p>如果大家对神经网络的前向传播或反向传播还有问题，欢迎去回顾上一篇笔记：<a href="https://zhouyifan.net/2022/05/23/DLS-note-3/。">https://zhouyifan.net/2022/05/23/DLS-note-3/。</a></p>
 <h1 id="代码实战"><a href="#代码实战" class="headerlink" title="代码实战"></a>代码实战</h1><p>说实话，这堂课的编程作业只能称为“体验写代码的感觉”，不能堂堂正正地称为“写程序”。整个框架都搭好了，每行输入输出的变量都给好了，只要填一填函数调用就行了。这样编程实在是不好玩，没有难度，学不到东西。</p>
 <p>所以，是时候自己动手写代码了！</p>
 <p>两周前，使用逻辑回归做小猫分类并不成功。看看这周换了“深度”神经网络后，我们能不能在小猫分类上取得更好的成绩。</p>

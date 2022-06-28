@@ -17,34 +17,34 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="之前学了不少东西，今天以学习笔记的形式分享出来。学习笔记不适合作为入门的教程。 Git&#x2F;Github使用方法学习笔记从例子直观理解gitgit是一个开源的分布式版本控制系统。如果你去网上搜git的定义，一定会搜到不少这样精确又令人看不懂的定义。今天，我准备根据我的笔记，来友好地介绍一下git相关的知识。 假设你要玩一个流程很长的RPG，你打了一天，打到了半夜。这个时候该做什么呢？没错，存档。不然下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git使用方法、git与github的关系">
-<meta property="og:url" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/index.html">
+<meta property="og:url" content="https://zhouyifan.net/2021/09/21/20210916-git-note/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="之前学了不少东西，今天以学习笔记的形式分享出来。学习笔记不适合作为入门的教程。 Git&#x2F;Github使用方法学习笔记从例子直观理解gitgit是一个开源的分布式版本控制系统。如果你去网上搜git的定义，一定会搜到不少这样精确又令人看不懂的定义。今天，我准备根据我的笔记，来友好地介绍一下git相关的知识。 假设你要玩一个流程很长的RPG，你打了一天，打到了半夜。这个时候该做什么呢？没错，存档。不然下">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/1.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/2.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/3.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/4.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/5.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/6.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/7.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/8.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/9.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/10.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/11.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/12.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/13.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/14.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/15.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/16.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/17.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/18.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/4.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/5.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/6.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/7.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/8.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/9.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/10.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/11.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/12.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/13.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/14.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/15.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/16.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/17.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/18.jpg">
 <meta property="article:published_time" content="2021-09-20T17:10:46.000Z">
 <meta property="article:modified_time" content="2022-04-23T16:34:28.260Z">
 <meta property="article:author" content="Zhou Yifan">
@@ -54,9 +54,9 @@
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="学习方法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://singlezombie.github.io/2021/09/21/20210916-git-note/1.jpg">
+<meta name="twitter:image" content="https://zhouyifan.net/2021/09/21/20210916-git-note/1.jpg">
 
-<link rel="canonical" href="https://singlezombie.github.io/2021/09/21/20210916-git-note/">
+<link rel="canonical" href="https://zhouyifan.net/2021/09/21/20210916-git-note/">
 
 
 <script id="page-configurations">
@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/09/21/20210916-git-note/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/09/21/20210916-git-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">

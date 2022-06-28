@@ -17,45 +17,45 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"singlezombie.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="最近买了台新电脑，所有编程都需要重新配置，可以写很多水博文了。 Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）准确来说，这是VS2019在Windows 10下为了配置C++编程环境而写的教程。 在下载前，请务必保证C盘的空间比较充裕，因为不论安装在哪，VS都会挤占C盘的很多空间。 下载 打开官方网站https:&#x2F;&#x2F;www.visualstudio.com">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）">
-<meta property="og:url" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/index.html">
+<meta property="og:url" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="最近买了台新电脑，所有编程都需要重新配置，可以写很多水博文了。 Visual Studio 2019（VS2019）安装教程（解决VS scanf问题）准确来说，这是VS2019在Windows 10下为了配置C++编程环境而写的教程。 在下载前，请务必保证C盘的空间比较充裕，因为不论安装在哪，VS都会挤占C盘的很多空间。 下载 打开官方网站https:&#x2F;&#x2F;www.visualstudio.com">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/1.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/2.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/3.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/4.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/5.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/6.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/7.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/8.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/9.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/10.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/11.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/12.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/13.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/14.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/15.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/16.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/17.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/18.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/19.jpg">
-<meta property="og:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/20.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/4.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/5.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/6.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/7.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/8.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/9.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/10.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/11.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/12.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/13.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/14.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/15.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/16.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/17.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/18.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/19.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/20.jpg">
 <meta property="article:published_time" content="2021-03-29T18:14:31.000Z">
 <meta property="article:modified_time" content="2022-03-15T08:57:37.975Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Visual Studio">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://singlezombie.github.io/2021/03/30/20210326-VS2019/1.jpg">
+<meta name="twitter:image" content="https://zhouyifan.net/2021/03/30/20210326-VS2019/1.jpg">
 
-<link rel="canonical" href="https://singlezombie.github.io/2021/03/30/20210326-VS2019/">
+<link rel="canonical" href="https://zhouyifan.net/2021/03/30/20210326-VS2019/">
 
 
 <script id="page-configurations">
@@ -188,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://singlezombie.github.io/2021/03/30/20210326-VS2019/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2021/03/30/20210326-VS2019/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
