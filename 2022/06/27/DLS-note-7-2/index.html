@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/06/27/DLS-note-7-2/r1.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/06/27/DLS-note-7-2/r2.jpg">
 <meta property="article:published_time" content="2022-06-27T08:22:23.000Z">
-<meta property="article:modified_time" content="2022-06-27T08:22:23.370Z">
+<meta property="article:modified_time" content="2022-07-01T11:29:02.867Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="深度学习">
@@ -284,7 +284,7 @@
 <h2 id="TensorFlow"><a href="#TensorFlow" class="headerlink" title="TensorFlow"></a>TensorFlow</h2><p>无论是GPU版还是CPU版，只需要在对应的虚拟环境中输入下面的命令即可：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果下载速度较慢，请更换conda和pip的下载源。可参考的教程很多，比如 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u011935830/article/details/103071295。">https://blog.csdn.net/u011935830/article/details/103071295。</a></p>
+<p>如果下载速度较慢，请更换conda和pip的下载源。可参考的教程很多，比如 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u011935830/article/details/10307">https://blog.csdn.net/u011935830/article/details/10307</a> 95。</p>
 </blockquote>
 <p>如果显卡驱动和conda都装好了，执行完上面的命令后，GPU版TensorFlow也就装好了。打开Python，执行下面的命令（或者写一个<code>.py</code>文件再运行），即可验证GPU版安装是否成功。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">tf.config.list_physical_devices(<span class="string">&#x27;GPU&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -293,7 +293,7 @@
 <p>，那么就说明GPU版的TensorFlow安装成功了。</p>
 <h2 id="VSCode代码补全"><a href="#VSCode代码补全" class="headerlink" title="VSCode代码补全"></a>VSCode代码补全</h2><p>TensorFlow.keras在VSCode中无法生成代码补全，编程体验极差，不知道维护者在干什么东西。有人在issue中提出了解决方法。</p>
 <p>打开<code>tensorflow/__init__.py</code>，添加以下内容：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> _typing.TYPE_CHECKING:</span><br><span class="line">  <span class="keyword">from</span> tensorflow_estimator.python.estimator.api._v2 <span class="keyword">import</span> estimator <span class="keyword">as</span> estimator</span><br><span class="line">  <span class="keyword">from</span> keras.api._v2 <span class="keyword">import</span> keras</span><br><span class="line">  <span class="keyword">from</span> keras.api._v2.keras <span class="keyword">import</span> losses</span><br><span class="line">  <span class="keyword">from</span> keras.api._v2.keras <span class="keyword">import</span> metrics</span><br><span class="line">  <span class="keyword">from</span> keras.api._v2.keras <span class="keyword">import</span> optimizers</span><br><span class="line">  <span class="keyword">from</span> keras.api._v2.keras <span class="keyword">import</span> initializers</span><br></pre></td></tr></table></figure></p>
-<h1 id="用TensorFlow实现多分类任务"><a href="#用TensorFlow实现多分类任务" class="headerlink" title="用TensorFlow实现多分类任务"></a>用TensorFlow实现多分类任务</h1><p>每当学习一门新的编程技术时，程序员们都会完成一个”Hello World”项目。让我们完成一个简单的点集多分类任务，作为TensorFlow的入门项目。</p>
+<h1 id="用TensorFlow实现多分类任务"><a href="#用TensorFlow实现多分类任务" class="headerlink" title="用TensorFlow实现多分类任务"></a>用TensorFlow实现多分类任务</h1><p>每当学习一门新的编程技术时，程序员们都会完成一个”Hello World”项目。让我们完成一个简单的点集多分类任务，作为TensorFlow的入门项目。这个项目只会用到比较底层的函数，而不会使用框架的高级特性，可以轻松地翻译成纯NumPy或者其他框架的实现。</p>
 <p>在这个项目中，我们会学到以下和TensorFlow有关的知识：</p>
 <ul>
 <li>TensorFlow与NumPy的相互转换</li>
@@ -335,8 +335,8 @@
 <h3 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h3><p>为了监控网络的运行结果，我们可以手写一个评估网络正确率和误差的函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluate</span>(<span class="params">self, X, Y, return_loss=<span class="literal">False</span></span>):</span></span><br><span class="line">    Y_hat = self.forward(X)</span><br><span class="line">    Y_predict = tf.argmax(Y, <span class="number">0</span>)</span><br><span class="line">    Y_hat_predict = tf.argmax(Y_hat, <span class="number">0</span>)</span><br><span class="line">    res = tf.cast(Y_predict == Y_hat_predict, tf.float32)</span><br><span class="line">    accuracy = tf.reduce_mean(res)</span><br><span class="line">    <span class="keyword">if</span> return_loss:</span><br><span class="line">        loss = self.loss(Y, Y_hat)</span><br><span class="line">        <span class="keyword">return</span> accuracy, loss</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> accuracy</span><br></pre></td></tr></table></figure>
 <p>首先，我们使用<code>Y_hat = self.forward(X)</code>，根据<code>X</code>算出估计值<code>Y_hat</code>。之后我们就要对<code>Y</code>和<code>Y_hat</code>进行比较了。</p>
-<p><code>Y</code>和<code>Y_hat</code>都是one-hot编码。为了方便比较，我们要把它们转换回用整数表示的标签。这个转换函数是<code>tf.argmax</code>。</p>
-<p>和数学里的定义一样，<code>tf.argmax</code>返回令函数最大的参数值。而对于数组来说，就是返回数组里值最大的下标值。<code>tf.argmax</code>的第一个参数是参与运算的张量，第二个参数是参与运算的维度。<code>Y</code>和<code>Y_hat</code>的形状是<code>[3, m]</code>，我们要把长度为3的one-hot向量转换回标签向量，因此应该对第一维进行运算（即维度0）。</p>
+<p><code>Y</code>和<code>Y_hat</code>都不是整数标签，而是用向量代表了标签。为了方便比较，我们要把它们转换回用整数表示的标签。这个转换函数是<code>tf.argmax</code>。</p>
+<p>和数学里的定义一样，<code>tf.argmax</code>返回令函数最大的参数值。而对于数组来说，就是返回数组里值最大的下标值。<code>tf.argmax</code>的第一个参数是参与运算的张量，第二个参数是参与运算的维度。<code>Y</code>和<code>Y_hat</code>的形状是<code>[3, m]</code>，我们要把长度为3的向量转换回标签向量，因此应该对第一维进行运算（即维度0）。</p>
 <p>得到了<code>Y_predict, Y_hat_predict</code>后，我们要比对它们以计算准确率。这时，我们可以用<code>res = Y_predict == Y_hat_predict</code>得到一个bool值的比对结果。TensorFlow的类型非常严格，bool值是无法参与普通运算的，我们要用<code>tf.cast</code>强制类型转换。由于最终的准确率是一个浮点数，我们要转换成<code>tf.float32</code>浮点类型。</p>
 <p>最后，用<code>accuracy = tf.reduce_mean(res)</code>就可以得到准确率了。</p>
 <p>由于我们前面写好了<code>loss</code>方法，计算loss时直接调用方法就行了。</p>
@@ -350,7 +350,7 @@
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>做完了所有准备后，我们用下面的代码初始化模型并调用训练函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n_x = <span class="number">2</span></span><br><span class="line">neuron_list = [n_x, <span class="number">10</span>, <span class="number">10</span>, <span class="number">3</span>]</span><br><span class="line">model = MulticlassClassificationNet(neuron_list)</span><br><span class="line">train(model, train_X_tf, train_Y_tf, <span class="number">5000</span>, <span class="number">0.001</span>, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure><br>这里要注意一下，由于数据有三种类别，神经网络最后一层必须是3个神经元。</p>
 <p>网络训练完成后，我们用下面的代码把网络推理结果转换成可视化要用的NumPy结果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plot_result = model.forward(plot_X)</span><br><span class="line">plot_result = tf.argmax(plot_result, <span class="number">0</span>).numpy()</span><br><span class="line">plot_result = np.expand_dims(plot_result, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>运行完<code>plot_result = model.forward(plot_X)</code>后，我们得到的是一个<code>[3, m]</code>的one-hot矩阵。我们要用<code>tf.argmax(plot_result, 0)</code>把它转换回整型标签。</p>
+<p>运行完<code>plot_result = model.forward(plot_X)</code>后，我们得到的是一个<code>[3, m]</code>的概率t矩阵。我们要用<code>tf.argmax(plot_result, 0)</code>把它转换回整型标签。</p>
 <p>之后，我们对TensorFlow的张量调用<code>.numpy()</code>，即可使用我们熟悉的NumPy张量了。为了对齐可视化API的格式，我用<code>expand_dims</code>把最终的标签转换成了<code>[1, m]</code>的形状。</p>
 <p>完成了转换，只需调用我写的可视化函数即可看出模型是怎样对二维平面分类的：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">visualize(train_X, train_Y, plot_result)</span><br></pre></td></tr></table></figure>
@@ -462,7 +462,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -475,7 +475,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
