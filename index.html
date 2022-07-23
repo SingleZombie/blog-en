@@ -268,6 +268,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/24/DLS-note-11-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/24/DLS-note-11-2/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》代码实战（十一）：用 TensorFlow 实现 ResNet 并验证残差连接的有效性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-24 00:31:40" itemprop="dateCreated datePublished" datetime="2022-07-24T00:31:40+08:00">2022-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在这篇文章中，我会介绍如何用TensorFlow实现下面4个模型：</p>
+<ol>
+<li>ResNet-18</li>
+<li>ResNet-18 无跳连</li>
+<li>ResNet-50</li>
+<li>ResNet-50 无跳连</li>
+</ol>
+<p>实现结束后，我会在一个简单的数据集上训练这4个模型。从实验结果中，我们能直观地看出ResNet中残差连接的作用。</p>
+<p>项目链接：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos">https://github.com/SingleZombie/DL-Demos</a></p>
+<p>主要代码在<code>dldemos/ResNet/tf_main.py</code>这个文件里。</p>
+<h2 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h2><h3 id="主要结构"><a href="#主要结构" class="headerlink" title="主要结构"></a>主要结构</h3><p>ResNet中有跳连的结构，直接用<code>tf.keras.Sequenctial</code>串行模型不太方便。因此，我们要自己把模型的各模块连起来，对应的TensorFlow写法是这样的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize input</span></span><br><span class="line"><span class="built_in">input</span> = layers.Input(input_shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get output</span></span><br><span class="line">output = ...</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build model</span></span><br><span class="line">model = models.Model(inputs=<span class="built_in">input</span>, outputs=output)</span><br><span class="line"><span class="built_in">print</span>(model.summary())</span><br><span class="line"><span class="keyword">return</span> model</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>用<code>layers.Input</code>创建一个输入张量后，就可以对这个张量进行计算，并在最后用<code>tf.keras.models.Model</code>把和该张量相关的计算图搭起来。</p>
+<p>接下来，我们看看这个<code>output</code>具体是怎么算出来的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_model</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        input_shape=(<span class="params"><span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span></span>), model_name=<span class="string">&#x27;ResNet18&#x27;</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    <span class="comment"># Initialize input</span></span><br><span class="line">    <span class="built_in">input</span> = layers.Input(input_shape)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Get output</span></span><br><span class="line">    x = layers.Conv2D(<span class="number">64</span>, <span class="number">7</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">&#x27;same&#x27;</span>)(<span class="built_in">input</span>)</span><br><span class="line">    x = layers.MaxPool2D((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_name == <span class="string">&#x27;ResNet18&#x27;</span>:</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">128</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">256</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">512</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    <span class="keyword">elif</span> model_name == <span class="string">&#x27;ResNet50&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">block_group</span>(<span class="params">x, fs1, fs2, count</span>):</span></span><br><span class="line">            x = convolution_block_3(x, <span class="number">3</span>, fs1, fs2, <span class="number">2</span>, use_shortcut)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count - <span class="number">1</span>):</span><br><span class="line">                x = identity_block_3(x, <span class="number">3</span>, fs1, fs2, use_shortcut)</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">        x = block_group(x, <span class="number">64</span>, <span class="number">256</span>, <span class="number">3</span>)</span><br><span class="line">        x = block_group(x, <span class="number">128</span>, <span class="number">512</span>, <span class="number">4</span>)</span><br><span class="line">        x = block_group(x, <span class="number">256</span>, <span class="number">1024</span>, <span class="number">6</span>)</span><br><span class="line">        x = block_group(x, <span class="number">512</span>, <span class="number">2048</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">f&#x27;No such model <span class="subst">&#123;model_name&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = layers.AveragePooling2D((<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line">    x = layers.Flatten()(x)</span><br><span class="line">    output = layers.Dense(<span class="number">1</span>, <span class="string">&#x27;sigmoid&#x27;</span>)(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Build model</span></span><br><span class="line">    model = models.Model(inputs=<span class="built_in">input</span>, outputs=output)</span><br><span class="line">    <span class="built_in">print</span>(model.summary())</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p>构建模型时，我们需要给出输入张量的形状。同时，这个函数用<code>model_name</code>控制模型的结构，<code>use_shortcut</code>控制是否使用跳连。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_model</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        input_shape=(<span class="params"><span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span></span>), model_name=<span class="string">&#x27;ResNet18&#x27;</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br></pre></td></tr></table></figure>
+<p>在ResNet中，主要有两种残差块。</p>
+<p><img src="/2022/07/24/DLS-note-11-2/1.jpg" alt></p>
+<p>第一种是上图中实线连接的，这种残差块的输入输出形状相同，输入可以直接加到激活函数之前的输出上；第二种是上图中虚线连接的，这种残差块输入输出形状不同，需要用一个1x1卷积调整宽高和通道数。</p>
+<p>此外，每种残差块用两种实现方式。</p>
+<p><img src="/2022/07/24/DLS-note-11-2/2.jpg" alt></p>
+<p>第一种实现方式如上图左半部分所示，这样的残差块由两个通道数相同的3x3卷积构成，只有一个需要决定的通道数；第二种实现方式采用了瓶颈(bottlenect)结构，先用1x1卷积降低了通道数，再进行3x3卷积，共有两个要决定的通道数（第1, 2个卷积和第3个卷积的通道数），如上图右半部分所示。</p>
+<p>代码中，我用<code>identity_block_2</code>, <code>identity_block_3</code>分别表示输入输出相同的残差块的两种实现，<code>convolution_block_2</code>, <code>convolution_block_3</code>分别表示输入输出不同的残差块的两种实现。这些代码会在下一小节里给出。</p>
+<p>现在，我们来看看该如何用这些模块构成ResNet-18和ResNet-50。首先，我们看一看原论文中这几个ResNet的结构图。</p>
+<p><img src="/2022/07/24/DLS-note-11-2/3.jpg" alt></p>
+<p>对于这两种架构，它们一开始都要经过一个大卷积层和一个池化层，最后都要做一次平均池化并输入全连接层。不同之处在于中间的卷积层。ResNet-18和ResNet-50使用了实现方式不同且个数不同的卷积层组。</p>
+<p>在代码中，开始的大卷积及池化是这样写的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = layers.Conv2D(<span class="number">64</span>, <span class="number">7</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">&#x27;same&#x27;</span>)(<span class="built_in">input</span>)</span><br><span class="line">x = layers.MaxPool2D((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br></pre></td></tr></table></figure>
+<p>ResNet-18的实现是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> model_name == <span class="string">&#x27;ResNet18&#x27;</span>:</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">128</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">256</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">512</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br></pre></td></tr></table></figure>
+<p>其中，<code>identity_block_2</code>的参数分别为输入张量、卷积核边长、是否使用短路。<code>convolution_block_2</code>的参数分别为输入张量、卷积核边长、输出通道数、步幅、是否使用短路。</p>
+<p>ResNet-50的实现是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> model_name == <span class="string">&#x27;ResNet50&#x27;</span>:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">block_group</span>(<span class="params">x, fs1, fs2, count</span>):</span></span><br><span class="line">        x = convolution_block_3(x, <span class="number">3</span>, fs1, fs2, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count - <span class="number">1</span>):</span><br><span class="line">            x = identity_block_3(x, <span class="number">3</span>, fs1, fs2, use_shortcut)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    x = block_group(x, <span class="number">64</span>, <span class="number">256</span>, <span class="number">3</span>)</span><br><span class="line">    x = block_group(x, <span class="number">128</span>, <span class="number">512</span>, <span class="number">4</span>)</span><br><span class="line">    x = block_group(x, <span class="number">256</span>, <span class="number">1024</span>, <span class="number">6</span>)</span><br><span class="line">    x = block_group(x, <span class="number">512</span>, <span class="number">2048</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>其中，<code>identity_block_3</code>的参数分别为输入张量、卷积核边长、中间和输出通道数、是否使用短路。<code>convolution_block_3</code>的参数分别为输入张量、卷积核边长、中间和输出通道数、步幅、是否使用短路。</p>
+<p>最后是计算分类输出的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = layers.AveragePooling2D((<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line">x = layers.Flatten()(x)</span><br><span class="line">output = layers.Dense(<span class="number">1</span>, <span class="string">&#x27;sigmoid&#x27;</span>)(x)</span><br></pre></td></tr></table></figure>
+<h3 id="残差块实现"><a href="#残差块实现" class="headerlink" title="残差块实现"></a>残差块实现</h3><p><img src="/2022/07/24/DLS-note-11-2/4.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">identity_block_2</span>(<span class="params">x, f, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    _, _, _, C = x.shape</span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(C, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(C, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/07/24/DLS-note-11-2/5.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convolution_block_2</span>(<span class="params">x, f, filters, s: <span class="built_in">int</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters, f, strides=(s, s), padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x_shortcut = layers.Conv2D(filters, <span class="number">1</span>, strides=(s, s),</span><br><span class="line">                                   padding=<span class="string">&#x27;valid&#x27;</span>)(x_shortcut)</span><br><span class="line">        x_shortcut = layers.BatchNormalization(axis=<span class="number">3</span>)(x_shortcut)</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/07/24/DLS-note-11-2/6.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">identity_block_3</span>(<span class="params">x, f, filters1, filters2, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters1, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.Conv2D(filters1, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters2, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p><img src="/2022/07/24/DLS-note-11-2/7.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convolution_block_3</span>(<span class="params">x, f, filters1, filters2, s: <span class="built_in">int</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters1, <span class="number">1</span>, strides=(s, s), padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.Conv2D(filters1, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters2, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x_shortcut = layers.Conv2D(filters2, <span class="number">1</span>, strides=(s, s),</span><br><span class="line">                                   padding=<span class="string">&#x27;same&#x27;</span>)(x_shortcut)</span><br><span class="line">        x_shortcut = layers.BatchNormalization(axis=<span class="number">3</span>)(x_shortcut)</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>这些代码中有一个细节要注意：在<code>convolution_block_3</code>中，<code>stride=2</code>是放在第一个还是第二个卷积层中没有定论。不同框架似乎对此有不同的实现方式。这里是把它放到了第一个1x1卷积里。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>在这个项目中，我已经准备好了数据集预处理的代码。可以轻松地生成数据集并用TensorFlow训练模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    train_X, train_Y, test_X, test_Y = get_cat_set(</span><br><span class="line">        <span class="string">&#x27;dldemos/LogisticRegression/data/archive/dataset&#x27;</span>,</span><br><span class="line">        train_size=<span class="number">500</span>,</span><br><span class="line">        test_size=<span class="number">50</span>)</span><br><span class="line">    <span class="built_in">print</span>(train_X.shape)  <span class="comment"># (m, 224, 224, 3)</span></span><br><span class="line">    <span class="built_in">print</span>(train_Y.shape)  <span class="comment"># (m , 1)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#model = init_model()</span></span><br><span class="line">    <span class="comment">#model = init_model(use_shortcut=False)</span></span><br><span class="line">    model = init_model(model_name=<span class="string">&#x27;ResNet50&#x27;</span>)</span><br><span class="line">    <span class="comment"># model = init_model(model_name=&#x27;ResNet50&#x27;, use_shortcut=False)</span></span><br><span class="line">    model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">                  loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>,</span><br><span class="line">                  metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    model.fit(train_X, train_Y, epochs=<span class="number">20</span>, batch_size=<span class="number">16</span>)</span><br><span class="line">    model.evaluate(test_X, test_Y)</span><br></pre></td></tr></table></figure>
+<p>为了让训练尽快结束，我只训了20个epoch，且使用的数据集比较小。我在ResNet-18中使用了3000个训练样本，ResNet-50中使用了1000个训练样本。数据的多少不影响对比结果，我们只需要知道模型的训练误差，便足以比较这四个模型了。</p>
+<p>以下是我在四个实验中得到的结果。</p>
+<p><strong>ResNet-18</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 75s 1s/step - loss: 1.9463 - accuracy: 0.5485</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.9758 - accuracy: 0.5423</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 81s 1s/step - loss: 0.8490 - accuracy: 0.5941</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.8309 - accuracy: 0.6188</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.7375 - accuracy: 0.6402</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 77s 1s/step - loss: 0.7932 - accuracy: 0.6769</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 78s 1s/step - loss: 0.7782 - accuracy: 0.6713</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 76s 1s/step - loss: 0.6272 - accuracy: 0.7147</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 77s 1s/step - loss: 0.6303 - accuracy: 0.7059</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.6250 - accuracy: 0.7108</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.6065 - accuracy: 0.7142</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.5289 - accuracy: 0.7754</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.5005 - accuracy: 0.7506</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.3961 - accuracy: 0.8141</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.4417 - accuracy: 0.8121</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.3761 - accuracy: 0.8136</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.2764 - accuracy: 0.8809</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.2698 - accuracy: 0.8878</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.1483 - accuracy: 0.9457</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.2495 - accuracy: 0.9079</span><br></pre></td></tr></table></figure></p>
+<p><strong>ResNet-18 无跳连</strong></p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 63s 963ms/step - loss: 1.4874 - accuracy: 0.5111</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.7654 - accuracy: 0.5386</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.6799 - accuracy: 0.6210</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.6891 - accuracy: 0.6086</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.7921 - accuracy: 0.5182</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.7123 - accuracy: 0.5643</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.7071 - accuracy: 0.5173</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.6653 - accuracy: 0.6227</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.6675 - accuracy: 0.6249</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.6959 - accuracy: 0.6130</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 66s 1s/step - loss: 0.6730 - accuracy: 0.6182</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6321 - accuracy: 0.6491</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 63s 992ms/step - loss: 0.6413 - accuracy: 0.6569</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6130 - accuracy: 0.6885</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 62s 988ms/step - loss: 0.6750 - accuracy: 0.6056</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 66s 1s/step - loss: 0.6341 - accuracy: 0.6526</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.6384 - accuracy: 0.6676</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.5750 - accuracy: 0.6997</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 63s 997ms/step - loss: 0.5932 - accuracy: 0.7094</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.6133 - accuracy: 0.6420</span><br></pre></td></tr></table></figure>
+<p><strong>ResNet-50</strong></p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 3.4660 - accuracy: 0.4970</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 1.3429 - accuracy: 0.5686</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 1.0294 - accuracy: 0.5616</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.7920 - accuracy: 0.6186</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.6698 - accuracy: 0.6773</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.6884 - accuracy: 0.7289</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.7144 - accuracy: 0.6399</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.7088 - accuracy: 0.6698</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.6385 - accuracy: 0.6446</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.5389 - accuracy: 0.7417</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.4954 - accuracy: 0.7832</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.4489 - accuracy: 0.7782</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.3987 - accuracy: 0.8257</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.3228 - accuracy: 0.8519</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.2089 - accuracy: 0.9235</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.4766 - accuracy: 0.7756</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 75s 1s/step - loss: 0.2148 - accuracy: 0.9181</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.3086 - accuracy: 0.8623</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.3544 - accuracy: 0.8732</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.0796 - accuracy: 0.9704</span><br></pre></td></tr></table></figure>
+<p><strong>ResNet-50 无跳连</strong></p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 60s 882ms/step - loss: 1.2093 - accuracy: 0.5034</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 56s 892ms/step - loss: 0.8433 - accuracy: 0.4861</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 59s 931ms/step - loss: 0.7512 - accuracy: 0.5235</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 62s 991ms/step - loss: 0.7395 - accuracy: 0.4887</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.7770 - accuracy: 0.5316</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 60s 945ms/step - loss: 0.7408 - accuracy: 0.4947</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 0.7345 - accuracy: 0.5434</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 62s 984ms/step - loss: 0.7214 - accuracy: 0.5605</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 60s 950ms/step - loss: 0.7770 - accuracy: 0.4784</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 60s 956ms/step - loss: 0.7171 - accuracy: 0.5203</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 63s 994ms/step - loss: 0.7045 - accuracy: 0.4921</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6884 - accuracy: 0.5430</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 60s 958ms/step - loss: 0.7333 - accuracy: 0.5278</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 61s 966ms/step - loss: 0.7050 - accuracy: 0.5106</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 59s 943ms/step - loss: 0.6958 - accuracy: 0.5622</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 60s 954ms/step - loss: 0.7398 - accuracy: 0.5172</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.7104 - accuracy: 0.5023</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.7411 - accuracy: 0.4747</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 0.7056 - accuracy: 0.4706</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 81s 1s/step - loss: 0.7901 - accuracy: 0.4898</span><br></pre></td></tr></table></figure>
+<p>对比ResNet-18和ResNet-50，可以看出，ResNet-50的拟合能力确实更强一些。</p>
+<p>对比无跳连的ResNet-18和ResNet-50，可以看出，ResNet-50的拟合能力反而逊于ResNet-18。这符合ResNet的初衷，如果不加残差连接的话，过深的网络反而会因为梯度问题而有更高的训练误差。</p>
+<p>此外，不同模型的训练速度也值得一讲。在训练数据量减少到原来的1/3后，ResNet-50和ResNet-18的训练速度差不多。ResNet-50看上去比ResNet-18多了很多层，网络中间也使用了通道数很大的卷积，但整体的参数量并没有增大多少，这多亏了能降低运算量的瓶颈结构。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章中，我展示了ResNet-18和ResNet-50的TensorFlow实现。这份代码包括了经典ResNet中两种残差块的两种实现，完整地复现了原论文的模型模块。同时，经实验分析，我验证了ResNet残差连接的有效性。</p>
+<p>未来我还会写一篇ResNet的PyTorch实现，并附上论文的详细解读。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/24/DLS-note-11/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -532,138 +664,6 @@ a^{[l+2]}&=a^{[l]}. \\
 <p>这节课介绍的都是比较前沿的CNN架构。在深度学习技术日新月异的今天，最好的学习方式是读论文，尽快一步一步跟上最新的技术。这堂课中提及的比较新的几篇论文，都有很高的阅读价值。</p>
 <p>我打算在学完CNN的四周课后，暂时不去学第五门课，而是去阅读这些经典CNN论文并分享一下笔记。</p>
 <p>在这周的代码实战里，我会分享一下如何用TensorFlow和PyTorch编写ResNet，同时介绍两种框架的进阶用法。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/24/DLS-note-11-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/24/DLS-note-11-2/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》代码实战（十一）：用 TensorFlow 实现 ResNet 并验证残差连接的有效性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-07-24 00:31:08" itemprop="dateCreated datePublished" datetime="2022-07-24T00:31:08+08:00">2022-07-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在这篇文章中，我会介绍如何用TensorFlow实现下面4个模型：</p>
-<ol>
-<li>ResNet-18</li>
-<li>ResNet-18 无跳连</li>
-<li>ResNet-50</li>
-<li>ResNet-50 无跳连</li>
-</ol>
-<p>实现结束后，我会在一个简单的数据集上训练这4个模型。从实验结果中，我们能直观地看出ResNet中残差连接的作用。</p>
-<p>项目链接：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos">https://github.com/SingleZombie/DL-Demos</a></p>
-<p>主要代码在<code>dldemos/ResNet/tf_main.py</code>这个文件里。</p>
-<h2 id="模型实现"><a href="#模型实现" class="headerlink" title="模型实现"></a>模型实现</h2><h3 id="主要结构"><a href="#主要结构" class="headerlink" title="主要结构"></a>主要结构</h3><p>ResNet中有跳连的结构，直接用<code>tf.keras.Sequenctial</code>串行模型不太方便。因此，我们要自己把模型的各模块连起来，对应的TensorFlow写法是这样的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize input</span></span><br><span class="line"><span class="built_in">input</span> = layers.Input(input_shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get output</span></span><br><span class="line">output = ...</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build model</span></span><br><span class="line">model = models.Model(inputs=<span class="built_in">input</span>, outputs=output)</span><br><span class="line"><span class="built_in">print</span>(model.summary())</span><br><span class="line"><span class="keyword">return</span> model</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>用<code>layers.Input</code>创建一个输入张量后，就可以对这个张量进行计算，并在最后用<code>tf.keras.models.Model</code>把和该张量相关的计算图搭起来。</p>
-<p>接下来，我们看看这个<code>output</code>具体是怎么算出来的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_model</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        input_shape=(<span class="params"><span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span></span>), model_name=<span class="string">&#x27;ResNet18&#x27;</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    <span class="comment"># Initialize input</span></span><br><span class="line">    <span class="built_in">input</span> = layers.Input(input_shape)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Get output</span></span><br><span class="line">    x = layers.Conv2D(<span class="number">64</span>, <span class="number">7</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">&#x27;same&#x27;</span>)(<span class="built_in">input</span>)</span><br><span class="line">    x = layers.MaxPool2D((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> model_name == <span class="string">&#x27;ResNet18&#x27;</span>:</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">128</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">256</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">        x = convolution_block_2(x, <span class="number">3</span>, <span class="number">512</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    <span class="keyword">elif</span> model_name == <span class="string">&#x27;ResNet50&#x27;</span>:</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">block_group</span>(<span class="params">x, fs1, fs2, count</span>):</span></span><br><span class="line">            x = convolution_block_3(x, <span class="number">3</span>, fs1, fs2, <span class="number">2</span>, use_shortcut)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count - <span class="number">1</span>):</span><br><span class="line">                x = identity_block_3(x, <span class="number">3</span>, fs1, fs2, use_shortcut)</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">        x = block_group(x, <span class="number">64</span>, <span class="number">256</span>, <span class="number">3</span>)</span><br><span class="line">        x = block_group(x, <span class="number">128</span>, <span class="number">512</span>, <span class="number">4</span>)</span><br><span class="line">        x = block_group(x, <span class="number">256</span>, <span class="number">1024</span>, <span class="number">6</span>)</span><br><span class="line">        x = block_group(x, <span class="number">512</span>, <span class="number">2048</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">f&#x27;No such model <span class="subst">&#123;model_name&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = layers.AveragePooling2D((<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line">    x = layers.Flatten()(x)</span><br><span class="line">    output = layers.Dense(<span class="number">1</span>, <span class="string">&#x27;sigmoid&#x27;</span>)(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Build model</span></span><br><span class="line">    model = models.Model(inputs=<span class="built_in">input</span>, outputs=output)</span><br><span class="line">    <span class="built_in">print</span>(model.summary())</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
-<p>构建模型时，我们需要给出输入张量的形状。同时，这个函数用<code>model_name</code>控制模型的结构，<code>use_shortcut</code>控制是否使用跳连。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_model</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        input_shape=(<span class="params"><span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span></span>), model_name=<span class="string">&#x27;ResNet18&#x27;</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br></pre></td></tr></table></figure>
-<p>在ResNet中，主要有两种残差块。</p>
-<p><img src="/2022/07/24/DLS-note-11-2/1.jpg" alt></p>
-<p>第一种是上图中实线连接的，这种残差块的输入输出形状相同，输入可以直接加到激活函数之前的输出上；第二种是上图中虚线连接的，这种残差块输入输出形状不同，需要用一个1x1卷积调整宽高和通道数。</p>
-<p>此外，每种残差块用两种实现方式。</p>
-<p><img src="/2022/07/24/DLS-note-11-2/2.jpg" alt></p>
-<p>第一种实现方式如上图左半部分所示，这样的残差块由两个通道数相同的3x3卷积构成，只有一个需要决定的通道数；第二种实现方式采用了瓶颈(bottlenect)结构，先用1x1卷积降低了通道数，再进行3x3卷积，共有两个要决定的通道数（第1, 2个卷积和第3个卷积的通道数），如上图右半部分所示。</p>
-<p>代码中，我用<code>identity_block_2</code>, <code>identity_block_3</code>分别表示输入输出相同的残差块的两种实现，<code>convolution_block_2</code>, <code>convolution_block_3</code>分别表示输入输出不同的残差块的两种实现。这些代码会在下一小节里给出。</p>
-<p>现在，我们来看看该如何用这些模块构成ResNet-18和ResNet-50。首先，我们看一看原论文中这几个ResNet的结构图。</p>
-<p><img src="/2022/07/24/DLS-note-11-2/3.jpg" alt></p>
-<p>对于这两种架构，它们一开始都要经过一个大卷积层和一个池化层，最后都要做一次平均池化并输入全连接层。不同之处在于中间的卷积层。ResNet-18和ResNet-50使用了实现方式不同且个数不同的卷积层组。</p>
-<p>在代码中，开始的大卷积及池化是这样写的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = layers.Conv2D(<span class="number">64</span>, <span class="number">7</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">&#x27;same&#x27;</span>)(<span class="built_in">input</span>)</span><br><span class="line">x = layers.MaxPool2D((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br></pre></td></tr></table></figure>
-<p>ResNet-18的实现是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> model_name == <span class="string">&#x27;ResNet18&#x27;</span>:</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">128</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">256</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br><span class="line">    x = convolution_block_2(x, <span class="number">3</span>, <span class="number">512</span>, <span class="number">2</span>, use_shortcut)</span><br><span class="line">    x = identity_block_2(x, <span class="number">3</span>, use_shortcut)</span><br></pre></td></tr></table></figure>
-<p>其中，<code>identity_block_2</code>的参数分别为输入张量、卷积核边长、是否使用短路。<code>convolution_block_2</code>的参数分别为输入张量、卷积核边长、输出通道数、步幅、是否使用短路。</p>
-<p>ResNet-50的实现是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">elif</span> model_name == <span class="string">&#x27;ResNet50&#x27;</span>:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">block_group</span>(<span class="params">x, fs1, fs2, count</span>):</span></span><br><span class="line">        x = convolution_block_3(x, <span class="number">3</span>, fs1, fs2, <span class="number">2</span>, use_shortcut)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count - <span class="number">1</span>):</span><br><span class="line">            x = identity_block_3(x, <span class="number">3</span>, fs1, fs2, use_shortcut)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    x = block_group(x, <span class="number">64</span>, <span class="number">256</span>, <span class="number">3</span>)</span><br><span class="line">    x = block_group(x, <span class="number">128</span>, <span class="number">512</span>, <span class="number">4</span>)</span><br><span class="line">    x = block_group(x, <span class="number">256</span>, <span class="number">1024</span>, <span class="number">6</span>)</span><br><span class="line">    x = block_group(x, <span class="number">512</span>, <span class="number">2048</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<p>其中，<code>identity_block_3</code>的参数分别为输入张量、卷积核边长、中间和输出通道数、是否使用短路。<code>convolution_block_3</code>的参数分别为输入张量、卷积核边长、中间和输出通道数、步幅、是否使用短路。</p>
-<p>最后是计算分类输出的代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = layers.AveragePooling2D((<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">2</span>))(x)</span><br><span class="line">x = layers.Flatten()(x)</span><br><span class="line">output = layers.Dense(<span class="number">1</span>, <span class="string">&#x27;sigmoid&#x27;</span>)(x)</span><br></pre></td></tr></table></figure>
-<h3 id="残差块实现"><a href="#残差块实现" class="headerlink" title="残差块实现"></a>残差块实现</h3><p><img src="/2022/07/24/DLS-note-11-2/4.jpg" alt></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">identity_block_2</span>(<span class="params">x, f, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    _, _, _, C = x.shape</span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(C, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(C, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<p><img src="/2022/07/24/DLS-note-11-2/5.jpg" alt></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convolution_block_2</span>(<span class="params">x, f, filters, s: <span class="built_in">int</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters, f, strides=(s, s), padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x_shortcut = layers.Conv2D(filters, <span class="number">1</span>, strides=(s, s),</span><br><span class="line">                                   padding=<span class="string">&#x27;valid&#x27;</span>)(x_shortcut)</span><br><span class="line">        x_shortcut = layers.BatchNormalization(axis=<span class="number">3</span>)(x_shortcut)</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<p><img src="/2022/07/24/DLS-note-11-2/6.jpg" alt></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">identity_block_3</span>(<span class="params">x, f, filters1, filters2, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters1, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.Conv2D(filters1, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters2, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<p><img src="/2022/07/24/DLS-note-11-2/7.jpg" alt></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convolution_block_3</span>(<span class="params">x, f, filters1, filters2, s: <span class="built_in">int</span>, use_shortcut=<span class="literal">True</span></span>):</span></span><br><span class="line">    x_shortcut = x</span><br><span class="line">    x = layers.Conv2D(filters1, <span class="number">1</span>, strides=(s, s), padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.Conv2D(filters1, f, padding=<span class="string">&#x27;same&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    x = layers.Conv2D(filters2, <span class="number">1</span>, padding=<span class="string">&#x27;valid&#x27;</span>)(x)</span><br><span class="line">    x = layers.BatchNormalization(axis=<span class="number">3</span>)(x)</span><br><span class="line">    <span class="keyword">if</span> use_shortcut:</span><br><span class="line">        x_shortcut = layers.Conv2D(filters2, <span class="number">1</span>, strides=(s, s),</span><br><span class="line">                                   padding=<span class="string">&#x27;same&#x27;</span>)(x_shortcut)</span><br><span class="line">        x_shortcut = layers.BatchNormalization(axis=<span class="number">3</span>)(x_shortcut)</span><br><span class="line">        x = x + x_shortcut</span><br><span class="line">    x = layers.ReLU()(x)</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<p>这些代码中有一个细节要注意：在<code>convolution_block_3</code>中，<code>stride=2</code>是放在第一个还是第二个卷积层中没有定论。不同框架似乎对此有不同的实现方式。这里是把它放到了第一个1x1卷积里。</p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>在这个项目中，我已经准备好了数据集预处理的代码。可以轻松地生成数据集并用TensorFlow训练模型。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    train_X, train_Y, test_X, test_Y = get_cat_set(</span><br><span class="line">        <span class="string">&#x27;dldemos/LogisticRegression/data/archive/dataset&#x27;</span>,</span><br><span class="line">        train_size=<span class="number">500</span>,</span><br><span class="line">        test_size=<span class="number">50</span>)</span><br><span class="line">    <span class="built_in">print</span>(train_X.shape)  <span class="comment"># (m, 224, 224, 3)</span></span><br><span class="line">    <span class="built_in">print</span>(train_Y.shape)  <span class="comment"># (m , 1)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#model = init_model()</span></span><br><span class="line">    <span class="comment">#model = init_model(use_shortcut=False)</span></span><br><span class="line">    model = init_model(model_name=<span class="string">&#x27;ResNet50&#x27;</span>)</span><br><span class="line">    <span class="comment"># model = init_model(model_name=&#x27;ResNet50&#x27;, use_shortcut=False)</span></span><br><span class="line">    model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">                  loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>,</span><br><span class="line">                  metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    model.fit(train_X, train_Y, epochs=<span class="number">20</span>, batch_size=<span class="number">16</span>)</span><br><span class="line">    model.evaluate(test_X, test_Y)</span><br></pre></td></tr></table></figure>
-<p>为了让训练尽快结束，我只训了20个epoch，且使用的数据集比较小。我在ResNet-18中使用了3000个训练样本，ResNet-50中使用了1000个训练样本。数据的多少不影响对比结果，我们只需要知道模型的训练误差，便足以比较这四个模型了。</p>
-<p>以下是我在四个实验中得到的结果。</p>
-<p><strong>ResNet-18</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 75s 1s/step - loss: 1.9463 - accuracy: 0.5485</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.9758 - accuracy: 0.5423</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 81s 1s/step - loss: 0.8490 - accuracy: 0.5941</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.8309 - accuracy: 0.6188</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.7375 - accuracy: 0.6402</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 77s 1s/step - loss: 0.7932 - accuracy: 0.6769</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 78s 1s/step - loss: 0.7782 - accuracy: 0.6713</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 76s 1s/step - loss: 0.6272 - accuracy: 0.7147</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 77s 1s/step - loss: 0.6303 - accuracy: 0.7059</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.6250 - accuracy: 0.7108</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.6065 - accuracy: 0.7142</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.5289 - accuracy: 0.7754</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.5005 - accuracy: 0.7506</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.3961 - accuracy: 0.8141</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.4417 - accuracy: 0.8121</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.3761 - accuracy: 0.8136</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.2764 - accuracy: 0.8809</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.2698 - accuracy: 0.8878</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.1483 - accuracy: 0.9457</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.2495 - accuracy: 0.9079</span><br></pre></td></tr></table></figure></p>
-<p><strong>ResNet-18 无跳连</strong></p>
-<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 63s 963ms/step - loss: 1.4874 - accuracy: 0.5111</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.7654 - accuracy: 0.5386</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.6799 - accuracy: 0.6210</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.6891 - accuracy: 0.6086</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.7921 - accuracy: 0.5182</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.7123 - accuracy: 0.5643</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.7071 - accuracy: 0.5173</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.6653 - accuracy: 0.6227</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.6675 - accuracy: 0.6249</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 64s 1s/step - loss: 0.6959 - accuracy: 0.6130</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 66s 1s/step - loss: 0.6730 - accuracy: 0.6182</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6321 - accuracy: 0.6491</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 63s 992ms/step - loss: 0.6413 - accuracy: 0.6569</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6130 - accuracy: 0.6885</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 62s 988ms/step - loss: 0.6750 - accuracy: 0.6056</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 66s 1s/step - loss: 0.6341 - accuracy: 0.6526</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.6384 - accuracy: 0.6676</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 65s 1s/step - loss: 0.5750 - accuracy: 0.6997</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 63s 997ms/step - loss: 0.5932 - accuracy: 0.7094</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.6133 - accuracy: 0.6420</span><br></pre></td></tr></table></figure>
-<p><strong>ResNet-50</strong></p>
-<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 3.4660 - accuracy: 0.4970</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 1.3429 - accuracy: 0.5686</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 1.0294 - accuracy: 0.5616</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.7920 - accuracy: 0.6186</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.6698 - accuracy: 0.6773</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.6884 - accuracy: 0.7289</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.7144 - accuracy: 0.6399</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.7088 - accuracy: 0.6698</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 68s 1s/step - loss: 0.6385 - accuracy: 0.6446</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.5389 - accuracy: 0.7417</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 71s 1s/step - loss: 0.4954 - accuracy: 0.7832</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 73s 1s/step - loss: 0.4489 - accuracy: 0.7782</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.3987 - accuracy: 0.8257</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 72s 1s/step - loss: 0.3228 - accuracy: 0.8519</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.2089 - accuracy: 0.9235</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.4766 - accuracy: 0.7756</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 75s 1s/step - loss: 0.2148 - accuracy: 0.9181</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.3086 - accuracy: 0.8623</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.3544 - accuracy: 0.8732</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 70s 1s/step - loss: 0.0796 - accuracy: 0.9704</span><br></pre></td></tr></table></figure>
-<p><strong>ResNet-50 无跳连</strong></p>
-<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Epoch 1/20</span><br><span class="line">63/63 [==============================] - 60s 882ms/step - loss: 1.2093 - accuracy: 0.5034</span><br><span class="line">Epoch 2/20</span><br><span class="line">63/63 [==============================] - 56s 892ms/step - loss: 0.8433 - accuracy: 0.4861</span><br><span class="line">Epoch 3/20</span><br><span class="line">63/63 [==============================] - 59s 931ms/step - loss: 0.7512 - accuracy: 0.5235</span><br><span class="line">Epoch 4/20</span><br><span class="line">63/63 [==============================] - 62s 991ms/step - loss: 0.7395 - accuracy: 0.4887</span><br><span class="line">Epoch 5/20</span><br><span class="line">63/63 [==============================] - 62s 990ms/step - loss: 0.7770 - accuracy: 0.5316</span><br><span class="line">Epoch 6/20</span><br><span class="line">63/63 [==============================] - 60s 945ms/step - loss: 0.7408 - accuracy: 0.4947</span><br><span class="line">Epoch 7/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 0.7345 - accuracy: 0.5434</span><br><span class="line">Epoch 8/20</span><br><span class="line">63/63 [==============================] - 62s 984ms/step - loss: 0.7214 - accuracy: 0.5605</span><br><span class="line">Epoch 9/20</span><br><span class="line">63/63 [==============================] - 60s 950ms/step - loss: 0.7770 - accuracy: 0.4784</span><br><span class="line">Epoch 10/20</span><br><span class="line">63/63 [==============================] - 60s 956ms/step - loss: 0.7171 - accuracy: 0.5203</span><br><span class="line">Epoch 11/20</span><br><span class="line">63/63 [==============================] - 63s 994ms/step - loss: 0.7045 - accuracy: 0.4921</span><br><span class="line">Epoch 12/20</span><br><span class="line">63/63 [==============================] - 63s 1s/step - loss: 0.6884 - accuracy: 0.5430</span><br><span class="line">Epoch 13/20</span><br><span class="line">63/63 [==============================] - 60s 958ms/step - loss: 0.7333 - accuracy: 0.5278</span><br><span class="line">Epoch 14/20</span><br><span class="line">63/63 [==============================] - 61s 966ms/step - loss: 0.7050 - accuracy: 0.5106</span><br><span class="line">Epoch 15/20</span><br><span class="line">63/63 [==============================] - 59s 943ms/step - loss: 0.6958 - accuracy: 0.5622</span><br><span class="line">Epoch 16/20</span><br><span class="line">63/63 [==============================] - 60s 954ms/step - loss: 0.7398 - accuracy: 0.5172</span><br><span class="line">Epoch 17/20</span><br><span class="line">63/63 [==============================] - 69s 1s/step - loss: 0.7104 - accuracy: 0.5023</span><br><span class="line">Epoch 18/20</span><br><span class="line">63/63 [==============================] - 74s 1s/step - loss: 0.7411 - accuracy: 0.4747</span><br><span class="line">Epoch 19/20</span><br><span class="line">63/63 [==============================] - 67s 1s/step - loss: 0.7056 - accuracy: 0.4706</span><br><span class="line">Epoch 20/20</span><br><span class="line">63/63 [==============================] - 81s 1s/step - loss: 0.7901 - accuracy: 0.4898</span><br></pre></td></tr></table></figure>
-<p>对比ResNet-18和ResNet-50，可以看出，ResNet-50的拟合能力确实更强一些。</p>
-<p>对比无跳连的ResNet-18和ResNet-50，可以看出，ResNet-50的拟合能力反而逊于ResNet-18。这符合ResNet的初衷，如果不加残差连接的话，过深的网络反而会因为梯度问题而有更高的训练误差。</p>
-<p>此外，不同模型的训练速度也值得一讲。在训练数据量减少到原来的1/3后，ResNet-50和ResNet-18的训练速度差不多。ResNet-50看上去比ResNet-18多了很多层，网络中间也使用了通道数很大的卷积，但整体的参数量并没有增大多少，这多亏了能降低运算量的瓶颈结构。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章中，我展示了ResNet-18和ResNet-50的TensorFlow实现。这份代码包括了经典ResNet中两种残差块的两种实现，完整地复现了原论文的模型模块。同时，经实验分析，我验证了ResNet残差连接的有效性。</p>
-<p>未来我还会写一篇ResNet的PyTorch实现，并附上论文的详细解读。</p>
 
       
     </div>
@@ -1450,6 +1450,163 @@ a^{[l+2]}&=a^{[l]}. \\
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/10/DLS-note-summary-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/10/DLS-note-summary-3/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》第三阶段总结与第四阶段预览</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-10 01:39:41" itemprop="dateCreated datePublished" datetime="2022-07-10T01:39:41+08:00">2022-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第三阶段回顾"><a href="#第三阶段回顾" class="headerlink" title="第三阶段回顾"></a>第三阶段回顾</h1><p>在过去两周里，我们学习了改进深度学习模型的一些策略。让我们来回顾一下。</p>
+<p>首先，我们应该设置好任务的目标。选取开发/测试集时，应参考实际应用中使用的数据分布。设置优化指标时，应使用单一目标。可以设置一个最优化目标和多个满足目标。</p>
+<p>在搭建模型时，我们可以根据现有的数据量、问题的难易度，选择端到端学习或者是多阶段学习。</p>
+<p>训练模型前，如果有和该任务相似的预训练模型，我们可以采取迁移学习，把其他任务的模型权重搬过来；如果我们的模型要完成多个相似的任务，可以同时训练多个任务的模型。</p>
+<p>有了目标，搭好了模型之后，就可以开始训练模型了。有了训练好的模型后，我们可以根据模型的训练误差、训练开发误差、开发误差来诊断模型当前存在的问题。当然，在诊断之前，我们可以先估计一下人类在该问题上的最低误差，以此为贝叶斯误差的一个估计。通过比较贝叶斯误差和训练误差，我们能知道模型是否存在偏差问题；通过比较训练误差和训练开发误差，我们能知道模型是否存在方差问题；通过比较训练开发误差和开发误差，我们能知道模型是否存在数据不匹配问题。</p>
+<p>另一方面，如果在改进模型时碰到了问题，不妨采取错误分析技术，看看模型究竟错在哪。我们可以拿出开发集的一个子集，统计一下模型的具体错误样例，看看究竟是模型在某些条件下表现得不好，还是标错的数据太多了。</p>
+<p>这些内容可能比较偏向于工程经验，没有过多的数学理论。但是，相信大家在搭建自己的深度学习项目时，这些知识一定能派上用场。</p>
+<h1 id="第四阶段预览"><a href="#第四阶段预览" class="headerlink" title="第四阶段预览"></a>第四阶段预览</h1><p>在这之后，我们要分别学习两大类神经网络：处理图像的网络和处理序列数据的网络。在第四门课《卷积神经网络》中，我们就会学习能够处理图像问题的卷积神经网络。一起来看看接下来要学的内容吧。</p>
+<p>《卷积神经网络》的课需花四周学完。第一周，我们会学习卷积神经网络的基本构件，建立对卷积神经网络的基本认识，为后续的学习做准备。具体的内容有：</p>
+<ul>
+<li>卷积操作<ul>
+<li>从卷积核到卷积</li>
+<li>卷积的属性——填充、步幅</li>
+<li>卷积层</li>
+</ul>
+</li>
+<li>池化操作</li>
+<li>卷积神经网络示例</li>
+</ul>
+<p>最简单的计算机视觉任务是图像分类。第二周，我们将学习一系列图像分类网络。这些网络不仅能在图像分类上取得优秀的成绩，还是很多其他计算机视觉任务的基石。通过学习它们，我们不仅能见识一些经典网络的架构，更能从中学习到搭建卷积神经网络的一般规律。其内容有：</p>
+<ul>
+<li>早期神经网络<ul>
+<li>LeNet-5</li>
+<li>AlexNet</li>
+<li>VGG</li>
+</ul>
+</li>
+<li>残差神经网络</li>
+<li>Inception 网络</li>
+<li>MobileNet</li>
+<li>搭建卷积网络项目<ul>
+<li>使用开源代码</li>
+<li>迁移学习</li>
+<li>数据增强</li>
+</ul>
+</li>
+</ul>
+<p>第三周，我们将学习计算机视觉中一个比较热门的任务——目标检测。目标检测要求算法不仅能辨别出图片中的物体，还要能把物体精确地框出来。我们会一步一步学习如何搭建完成目标检测的卷积神经网络：</p>
+<ul>
+<li>目标定位与关键点检测</li>
+<li>使用卷积神经网络的目标检测<ul>
+<li>滑动窗口算法</li>
+<li>基于卷积的滑动窗口</li>
+</ul>
+</li>
+<li>YOLO 算法<ul>
+<li>结合目标定位与滑动窗口</li>
+<li>交并比(IoU)</li>
+<li>NMS（非极大值抑制）</li>
+<li>锚框(Anchor boxes)</li>
+</ul>
+</li>
+<li>R-CNN 系列算法简介</li>
+</ul>
+<p>此外，这周还会稍微提及另一个计算机视觉任务——语义分割的基本知识：</p>
+<ul>
+<li>基于U-Net的语义分割<ul>
+<li>反卷积</li>
+<li>U-Net架构</li>
+</ul>
+</li>
+</ul>
+<p>最后一周，第四周，我们又会认识两个新任务：人脸检测与神经网络风格迁移。具体的内容有：</p>
+<ul>
+<li>人脸检测<ul>
+<li>人脸检测问题与一次性学习</li>
+<li>孪生神经网络</li>
+<li>三元组误差</li>
+<li>转化成二分类问题</li>
+</ul>
+</li>
+<li>神经网络风格迁移<ul>
+<li>风格迁移简介</li>
+<li>利用神经网络学到的东西</li>
+<li>风格迁移中的误差</li>
+<li>推广到1维和3维</li>
+</ul>
+</li>
+</ul>
+<p>相比之前的课，学习第四门课时需要花更多的精力，主要因为以下几点：</p>
+<ol>
+<li>课程难度变高。</li>
+<li>课程的编程练习很多。</li>
+<li>课堂上介绍了很多论文作为拓展学习的方向。</li>
+</ol>
+<p>如果你未来要以计算机视觉为研究方向的话，这四周的内容一定要认真掌握。同时，编程练习和论文阅读也不能落下。据我估计，如果要打好计算机视觉方向上的坚实的基础，至少还要多花费两周时间去认真阅读经典论文，做好相关的技术调研。</p>
+<p>在未来的几周里，我仅会上传课堂笔记，并尽最大可能复现一下课后的习题。在所有的五门课上完后（大约2个月后），我会回过头来补充计算机视觉相关的论文阅读笔记、项目实现笔记，对视频课中没来得及讲完的内容查缺补漏，以呈现一套翔实的深度学习学习笔记，辅助大家更好地入门深度学习。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1649,130 +1806,6 @@ L_{total}=W_1L_{spa}+W_2L_{exp}+W_3L_{col}+W_4L_{tv_A}</script><blockquote>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/04/20220704-wemedia-thoughts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/04/20220704-wemedia-thoughts/" class="post-title-link" itemprop="url">最近做自媒体小有感想</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-07-04 20:27:09" itemprop="dateCreated datePublished" datetime="2022-07-04T20:27:09+08:00">2022-07-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这是我这几个月来第一次只想把文章发到个人博客上，而不想发到其他平台上。</p>
-<blockquote>
-<p>顺带一提，我是这样看待个人博客与其他平台的：个人博客写的东西，基本都是围绕我自己。只有非常关注我的人，才会看到这些内容。大众看不看得到，无所谓。我就是为了自己而写。我可以不管语法，不管内容，想怎么写怎么写。而在其他平台写的东西，多少有一点宣传的意思在内，会受到种种制约。</p>
-</blockquote>
-<p>前几天，我去发表了一篇个人感想的文章。风格其实和我之前的博文差不多，但是主题更吸引人（尤其是标题），内容稍长。如我所意料地，相对我现在拥有的流量而言，这篇文章收获了空前的关注。</p>
-<p>我开心也不开心。开心是因为，总算写的东西有很多人看了。而且，这篇文章很受欢迎，完全在我的意料之中。也就是说，我有估计文章传播力的判断力。真的只是为了提升文章的阅读数据，我可以轻松写出一堆文章来。</p>
-<p>不开心的原因就比较复杂了。</p>
-<p>上周六晚上，发文章之前，我突然心跳加速，紧张了起来。文章是几周前写的，也早早就决定了要发。我也不知道为什么突然会这样。发完文章，我就立刻去吃饭了，也不敢盯着发送的数据看。吃饭回来一看，文章果然大受关注。第二天，知乎也开始推送我的文章了，也确实引了一大批人。</p>
-<p>看到大家的评论，我这才明白我在担心什么。</p>
-<p>我那篇文章写得是什么？纯粹写的是我的心路历程，我做了什么，想了什么。我的经历多么可笑，我的想法多么龌龊。我根本不管这么多，只是原原本本地写了下来，然后发了出去。就好像没穿衣服站在街上一样。</p>
-<p>当然，我之所以敢这么做，就是因为我已经完全看淡了过去的那些事情。我敢写出来，说明我把过去的那个“我”已经不当成我自己了。我把那段经历，完完全全当成一个商品在售卖。经历是个人组成的一部分。也就是说，我把自己灵魂的一部分割了下来，拿出去卖。</p>
-<p>有些人分享经历，是为了获取认同。获得他人的赞，就像获得了他人的鼓励一样。</p>
-<p>但是，我把自己的目的写得很明确：主要是为了流量，次要是为了分享。他人的赞，甚至是加油的祝福，对早已熬过去的我来说一点帮助也没有。</p>
-<p>甚至我还有层次更高的考虑。我写这篇文章，就是要向大众展示真实的自己。我不怕别人看到自己的缺点。我不会去打造一个完美无缺的人。不论以后我做成了多大的事情，我都只是一个心思很普通的人。我要拿这篇文章去约束未来的自己。</p>
-<p>当然，我准备发表这篇文章时，还有更多的考量。这些层次非常高的考量是我潜意识里计划的，我现在一下都总结不出来。我说的很多东西，现在听起来都是吹牛，但我相信过个几年回头来看，我现在说的东西都是必然的预言。</p>
-<p>可是，这样的写作可持续吗？</p>
-<p>不可能的。</p>
-<p>我再怎么如自己所期盼得铁石心肠，也不愿意天天把自己的事情拿出去展示。不管是好的事情，还是坏的事情。讲好的事情，就是拿自己过去的成就吹嘘；讲坏的事情，就是卖惨，博同情。这两件事我都不愿意做。我更希望我的作品受到关注。那些东西是实实在在的应该拿出来展示的东西。</p>
-<p>我的思绪有点乱，一下也表达不清我想说什么。好不容易写一次个人博客，我也不想改文章了。我就想想到哪写到哪。总之，以后，我会在分享个人经验的时候更加慎重。我既不要过分卖弄成就，也不要刻意地去塑造一个很惨的形象。发个人经历的文章之前，要更加慎重。</p>
-<p>还有一点，我很不开心。对比之下，看技术文章的人寥寥无几，而输出情感的文章倒是喜闻乐见。这里面的道理我肯定懂。受众、花费的精力……很多东西决定了文章有没有人看。我从类型上非常能够理解。但心里就是不好受。</p>
-<p>所以想来想去，思绪还是回到了之前那个问题上：我为什么要去做自媒体？</p>
-<p>我一直没有单独谈这个问题。只在我个人博客的<a href="https://zhouyifan.net/2022/05/23/DLS-note-3/#%E6%84%9F%E6%83%B3">这个地方</a>和<a href="https://zhouyifan.net/2022/06/03/DLS-note-summary-1/">这个地方</a>稍微谈了一下。现在可以认真想一下了。</p>
-<p>我还确实是一个能不说谎就不说谎的人。哪怕是讲真话没什么意义，我也会毫不在意地表示自己的真实想法。我就是要让自己一直做一个坦荡的人。我在第一篇DL教程开头就讲了，“诲人不如诲己”。写文章，本来就是为了提升我自己的学习效率。也确实，自从开始在自媒体上发文章后，我每周都很固定地会写好教程，学习的效率高了很多。同时，还有几个人说愿意跟着教程学。我也不管是真的假的，只要能帮助到人，我就非常开心。因此，发教程，不管有没有人看，我都照发不误。</p>
-<p>这正常地发下去，倒也没什么关系。可是，发完个人经历感想，受到了一定程度的关注后，我反而开始动摇了：“是不是以后都得写这种文章才有人看？”，“我写技术文章还有意义吗？”，之类的想法不断涌现。</p>
-<p>我必须得重新审视一下我搞自媒体的意义了。</p>
-<p>我向来就讨厌迎合他人，迎合社会，迎合任何人订下的评价标准。开始发自媒体，我还以为是自己终于肯变通一下，肯去迎合一下这个世界的规则了。甚至当时我还嘲笑了自己的不坚定。</p>
-<p>但现在我发现，我根本没变。我就是一个无比自傲的人。我就是能够创作出好的东西，我就是能给他人带来价值。凭什么我要去迎合别人的想法？凭什么我要去宣传？我不服气啊。</p>
-<p>我之前之所以没想这么多，就是如前面所写的，我一直抱有的是提升自我，顺便分享给他人的心态。</p>
-<p>但我一想到要最优化我在自媒体上的名气，我就很不服气。我就是不像刻意去为了提升影响力而提升影响力。我要靠我展示出来的真正的东西来提升影响力。无论是艺术作品，还是教程，还是科研产出，还是其他什么的。我不想花一丝一毫在宣传上。我就只想把自己的东西做到极致，让他人主动来我这里看东西。</p>
-<p>没办法，我内心的理性都很清楚，这个世界的规则是怎么样的，自媒体是怎么运行的。理性思考指出，我想要的事情是不太可能的。</p>
-<p>这就是一个站着还是跪着的抉择。我没有膝盖，跪不下来，只会站着；我也没有脖子，不会向下看，只会盯着前方看。做不到的事情，就是不想做。</p>
-<p>其实，我想搞自媒体，最初的想法就是不希望未来出现这些事。我以后要做游戏，不希望做了好游戏没人玩。所以，我想着是做视频。我的口才好，在某些领域一定能大受欢迎。但我还是害怕，害怕没人看。有人（包括我内心里质疑的声音）这就会说了：“你害怕，不就是做不好吗？还找什么借口？”那我表述得再详细一点。假如我做了自以为100分的东西，客观上能打80分，但是只收获了0.01分的关注度，换你来你受得了吗？而且创作是一个不断进步的过程，可能开始还不太习惯，做着做着就能发挥全部的才能了。这一开始就没了创作热情，还怎么做下去呢？再有，做视频，最重要的其实是时间上的成本。我暂时想不出一个时间成本低、视频节目效果好、有干货的视频项目。所以不做。</p>
-<p>那问题又传递下去了。不敢做游戏，所以计划做视频；不敢做视频，所以计划写文章。这才是我最后决定搞文字自媒体的原因。</p>
-<p>现在，问题又绕回来了。就是如我所料地，在没有流量的前提下，写得好但是不吸引人的东西，就是没人看。我又不太肯去最优化流量，去想法设法地宣传。这下好了，又陷入死结了。</p>
-<p>我发完上一篇个人感想，受到一定程度的欢迎后，我的大脑一下子就想到了这么多，所以一下低沉了起来。我花了大约一小时，才把这些想法组织起来，理解了自己的心理的成因。我的思维也太跳跃了吧。</p>
-<p>再仔细一想，问题也很简单：还做不做下去？到了该抉择的时候了。</p>
-<p>不做也没什么关系。对我来说，靠实力把名气打响是很简单的。我现在在搞科研，搞得好，自然能收获名誉。这种名气与实力挂钩的领域是我最推崇的。另外，我也可以直接去做游戏。游戏做完了，我觉得做得足够好了，再去想该怎么宣传。不要担心卖不出去，搞好质量就行了。</p>
-<p>对，我就是有这样的自信。不靠现在的自媒体，不去刻意宣传，还是刻意把名气打响。</p>
-<p>只是到时候不叫座就怪不得别人了。一切都是自己菜。</p>
-<p>那要不就还是做下去。不忘初心。</p>
-<p>初心是什么？就是分享。发文章是零成本的事情，有人看就是赚到。</p>
-<p>也不去做什么宣传，该怎么样就怎么样了。</p>
-<p>我的性格就是不适合做自媒体。我讨厌过度拟合一个目标，讨厌为了目的不择手段。在受到他人赞誉的时候也没有那么强的正反馈。</p>
-<p>但我还有一个足以忽视其他一切条件的个性：我不相信有我做不好的事情。</p>
-<p>一般的人质疑我，我笑一笑也就过去了。问题是我开始自己质疑自己做不好了，这就令我很焦躁了。</p>
-<p>说我做不好自媒体，说我不肯去迎合他人，说我太傲慢了。</p>
-<p>好，我忍。</p>
-<p>我就必须证明一下自己了。</p>
-<p>我会再做一段时间自媒体，稍微花点心思去总结一下他人的经验，制定更详细的计划，更有智谋地完成自媒体运营这件事。</p>
-<p>同样，我会坚持几个底限：不去刷数据；不去写没有价值的东西；不过度宣传；不影响我的主业。</p>
-<p>如果我发现，搞自媒体要花太多精力，影响到我的其他计划的话，我就放弃。否则，我会用这件事来展示我的能力，搞一个有影响的自媒体出来。</p>
-<p>其实写这篇文章之前，我心里基本就有了答案。写一遍只是让自己更清醒一点。我可以再次宣告道：请世人见证我的成就。</p>
-<p>今天跟喝醉了一样，但我从来不喝酒。所以，也可以这样说，我怎么都喝不醉。</p>
-<p>冲了个澡，醒酒了。运营自媒体和个人博客完全是两个东西。自媒体必须从用户的角度来考虑文章题材。我还是按照老计划，先零成本地把技术博客给写好来。之后，用一种处于博客和自媒体的中间形式来运营。偏自媒体的文章中，主要关注两种形式：一篇长篇大作和定期更新长期连载的小体量作品。此外，夹杂一些和大学教育、编程有关的非技术的感想文章。没必要为了文章关注量这种小事担心，做好手中的事就行了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1842,7 +1875,7 @@ L_{total}=W_1L_{spa}+W_2L_{exp}+W_3L_{col}+W_4L_{tv_A}</script><blockquote>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

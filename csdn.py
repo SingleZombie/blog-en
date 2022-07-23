@@ -2,14 +2,14 @@ import os
 
 cfgs = [
     # 'https://zhouyifan.net/2022/06/15/DLS-note-6/',
-    'https://zhouyifan.net/2022/06/21/DLS-note-7/',
-    'https://zhouyifan.net/2022/06/27/DLS-note-7-2/',
-    'https://zhouyifan.net/2022/06/27/DLS-note-summary-2/',
-    'https://zhouyifan.net/2022/07/01/20220701-pytorchinstall2/',
-    'https://zhouyifan.net/2022/07/01/20220625-stylegan-introduction/',
-    'https://zhouyifan.net/2022/07/03/DLS-note-8/',
-    'https://zhouyifan.net/2022/07/04/DLS-note-9/',
-    'https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/'
+    #'https://zhouyifan.net/2022/06/21/DLS-note-7/',
+    #'https://zhouyifan.net/2022/06/27/DLS-note-7-2/',
+    #'https://zhouyifan.net/2022/06/27/DLS-note-summary-2/',
+    #'https://zhouyifan.net/2022/07/01/20220701-pytorchinstall2/',
+    #'https://zhouyifan.net/2022/07/01/20220625-stylegan-introduction/',
+    #'https://zhouyifan.net/2022/07/03/DLS-note-8/',
+    #'https://zhouyifan.net/2022/07/04/DLS-note-9/',
+    #'https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/'
 ]
 
 for link in cfgs:
