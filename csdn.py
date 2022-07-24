@@ -10,6 +10,14 @@ cfgs = [
     #'https://zhouyifan.net/2022/07/03/DLS-note-8/',
     #'https://zhouyifan.net/2022/07/04/DLS-note-9/',
     #'https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/'
+    'https://zhouyifan.net/2022/07/10/DLS-note-summary-3/',
+    'https://zhouyifan.net/2022/07/11/DLS-note-10/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-10-2/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-10-3/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-10-4/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-10-5/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-11/',
+    'https://zhouyifan.net/2022/07/24/DLS-note-11-2/',
 ]
 
 for link in cfgs:
