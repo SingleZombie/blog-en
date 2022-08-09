@@ -18,12 +18,17 @@ cfgs = [
     'https://zhouyifan.net/2022/07/24/DLS-note-10-5/',
     'https://zhouyifan.net/2022/07/24/DLS-note-11/',
     'https://zhouyifan.net/2022/07/24/DLS-note-11-2/',
+    'https://zhouyifan.net/2022/07/26/DLS-note-12/',
+    'https://zhouyifan.net/2022/08/09/DLS-note-12-2/',
+    'https://zhouyifan.net/2022/08/09/DLS-note-13/'
 ]
 
 for link in cfgs:
     md_file = link.split('/')[-2] + '.md'
     md_path = os.path.join('_posts', md_file)
     o_path = os.path.join('tmp', md_file)
+    if os.path.exists(o_path):
+        continue
     with open(o_path, 'wb') as wfp:
         with open(md_path, 'rb') as fp:
             lines = fp.readlines()
