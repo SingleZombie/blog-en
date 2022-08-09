@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://zhouyifan.net/2022/05/10/DLS-note-2/</loc>
-    <lastmod>2022-07-28</lastmod>
+    <loc>https://zhouyifan.net/2022/08/09/DLS-note-13/</loc>
+    <lastmod>2022-08-09</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/08/09/DLS-note-12-2/</loc>
+    <lastmod>2022-08-09</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/07/02/20220702-gap-year/</loc>
+    <lastmod>2022-08-07</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/07/01/20220625-stylegan-introduction/</loc>
+    <lastmod>2022-08-07</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/</loc>
+    <lastmod>2022-08-07</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/</loc>
+    <lastmod>2022-08-07</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/</loc>
+    <lastmod>2022-08-07</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2022/07/26/DLS-note-12/</loc>
-    <lastmod>2022-07-27</lastmod>
+    <lastmod>2022-07-28</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/05/10/DLS-note-2/</loc>
+    <lastmod>2022-07-28</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/tmp/DLS-note-11.html</loc>
     <lastmod>2022-07-26</lastmod>
@@ -85,9 +106,6 @@
     <loc>https://zhouyifan.net/tmp/DLS-note-6.html</loc>
     <lastmod>2022-07-07</lastmod>
   </url>  <url>
-    <loc>https://zhouyifan.net/2022/07/08/20220707-ZeroDCE/</loc>
-    <lastmod>2022-07-07</lastmod>
-  </url>  <url>
     <loc>https://zhouyifan.net/2022/07/04/20220704-wemedia-thoughts/</loc>
     <lastmod>2022-07-05</lastmod>
   </url>  <url>
@@ -96,12 +114,6 @@
   </url>  <url>
     <loc>https://zhouyifan.net/2022/07/03/DLS-note-8/</loc>
     <lastmod>2022-07-04</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2022/07/02/20220702-gap-year/</loc>
-    <lastmod>2022-07-02</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2022/07/01/20220625-stylegan-introduction/</loc>
-    <lastmod>2022-07-01</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2022/07/01/20220701-pytorchinstall2/</loc>
     <lastmod>2022-07-01</lastmod>
@@ -195,9 +207,6 @@
   </url>  <url>
     <loc>https://zhouyifan.net/2019/06/23/Theory-of-Computation-Review1/</loc>
     <lastmod>2022-04-23</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2021/05/10/20210322-PoissonImgaeEditImplementation/</loc>
-    <lastmod>2022-03-20</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2020/02/01/DIP-image-segmentation-project-2/</loc>
     <lastmod>2022-03-15</lastmod>
@@ -302,9 +311,6 @@
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2021/03/20/20210314-Mendeley/</loc>
-    <lastmod>2021-08-21</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2021/03/12/20210311-Poisson-Image-Editing-Paper-Reading/</loc>
     <lastmod>2021-08-21</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2020/12/21/20201220-Drawback-of-Overload-Thinking/</loc>
