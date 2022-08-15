@@ -53,7 +53,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/07/26/DLS-note-12/20.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/07/26/DLS-note-12/21.jpg">
 <meta property="article:published_time" content="2022-07-26T13:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-28T12:20:49.629Z">
+<meta property="article:modified_time" content="2022-08-12T08:33:19.864Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -326,10 +326,13 @@
 <p><img src="/2022/07/26/DLS-note-12/13.jpg" alt></p>
 <p>锚框技术实际上只是对训练数据做了一个约束，改变了训练数据的格式。检测算法本身没有什么改变。</p>
 <h2 id="YOLO-算法总结"><a href="#YOLO-算法总结" class="headerlink" title="YOLO 算法总结"></a>YOLO 算法总结</h2><p>让我们把前几节的内容总结一下，看一下YOLO算法的全貌。</p>
-<p>在训练前，我们要对数据做预处理。首先，我们要指定以下超参数：图片切分成多大的格子、每个格子里有多少个锚框。之后，根据这些信息，我们可以得到每一个训练标签张量的形状。比如$3 \times 3 \times 2 \times 8$的一个训练标签，表示图片被切成了$3 \times 3$的格子，每个格子有两个锚框。这是一个三分类问题，对于每一个检测出来的物体，都可以用一个长度为$8$的向量表示。其中，$p_c$表示这个锚框里有没有物体, $(b_x, b_y), (b_h, b_w)$分别表示中心点坐标、框的高宽，$c_1, c_2, c_3$分别表示是否该类物体。</p>
+<p>在训练前，我们要对数据做预处理。首先，我们要指定以下超参数：图片切分成多大的格子、每个格子里有多少个锚框。之后，根据这些信息，我们可以得到每一个训练标签张量的形状。比如$3 \times 3 \times 2 \times 8$的一个训练标签，表示图片被切成了$3 \times 3$的格子，每个格子有两个锚框。这是一个三分类问题，对于每一个检测出来的物体，都可以用一个长度为$8$的向量表示。其中，$p_c$表示这个锚框里有没有物体, $(b_x, b_y), (b_h, b_w)$分别表示中心点坐标、框的高宽，$c_1, c_2, c_3$分别表示是否为该类物体。</p>
 <p>有了预处理好的训练数据，就可以训练一个CNN了。</p>
 <p><img src="/2022/07/26/DLS-note-12/14.jpg" alt></p>
 <p>在网络给出了输出后，由于输出的框往往多于标签中的框，还要对输出结果进行筛选。筛选的过程如前文所述，先去掉概率过小的框，再分别对每一类物体的框做NMS。</p>
+<blockquote>
+<p>课堂上没有介绍loss。loss的组成比较复杂，建议阅读原论文。</p>
+</blockquote>
 <h2 id="区域提案"><a href="#区域提案" class="headerlink" title="区域提案"></a>区域提案</h2><p>YOLO算法是在一堆固定的框里找物体。实际上，我们还可以用神经网络来找出候选框，再在这些框里详细检测。这种技术就叫做区域提案(region proposal)，相关的网络叫做R-CNN(Region with CNN)。</p>
 <p>R-CNN 系列网络有多个改进版本：</p>
 <ul>
@@ -487,7 +490,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
