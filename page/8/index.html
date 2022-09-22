@@ -162,6 +162,979 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/11/Software-Engineering-course-review-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/11/Software-Engineering-course-review-1/" class="post-title-link" itemprop="url">软件工程复习1：结构化编程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-11 22:06:04" itemprop="dateCreated datePublished" datetime="2020-01-11T22:06:04+08:00">2020-01-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>我还剩软件工程这门课要考。这门课没留下真题，直接复习很难定下具体的目标。于是我决定还是用写复习笔记来复习，让复习的目的性更强，同时激发斗志，收获成就感。</p>
+<p>软件工程这门课的性质十分特殊。这是一门几乎不涉及理论，却涉及工具的使用、大量的经验与人为设定的规则的一门课。讲得清楚一些，就是这门课几乎没有什么干货，应该更多地考察实践能力，而不是用靠着一张瞎记瞎理解就能回答的卷子来考察。但没办法，我纵使有着极为丰富的项目经验教训与软件工程方法实践心得，平时学这门课的时候也还算认真，考前还是不得不去做一下复习。</p>
+<p>吐槽完了，来谈一下具体的复习策略。课本无效内容较多，每一章的有效内容量分布不均，最气人的是复习大纲和课本还对应不起来。没办法，我只能自己把这门课讲的内容分个类，针对每个类的内容集中复习。</p>
+<p>从实际的编程方法来看，这门课讲了结构化编程和面向对象编程两种编程方式。这两种编程方式有着不一样的分析和设计方法、工具。因此，我会各用一篇文章来复习这两部分的方法和工具。此外，还有不少内容和具体的编程方法无关，比如软件测试、软件维护，这些内容我会用一篇文章来复习。还有一些比较细致的，略有理论性的东西，比如耦合的分类等内容，我单独用一篇文章来写这些理论知识。最后我对照复习大纲，扫干净剩下的知识点。</p>
+<h1 id="软件工程复习1：结构化编程"><a href="#软件工程复习1：结构化编程" class="headerlink" title="软件工程复习1：结构化编程"></a>软件工程复习1：结构化编程</h1><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>结构化需求分析的核心的数据。围绕着数据，要建立三种模型：数据建模、功能建模、行为建模。三种模型有各自的建模工具，三种模型中涉及的概念会被统一写在数据字典中以方便查看。</p>
+<h3 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h3><p>数据建模描述的是数据的静态信息。准确来说，是一个数据可以进一步被分解成哪些属性，以及一个数据和另一个数据的关系中出现的新属性。</p>
+<p>数据建模使用的E-R图。矩形是实体，圆圈是实体的属性，菱形是实体间的关系。有关系的实体要写上是几对几关系。</p>
+<p>E-R图在上学期学数据库的时候学了，我就不多加复习了。只要看了E-R图的一个例子，就能很快搞懂这个图的意义与使用方法。</p>
+<h3 id="功能建模"><a href="#功能建模" class="headerlink" title="功能建模"></a>功能建模</h3><p>理论上来说，有了静态模型，剩下的应该是动态模型。我对剩下两种模型的理解是：功能模型是对数据整体处理方式的建模，行为建模是对数据局部具体处理方式的建模。</p>
+<p>所有程序全部可以看成是一个输入转换成输出的过程。输入输出不仅是传统的数据，输入可能是鼠标的一次点击、键盘的一次输入；输出可能是屏幕窗口的一个变化。功能建模就是描述输入数据是怎么一步一步变成输出数据的。</p>
+<p>数据流图（DFD）是常用的（考试考察的）功能建模工具。DFD按照自顶向下的思想，用多层图来逐步分解数据加工过程。顶层图只有一个数据加工过程，之后的1、2层图会把上一层的数据加工过程细分。</p>
+<p>每一层中，圆圈表示数据加工；矩形表示外部的实体，也就是和数据交互的对象；封了半边口的矩形是数据库；箭头是数据流向，箭头上要有数据流名。</p>
+<p>DFD有以下要求：</p>
+<ul>
+<li>父图和子图要平衡。具体来说，父图和子图的输入输出要一致。子图可以把父图的输入分解。</li>
+<li>数据变换部分要按次序编号</li>
+</ul>
+<p>这种图看了一遍例子就能理解图的意思，但要自己画一画才能掌握画的方法。正常来说DFD至少要分解到第二层，但考试要求我们只画一层。为了复习，我来做一道例题。</p>
+<p>&lt;/br&gt;</p>
+<p>例：银行活期现金存取款柜台业务软件系统。存款时，储户将存款金额及存折，交给银行柜台操作员；取款时，储户则直接将取款数额告知操作员，并递交存折。具体存取款过程如下：</p>
+<p>  (1) 存款处理</p>
+<ul>
+<li>清点现金，确认存款金额；</li>
+<li>输入帐号、存款金额；</li>
+<li>根据存款金额记录分户账及总账，并登记存折及打印凭条。</li>
+</ul>
+<p>（2）取款处理</p>
+<ul>
+<li>输入帐号，取款金额；</li>
+<li>储户输入密码，系统核对密码并查询余额；</li>
+<li>若余额充足，根据取款金额记录分户账及总账，并由票据打印机打印登折数据和凭条数据。</li>
+</ul>
+<p>&lt;/br&gt;</p>
+<p>要求：画出系统顶层和一层数据流图 。</p>
+<p>老师给的参考答案：</p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/DFD1.jpg" alt="DFD1"></p>
+<p>我第一遍的答案：</p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/DFD2-1.jpg" alt="DFD2-1"></p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/DFD2-2.jpg" alt="DFD2-2"></p>
+<p>看了答案后修改的答案：</p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/DFD2-3.jpg" alt="DFD2-3"></p>
+<p>先声明一下，这道题我们之前上课做了一遍，我不是第一次做。</p>
+<p>首先先看一下顶层图，顶层图其实就是这个系统包含的范围，以及系统涉及的实体。把存折给操作员等行为并不是在软件中，因此不能放进软件系统里；打印机是一个独立的系统，不算在这个软件里面。所以最终顶层图画成了那个样子。我对顶层图答案没什么异议。</p>
+<p>重点在一层图上。我这次第一遍画的时候，看到需求很明确地把软件的需求分成了存款和取款两个部分，所以我直接就分了两个数据变换模块，没有去管存取款的实现细节。讲道理，一层图不需要画那么细，这样画一样理论上就可以了。</p>
+<p>但我看了答案之后，加入了一个信息记录模块。因为把修改分户账和总账在存款和取款中都出现了，单独拿出来也说得过去。</p>
+<p>但是答案剩下的部分我就不能赞同了。首先是业务确认模块。需求只提到存款要确认，但没有提到取款要确认。虽然按常识来说存取款都是要确认操作的，但是这里需求没有给出，就不应该加进来。既然取款不需要确认，那么就不能写一个公共的业务确认模块。再来是查询余额模块。查询余额显然是属于取款的，这个应该属于实现细节，在一层图就写出来还早了一点。</p>
+<p>老师上课的时候也跟我们说，由于只要求画一层图，这张图细节部分写得多了一些。按理来说，参考答案做的并不是很好。我觉得我第二遍的答案更好一些。甚至在实际实现的时候，我觉得第一遍的答案就够了，细节就应该在之后的图里显示出来。哪怕存取款有重合的部分，也可以在实现的时候进行模块复用。</p>
+<p>我觉得这道题的最大启示不是一层图该如何分解，而是顶层图如何划分软件系统的边界的。我上课第一次画的时候就把递存折写进系统，而且没有画打印机，这些都是很明显的错误。当然我不知道考试的题会怎么出，应该把题目涉及的实体和数据变换模块找出来，把每一个重要的词都画进系统里应该就问题不大。</p>
+<h3 id="行为建模"><a href="#行为建模" class="headerlink" title="行为建模"></a>行为建模</h3><p>前面也提到了，我觉得行为建模就是对更具体的数据变换过程进行建模。课本上介绍了两种建模方法：状态转换图（STD）和过程描述语言（PDL）或伪码语言（PL）。</p>
+<h4 id="状态转换图"><a href="#状态转换图" class="headerlink" title="状态转换图"></a>状态转换图</h4><p>正如其名，状态转换图描述了数据对象不同时刻的不同属性，以及在不同状态间的转换方式。</p>
+<p>我先以个人经验讲一下状态转换图的必要性。我之前做游戏的时候，被一个逻辑搞得十分头疼：卡牌游戏中鼠标的控制逻辑。正常情况下，鼠标可以拖动卡牌，也可以放到敌人头上或者一个buff上查看具体信息。在拖一张卡的时候，卡移到我方头上或者对方头上就不能显示信息，而应该根据卡牌是否能对这个目标使用而高亮目标。拖手牌里的一张卡和拖场面上的一张卡的拖动状态还是不一样的。由于没有事先设计，这个逻辑写的我非常混乱。我一看到了状态转换图，就立刻知道了以后该怎么处理这种状态转换情况。课本上再栩栩如生的案例也不如一次个人的经历对我理解这个概念的帮助大。</p>
+<p>状态转换图就类似自动机，是一个点和边构成的图。点是状态，边是转移条件。在STD中，黑点代表初态，带圈黑点表示终态，大圆角矩形框表示中间状态。中间状态要写上状态名、状态变量、状态此时的活动。</p>
+<p>状态转移图我还没画过，虽然考试不一定会考怎么画，但我还是想练习一下。</p>
+<p>我画的时候发现visio的状态图和课本上的不太一样，就不打算画了。</p>
+<h4 id="加工逻辑"><a href="#加工逻辑" class="headerlink" title="加工逻辑"></a>加工逻辑</h4><p>加工逻辑就是描述流程或算法。工具就是我们非常熟悉的伪代码。</p>
+<p>伪代码理论上没什么格式要求。我喜欢按C语言的风格写。当然有些人喜欢拿箭头表示赋值。</p>
+<h3 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h3><p>数据字典就是对之前建模过程中的数据流、数据变换、数据做一个详细的定义，以方便沟通交流。</p>
+<p>数据字典本身是一个概念性质的东西，其实现形式多种多样。课本上讲了三种定义数据字典的方法。</p>
+<h4 id="词条描述"><a href="#词条描述" class="headerlink" title="词条描述"></a>词条描述</h4><p>非常死板非常麻烦的数据词典表示法，也许在实际运用中非常好用，因为它读起来的时候非常详细。但在学这门课的时候我是不愿这样写数据字典的。</p>
+<p>直接拿一个例子来讲词条描述的表法吧：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">数据元素名：词</span><br><span class="line">类型：文字（char*)</span><br><span class="line">长度：任意长度</span><br><span class="line">取值范围：………………</span><br><span class="line">相关数据元素：………………</span><br><span class="line">相关数据结构：字符型（不能为空）</span><br></pre></td></tr></table></figure>
+<h4 id="定义式"><a href="#定义式" class="headerlink" title="定义式"></a>定义式</h4><p>用一种类似上下文无关语言的方法来定义一种数据。还是直接上例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">日期 = 年 ＋　月　＋日</span><br><span class="line">年 = “1900”..&quot;1999&quot;</span><br><span class="line">月 = &quot;01&quot;..&quot;12&quot;</span><br><span class="line">日 = &quot;01&quot;..&quot;31&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h4><p>直接把数据库二维表当成数据字典。比如</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>属性</th>
+<th>英文名</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001</td>
+<td>姓名</td>
+<td>Name</td>
+<td>无</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="结构化设计"><a href="#结构化设计" class="headerlink" title="结构化设计"></a>结构化设计</h2><p>设计分成概要设计和详细设计。这两个阶段的具体定义可能会在其他文章中讲。</p>
+<p>在结构化设计中，概要设计就是根据数据流图设计出整体结构，详细设计则是在语句层面具体设计某一个算法、过程。概要设计用面向数据流的设计方法，详细设计会用到流程图、盒图、问题分析图（PAD）、判定树。</p>
+<h3 id="面向数据流的设计方法（画结构图）"><a href="#面向数据流的设计方法（画结构图）" class="headerlink" title="面向数据流的设计方法（画结构图）"></a>面向数据流的设计方法（画结构图）</h3><p>面向数据流的设计方法就是根据需求分析时的数据流图，设计出程序的模块。和画DFD一样，这个过程也是自顶向下进行的。</p>
+<h4 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h4><p>这个过程用到的工具有层次图和结构图（SC）。但从课本上的介绍来看，结构图是层次图的一个拓展。也就是这两种图不是并列关系，而是递进关系。后续的分析也是基于结构图的。</p>
+<p>层次图用方框表示模块，只是把模块一层一层地越分越细。结构图在层次图的基础行，要求在模块之间的线上加上数据流的描述</p>
+<h4 id="数据流图转结构图"><a href="#数据流图转结构图" class="headerlink" title="数据流图转结构图"></a>数据流图转结构图</h4><p>数据流图经过很简单的转换就能变成结构图。课本介绍了两种转换方法。这两种方法输出的结构图的整体结构与大致算法大致相同，但分析数据流图的理解角度不同。</p>
+<p>第一种方法是变换分析法。这种方法把整个程序看成输入处理、输出处理、变换控制三个大模块。在一层数据流图中，根据数据流与变换的形状关系，把变换分进这三种大模块里。每一个变换属于大模块里的一个小模块。</p>
+<p>用这种方法画结构图要按以下步骤：首先，画一个主控模块（MC）、输入模块（MI）、输出模块（MO），变换控制模块（MT）。MC在最上面，MI、MT、MO分别画在下面，与MC连线。之后，再一层数据流图中画两条边界，把一层图分成三部分。最后，把数据流图“旋转”一下，把对应的数据流和变换模块都写到大模块下方。只要有了数据流图，划分了边界，就可以立刻把数据流图转换成结构图。看了书上的例子就能很快理解这个转换方法。</p>
+<p>第二种方法是事物分析法。该方法是思想是找到一层数据流图中有多条路径的变换，把这个变换当成事务中心。所有的输入在经过预处理后经过事物中心进行变换，没有输出模块。</p>
+<p>用这种方法画结构图有以下步骤：首先，在一层数据流图中找到事物中心，把事物中心的输入部分划分到一起。之后，画一个主控模块（MC）、输入模块（MI）、事物调度模块（该模块名就是选择的事务中心的变换名）。最后，用和变换分析法类似的方法把数据流图“旋转”一下，在大模块下补上小模块。</p>
+<p>当然还有第三种方法，叫混合分析法，就是把两种方法综合一下，变换分析法的输出模块改成事物调度模块。</p>
+<h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><p>这是高中就学过的工具，用以描述程序设计的三种结构（顺序、分支、循环）。</p>
+<p>圆矩形表示开始结束，方矩形表示是操作，菱形表示判断，箭头表示控制流方向。</p>
+<h3 id="盒图"><a href="#盒图" class="headerlink" title="盒图"></a>盒图</h3><p>盒图也是用来描述程序设计的。相比程序流程图，盒图没有随意的控制流，能够更好地划分数据的区域。</p>
+<p>整个盒图画在一个方形中。具体形式看后面的示例。</p>
+<h3 id="问题分析图"><a href="#问题分析图" class="headerlink" title="问题分析图"></a>问题分析图</h3><p>问题分析图（PAD）也是用于程序设计的图。它也能规避控制流的任意性。</p>
+<p>PAD从上到下是流程，从左到右是模块的细分。</p>
+<p>例：</p>
+<p>把代码转换成盒图和PAD。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">A;</span><br><span class="line">B;</span><br><span class="line">if (C1)</span><br><span class="line">&#123;</span><br><span class="line">	while (C2)</span><br><span class="line">	&#123;</span><br><span class="line">		if (C3)</span><br><span class="line">		&#123;</span><br><span class="line">			D;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			E;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">	do</span><br><span class="line">	&#123;</span><br><span class="line">		F;</span><br><span class="line">		if (C4)</span><br><span class="line">		&#123;</span><br><span class="line">			G;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			H;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	while (C5);</span><br><span class="line">&#125;</span><br><span class="line">if (C6)</span><br><span class="line">&#123;</span><br><span class="line">	I;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（原题来自课本的一个流程图）</p>
+<p>解：</p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/NS.jpg" alt="NS"></p>
+<p><img src="/2020/01/11/Software-Engineering-course-review-1/PAD.jpg" alt="OAD"></p>
+<h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><p>判定树用来表述复杂的条件判断。由于if语句本身符合树结构，用一棵树来表示判断语句是非常自然的。</p>
+<p>判定树画起来很简单，左边是条件，每个条件都可以分叉成多个子情况里的条件。最右边是该分支下的结构。</p>
+<h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><p>判定表和判定树作用一样，也是设计复杂条件判断的工具。</p>
+<p>判定表的行分成两部分，一部分是条件，另一部分是动作。判定表的每一列表示一个条件和动作的组合情况（条件用T、F表示，执行的动作打个勾）。</p>
+<h1 id="一些后续的事情"><a href="#一些后续的事情" class="headerlink" title="一些后续的事情"></a>一些后续的事情</h1><p>由于我没有管理好精力，我没有对后面几章做系统的复习。还好，考试没有考很多死板的内容，考的东西偏向理解，我几乎都能答得上来。有一点要特别提一下：考前说好数据流图只画一层，考试的时候要求画两层。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/09/Principles-of-Computer-Composition-exam-result/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/09/Principles-of-Computer-Composition-exam-result/" class="post-title-link" itemprop="url">计算机组成原理考试结果</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-09 18:59:00" itemprop="dateCreated datePublished" datetime="2020-01-09T18:59:00+08:00">2020-01-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%B6%A3%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">趣文</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="计算机组成原理考试结果"><a href="#计算机组成原理考试结果" class="headerlink" title="计算机组成原理考试结果"></a>计算机组成原理考试结果</h1><p>和写论文一样，讲完了方法以后，要展示一下实验的结果。我在运用了带有周弈帆特色的费曼学习法进行计算机组成原理的复习后，也要讲一下考试的结果，以佐证方法的高效性。</p>
+<p>考试前天结束，现在考试的分数还没出。我先从我自己的感觉谈一下考试的结果和收获。考试分数结果等出了分再更新。</p>
+<h2 id="个人感觉结果"><a href="#个人感觉结果" class="headerlink" title="个人感觉结果"></a>个人感觉结果</h2><p>考试考察的知识点果然全是复习PPT里的。复习PPT里用红字标出的内容全部出了题目。很不幸，我没有把复习PPT涉及的细琐知识点都过一遍，填空有3题左右完全没听过，选择有1题完全没听过。但我对剩下的题目涉及的知识点非常熟悉，解起题来十分顺畅。说实话，在这门课里我学到的东西并不多。但我也不搞硬件。我认为我在这门科目上的学习成果符合我对自己的要求，也符合学校对学生们的要求。</p>
+<p>从复习时间安排上来评价我这次考试。学校所有课程结束后，我剩下了3天时间复习。虽然第一天我没有调整好生物钟，昏昏沉沉地过去了。但在接下来的两天半里（考试是下午考），我快马加鞭，聚精会神地进行复习。把对每章知识点的熟悉程度提升回写那一章作业时的程度。最终，虽然有些小赶，时间略显窘迫，但我还是比较完整地复习了所有内容。我在时间安排上虽有失误，却亡羊补牢，为时未晚。</p>
+<p>从复习方法上了评价我这次考试。我和以前一样，用的是费曼学习的思想，也就是用自己的话去描述知识，从而找到理解的漏洞。其实我之前概率论和计算理论也是用了这种方法，但效果不佳。概率论那次应该是我对知识本来就比较熟悉，不应该重新理解知识，而应该做题巩固知识的理解；计算理论那次我只写了一章，实在太累了没有接着写下去。我坚信不是方法有问题，而是我之前做得不够好，所以这次依然采用了这种复习法。恰好，计算机组成原理考试强调知识的基本理解而不强调知识的熟练应用，这种复习法完美契合了考试的要求。我也坚持了下来，把主要章节都做了一次复习。可以说这次考试方法选择得非常恰当。不过话说回来，我似乎也没有发明出第二种复习方法，好像“选择”一词并不恰当。但是，用这个词更帅一些。</p>
+<p>从复习策略上里评价我这次考试。我既没有像无头苍蝇一样，拿着课本乱翻乱看；又没有像复读机一样，逐字逐句地去从干巴巴的课本中背下每一句话。我去学校网站上下载了考试复习的PPT，非常精准地命中了大部分的会考到的知识点。与此同时，对于我上课的时候理解过一遍的知识点，以及每次课后作业所涉及的知识点，我又认真地复习了一遍。可谓是双管齐下，两手都抓，两手都硬。最终，虽然算有遗策，但大局难改，考试的大部分题目对我来说就像小学数学一般简单。在有限的时间里完成复习，复习策略的正确选择是成功的关键。</p>
+<p>虽然考试结果没出，虽然我可能惨遭打脸，但我依然敢于给自己下断言：我这门学科成绩85起步，封顶95。</p>
+<p>如果最终成绩有所偏差，那么我也不亏。在学这门课的时候，我学到了课本内的知识，培养了课本外的学习能力。分数不能代表一切。你若是只看分数，你就输了。要看到分数之外的东西。</p>
+<p>希望二月出成绩后，我能看到一个比较好的结果。</p>
+<h2 id="考试结果"><a href="#考试结果" class="headerlink" title="考试结果"></a>考试结果</h2><p>最后我考了88分。没考到90分满绩还是有点遗憾的。</p>
+<p>考试的结果证明这次的整体复习效果确实还可以，但是由于时间不足的原因，我没有仔细去看每一个知识点，这些细琐的知识点应该是我失分的地方。</p>
+<p>我不希望以后再出现这种考试，所以我就不写我以后应该怎么怎么做了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/07/Principles-of-Computer-Composition-cources-review-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/07/Principles-of-Computer-Composition-cources-review-6/" class="post-title-link" itemprop="url">计算机组成原理复习：第六章 中央处理器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-07 02:56:49" itemprop="dateCreated datePublished" datetime="2020-01-07T02:56:49+08:00">2020-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>去百度查课后答案的时候，发现这本教材至少11年没有发生改动。虽然这本书涉及都是一些原理性的东西，和时代无关，这门课对我们来说也不过是一门学过就忘的课，但我还是觉得这种“万年不变”的教学态度有问题，需要加以改正。</p>
+<h1 id="计算机组成原理复习：第六章-中央处理器"><a href="#计算机组成原理复习：第六章-中央处理器" class="headerlink" title="计算机组成原理复习：第六章 中央处理器"></a>计算机组成原理复习：第六章 中央处理器</h1><p>本章主要在讲CPU（中央处理器）。本章先整体介绍了CPU的组成结构、性能参数等内容，之后稍微介绍了CPU的硬件实现，再具体介绍了CPU的整个控制工作原理。由于CPU执行指令的时候涉及一些微操作，本章接着又进一步介绍了微操作的有关内容。介绍完了CPU的基本工作原理后，本章又介绍了一个简单CPU应支持的操作。最后本章介绍了CPU相关的新技术。</p>
+<p>CPU实际上包括运算器和控制器。运算器主要涉及的计算方法在之前章节已经介绍过。这一章实际的重点是控制器的实现。</p>
+<p>考试重点应该是放在对CPU执行指令的过程和微操作的原理上。要理解CPU指令的执行过程，对于一个给定的操作，要能够写出CPU每一步在做什么。</p>
+<p>和上一章一样，我只对比较重点的地方进行复习。</p>
+<h2 id="CPU的基本组成"><a href="#CPU的基本组成" class="headerlink" title="CPU的基本组成"></a>CPU的基本组成</h2><p>其实CPU的组成主要是讲CPU里有哪些寄存器。寄存器可以分成通用和专用。专用的寄存器是只有固定用途的寄存器，而通用寄存器可以根据实际需要使用。可以看成预定义常量和变量，或是操作系统中的系统内存和用户内存。</p>
+<p>专用寄存器有：</p>
+<ul>
+<li>程序计数器PC</li>
+<li>指令寄存器IR</li>
+<li>存储器数据寄存器MDR</li>
+<li>存储器地址寄存器MAR</li>
+<li>程序状态字寄存器PSWR</li>
+</ul>
+<p>这里只是提一下这些寄存器的名字，后面讲CPU的控制原理的时候还会提到这些寄存器，到那个时候才能理解这些寄存器在干什么。这里提一下就当是在声明变量。</p>
+<p>处理寄存器外，CPU中还有一个指令译码器IR，用于识别指令中的操作码。还有一个控制单元CU，大名叫微操作信号发生器。它是CPU控制功能的核心。</p>
+<p>CU的实现方式在复习PPT中被列成了重点，我不得不看了一下。CU的实现大致分两种，组合逻辑控制器和微程序控制器。其实控制的微操作和程序设计一样，也是模块化的。组合逻辑控制器追求速度，却无法拓展，难以调试，难以实现自动化设计。微程序控制器的特点与之相反。（我没搞懂什么是自动化设计）</p>
+<p>除了这些外，CPU中还有ALU，但这不是本章的重点。</p>
+<h2 id="时序系统"><a href="#时序系统" class="headerlink" title="时序系统"></a>时序系统</h2><p>时序系统是CPU的工作基础。和游戏一样，CPU的工作也有基本的时间单位。这种和最小时间单位有关的系统就是时序系统。</p>
+<p>这里自顶向下地介绍整个时序系统。指令周期是指从取指令、取数到完成指令整个过程需要的时间。各种指令所需的指令周期不同。指令周期会拆成机器周期（CPU）周期，每个机器周期干一个特定的活，比如取值周期、取数周期。机器周期又要完成若干微操作，每个微操作占用的时间叫做节拍。每个节拍最终由几个脉冲组成。脉冲是最小的时间单位。</p>
+<h2 id="指令执行过程"><a href="#指令执行过程" class="headerlink" title="指令执行过程"></a>指令执行过程</h2><p>这一部分是CPU控制原理的核心。</p>
+<p>指令执行过程分成三个阶段：取指令阶段、分析取数阶段和执行阶段。</p>
+<h3 id="取指令阶段"><a href="#取指令阶段" class="headerlink" title="取指令阶段"></a>取指令阶段</h3><p>从宏观上来讲，这一阶段把指令从主存中取出来并存到指令寄存器中。具体来说分以下几步：</p>
+<ol>
+<li>(PC)-&gt;MAR</li>
+<li>CU向存储器发读命令 Read</li>
+<li>取出的指令存到MDR中 M(MAR)-&gt;MDR</li>
+<li>把MDR的内容送到IR中 (MDR)-&gt;IR</li>
+<li>PC自增 (PC)+1-&gt;PC</li>
+</ol>
+<h3 id="分析取数阶段"><a href="#分析取数阶段" class="headerlink" title="分析取数阶段"></a>分析取数阶段</h3><p>根据指令，取操作数。由前几章的内容可知，指令中的操作数可能表达得十分“晦涩”，可能要通过多次间接寻址才能得到。</p>
+<p>如果操作数不用寻址，那么就不用进行此阶段。</p>
+<p>比如要取@R0，即以R0的值为地址，到主存中取数。那么操作有以下几步：</p>
+<ol>
+<li>(R0)-&gt;MAR</li>
+<li>Read</li>
+<li>M(MAR)-&gt;MDR</li>
+</ol>
+<h3 id="执行阶段"><a href="#执行阶段" class="headerlink" title="执行阶段"></a>执行阶段</h3><p>现在我们有了函数，有了函数参数，接下来的任务就是执行指令并将结果保存。</p>
+<p>比如把数相加的执行阶段指令有以下几步（MAR已经是目标存储寄存器的地址）：</p>
+<ol>
+<li>(R1)+(Y)-&gt;Z</li>
+<li>(Z)-&gt;MDR</li>
+<li>Write</li>
+</ol>
+<p>比如转移A步指令的执行阶段有以下几步：</p>
+<ol>
+<li>(PC)-&gt;Y</li>
+<li>Ad(IR) + (Y) -&gt; Z</li>
+<li>(Z)-&gt;PC</li>
+</ol>
+<h2 id="微程序原理"><a href="#微程序原理" class="headerlink" title="微程序原理"></a>微程序原理</h2><h3 id="基本概念介绍"><a href="#基本概念介绍" class="headerlink" title="基本概念介绍"></a>基本概念介绍</h3><p>之前CPU执行的每一步操作，都叫做微操作。对于指令来说，这些微操作都是不可再分的操作。但是从微操作的角度来看，微操作还可以分成很多个更细致的操作，比如打开某个逻辑门等。这些更细致的操作叫微命令。不同的微操作之间可能会公用相同的微命令。引入程序设计的思想，微命令的重用和模块化非常关键。微程序控制的思想也因此被提出来了。</p>
+<p>一个机器指令就对应一个微程序。一个微程序里可以分成多个微指令，微指令就是一个一个函数。和CPU的指令类似，微指令也分为操作码和地址码。但微指令的地址码只包括下一条要执行的微指令的地址，而不是存数据的地址。在微指令中，微命令就是原子操作，和程序中的语句相同。</p>
+<h3 id="微指令编码"><a href="#微指令编码" class="headerlink" title="微指令编码"></a>微指令编码</h3><p>微指令编码指对微指令的操作码编码。操作码译码的结果是得到一个01序列，表示执行哪些微命令。</p>
+<p>最显然的两种编码法是直接编码法和最短编码法。前者令操作码每一位都表示一个微命令是否执行，后者进行完全编码，每次只能产生一个微命令的输出。由于微命令可以并行，但又不是每种操作都能并行，因此第一种方法编码长度过长，而第二种方法无法进行并行。</p>
+<p>一种折衷二者的方案是：事先知道哪些操作不能并行，把这些操作分成一组，进行完全编码。整个操作码就被分成了一个一个完全编码的字段。</p>
+<p>课后有一道这方面的题目。考试估计会考。</p>
+<h3 id="组成部件"><a href="#组成部件" class="headerlink" title="组成部件"></a>组成部件</h3><ul>
+<li>控制存储器CM，存了一堆微程序</li>
+<li>μIR，微指令寄存器，和IR类似</li>
+<li>微地址形成部件，用于形成初始微地址和后续微地址</li>
+<li>μMAR，微地址寄存器，和MAR类似，但不是从内存而是从CM中取指令</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/07/Principles-of-Computer-Composition-cources-review-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/07/Principles-of-Computer-Composition-cources-review-5/" class="post-title-link" itemprop="url">计算机组成原理复习：第五章 存储系统和结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-07 01:28:55" itemprop="dateCreated datePublished" datetime="2020-01-07T01:28:55+08:00">2020-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>比较可惜的是，从这章开始，这门课的内容就讲得很不细致了。很多内容只能从一个很高的层次进行介绍，无法深入细节。一旦讲到了偏硬件的东西，由于难以进行实践，又和数学等理科知识关系不大，和电路等学科关系密切，课本就只能划水。</p>
+<h1 id="计算机组成原理复习：第五章-存储系统和结构"><a href="#计算机组成原理复习：第五章-存储系统和结构" class="headerlink" title="计算机组成原理复习：第五章 存储系统和结构"></a>计算机组成原理复习：第五章 存储系统和结构</h1><p>本章先从整体上介绍了计算机的存储结构，再着重介绍主存的存储思想以及具体的主存种类。之后讲了多个主存储器是如何构成一个系统的。最后稍微介绍了一些其他cache、虚拟内存等内容。</p>
+<p>我只针对复习PPT提到的重点和我们课后习题涉及到的内容进行复习。</p>
+<h2 id="主存储器的组织"><a href="#主存储器的组织" class="headerlink" title="主存储器的组织"></a>主存储器的组织</h2><p>这一节围绕主存是如何存储数据的，介绍了主存储器整体的工作原理，和前面编码的内容有一些关联。主存储器本身的结构在后面的小节里介绍。</p>
+<h3 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h3><p>数据的最小单位是位，被叫做<strong>存储位</strong>。按位存取效率太低，多个存储位在一起就成了<strong>存储字</strong>，这是访问的最小单元。存存储字的结构叫<strong>存储单元</strong>，地址和存储单元是一一对应的。大量存储单元构成了<strong>存储体</strong>。</p>
+<h3 id="主存部分技术指标"><a href="#主存部分技术指标" class="headerlink" title="主存部分技术指标"></a>主存部分技术指标</h3><h4 id="存取时间"><a href="#存取时间" class="headerlink" title="存取时间"></a>存取时间</h4><p>执行一次读或写操作的时间。</p>
+<h4 id="存取周期"><a href="#存取周期" class="headerlink" title="存取周期"></a>存取周期</h4><p>两次执行访问操作的间隔时间。因为除了完成存取操作外，主存内部还有一些其他的操作，存取周期一般略大于存取时间。</p>
+<h4 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h4><p>等于主存等效工作频率乘主存位宽。</p>
+<h3 id="数据在主存的存放"><a href="#数据在主存的存放" class="headerlink" title="数据在主存的存放"></a>数据在主存的存放</h3><p>可能出现主存的存储字长比较大，而计算机传来的数据比较小的情况。比如主存的存储字长是64位，而计算机传来的数据可能是8~64位的。如何存这些数据是一个问题：</p>
+<p>如果每个数据紧挨着存，那么主存空间没有浪费。但是万一一个存储字剩余容量较小，突然来了一个64位数据，那么这个数据就得拆成两半，存在两个存储字里了。</p>
+<p>如果每个数据都存在一个存储字里，那就太浪费了。如果所有数据都是一个字节，那么大量的空间要被浪费。</p>
+<p>因此，边界对齐的存取法被提出。这种方法综合了以上两种方法的优点。比如，在存储字为64位的主存储器里，64位数据只能从一个存储字开头从，32位数据只能从半个存储字开头存，16位位数据只能从四分之一个存储字开头存。</p>
+<h2 id="主存储器结构与工作原理"><a href="#主存储器结构与工作原理" class="headerlink" title="主存储器结构与工作原理"></a>主存储器结构与工作原理</h2><p>这一节前面讲了很多和电路的东西，我们缺乏基础知识，学不懂。我只复习DRAM的刷新以及RAM芯片的一些参数。</p>
+<h3 id="DRAM的刷新"><a href="#DRAM的刷新" class="headerlink" title="DRAM的刷新"></a>DRAM的刷新</h3><p>由于DRAM电路的问题，需要经常刷新才能维护数据。</p>
+<p>注意，刷新是指对每个芯片的刷新。芯片一般会排成正方向阵列，比如16K的芯片，就会排成128*128。之后谈到的按行刷新，这个“行”指的就是128。刷新就等于读了一遍，因此刷新周期等于读写周期。这个刷新周期是以行为单位的。</p>
+<p>为了提高整体的工作效率，有几种不同的刷新策略：</p>
+<h4 id="集中刷新"><a href="#集中刷新" class="headerlink" title="集中刷新"></a>集中刷新</h4><p>在最大允许的刷新间隔内，把工作分成两个阶段：读写操作和刷新。在所有读写操作执行一段时间后，集中刷新所有的存储芯片，再继续读写。等于说每个刷新间隔构成了一个循环的工作周期。</p>
+<h4 id="分散刷新"><a href="#分散刷新" class="headerlink" title="分散刷新"></a>分散刷新</h4><p>每次读或写之后，立刻刷新。也就是读写操作和刷新绑定。这样可以保证内存正常，但是刷新过于频繁，读写周期变长，没有充分利用最大允许刷新间隔</p>
+<h4 id="异步刷新"><a href="#异步刷新" class="headerlink" title="异步刷新"></a>异步刷新</h4><p>异步刷新综合以上两种方法，把主存按行分组。先做一会儿读写操作，就停下来刷新第一行；再做一会儿读写操作，就刷新第二行……。在最大允许刷新间隔内，把所有行都刷新一遍。</p>
+<p>课本上对以上三种方法都画了一个图，看了图就很好理解。</p>
+<h3 id="RAM芯片引脚"><a href="#RAM芯片引脚" class="headerlink" title="RAM芯片引脚"></a>RAM芯片引脚</h3><ul>
+<li>地址线</li>
+<li>数据线</li>
+<li>片选线 CS</li>
+<li>读写控制线 WE</li>
+<li>Vcc 电源</li>
+<li>GND 地</li>
+</ul>
+<p>其中片选线的意思可能不能通过字面来理解。片选线决定该芯片是否工作。</p>
+<p>上述引脚的字母打的不是很准确。这篇文章我不打算渲染公式，所以就简单写一下。</p>
+<p>先复习一下这些引脚是因为之后的内容会用到。</p>
+<h2 id="主存储器的连接与控制"><a href="#主存储器的连接与控制" class="headerlink" title="主存储器的连接与控制"></a>主存储器的连接与控制</h2><p>本节讲的是多个主存储器是如何协作的。</p>
+<h3 id="主存储器扩展"><a href="#主存储器扩展" class="headerlink" title="主存储器扩展"></a>主存储器扩展</h3><p>存储芯片一般比较小。为了得到一个较大的主存储器，需要把存储芯片连接扩展。</p>
+<p>先提一句，芯片用数据量和数据位数来表示。比如64K X 1就是地址64K，数据只有1位的芯片。</p>
+<p>考试主要考察的就是画图。注意，一堆线要画成粗的线。箭头表示数据传输方向，数据线的箭头是双向的，其他线的箭头是单向的。</p>
+<p>有以下三种扩展方法：</p>
+<h4 id="位扩展"><a href="#位扩展" class="headerlink" title="位扩展"></a>位扩展</h4><p>用一堆地址一样的芯片扩展位数。</p>
+<p>地址线、片选线并联进每一个芯片。</p>
+<p>数据线每一根接一个芯片。</p>
+<p>以64K X 1拓展到64K X 8为例：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>芯片1</th>
+<th>芯片2</th>
+<th>芯片3</th>
+<th>…</th>
+<th>芯片8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+</tr>
+<tr>
+<td>…</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+</tr>
+<tr>
+<td>A15</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+<td>——l——</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>——l——</td>
+<td>—————</td>
+<td>—————</td>
+<td>—————</td>
+<td>—————</td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>D7</td>
+<td>—————</td>
+<td>—————</td>
+<td>—————</td>
+<td>—————</td>
+<td>——l——</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="地址扩展"><a href="#地址扩展" class="headerlink" title="地址扩展"></a>地址扩展</h4><p>假设一堆芯片位数相同，但存储量不够，可以把它们并在一起扩展地址</p>
+<p>这种方法的思想是，地址线的高位用来片选，也就是选择使用那片芯片；低位直接输入芯片。</p>
+<p>此处看书上的图很好理解。</p>
+<h4 id="字和位同时扩展"><a href="#字和位同时扩展" class="headerlink" title="字和位同时扩展"></a>字和位同时扩展</h4><p>同时执行上面两种扩展。</p>
+<p>看书上的图很好理解。</p>
+<h3 id="存储芯片的地址分配与片选"><a href="#存储芯片的地址分配与片选" class="headerlink" title="存储芯片的地址分配与片选"></a>存储芯片的地址分配与片选</h3><p>上一节地址扩展中，出现了如何分配地址这个问题。上一节是用一个译码器来分配地址高位，得到片选结果。本节具体介绍了分配地址时存储芯片片选的方式。</p>
+<h4 id="线选法"><a href="#线选法" class="headerlink" title="线选法"></a>线选法</h4><p>地址高位的每一位直接就代表是否选中某个芯片，而不经过移码。由于片选时0表示有效，因此用于片选的地址高位只能有一个0。</p>
+<h4 id="全译码法"><a href="#全译码法" class="headerlink" title="全译码法"></a>全译码法</h4><p>就是上一节的方法，把高位输入译码器进行译码，输出选择哪一个芯片。有可能输入的地址组合量大于需要的量，比如输入9位，但只有4个芯片。这个时候译码结果只有4个是有效的，其他508个都是无效的。</p>
+<h4 id="部分译码法"><a href="#部分译码法" class="headerlink" title="　部分译码法"></a>　部分译码法</h4><p>在全移码的基础上，只把部分位输入译码器。比如要选择4个芯片，只输入2位就行了。这样的话地址的高位完全用不到，会产生地址重叠。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/06/Principles-of-Computer-Composition-cources-review-4/" class="post-title-link" itemprop="url">计算机组成原理复习：第四章 数值的机器运算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-06 19:12:01" itemprop="dateCreated datePublished" datetime="2020-01-06T19:12:01+08:00">2020-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>和上一篇文章一样，这篇文章的很多内容是我学这门课的时候写的。</p>
+<h1 id="计算机组成原理复习：第四章-数值的机器运算"><a href="#计算机组成原理复习：第四章-数值的机器运算" class="headerlink" title="计算机组成原理复习：第四章 数值的机器运算"></a>计算机组成原理复习：第四章 数值的机器运算</h1><p>本章讲了计算机电路是如何实现运算。计算机中的运算可以整体分成数值计算和逻辑计算。无论多复杂的数值操作，都可以用加减乘除来实现，因此本章讲了加减乘除四则运算的实现；逻辑运算是计算机运算的基础，本章也介绍了与、或、取反等逻辑运算。最后本章讲了运算器的一些具体实现。</p>
+<p>进一步来划分一下本章的结构。减法运算是靠加法实现的，因此本章先重点介绍了加法器的实现，之后讲了如何用加法器来实现加法和减法。由于乘除操作基于加法和移位，因此本章之后介绍了移位操作的实现，再介绍了定点乘除操作的实现。如第二章所述，浮点运算实际上基于的是定点小数和定点整数，浮点的所有运算也可以由定点的计算转换而来，因此再之后本章才介绍了浮点数间的计算。十进制做为数值计算的一种特例，和之前内容的关系并不是很紧密，在所有基本运算的实现介绍完之后才介绍。运算部分结束后，本章又稍微提了一下逻辑计算，因为它太简单了。最后是一些在本课中价值不大的运算器的实现。</p>
+<p>本章各节间的逻辑关系是非常紧密的，当你整理出本章的依赖关系后，一张依赖图就能出现在你的脑海中。可惜这里位置太小，我画不下。</p>
+<p>说实话，我觉得本书这一章的部分内容更应该放到数字逻辑中去讲。这一章有不少涉及电路的知识，很多知识都属于学科间的边缘交界地带。但这一章后面又多了很多和具体电路无关，介绍电路实现算法的知识，这些知识放进计算机组成原理倒也没错。我觉得本书这一章结构编的不是很好，前面全加器的电路实现应该放到其他学科去，整章就介绍抽象的电路实现，没必要讲到电路的优化上，保持知识的深入程度相似。</p>
+<h2 id="基本运算（加法）电路实现"><a href="#基本运算（加法）电路实现" class="headerlink" title="基本运算（加法）电路实现"></a>基本运算（加法）电路实现</h2><p>由于所有其他运算可以用加法来表示，所以加法被叫做“基本算数运算”。</p>
+<h3 id="加法器简介"><a href="#加法器简介" class="headerlink" title="加法器简介"></a>加法器简介</h3><h4 id="全加器"><a href="#全加器" class="headerlink" title="全加器"></a>全加器</h4><p>输入$A<em>i$，$B_i$，进位$C</em>{i - 1}$，输出当前结果$S_i$和进位$C_i$。</p>
+<p>具体原理在数字逻辑中已经学过了，用两个半加器就能实现。</p>
+<h4 id="串行加法器"><a href="#串行加法器" class="headerlink" title="串行加法器"></a>串行加法器</h4><p>只有一个加法器，移位寄存器不断地把每一位放到全加器里计算。这种方法实在是太慢了</p>
+<h3 id="并行加法器进位的产生与传递"><a href="#并行加法器进位的产生与传递" class="headerlink" title="并行加法器进位的产生与传递"></a>并行加法器进位的产生与传递</h3><p>由于并行加法器比较复杂，这里单独开了好几个小节来讲。</p>
+<p>并行加法器就是把一堆全加器放在一行，上一个的进位输出放到下一个的进位输入里。数字逻辑中也学过了并行加法器。</p>
+<p>并行加法器的问题在于，当前位做运算时，需要等待上一位运算完成，获取进位输入。因此，并行加法器看似结构上并行，实际上运算速度还要受到产生和传递进位的速度的影响。</p>
+<p>为了想办法提高运算速度，本节分析了并行加法器进位的产生与传递的本质。</p>
+<p>进位的表达式为：</p>
+<p>$C<em>i=A_iB_i+(A_i \bigoplus B_i)C</em>{i - 1}$</p>
+<p>其意思是，如果要产生进位，要么两个当前位都是1，要么是两个当前位有一个是1，且上一位有进位。</p>
+<p>说实话，后面那个异或运算增加了理解的难度。明明那个异或写成或的话，这个式子也是成立的，读起来也更加清晰。不知道是不是异或门比或门更快的原因。老师和课本都没有对这里进行讲解。</p>
+<p>为了方便后面的分析，用更简单的形式来写上面的式子</p>
+<p>$C<em>i = G_i + P_iC</em>{i - 1}$</p>
+<p>这个式子暗示$A_i,B_i$对后面的分析毫无影响，我们只关系进位间的关系。</p>
+<h3 id="并行加法器进位的优化"><a href="#并行加法器进位的优化" class="headerlink" title="并行加法器进位的优化"></a>并行加法器进位的优化</h3><h4 id="并行进位法"><a href="#并行进位法" class="headerlink" title="并行进位法"></a>并行进位法</h4><p>根据之前的分析：</p>
+<p>$C_1 = G_1 + P_1C_0$</p>
+<p>$C_2 = G_2 + P_2C_1$</p>
+<p>把第一个式子代入第二个式子得：</p>
+<p>$C_2 = G_2 + P_2(G_1 + P_1C_0) = G_2 + P_2G_1 + P_2P_1G_0$</p>
+<p>可以观察到，$C_1$消失了。只需要最初的$A_1,B_1,C_0$，就能直接得到第二位的进位，而不需要等待第一位的进位输入。</p>
+<p>如果反复利用这种方式，那么无论是第几位的进位输出，都可以用初始的几个量算出来了。由于逻辑门是可以并行的，无论这个式子多长，只需要花费一次计算与的时间和一次计算或的时间就可以完成 进位输出的计算，时间复杂度是$O(1)$。设与门、或门的延迟时间位$ty$，那么这种方法耗费的时间是$2ty$。</p>
+<p>顺带一提，之前要等待上一位进位输出的作为输入的并行加法器中，花费的时间是$2nty$，其中$n$是参加运算的数的位数。时间复杂度$O(n)$。</p>
+<p>但是，时间复杂度是下降必然引起空间复杂度（电路中门的数量）的上升。据肉眼观察，之前的空间复杂度是$O(n)$，但新方法的空间复杂度是$O(n^2)$。如果所有位都用新的方法，那么电路的结构以及造价会飞快地上升。对于一个位数很长的数，直接使用这种并行进位法是不合适的。</p>
+<h4 id="分组并行进位"><a href="#分组并行进位" class="headerlink" title="分组并行进位"></a>分组并行进位</h4><p>并行进位法在位数很大的时候就不合适了，但这种方法依然有利用的价值。4位数的并行进位电路是可以接受的。如果我们把一个很长的数每4位看成一组，分别放进4位的并行进位电路，那么电路的进速度还是得到了优化了的。准确来讲，应该是快了4倍。这种电路叫做4位先行进位电路（Carry Look Ahead，CLA）。其耗费时间是$\frac{n}{2}ty$。</p>
+<p>可以发现，我们把每四位看成了一个组。这个组的概念，和原来每一位的概念是类似的。原来每一位的运算要输入$A<em>i,B_i,C</em>{i - 1}$，输出$C<em>i$；现在每一组输入$A_i \sim A</em>{i+3},B<em>i\sim B</em>{i+3},C<em>{i - 1}$，输出$C</em>{i+3}$。原来的位变成了现在的组。这实际上是一个递归的过程。</p>
+<p>我们可以把4位当成一组，是不是也可以把几个组当成一个大组并行运算呢？</p>
+<p>根据公式：</p>
+<p>$C_4 = G_4 + P_4G_3 + P_4P_3G_2 + P_4P_3P_2G_1 + P_4P_3P_2P_1C_0$</p>
+<p>和之前一样，把前面不含$C_0$的看成一个整体，含$C_0$的看成一个整体。可以得到：</p>
+<p>$C_4 = G_1^<em>+P_1^</em>C_0$</p>
+<p>因为我们每4位分成了一组，所以$C_8$也有类似的式子：</p>
+<p>$C_8 = G_2^<em>+P_2^</em>C_4$</p>
+<p>同样，如果把$C<em>4$代入，那么$C_8$也只含$C_0$这一个变量了。现在$C_4,C_8,C</em>{12}…$都可以并行计算出来了。为了产生$G^<em>P^</em>$，原来产生$C<em>4,C_8,C</em>{12}$的CLA电路要修改，把输出从$C_4…$改成$G^<em>P^</em>$。这种改过的电路叫做成组先行进位电路（Block Carry Look Ahead，BCLA）。</p>
+<p>新的加法器原理和之前一样，但和之前不同的是，开始的进位输入只有$C<em>0$，而BCLA需要$C_4,C_8,C</em>{12}…$。在得到每一组的这些输入后，我们才能把每一组组内的结果算出来。</p>
+<p>总结一下，新的电路分了三步：第一步，所有的$G^<em>,P^</em>$是从$G,P$中计算而来，需要额外花$2ty$有关计算所有的$G^<em>,P^</em>$；第二步，根据$G^<em>,P^</em>,C<em>0$，计算出$C_4,C_8,C</em>{12}…$，这种组内的运算用到的是开始的并行加法器，也要花费$2ty$时间；第三步，根据$C<em>4,C_8,C</em>{12}…$，计算每一组内部的进位，时间同样是$2ty$。总共花费了$6ty$的时间。特别地，由于$C_0$在一开始就已知，第一组组内的计算可以在第一个$2ty$里算出来。</p>
+<p>这部分内容比较复杂，照着课本上电路的结构图能够更快地理解这些内容。</p>
+<h2 id="定点加减计算"><a href="#定点加减计算" class="headerlink" title="定点加减计算"></a>定点加减计算</h2><h3 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h3><p>原码十分死板，因为只有原码的绝对值才有意义。而且在进行加减的时候，还要考虑两个数前面的正负号，才能决定绝对值是加还是减，非常麻烦。</p>
+<p>首先需要一个逻辑电路，通过两个数的符号位和当前的运算得到绝对值进行的是加还是减运算。</p>
+<p>对于绝对值加，直接加。对于绝对值减，减数要变补再加。</p>
+<p>如果最终加的结果的负数，还要再求一次补，把负数转化成它的绝对值。结果的符号位也要取反。</p>
+<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><h4 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h4><p>由于补码中负数的表示是在模$2^n$意义下的,因此直接带上符号位计算就行了。</p>
+<h4 id="减法"><a href="#减法" class="headerlink" title="减法"></a>减法</h4><p>把减数取负再做加法即可。问题是怎么把一个数取负。</p>
+<p>口诀教的是：连同符号位一起取反，末尾+1，就得到了一个数的相反数。</p>
+<p>我觉得按求负数补码的方式，倒着想也没错。正数就和上面一样取反+1，负数-1再全部取反。</p>
+<h4 id="符号扩展"><a href="#符号扩展" class="headerlink" title="符号扩展"></a>符号扩展</h4><p>符号扩展就是一个位短的数如何正确强制转换成一个位长的数。方法很简单：正数补0负数补1。</p>
+<h3 id="补码溢出"><a href="#补码溢出" class="headerlink" title="补码溢出"></a>补码溢出</h3><p>计算机运算都是在模意义下的。运算结果绝对值比模数/2大，就会发生溢出现象，运算结果因为无法表示而变得不正确。</p>
+<p>只有同号加法才会溢出，因为异号加法绝对值一定变小。</p>
+<p>比较简单的判溢出方法是：在当前符号位左边扩展一位，就是整数补0负数补1。之后用拓展过的数进行计算。如果两个符号位是10，表示负数溢出；符号位是01表示正数溢出。</p>
+<h3 id="补码运算的电路"><a href="#补码运算的电路" class="headerlink" title="补码运算的电路"></a>补码运算的电路</h3><p>这个章节划分得很没有条理。不过这一小节也不重要，课本写得不详细，老师也没讲几句。</p>
+<h2 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h2><p>移位是乘除法的基础，所以在这一节先介绍一下。</p>
+<h3 id="移位规则"><a href="#移位规则" class="headerlink" title="移位规则"></a>移位规则</h3><p>移位规则十分简单，用过C语言的移位运算的话很容易就能学会。</p>
+<p>宏观上来看，不管符号位如何，左移要让数乘2，右移要让数除以2。</p>
+<p>正数左右移补0，负数左移补0右移补1。</p>
+<p>要用电路实现移位，要么用移位寄存器，要么用移位器进行计算后保存计算结果。移位操作就是一个多路选择器，等于是输入到输出的一个一对一映射。</p>
+<h3 id="舍入操作"><a href="#舍入操作" class="headerlink" title="舍入操作"></a>舍入操作</h3><p>右移时，有些数位会多出来，需要舍弃。舍入方法有：</p>
+<ol>
+<li>恒舍：什么都不管，直接全舍去。</li>
+<li>冯诺依曼舍入法：什么都不管，舍去，剩下的数最后一位置1.</li>
+<li>下舍上入：被舍的最后一位（保留的最右边的一位的右边一位）是1则前面保留的部分+1.</li>
+<li>查表舍入：把方法3放进一个表里，减少++成本。</li>
+</ol>
+<h2 id="定点乘法计算"><a href="#定点乘法计算" class="headerlink" title="定点乘法计算"></a>定点乘法计算</h2><p>方法中的“一位“、”两位“把乘除法计算步骤拆开后，每次做加法是逐位考虑还是每两位考虑。</p>
+<h3 id="原码一位乘法"><a href="#原码一位乘法" class="headerlink" title="原码一位乘法"></a>原码一位乘法</h3><p>和加法一样，原码做乘法的时候需要把符号位和绝对值分开处理。</p>
+<p>符号位很好处理，做一个异或就行了。</p>
+<p>绝对值相乘的步骤和我们列竖式手算乘法是一模一样的。由于二进制里只有0和1，因此每一步中要么加上被乘数，要么不加。这种是否关系刚好和逻辑电路相符合。</p>
+<p>但是，我们列竖式的时候，每次新算出来的部分积都会往左一位，电路不方便做这样的操作。因此，电路每次把旧的部分积右移，以代替新部分积左移。</p>
+<p>只要看一眼课本上的例题就能快速理解这个过程</p>
+<h3 id="补码一位乘法"><a href="#补码一位乘法" class="headerlink" title="补码一位乘法"></a>补码一位乘法</h3><p>补码中由于符号位参与运算，其计算过程更加复杂一点。</p>
+<h4 id="校正法"><a href="#校正法" class="headerlink" title="校正法"></a>校正法</h4><p>第一想法是把被乘数的符号位分开，即先对被乘数后面的部分进行计算，如果被乘数符号位是1（是负数），就再加上一个乘数的相反数乘上被乘数符号位。这种方法加入一个特判，电路实现很不方便。</p>
+<h4 id="Booth乘法"><a href="#Booth乘法" class="headerlink" title="Booth乘法"></a>Booth乘法</h4><p>有人发现补码乘法有一个特殊的性质：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+
+\ [X\times Y]_{补}&=[X]_{补}\times(0.Y_1Y_2...Y_n)+[-X]_{补}\times Y_s \\
+\ &= [X]_{补}\times(Y_12^{-1}+Y_22^{-2}...+Y_n2^{-n})+[-X]_{补}\times Y_s \\
+\ &= [X]_{补}\times(-Y_s+(Y_1-Y_12^{-1})+(Y_22^{-1}-Y_22^{-2})...+(Y_n^{-n+1} -Y_n2^{-n}))
+\\
+\ &= [X]_{补}\times((Y_1 - Y_s)+(Y_2 - Y_1)2^{-1}+...+(0 - Y_n)2^{-n}) \\
+\ &= [X]_{补}\times((Y_1 - Y_s)+(Y_2 - Y_1)2^{-1}+...+(Y_{n+1} - Y_n)2^{-n}) \\
+
+\end{aligned}</script><p>看完前几行后，就能发现这个性质了：补码乘法可以看成被乘数补码乘上乘数的相邻位比较结果码。注意最后一行，$Y_{n+1}$本来没有这个数，但在计算的时候为了统一，我们假设有这个数，并把它初始化为0。</p>
+<p>有了这个公式，就可以直接进行补码乘法了。和之前一样，被乘数不断右移，但这次要看乘数最后一位和附加位的比较结果（附加位就是前一位，初始化为0）。如果当前位和附加位一样则不加；如果附加位是0这一位是1则减掉被乘数；如果附加位是1这一位是0则加上被乘数。</p>
+<h3 id="补码两位乘法"><a href="#补码两位乘法" class="headerlink" title="补码两位乘法"></a>补码两位乘法</h3><p>两位乘法就是每次考虑乘数的两位，加快乘法速度。</p>
+<p>乘法还是用Booth法，但是这次比较位有些复杂。但只要记住公式会化简成$(Y<em>{i+1}+Y_i-2Y</em>{i-1})$就行了。记住这个公式就能记住每一位权是多少</p>
+<h2 id="定点除法计算"><a href="#定点除法计算" class="headerlink" title="定点除法计算"></a>定点除法计算</h2><p>和乘法一样，除法的计算思路也由竖式中得来。同样，我们先从普通的原码除法，推广到补码除法。</p>
+<h3 id="原码除法"><a href="#原码除法" class="headerlink" title="原码除法"></a>原码除法</h3><p>同样，考虑原码时我们只关心绝对值部分。</p>
+<p>根据正常的列竖式除法，如果每次被除数比除数大，就商1，被除数减去除数，除数右移。在电路中，除数右移不方便，改成部分余数左移。这种比较法要用到比较电路，很麻烦。</p>
+<p>一种想法是，每次不管被除数和除数，先减了再说。如果减成了一个非负数，就正常商1；否则，若减成了一个负数，就说明这次不够减，商0。如果这次把除数又加回来的话，下一步操作我们又无脑减一次除数。这次加回除数和下次再减一次除数可以合并成一个操作，就是忽略本次的负数，下次加一次除数。也就是说，若$r<em>i = 2r</em>{i - 1} - Y$小于0，则本次操作先不恢复这个数，而是令$r_{i+1}=2r_i+Y$，因为$2r_i+Y=2(r_i+Y)-Y$,其中$r_i+Y$是回复了余数的结果。</p>
+<h3 id="补码除法"><a href="#补码除法" class="headerlink" title="补码除法"></a>补码除法</h3><p>补码中，要考虑到负数，算法复杂了一些。</p>
+<p>仔细一想，算法中部分余数（包括被除数）一直在变，只有除数的值没有变化。所有的符号都应该是相对于除数而言的。</p>
+<p>也就是说，原码除法可以看成补码除法的一种特殊情况，这是除数一直是正数。而当除数变成负数后，如果被除数是正数，说明”不够减“，商0；否则”够减“，商1。也就是说，我们要修正之前的加减交替法，把判断一个数是否不够减的一句擀成是否和除数异号。</p>
+<h2 id="规格化浮点计算"><a href="#规格化浮点计算" class="headerlink" title="规格化浮点计算"></a>规格化浮点计算</h2><h3 id="浮点加减"><a href="#浮点加减" class="headerlink" title="浮点加减"></a>浮点加减</h3><p>设：</p>
+<script type="math/tex; mode=display">
+A = M_A \times 2^{E_A} \\
+B = M_B \times 2^{E_B}</script><p>浮点数加减前要对齐阶，阶小往阶大的移动。先计算$\Delta E = E_A - E_B$。$\Delta = 0$若等于0则不用管；若大于</p>
+<p>0则B右移；否则A右移移。之后尾数加减。</p>
+<p>由于尾数要满足规格化数（科学计数法）的要求，需要对尾数加减结果进行规格化。</p>
+<p>假设尾数用双符号位表示。对于尾数计算结果的下列情况：</p>
+<ol>
+<li>00.1XXX | 11.0XXX 符号位和首位不同，满足规格化的要求</li>
+<li>00.0XXX | 11.1XXX 符号位和首位相同，绝对值小了，要把尾数放大（左移），阶码每次—。</li>
+<li>01.XXXX | 10.XXXX 双符号位仅在此处发挥作用。双符号位不同说明发生定点溢出，浮点超1。需要把尾数缩小，阶码++。</li>
+</ol>
+<h3 id="浮点相乘"><a href="#浮点相乘" class="headerlink" title="浮点相乘"></a>浮点相乘</h3><p>阶码相加（有移码则要减掉），尾数相乘。</p>
+<p>尾数大小一定落在$[\frac{1}{4}, 1)$,仅在尾数小于二分之一的时候需要进行左移，阶码—。</p>
+<h3 id="浮点相除"><a href="#浮点相除" class="headerlink" title="浮点相除"></a>浮点相除</h3><p>为了使尾数规格化，要保证被除数的尾数的绝对值比除数小，即$|M_A| &lt; |M_B|$。由于二者本身就是规格化数，这个操作至多操作一次。</p>
+<p>之后阶码相减，尾数相除。</p>
+<h2 id="十进制加减"><a href="#十进制加减" class="headerlink" title="十进制加减"></a>十进制加减</h2><p>没什么需要学的内容。十进制每一位都用4位二进制表示，每4位单独运算即可。</p>
+<h2 id="运算器实现"><a href="#运算器实现" class="headerlink" title="运算器实现"></a>运算器实现</h2><p>这一节内容又很偏硬件实现，应该不会去考。</p>
+<p>反正我就记住了两种芯片，74182对应CLA电路，74181对应BCLA电路。</p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>本节有很多运算，动手把这些运算算一遍才能保证自己完全理解了这些概念。</p>
+<p>我在做题的时候发现了一些坑点：</p>
+<ul>
+<li>原码乘法最后还要再移位一次，补码乘法不需要。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/06/Principles-of-Computer-Composition-cources-review-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/06/Principles-of-Computer-Composition-cources-review-3/" class="post-title-link" itemprop="url">计算机组成原理复习：第三章 指令系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-06 12:15:12" itemprop="dateCreated datePublished" datetime="2020-01-06T12:15:12+08:00">2020-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这篇文章的内容主要是上课的时候写的，复习的时候我又修改了一些地方。</p>
+<h1 id="计算机组成原理复习：第三章-指令系统"><a href="#计算机组成原理复习：第三章-指令系统" class="headerlink" title="计算机组成原理复习：第三章 指令系统"></a>计算机组成原理复习：第三章 指令系统</h1><p>指令对应机器语言，是计算机中最基本的命令。</p>
+<p>本章先整体介绍了指令的结构，包括了操作码、地址码两个部分，并简要介绍两者所占长度的问题。之后，本章对地址码和操作分别进行了进一步介绍。先是介绍了地址码的具体知识，因为地址码可能不表示一个具体的地址，而是通过一些间接的方式来获取地址。特别地，有一部分存储区构成了栈结构，有一些操作专门是针对堆栈的。然后是一些具体的指令操作。最后，本着从普适性到具体性的思想，本章介绍了指令集中应该具有的操作，以及一些具体的指令集的发展过程。</p>
+<h2 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h2><p>指令就是一段二进制代码。指令可以分成两部分，前一部分是操作码，后一部分是地址码。我觉得可以把操作码看成函数名，地址码看成函数参数。准确来讲，地址码是表示数据的代码，用地址码获取数据的方式再寻址技术部分会提到。</p>
+<h3 id="地址码结构"><a href="#地址码结构" class="headerlink" title="地址码结构"></a>地址码结构</h3><p>函数的参数可以有多有少。我们默认讨论双操作数系统。在指令这个“函数”中，最多支持4个参数。可惜的是，这个函数只支持默认参数来实现重载。也就是说，所有的指令实际上都会需要4个参数，但有些参数可能存在其它位置（可以看成一个全局变量），或者某些操作不需要所有4个参数。所以指令实际传入的操作数数量可能是0~4个。</p>
+<p>指令传入的4个参数是：第一操作数地址，第二操作数地址，运算结果地址，下一条指令的地址。和C++的默认参数一样，每少输入一个参数，就代表最后的那个参数被设为了默认值。</p>
+<p>3参数指令默认将下一条指令的地址设为当前指令地址+1。2参数指令把运算结果到第一操作数的地址。1参数指令把另一操作数存在某一个寄存器里。0参数指令一般是堆栈操作，把栈顶元素当成参数来进行操作。</p>
+<h3 id="操作码结构"><a href="#操作码结构" class="headerlink" title="操作码结构"></a>操作码结构</h3><p>操作码的长度可以固定，也可以不固定。后者可以节约空间，因为多地址的操作中地址码的长度较长，可以分配比较短的操作码。</p>
+<p>显然，和哈夫曼编码一样，不能有一个操作码是另一个操作码的前缀。</p>
+<h2 id="寻址技术"><a href="#寻址技术" class="headerlink" title="寻址技术"></a>寻址技术</h2><p>寻址指获取操作数或指令的地址。实际上，这一节不仅讲了如何寻址，还先讲了如何编址。</p>
+<h3 id="编址"><a href="#编址" class="headerlink" title="编址"></a>编址</h3><p>编址就是给寄存器、主存或IO设备中的存储单元编号，这样通过一个编号就能唯一地找到存在某处的一个数了。</p>
+<p>编址最重要的是编址的最小单位。如果编址最小单位是字，那么在一个字长16位的系统里，你只能通过地址区分每16位数，而不能唯一确定数据某个字中的哪个地方；如果编址最小单位是字节，那么你就可以区分每8位的数字；如果编址最小单位是位，那么你可以精确地访问每一位了。</p>
+<p>显然，编址最小单位是位的话，地址就会变得非常长了。还按字节编址比较好一些。在C语言中，我们可以得到每一个char的地址，这大概是字节编址的一个体现。</p>
+<p>编址长度和主存的字长不是一个概念。</p>
+<h3 id="寻址"><a href="#寻址" class="headerlink" title="寻址"></a>寻址</h3><p>主要讲怎么寻找数据的地址。</p>
+<p>最简单的是把数据直接放在指令里，这样不需要取通过地址来访问数据了。也就是往函数直接传了个值。但这样传进去的值的位数可能不够多。</p>
+<p>还可以传数据的地址，也就是传指针。有时为了方便，还可以寻两次地址，也就是传指针的指针。数据可以在寄存器里找，也可以在主存里找，共$2\times 2 =4$种方法。这里还要多提一句，寄存器间接寻址指的是第一次在寄存器里找地址，第二次还是在主存里找。</p>
+<p>此外，为了方便地获取一段连续的数据，还可以用基础地址加偏移量的方式获取数据。用C语言来写的话，就是</p>
+<p><code>*(p + i)</code>。<code>p</code>表示基础地址，<code>i</code>是偏移量。如果<code>i</code>在寄存器中，就叫做变址寻址；如果<code>p</code>在寄存器中，就叫做基址寻址。理论上这两种寻址方式表示的意思都是一样的，硬件实现方式也可能是相同的，但二者使用上有一些细微的差别。由于用户希望改变对于某个基址的偏移量<code>i</code>，因此变址寻址是一个面向用户的操作。</p>
+<p>此外，在基址寻址的基础上，基址<code>p</code>可以来自程序计数器。这种寻址方式叫相对寻址。</p>
+<h2 id="指令类型"><a href="#指令类型" class="headerlink" title="指令类型"></a>指令类型</h2><h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p>数据是在寄存器和主存之间传输的，理论上存在4种不同起点和重点的传输指令。把寄存器看成0，主存看成1，有序对<0,0>,<0,1>,<1,0>,<1,1>就可以表示4种数据传输的指令了。</1,1></1,0></0,1></0,0></p>
+<p>此外，还有对堆栈的PUSH和POP指令。但是，这两种指令本质上也是对于主存的操作，并不能称为最基本的操作。</p>
+<p>除了单向传输，还可以交换两个位置的数据。</p>
+<h3 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h3><p>包含C语言中的一些基本运算。比如加减乘除模、按位逻辑运算、移位运算。但书中没有具体讲这种指令的结构（比如有几个操作数）。</p>
+<h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><h4 id="转移"><a href="#转移" class="headerlink" title="　转移"></a>　转移</h4><p>转移有两种：有条件转移和无条件转移。有条件转移用于实现条件语句，而无条件转移让程序结构更加灵活，不必受到顺序存储的束缚。</p>
+<p>转移都要定义转移到的地址这一参数。对于有条件转移，还要把比较条件作为参数。</p>
+<h4 id="子程序调用"><a href="#子程序调用" class="headerlink" title="子程序调用"></a>子程序调用</h4><p>一个程序通过一些指令，可以调用另一个程序。只是根据调用关系，把被调用的程序叫做子程序。</p>
+<p>程序本身就是被调用的，这种调用其他程序的关系中体现了递归的思想。</p>
+<p>子程序调用也可以让程序不按顺序执行，而是跑到另一个地方去执行。在这一点上，它和转移十分类似。为了搞清这两个概念，要知道这两个概念间的区别。</p>
+<h5 id="子程序调用与转移的区别"><a href="#子程序调用与转移的区别" class="headerlink" title="子程序调用与转移的区别"></a>子程序调用与转移的区别</h5><ol>
+<li>子程序有“返回”这一操作。在调用了子程序后，一定要进行返回，返回到调用子程序的下一条指令。</li>
+<li>机器中应该有“程序”这个概念，也就是说不同程序之间是有明确的界限的。转移只能在当前程序中转移，而调用子程序会跳转到子程序的开头。</li>
+</ol>
+<p>既然调用子程序的时候要返回，那么机器必须存储返回的地址。事实上，每调用一次子程序就会产生一条返回地址信息。有多种存储返回地址的方法。</p>
+<h5 id="返回地址的存储"><a href="#返回地址的存储" class="headerlink" title="返回地址的存储"></a>返回地址的存储</h5><ol>
+<li>存到子程序的开头。我觉得这种方法很蠢，递归调用完全不可行了。但如果没有递归的话，这样设计节约了存储空间。</li>
+<li>先存到寄存器中，再让子程序把寄存器的内容存到内存中。这样不错。</li>
+<li>存到堆栈中。这种方法和2的本质是一样的。函数调用本身就类似栈的行为，用栈模拟的话更加自然，更加易于操作。但是，我觉得这种分类还是不够清楚。方法2里，你把东西存在内存里，在内存里也可以构成一个堆栈。方法3理论上是方法2的一个改进，而不是完全没有交集的两个方法。</li>
+</ol>
+<h4 id="返回指令"><a href="#返回指令" class="headerlink" title="返回指令"></a>返回指令</h4><p>返回指令明明是和子程序调用配套出现的，不懂书上为什么要单独列出来。</p>
+<h3 id="输入输出指令"><a href="#输入输出指令" class="headerlink" title="输入输出指令"></a>输入输出指令</h3><p>输入输出往往要用到除主存之外的存储区域。因此，IO指令可以分成两类。一种是IO地址单独编址，从0开始命名；另一种是把IO的地址接到主存后面。前者较独立编址，后者较统一编址。</p>
+<p>我感觉这一小节涉及的内容还是比较少的，考试应该不会考。</p>
+<h2 id="指令集的发展"><a href="#指令集的发展" class="headerlink" title="指令集的发展"></a>指令集的发展</h2><p>讲了一些很虚的东西，没什么价值。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/05/Principles-of-Computer-Composition-cources-review-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/05/Principles-of-Computer-Composition-cources-review-2/" class="post-title-link" itemprop="url">计算机组成原理复习：第二章 数据表示</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-05 21:17:33" itemprop="dateCreated datePublished" datetime="2020-01-05T21:17:33+08:00">2020-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="计算机组成原理复习：第二章-数据表示"><a href="#计算机组成原理复习：第二章-数据表示" class="headerlink" title="计算机组成原理复习：第二章 数据表示"></a>计算机组成原理复习：第二章 数据表示</h1><p>实际上，这章讲的是数据是怎么编码的。大部分时候，都是在讲二进制编码。本章编码不特别说明都是在指二进制下的编码。</p>
+<h2 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h2><p>数值是运算中最常见的成分。</p>
+<p>非得分类的话，数字可以分成整数和小数。但小数的表示方法中也是用到了整数的。因此本章先介绍整数怎么表示。</p>
+<h3 id="原码-补码-反码"><a href="#原码-补码-反码" class="headerlink" title="原码 补码 反码"></a>原码 补码 反码</h3><p>无符号的数直接用二进制表示。</p>
+<p>有符号的数因为有正负，所以编码的第一个任务就是把正数和负数区分开来。如果把最高位当成符号位，0表示正1表示负，后面当成无符号数表示，那么这种表述法就是原码表示。反码和补码都是对原码的负数表示进行更改。反码是把负数的每一位取反，补码是把原码的每一位取反加一。补码和反码的原理都是取模，把一个模意义下很大的正数视为一个负数。</p>
+<p>其中，补码的特点是0只有一种表示方法，从而负数可以多表示一个数；原码和补码都有一个+0一个-0.</p>
+<h3 id="定点表示"><a href="#定点表示" class="headerlink" title="定点表示"></a>定点表示</h3><p>定点可以表示小数和正数。</p>
+<p>定点小数的第一位是符号位，小数点固定在第一位后面。也就是说，所有数是零点几。定点整数第一位也是符号位，小数点固定在最后一个数后面，和之前讲的整数表示完全相同。</p>
+<p>定点小数根本不实用。但是它在后面会被利用到。</p>
+<h3 id="浮点表示"><a href="#浮点表示" class="headerlink" title="浮点表示"></a>浮点表示</h3><p>计算机中，小数都用浮点表示法，即小数点的位置可以移动。在这种表示法下，一个数的数位被拆成了两部分：一部分是指数，称为阶码；一部分是底数，称为尾数。</p>
+<h1 id="我写完了这篇文章，写完了忘了保存，直接上传到博客。我退出文章的时候提示是否要保存，由于文章上传到博客草稿文件消失，一定会提示是否保存，我就选择了丢弃。结果我辛辛苦苦写的内容全部消失了。复习时间太少，这篇文章今天晚上就不补了。以后有缘再补完这篇文章或者删掉这篇文章。气死我了！"><a href="#我写完了这篇文章，写完了忘了保存，直接上传到博客。我退出文章的时候提示是否要保存，由于文章上传到博客草稿文件消失，一定会提示是否保存，我就选择了丢弃。结果我辛辛苦苦写的内容全部消失了。复习时间太少，这篇文章今天晚上就不补了。以后有缘再补完这篇文章或者删掉这篇文章。气死我了！" class="headerlink" title="我写完了这篇文章，写完了忘了保存，直接上传到博客。我退出文章的时候提示是否要保存，由于文章上传到博客草稿文件消失，一定会提示是否保存，我就选择了丢弃。结果我辛辛苦苦写的内容全部消失了。复习时间太少，这篇文章今天晚上就不补了。以后有缘再补完这篇文章或者删掉这篇文章。气死我了！"></a>我写完了这篇文章，写完了忘了保存，直接上传到博客。我退出文章的时候提示是否要保存，由于文章上传到博客草稿文件消失，一定会提示是否保存，我就选择了丢弃。结果我辛辛苦苦写的内容全部消失了。复习时间太少，这篇文章今天晚上就不补了。以后有缘再补完这篇文章或者删掉这篇文章。气死我了！</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/01/05/Principles-of-Computer-Composition-cources-review-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -571,1287 +1544,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/12/23/Software-Engineering-Project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/23/Software-Engineering-Project/" class="post-title-link" itemprop="url">软件工程个人项目：数独软件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-23 17:00:31" itemprop="dateCreated datePublished" datetime="2019-12-23T17:00:31+08:00">2019-12-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数独求解软件"><a href="#数独求解软件" class="headerlink" title="数独求解软件"></a>数独求解软件</h1><h2 id="Github链接"><a href="#Github链接" class="headerlink" title="Github链接"></a>Github链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/SingleZombie/sudoku-solver">Sudoku Solver</a></p>
-<h2 id="PSP耗时表"><a href="#PSP耗时表" class="headerlink" title="PSP耗时表"></a>PSP耗时表</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>PSP2.1</th>
-<th>Personal Software Process Stages</th>
-<th>Expected time (min)</th>
-<th>Actual time (min)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Planning</td>
-<td>计划</td>
-<td>20</td>
-<td>50</td>
-</tr>
-<tr>
-<td>· Estimate</td>
-<td>· 估计这个任务需要多少时间</td>
-<td>20</td>
-<td>50</td>
-</tr>
-<tr>
-<td>Development</td>
-<td>开发</td>
-<td>980</td>
-<td>1119</td>
-</tr>
-<tr>
-<td>· Analysis</td>
-<td>· 需求分析（包括学习新技术）</td>
-<td>50</td>
-<td>120</td>
-</tr>
-<tr>
-<td>· Design Spec</td>
-<td>· 生成设计文档</td>
-<td>150</td>
-<td>27</td>
-</tr>
-<tr>
-<td>· Design Review</td>
-<td>· 设计复审（和同事审核设计文档）</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>· Coding Standard</td>
-<td>· 代码规范（为目前的开发指定合适的规范）</td>
-<td>30</td>
-<td>5</td>
-</tr>
-<tr>
-<td>· Design</td>
-<td>· 具体设计</td>
-<td>210</td>
-<td>161</td>
-</tr>
-<tr>
-<td>· Coding</td>
-<td>· 具体编码</td>
-<td>300</td>
-<td>575</td>
-</tr>
-<tr>
-<td>· Code Review</td>
-<td>· 代码复审</td>
-<td>60</td>
-<td>25</td>
-</tr>
-<tr>
-<td>· Test</td>
-<td>· 测试（自我测试，修改代码，提交修改）</td>
-<td>180</td>
-<td>206</td>
-</tr>
-<tr>
-<td>Reporting</td>
-<td>报告</td>
-<td>170</td>
-<td>100</td>
-</tr>
-<tr>
-<td>· Test Report</td>
-<td>· 测试报告</td>
-<td>80</td>
-<td>60</td>
-</tr>
-<tr>
-<td>· Size Measurement</td>
-<td>· 计算工作量</td>
-<td>30</td>
-<td>10</td>
-</tr>
-<tr>
-<td>· Postmortem &amp; Process Improvement Plan</td>
-<td>· 事后总结，并提出过程改进计划</td>
-<td>60</td>
-<td>30</td>
-</tr>
-<tr>
-<td></td>
-<td>合计</td>
-<td>1170</td>
-<td>1269</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>具体任务划分</p>
-<ul>
-<li>开发 980<ul>
-<li>需求分析 50<ul>
-<li>列下任务的具体项 20</li>
-<li>评估自己是否缺少相关知识，如果缺少则去收集资料 30</li>
-</ul>
-</li>
-<li>生成设计文档 150<ul>
-<li>用例模型、基本类图 30</li>
-<li>动态模型设计 120</li>
-</ul>
-</li>
-<li>设计复审</li>
-<li>代码规范 30<ul>
-<li>查现有代码规范 20</li>
-<li>定义代码规范 10</li>
-</ul>
-</li>
-<li>具体设计 210<ul>
-<li>精化类图 60</li>
-<li>精化动态模型 120</li>
-<li>构件图 30</li>
-</ul>
-</li>
-<li>具体编码 300</li>
-<li>代码复审 60</li>
-<li>测试 180<ul>
-<li>单元测试 120</li>
-<li>集成测试 60</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>报告 170<ul>
-<li>测试报告 80<ul>
-<li>用例设计 20</li>
-<li>测试 20</li>
-<li>报告撰写 40</li>
-</ul>
-</li>
-<li>计算工作量 30</li>
-<li>总结 60</li>
-</ul>
-</li>
-</ul>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>阅读作业要求文档后，我对需求的总结如下：</p>
-<p>任务主要分两个部分：数独生成和数独求解。</p>
-<p>数独生成要求通过可处理异常输入的命令行参数传入生成终局的数量，按照格式要求生成指定数量的终局。格式要求是数字用空格隔开，行末无空格，文件末无换行，终局间空一行。终局第一个数字为学号后两位之和模9加1。</p>
-<p>数独求解要求从命令行读取待求解数独文件名，从文件中读取所有终局并按和数独生成同一格式输出求解结果。</p>
-<p>由于数据求解需要数据，我还需要加入一个生成待求解的数独。参考附加任务的需求，待求解数独满足挖空数在30~60之间，每个宫不少于2个。</p>
-<h3 id="解法思考"><a href="#解法思考" class="headerlink" title="解法思考"></a>解法思考</h3><h4 id="数独终局生成"><a href="#数独终局生成" class="headerlink" title="数独终局生成"></a>数独终局生成</h4><p>由于数独的每一行都是不重复的，因此每一行可以看成一个9个数的排列。一行一行地生成数独或许是一个比较好的方法。</p>
-<p>数独的第一行就可以区别出一类数独。如果能得到一个终局的话，只需要修改第一行的映射，就能快速得到大量终局。同时，由于数独的限制比较强，搜索算法不会浪费很多时间在不合法终局上。如果知道了前几行，可以对剩下的部分进行dfs暴力搜索。这一步和数独求解完全相同，将在下一节分析。现在的问题就是如何生成前几行。</p>
-<p>假设现在我们得到了第一行的一个合法排列。对于给定的一行，考虑有多少新行，使得新行和给定的行的三部分都能放在同一个宫里。这是一个排列组合的问题，我用分类讨论的方法对它进行了求解。</p>
-<p>对于给定的行，行内的每个数只需要考虑它们来自哪个宫。不妨把给定的行表示为<code>[1 1 1 2 2 2 3 3 3]</code>，新行表示为<code>[0 0 0 0 0 0 0 0 0]</code>。0表示未填，1、2、3表示这个数来自旧行的哪一个宫。我们先考虑位置信息，最后再区分三个1、2、3。</p>
-<p>分类讨论<code>1 1 1</code>被怎么放到了新行。根据这三个数有几个放到了第二个宫、第三个宫，可分成四种情况：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[0 0 0 0 0 0 1 1 1]</span><br><span class="line">[0 0 0 1 0 0 1 1 0]</span><br><span class="line">[0 0 0 1 1 0 1 0 0]</span><br><span class="line">[0 0 0 1 1 1 0 0 0]</span><br></pre></td></tr></table></figure>
-<p>类似地，可以分类讨论，把2、3填入第二行，使得第二行合法。通过排列组合的计算，总共能得出$C_3^3C_3^3+C_3^2C_3^2C_3^1+C_3^1C_3^1C_3^1+C_3^0C_3^0=56$种不同的结果。</p>
-<p>这样分类的好处是，对于一个给定的第一行，每种生成的序列的不重复的。改变第一行的映射就能改变终局。而第一行由于第一个数固定，有$8!=40320$种可能。因此，用这种方法至少可以生成$56\times40320=2257920‬$种终局，这个数满足$10^6$的需求。</p>
-<p>因此终局生成的算法总结如下：</p>
-<ol>
-<li><p>固定第一行第一个数，随机生成一个排列</p>
-</li>
-<li><p>按上述方法枚举出第二行的所有可能，把对应的1、2、3转换成任意一个合法的序列。</p>
-</li>
-<li><p>使用求解方法得到一个终局。</p>
-</li>
-<li><p>交换数字映射来得到额外的终局。</p>
-</li>
-</ol>
-<p>如果仅仅要满足需求的话，最多只需要求解56个数独。如果要更多的终局的话，只需要在求解的时候多求几组解就行了。</p>
-<h4 id="数独求解"><a href="#数独求解" class="headerlink" title="数独求解"></a>数独求解</h4><p>我在玩数独的时候发现了两个性质：某个宫的某个数字只能填入一个位置；某一个位置只能被填入一个数。</p>
-<p>因此搜索时，可以加入下列策略：对于每个宫的每个数建立一个表，表示它的可选位置；对于每个位置建立一个候选数字表。如果数字的位置唯一或位置的候选数唯一，就填上这个数，更新所有的表。如果没有唯一的数，就选一个候选数最少的位置，尝试填入一个数字。如果某个数的可选位置为空或者某个位置的候选数字为空，就回溯，直到数独填完。</p>
-<h4 id="待求解数独生成"><a href="#待求解数独生成" class="headerlink" title="待求解数独生成"></a>待求解数独生成</h4><p>待求解数独要从终局中生成。根据需求，只需先随机总空数，再每个宫随机挖掉两个空，再随机挖空直至满足空格数即可。</p>
-<h2 id="设计实现过程"><a href="#设计实现过程" class="headerlink" title="设计实现过程"></a>设计实现过程</h2><h3 id="面向对象分析与设计"><a href="#面向对象分析与设计" class="headerlink" title="面向对象分析与设计"></a>面向对象分析与设计</h3><h4 id="用例图"><a href="#用例图" class="headerlink" title="用例图"></a>用例图</h4><p><img src="/2019/12/23/Software-Engineering-Project/UseCase.jpg" alt="用例图"></p>
-<p> 根据需求分析能够快速得到用例图。</p>
-<h4 id="基本类图"><a href="#基本类图" class="headerlink" title="基本类图"></a>基本类图</h4><p><img src="/2019/12/23/Software-Engineering-Project/ClassDiagram1.jpg" alt="classdiagram"></p>
-<p>基本的类图建立如上。</p>
-<p>用户交互类负责处理输入输出，并且根据输入参数来调用执行该任务的类。</p>
-<p>为了使算法能够复用，每项任务的算法单独建立一个类。</p>
-<p>数独矩阵只存储了数独81个数的信息，该类被所有的任务类使用。在终局生成算法和求解算法中，会用到数独的其他信息，这些附加信息用一个新的数独状态类来存储。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/ClassDiagram1-2.jpg" alt="classdiagram"></p>
-<p>后来修改了一下类图的设计，三个任务器不应该做为用户交互类的子对象，应该是一种关联关系。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/ClassDiagram1-3.jpg" alt="classdiagram"></p>
-<p>后来写终局生成算法的时候发现终局生成器和终局生成算法的关联设计得不太对。</p>
-<p>（以上两个任务共花费27分钟）</p>
-<h4 id="活动图"><a href="#活动图" class="headerlink" title="活动图"></a>活动图</h4><h5 id="数独求解-1"><a href="#数独求解-1" class="headerlink" title="数独求解"></a>数独求解</h5><p>（花费40分钟）</p>
-<p>根据之前分析问题时的算法，得到以下活动图：</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/SudokuSolve.jpg" alt="solve"></p>
-<h5 id="终局生成"><a href="#终局生成" class="headerlink" title="终局生成"></a>终局生成</h5><p>根据之前分析问题时的算法，得到以下活动图：</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/SudokuGenerate.jpg" alt="generate"></p>
-<p>（花费24分钟）</p>
-<h4 id="精化类图"><a href="#精化类图" class="headerlink" title="精化类图"></a>精化类图</h4><p>感觉visio建模很不方便，没有提供数组的定义。以下类图表示我在建类时的大致想法，与实际的类定义应该存在不小的出入。</p>
-<h5 id="数独矩阵"><a href="#数独矩阵" class="headerlink" title="数独矩阵"></a>数独矩阵</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassSudoMatrix.jpg" alt="用例图"></p>
-<h5 id="数独状态"><a href="#数独状态" class="headerlink" title="数独状态"></a>数独状态</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassSudoState.jpg" alt="用例图"></p>
-<h5 id="求解算法"><a href="#求解算法" class="headerlink" title="求解算法"></a>求解算法</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassSolveAlgorithm.jpg" alt="solve"></p>
-<p>（以上三个任务共花费38分钟）</p>
-<h5 id="生成算法"><a href="#生成算法" class="headerlink" title="生成算法"></a>生成算法</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassGenerateAlgorithm.jpg" alt="Generate"></p>
-<p>(花费5分钟)</p>
-<h5 id="残局生成算法"><a href="#残局生成算法" class="headerlink" title="残局生成算法"></a>残局生成算法</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassGetEndGameAlgorithm.jpg" alt="GetEndGame"></p>
-<p>(花费5分钟)</p>
-<h5 id="终局生成器"><a href="#终局生成器" class="headerlink" title="终局生成器"></a>终局生成器</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassGenerator.jpg" alt="Generator"></p>
-<h5 id="求解器"><a href="#求解器" class="headerlink" title="求解器"></a>求解器</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassSolver.jpg" alt="Solver"></p>
-<h5 id="残局生成器"><a href="#残局生成器" class="headerlink" title="残局生成器"></a>残局生成器</h5><p><img src="/2019/12/23/Software-Engineering-Project/ClassEndGameGenerator.jpg" alt="EndGameGenerator"></p>
-<p>(共花费14分钟)</p>
-<h5 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h5><p>用户交互部分需要对数独矩阵进行输入输出。这一部分应该再用一个类来完成。</p>
-<p>用户的命令行命令可以分成两个部分：命令和参数。应该有检查命令和执行对应命令的函数也应该分成两大部分。</p>
-<p>执行命令的具体细节都交给对应的命令器完成。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/ClassCmdInteraction.jpg" alt="CmdInteraction"></p>
-<p>（花费35分钟）</p>
-<h3 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h3><p>（已花费1小时）</p>
-<p>（又花费了2小时）</p>
-<p>（又花费了1小时40分钟）</p>
-<p>（又花费了40分钟）</p>
-<p>（又花费了30分钟）</p>
-<p>（又花费了45分钟）</p>
-<p>（又花费了60分钟）</p>
-<p>（优化花了120分钟）</p>
-<h4 id="求解算法-1"><a href="#求解算法-1" class="headerlink" title="求解算法"></a>求解算法</h4><p>根据之前的面向对象分析与设计，我实现了4个类：<code>SudoMatrix, SudoChoice, SudoState, SudoSolveAlgorithm</code>。和设计的时候相比，每个类有一些变化。</p>
-<p><code>SudoMatrix</code>多写了很多方便调用的静态函数，比如位置坐标和第几个宫第几个数坐标的互相转换。</p>
-<p><code>SudoChoice</code>所有的操作都是封装好的，比如加入一个选项，去掉一个选项。</p>
-<p>由于大致的结构都已经预先设计好了，代码实现得比较顺利，Debug时间很少。</p>
-<p>最终求解算法定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SudoSolveAlgorithm</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// return true if the sudoku has solution</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">solve</span><span class="params">(SudoMatrix&amp; mat)</span></span>;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">SudoSolveAlgorithm</span>();</span><br><span class="line">    ~<span class="built_in">SudoSolveAlgorithm</span>();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">dfs</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">fillState</span><span class="params">(<span class="keyword">const</span> SudoMatrix&amp; mat)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> SudoState _sudoState;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>算法只维护了一个变量：当前的数独状态。</p>
-<p>算法主要函数<code>solve</code>实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SudoSolveAlgorithm::solve</span><span class="params">(SudoMatrix&amp; mat)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _sudoState = <span class="built_in">SudoState</span>();</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">fillState</span>(mat))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">dfs</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    mat = _sudoState.<span class="built_in">getMat</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>和之前的活动图设计的一样，算法先把已有内容填充进数独矩阵中，之后进行dfs。如果有任意一个步骤中发现数独无解，就立刻返回false。如果数独成功求解出来，就把结果数独进行拷贝。</p>
-<p>dfs只对数独当前状态这个变量进行操作。不断找可能最小的下一状态，如果碰到了无解的情况就让状态回溯。</p>
-<h4 id="终局生成算法"><a href="#终局生成算法" class="headerlink" title="终局生成算法"></a>终局生成算法</h4><p>该类定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SudoGenerateAlgorithm</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// To get the sudoku, you should generate the template first.</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">calTemplate</span><span class="params">(<span class="keyword">int</span> count = MAX_TEMPLATE_COUNT)</span></span>;</span><br><span class="line">    <span class="comment">// Search valid diffrent initial sudoku passed to solve algorithm</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(SudoMatrix&amp; crtMatrix, <span class="keyword">int</span> pos, <span class="keyword">int</span> cnt1, <span class="keyword">int</span> cnt2, <span class="keyword">int</span> cnt3)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The permutation indicates the first row of the generated sudoku. </span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> SudoMatrix <span class="title">getSudokuFromPermutation</span><span class="params">(std::vector&lt;<span class="keyword">int</span>&gt;&amp; permutation, <span class="keyword">int</span> templateId)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">static</span> <span class="keyword">int</span> MAX_TEMPLATE_COUNT;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">SudoGenerateAlgorithm</span>();</span><br><span class="line">    ~<span class="built_in">SudoGenerateAlgorithm</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> _templateCount;</span><br><span class="line">    <span class="keyword">static</span> std::vector&lt;SudoMatrix&gt; _templateSudokus;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>和设计的时候相比，实现时又加了一个dfs函数，以搜索前两行的合法状态。</p>
-<p>算法仅提供生成模板的函数和从模板和排列生成最终终局的函数。具体生成多个矩阵的工作在终局生成器中完成。</p>
-<h4 id="残局生成算法-1"><a href="#残局生成算法-1" class="headerlink" title="残局生成算法"></a>残局生成算法</h4><p>该类定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SudoEndGameAlgorithm</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> SudoMatrix <span class="title">getEndGame</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">const</span> SudoMatrix&amp; sudokuFinalState,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">int</span> minEmptyEntryPerPalace,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">int</span> totalEmptyEntryCount,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">int</span> seed = <span class="number">123456</span>)</span></span>;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">SudoEndGameAlgorithm</span>();</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">SudoEndGameAlgorithm</span>();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>和设计的时候相比，算法的主要函数中多了一个参数，表示随机种子。</p>
-<h4 id="交互类与命令器"><a href="#交互类与命令器" class="headerlink" title="交互类与命令器"></a>交互类与命令器</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CmdInteraction</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">CmdInteraction</span>();</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">CmdInteraction</span>();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">inputCmd</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span>;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    Solver _solver;</span><br><span class="line">    EndGameGenerator _endGameGenerator;</span><br><span class="line">    FinalStateGenerator _finalStateGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">processCmd</span><span class="params">(<span class="keyword">char</span>* cmdText, <span class="keyword">char</span>* argPtr[])</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">generateSudoku</span><span class="params">(<span class="keyword">char</span>* arg[])</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">solveSudoku</span><span class="params">(<span class="keyword">char</span>* arg[])</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>交互类在最终实现的时候还是把每种命令器当成了子对象。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FinalStateGenerator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">FinalStateGenerator</span>();</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">FinalStateGenerator</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Generate matrices of specific count and stored in pre-allocated array. </span></span><br><span class="line">    <span class="comment">// The max count is 2e6 if the first number is fixed.</span></span><br><span class="line">    <span class="comment">// Otherwise the max count is 1.8e7.</span></span><br><span class="line">    <span class="comment">// Return the actual count of generated matrices.</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">generateFinalState</span><span class="params">(<span class="keyword">int</span> count, Sudo::SudoMatrix* matrixArr, <span class="keyword">int</span> fixFirstNumber = <span class="number">0</span>)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>终局生成器和设计的时候差不多，只有一个调用函数。做为输出的数组需要提前分配内存。根据需求，可以设置固定在第一行第一个的数字。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solver</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Solver</span>();</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Solver</span>();</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">solve</span><span class="params">(SudoMatrix&amp; matrix)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>求解器仅仅在求解算法上面加了一层调用，和设计时几乎一样。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EndGameGenerator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Difficulty</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        EASY,</span><br><span class="line">        MIDDLE,</span><br><span class="line">        HARD</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">EndGameGenerator</span>();</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">EndGameGenerator</span>();</span><br><span class="line">    <span class="function">SudoMatrix <span class="title">generateEndGame</span><span class="params">(<span class="keyword">const</span> SudoMatrix&amp; finalState, Difficulty difficulty = MIDDLE, <span class="keyword">int</span> seed = <span class="number">123456</span>)</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>残局生成器和设计时也差不多，只不过难度是用枚举表示的。对应生成算法，生成器也需要输入一个随机种子。</p>
-<p>难度之间只有总空数和每个宫空数的不同。简单难度总空数20，每个宫至少2个空；中等难度总空数40，每个宫至少2个空；困难难度总空数60，每个宫至少3个空。</p>
-<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>由于VS2017 Community查看不了代码覆盖率，单元测试仅能测试代码的大致正确性。</p>
-<h4 id="终局生成器-1"><a href="#终局生成器-1" class="headerlink" title="终局生成器"></a>终局生成器</h4><p>由于生成器只有一个函数<code>generateFinalState</code>，我仅对这一个函数做了测试。</p>
-<p>我测试了三个指标：生成的数独是否正确（满足行列宫不重）、第一个数是否正确、是否有重复的数独。</p>
-<p>其中是否有重复的数独直接比较是<code>O(n^2)</code>的，测试起来十分慢。我把每个数独的每一行转换成一个数字，一整个数独就可以看成是一个9个数字的数组。我把每个数独转换成数独，扔到一个set里。如果在set发现了重复的数组，就说明有数独矩阵重复。这样测试重复的复杂度是<code>O(nlogn)</code>的。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/FinalStateTest.jpg" alt="FinalStateTest"></p>
-<p>如图，我总共运行了两次测试。两次测试只有生成数独的数量不同，一次是1000，一次是100000.</p>
-<h4 id="残局生成器-1"><a href="#残局生成器-1" class="headerlink" title="残局生成器"></a>残局生成器</h4><p>我用终局生成器生成了终局，之后把终局放入残局生成器了生成残局。</p>
-<p>由于终局生成器已经验证过正确性，现在只对残局生成器验证两个指标：每个宫的最小空格数、所有空格数之和。</p>
-<p>我对3种难度的残局生成器各设置了3个种子进行测试。生成数独的数量都是100个。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/EndGameTest.jpg" alt="EndGameTest"></p>
-<h4 id="求解器-1"><a href="#求解器-1" class="headerlink" title="求解器"></a>求解器</h4><p>（测试求解算法正确性花费30分钟）</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/Result1-1.jpg" alt="Result1-1"></p>
-<p>我在main函数里添加了一些临时代码，以验证求解算法的正确性和效率。</p>
-<p>我在<a target="_blank" rel="noopener" href="http://www.sudoku.name/index-cn.php">http://www.sudoku.name/index-cn.php</a> 这个网站上随便找了一个难度为困难的数独，在Release模式下运行代码。从结果中可以看出，算法高效且正确的完成了任务。</p>
-<p>最后我把残局生成器单元测试中得到的9组数据放入求解器进行测试，仅考虑求解出来的数独是否完全合法。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/SolverTest.jpg" alt="SolverTest"></p>
-<p>(之后共花了100分钟)</p>
-<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><p>我直接运行最终程序，做集成测试。</p>
-<p>交互模块的测试用例可分成以下等价类：</p>
-<ul>
-<li><p>命令个数错误</p>
-</li>
-<li><p>命令错误（无‘-’）</p>
-</li>
-<li>命令错误（有’-‘，第二个及后面的字符不对）</li>
-<li>命令参数错误</li>
-</ul>
-<p>命令参数错误根据具体的命令可以细分：</p>
-<ul>
-<li>-c 之后是字母</li>
-<li>-c 之后数字不合法</li>
-<li>-s 之后不是路径</li>
-<li>-s 之后文件不存在</li>
-</ul>
-<p>我先对以上七种情况设计了10个测试用例，运行结果如下：</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/ITest1.jpg" alt="ITest1"></p>
-<p>最后我输入了两个正确的命令。（sudokuInput.txt里有预先生成好的20个数独题目）</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/ITest2.jpg" alt="ITest2"></p>
-<p>在集成测试的时候，我发现我输出的最后一行有空行。经过修改后这个BUG被排除了。</p>
-<p>（花费56分钟）</p>
-<h3 id="代码复审"><a href="#代码复审" class="headerlink" title="代码复审"></a>代码复审</h3><p>我在VS中启用了代码分析，规则集为Mircrosoft本机建议规则。</p>
-<p>一开始，有很多警告：</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/CodeReview1.jpg" alt="CodeReview1"></p>
-<p>经过修改，警告被改掉了。</p>
-<p>比较特殊的是一个和迭代器有关的警告。迭代器的偏移量我提前计算好不会报错，如果直接把偏移量的计算式和迭代器放到一起运算就会报错。这个可能和64位平台有关的警告我没有太理解。</p>
-<p>（花费25分钟）</p>
-<h2 id="性能分析及程序优化"><a href="#性能分析及程序优化" class="headerlink" title="性能分析及程序优化"></a>性能分析及程序优化</h2><h3 id="数独生成"><a href="#数独生成" class="headerlink" title="数独生成"></a>数独生成</h3><h4 id="性能分析结果"><a href="#性能分析结果" class="headerlink" title="性能分析结果"></a>性能分析结果</h4><p>使用vs自带的性能分析，生成1000000个数独，得到的结果如下：</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/Performance1.jpg" alt="Performance1"></p>
-<p>可以发现，主要的时间都花在输入上。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/Performance2.jpg" alt="Performance2"></p>
-<p>其中，最花时间的是fputc函数。</p>
-<h4 id="优化方法及结果"><a href="#优化方法及结果" class="headerlink" title="优化方法及结果"></a>优化方法及结果</h4><p>我把输出的字符先存到一个缓冲区里，每存100个矩阵的信息就输出一次。</p>
-<p>输出一次性用fwrite输出。</p>
-<p>另外，由于生成算法需要的模板较少，我直接把最终的模板放进了文件里面，而不是每次都计算模板。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/Performance3.jpg" alt="Performance3"></p>
-<p>从结果可以看出，运行效率有所提升。</p>
-<h3 id="数独求解-2"><a href="#数独求解-2" class="headerlink" title="数独求解"></a>数独求解</h3><h4 id="初次结果"><a href="#初次结果" class="headerlink" title="初次结果"></a>初次结果</h4><p>最开始的时候，求解1000000个数独的速度非常慢。我没有等程序跑完就关掉了程序。</p>
-<h4 id="优化方法及结果-1"><a href="#优化方法及结果-1" class="headerlink" title="优化方法及结果"></a>优化方法及结果</h4><p><img src="/2019/12/23/Software-Engineering-Project/Performance4.jpg" alt="Performance4"></p>
-<p>我用性能分析工具检查，发现很多时间都浪费在了数据结构操作上。</p>
-<p>我把存状态的set改成了bitset，把部分操作改成了位询问、修改。</p>
-<p>同时，我稍微优化了状态初始化部分的算法。在初始化一个数独的时候，不会再写入修改日志了。</p>
-<p><img src="/2019/12/23/Software-Engineering-Project/Performance5.jpg" alt="Performance5"></p>
-<p>现在程序能90秒跑完了。</p>
-<h3 id="单元测试-1"><a href="#单元测试-1" class="headerlink" title="单元测试"></a>单元测试</h3><p><img src="/2019/12/23/Software-Engineering-Project/UTest1.jpg" alt="UTest1"></p>
-<p>经过一些修改后，单元测试又能通过了。</p>
-<h2 id="最终程序代码说明"><a href="#最终程序代码说明" class="headerlink" title="最终程序代码说明"></a>最终程序代码说明</h2><h3 id="求解算法-2"><a href="#求解算法-2" class="headerlink" title="求解算法"></a>求解算法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SudoSolveAlgorithm::solve</span><span class="params">(SudoMatrix&amp; mat)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Fill the matrix with known message</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">fillState</span>(mat))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Use dfs to find the solution</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">dfs</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Get result</span></span><br><span class="line">    mat = _sudoState.<span class="built_in">getMat</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>求解算法是整个软件的核心。在求解时，算法先更新当前已知的信息，之后对其他部分做DFS。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SudoState::fill</span><span class="params">(<span class="keyword">const</span> SudoMatrix&amp; mat)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="comment">// It&#x27;s the first(0) step.</span></span><br><span class="line">    _step = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a new matrix</span></span><br><span class="line">    _mat = <span class="built_in">SudoMatrix</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each entry and number, initialize their state</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SudoMatrix::SUDO_SIDELENGTH; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; SudoMatrix::SUDO_SIDELENGTH; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            _entryChoises[i][j].<span class="built_in">init</span>(SudoChoice::Type::ENTRY, i, j);</span><br><span class="line">            _numberChoises[i][j].<span class="built_in">init</span>(SudoChoice::Type::NUMBER, i, j);</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">mat</span>(i, j) == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                _entryChoises[i][j].<span class="built_in">setAllOne</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            _numberChoises[i][j].<span class="built_in">setAllOne</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each known number, update the message through setNumber()</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SudoMatrix::SUDO_SIDELENGTH; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; SudoMatrix::SUDO_SIDELENGTH; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">mat</span>(i, j) != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!<span class="built_in">setNumber</span>(i, j, <span class="built_in">mat</span>(i, j), <span class="literal">false</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>FillState</code>会调用<code>SudoState::fill</code>函数。该函数先初始化整体的信息：当前已经运行到第几步，当前的数独矩阵。并且把每个位置的候选数和每个数字在每个宫的侯选位置初始化。最后，对于每个已经存在的数，用<code>setNumber()</code>填入并更新状态。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SudoSolveAlgorithm::dfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_sudoState.<span class="built_in">getStep</span>() &gt;= SudoMatrix::SUDO_ELEMENTS_CNT)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; op = _sudoState.<span class="built_in">getMinForkOperation</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (op.<span class="built_in">getType</span>() == SudoChoice::ENTRY)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ENRTY</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; set = op.<span class="built_in">getChoices</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> num : set)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">bool</span> yes = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (_sudoState.<span class="built_in">setNumber</span>(op.<span class="built_in">getPosIOrNumber</span>(), op.<span class="built_in">getPosJOrPalace</span>(), num + <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">dfs</span>())</span><br><span class="line">                    yes = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!yes)</span><br><span class="line">                _sudoState.<span class="built_in">recall</span>();</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// NUMBER</span></span><br><span class="line">        .......<span class="comment">// do the same thing</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>dfs</code>函数是用于搜索解的函数。该函数每次从数独当前状态中获得候选情况最少的位置或数字，之后对这个地方进行搜索。搜索完全部解就会返回成功；<code>setNumber</code>返回false说明搜索失败，数独当前状态会进行回溯。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SudoState::setNumber</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> num, <span class="keyword">bool</span> recordLog)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">assert</span>(_mat(i, j) == <span class="number">0</span>); <span class="comment">// the entry must be empty</span></span><br><span class="line">    <span class="built_in">assert</span>(num &gt;= <span class="number">1</span> &amp;&amp; num &lt;= <span class="number">9</span>); <span class="comment">// number must in 1~9</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> palaceId = SudoMatrix::<span class="built_in">getPalaceId</span>(i, j);</span><br><span class="line">    <span class="keyword">int</span> idInPalace = SudoMatrix::<span class="built_in">getIdInPalace</span>(i, j);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> valid = <span class="literal">true</span>;</span><br><span class="line">    _mat(i, j) = num;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// record currentLog</span></span><br><span class="line">    .....</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Ban all the choices in (i, j)</span></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update the choices of entries with same column</span></span><br><span class="line">  ......</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update the choices of entries with same row</span></span><br><span class="line">   ......</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update the choices of entries with same palace</span></span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">    _step++;</span><br><span class="line">    <span class="keyword">return</span> valid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>数独状态的<code>setNumber</code>函数是算法中的十分重要的函数。该函数在填入一个数字后，更新相关行、列、宫的候选数字信息及每个数的候选位置信息。同时，这一步的操作会被记录下来，以进行回溯。</p>
-<h3 id="生成算法-1"><a href="#生成算法-1" class="headerlink" title="生成算法"></a>生成算法</h3><p>在模板是本地储存而不是实时计算后，生成算法只剩了从排列构造这一项任务。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SudoMatrix <span class="title">SudoGenerateAlgorithm::getSudokuFromPermutation</span><span class="params">(std::vector&lt;<span class="keyword">int</span>&gt;&amp; permutation, <span class="keyword">int</span> templateId)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">assert</span>(permutation.<span class="built_in">size</span>() == <span class="number">9</span>);</span><br><span class="line">    <span class="built_in">assert</span>(templateId &gt;= <span class="number">0</span> &amp;&amp; templateId &lt; _templateCount);</span><br><span class="line"></span><br><span class="line">    SudoMatrix result = _templateSudokus[templateId];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> newIndex = <span class="built_in">result</span>(i, j) - <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">result</span>(i, j) = permutation[newIndex];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>生成算法类提供了排列构造的函数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FinalStateGenerator::generateFinalState</span><span class="params">(<span class="keyword">int</span> count, Sudo::SudoMatrix* matrixArr, <span class="keyword">int</span> fixFirstNumber)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SudoGenerateAlgorithm::<span class="built_in">calTemplate</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> generateCount = <span class="number">0</span>;</span><br><span class="line">    std::vector&lt;<span class="keyword">int</span>&gt; permutation;</span><br><span class="line">    <span class="keyword">if</span> (fixFirstNumber == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        permutation = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        permutation.<span class="built_in">push_back</span>(fixFirstNumber);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">8</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= fixFirstNumber)</span><br><span class="line">                permutation.<span class="built_in">push_back</span>(i + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                permutation.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (fixFirstNumber != <span class="number">0</span> &amp;&amp; fixFirstNumber != permutation[<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; SudoGenerateAlgorithm::MAX_TEMPLATE_COUNT &amp;&amp; generateCount &lt; count; i++, generateCount++)</span><br><span class="line">        &#123;</span><br><span class="line">            matrixArr[generateCount] = SudoGenerateAlgorithm::<span class="built_in">getSudokuFromPermutation</span>(permutation, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (std::<span class="built_in">next_permutation</span>(permutation.<span class="built_in">begin</span>(), permutation.<span class="built_in">end</span>()) &amp;&amp; generateCount &lt; count);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> generateCount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>按照需求生成数独的工作交给生成器来完成。生成器生成许多固定第一个数字的排列，利用排列生成数独，直到生成的数独满足数量要求为止。</p>
-<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><p>从我对整个项目的评价和我学到的东西两个方面来谈我的体会。</p>
-<p>我对项目的评价可以分成我的开发时间管理评价和项目结果评价。我这次时间管理得非常不好。我一开始觉得这个项目难度较低，花费不了什么时间。我很早就想好整个项目的框架和具体算法，设计和编码的过程也还算顺利。但我错估了测试和项目优化的时间，项目后期的时间非常紧，我也没来得及完成附加题。</p>
-<p>项目完成得也不够好。我在设计数独状态类的时候没有设计好，返回给数独求解类的信息和数独状态类自己保存的信息应该分成两个类。我在后来代码优化的时候由于这两个类没有分开，碰到了一些麻烦。项目的性能还存在优化的空间，求解算法可以进一步压缩时间。</p>
-<p>在这个项目中，我学习到了一些工具的使用方法、软件工程知识、软件工程实践经历。我学会了VS单元测试工具、性能分析工具、代码分析工具的使用。我在画用例图、类图等UML图的过程中对于软件工程的理解进一步加深。在本次项目中，我不局限于编码，而是完成了整个软件的开发流程，体会到了软件开发的不易。</p>
-<p>我本身就有比较多的大型程序开发经验。在学过了软件工程课并经历了这次的开发过程后，我能把知识和我的经验结合起来，以后写出模块划分得更好、测试做得更全面、文档更完整的软件。</p>
-<h1 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h1><ul>
-<li><p>19.12.24 11:36 </p>
-<ol>
-<li>添加博客地址。</li>
-<li>完成PSP耗时表。</li>
-</ol>
-</li>
-<li><p>19.12.27 12:03</p>
-<ol>
-<li>分析题意，想出算法。</li>
-</ol>
-</li>
-<li><p>19.12.28 23:03</p>
-<ol>
-<li>设计用例图。</li>
-<li>设计基本类图。</li>
-</ol>
-</li>
-<li><p>20.1.1 21:41</p>
-<ul>
-<li><p>项目进展</p>
-<ol>
-<li>画完求解活动图。</li>
-<li>精化求解模块的类图。</li>
-<li>求解模块的程序设计中。</li>
-</ol>
-</li>
-<li><p>项目更新</p>
-<ol>
-<li>修改基本类图。</li>
-</ol>
-</li>
-<li><p>博客进展</p>
-<ol>
-<li>博客跟进项目进展。</li>
-<li>添加未来任务的大标题。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>20.1.2 16:30</p>
-<ul>
-<li>项目进展<ol>
-<li>求解模块的程序设计中。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>记录了花费在程序上的时间。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>20.1.10 15:48</p>
-<ul>
-<li>项目进展<ol>
-<li>完成求解算法。</li>
-<li>求解算法基本测试完毕。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>更新了求解算法的代码简要说明。</li>
-<li>更新了程序设计花费时间。</li>
-<li>更新了求解算法的正确性测试结果。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>20.1.15 23:30</p>
-<ul>
-<li>博客进展<ol>
-<li>添加了终局生成的活动图。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.16 20.39</p>
-<ul>
-<li>项目进展<ol>
-<li>设计并完成了终局生成算法模块。</li>
-<li>给SudoMatrix类增加比较函数与复制函数。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>再次修改了基本类图。</li>
-</ol>
-</li>
-</ul>
-<ol>
-<li>添加了终局生成算法类图。</li>
-</ol>
-</li>
-<li><p>2020.1.17 10:35</p>
-<ul>
-<li>项目进展<ol>
-<li>设计并完成残局生成算法模块。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>添加了残局生成算法类图。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.17 15:10</p>
-<ul>
-<li>项目进展<ol>
-<li>设计并完成终局生成器、残局生成器、求解器、用户交互、数独矩阵IO类，但没有测试。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>添加项目进展中的设计类图。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.18 21:26</p>
-<ul>
-<li>项目进展<ol>
-<li>添加了单元测试的所有代码。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>统计了设计文档、具体设计、编码的时间。</li>
-<li>更新了单元测试有关内容。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.18 22:33</p>
-<ul>
-<li>项目进展<ol>
-<li>完成集成测试的BUG修改。</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>更新集成测试有关内容。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.19 10:52</p>
-<ul>
-<li>项目进展<ol>
-<li>完成代码复审</li>
-<li>进行优化的分析</li>
-<li>完成优化及优化后的测试</li>
-<li>发布最终版本</li>
-</ol>
-</li>
-<li>博客进展<ol>
-<li>更新代码复审内容</li>
-<li>更新优化内容</li>
-<li>更新最终代码说明</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>2020.1.19 21:14</p>
-<ul>
-<li>博客进展<ol>
-<li>完成了心得体会。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/11/17/Good-day/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/17/Good-day/" class="post-title-link" itemprop="url">独特而愉悦的一天</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-17 20:09:30" itemprop="dateCreated datePublished" datetime="2019-11-17T20:09:30+08:00">2019-11-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%AE%B0%E5%8F%99%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">记叙文</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天——准确来说应该是发这篇文章的好几天前（发博客的时候竟然已经过去半个月了）——我过得十分愉快，而且我做的事情和平常也大不相同，十分有趣。我打算把今天发生的事情稍微记录一下。</p>
-<p>昨天晚上，我躺在床上辗转反侧，过了两点才勉强睡着。于是，早上我理所应当地在九点半醒来，并且赖床赖到了十点多。如果是平常的我，肯定会想：“哎呀，半天都快过去了，下午肯定干不了什么事了。今天就过得随便一点吧。”但是，这周末我有三门作业要写，无数项目要开坑，理智与责任阻止了我怠惰的想法。我充满自信地对自己说道：“不慌。虽然一个上午的时间没了，但是问题不大。今天我来展示一下大局观选手是怎么样学习的。”</p>
-<p>首先，我进行了自身能量管理。考虑到没吃早饭，我塞了几块威化饼干，稍微补充了一下糖分，并且立刻点了外卖，准备11:20的时候吃午饭。之后，我开始规划今天的任务。我计划中午写完一门作业，下午在电脑上装个东西，去学校完成项目，晚上再写一门作业。一切准备就绪，我正式进入了工作模式。</p>
-<p>在我正在写第一门学科的作业时，外卖到了。考虑到如果我立刻进食，肯定会血糖升高，头脑无法转起来，我毅然决然地不顾自己健康，选择边吃饭边看书。我每写一题，就吃一两口。饮食的诱惑令我写起题目来动力十足。最终，下午一点的时候，我圆满地写完了第一门学科的作业，并且完全理解了整个章节，顺便吃完了饭。</p>
-<p>接下来，我准备休息一下，让电脑继续编译之前编译了一半的linux内核。很不幸，经过了长时间的编译后，我发现这个linux版本太高，虚拟机加载不出来。我又去打了一把炉石酒馆乱斗，倒数第二轮没有升级，导致伤害少了一点，给别人留了1点血，最后一轮被1血翻盘，以第二的成绩含恨结束游戏。我带着怨气和一肚子的葡萄糖趴在桌上睡了一觉。</p>
-<p>下午四点，我准备去学校编程。为什么我非得去学校用电脑呢？这里要解释一下事情的前因后果了。上周末，我不小心再次把水弄进笔记本电脑里了。虽然我已经多次见到这种事了，但我还是抱有侥幸心理地按了一次电脑电源。电脑拿去维修后，其他地方勉强能用，“只是”充不进电。电脑最后被拿去返厂维修了。这一周，我只能拿着陪伴我多年，配置却已经被时代抛弃的老电脑进行工作了。</p>
-<p>老电脑慢就慢点吧，我那颗波澜不惊的大心脏对电脑运行速度也没有太多的要求。可是，这个笔记本的显卡竟然不支持OpenGL 3.3。OpenGL 3.3开始支持核模式，我的OpenGL程序都是在核模式下写的。我现在有个OpenGL的项目急着要做，但现在我的代码在我自己电脑上能编译，却无法运行，编程工作开展不了。我想了好多办法，最终决定每次在这个电脑上编译，然后把可执行文件放到网盘上，用学校机房的电脑来运行程序。这样麻烦是麻烦了一点，但起码我还可以正常地工作。周五我已经证明了这种方法的可行性。</p>
-<p>但是，今天下午，当我跑到机房后，却发现机房的门全关了。机房门口的“自习室”三个字，完全融入了图书馆的背景。这下我无处可去了。</p>
-<p>我再次动用我智商300的大脑思考问题的解决方案。我排除了找同学借电脑等65535个方案，决定使用第65536个方案——去网吧编程。这周我实在被我老电脑的性能气坏了，不用一用好电脑就不解气。我很快开始计划起了晚上的行动。</p>
-<p>现在四点多，离吃饭还早。我决定先回去尝试写掉一门作业，之后自己煮个饺子吃，吃完再去网吧。可惜，这门学科当前章节的内容过于复杂，我还没有看完这章内容饺子就煮好了。吃自己做的东西的体验还是挺棒的，只是不知道从新奇到厌烦的过程究竟有多快。不管怎样，吃完晚饭后的我精神饱满，斗志昂扬，接下来的冒险深深吸引着我。</p>
-<p>只看了一眼地图后，我凭借多年走迷宫经验，顺利来到了一家比较好的网吧，噢，现在的网吧要叫作网咖。我本身都只玩一些配置不高的游戏，对硬件条件不怎么需求，平时根本不会想去网吧。但我也偶尔会去，都是和同学一起开黑。而今天来到网吧，我凭借着以前的经验，一切流程也算是轻车熟路。不过现在的网吧都很有套路，最便宜的上网区都要每小时10元，而办了会员是5~6元（节假日6元）。很明显，这种折扣就是逼着你要去办会员。我向来是个意志坚定的人，不会因贪图便宜而在大局上失亏本。但听店员说办会员只要50块钱，而且网吧还是全国连锁时（以后还能用），我就立刻真香地办了个会员。本身今天晚上就要待个4小时左右，不办会员显然亏了。不贪白不贪啊。</p>
-<p>开了机子，身躺舒适的沙发，面对宽大的屏幕，手敲噼里啪啦的机械键盘，舒适感充斥了我的全身。作为非富人（我比较喜欢程序员描述事情的方法），我们一定要培养花钱买服务的思想。人生苦短，及时行乐。在网吧花钱，不仅是为了上网本身，更多的是享受这种舒适的上网环境。以前网吧还全是抽烟的人，网吧的空气极其恶劣，未成年人可以提前享受成年人的糟糕气味。现在的网吧这点倒好多了，大家抽烟只会躲到厕所抽，游戏里潜行规避敌人伤害，现实里躲藏逃离法律制裁（北京室内是禁烟的）。</p>
-<p>花了约半小时下好VS、从老电脑上迁移文件后，我正式开始工作了。非常幸运，网吧的特殊性没有影响到我：本来VS装好是要重启电脑来修改电脑配置的，不然有些库文件可能找不到，而在网吧重启电脑会让下载的东西清零。我手动给项目多添加了一个C盘上的包含目录，解决了这一问题。不过VS用起来还是有一些问题，程序在调试的时候看似停在了断点上，实际上程序只是停下来了，我只好用祖传的<code>std::cout</code>输出调试。经历千辛万苦的调试，当看到程序顺利运行的那一刻，我感动得快要流出热泪：我发现我的6块钱没了。</p>
-<p>网吧说吵也吵，但这种环境下我反而能集中精神。所谓大隐隐于市，就是指我这样心如止水的高人。听着大家一句一句的粗口，听着一些我很熟悉的游戏名词，我的心理十分踏实。大概是人的优越感在作怪吧。大家都在玩游戏，就我在“学习”；我也不是只会学习，你们玩的游戏我也会玩，我也不死板。在图书馆，别人看书，你也看书。你恨不得眼睛不离开书本，好证明自己比周围的人更认真，最后反而忘了自己在干嘛；而在网吧，你不管写代码认不认真，哪怕是空着屏幕不玩游戏，你就已经与众不同，超过周围所有人了，心情反而放松。而且，图书馆里过于安静，反而放不开手脚；在网吧，程序出了BUG，调试了10分钟还调不出来，我可以一边自言自语地念着代码，一边入乡随俗地骂着“fuck”。烦起来敲一敲桌子，代码成功运行起来后大笑几声，这些举动在网吧都是那么地正常。对我来说，网吧绝对是一个比安静的图书馆，或者只有我一个人的自习室更好的地方。</p>
-<p>三小时过后，我顺利完成了这一阶段的工作。这段时间里，我基本没有摸鱼，注意力高度集中，这在平时是不太可能的。我再一次见识到了自己工作能力的上限。我十分希望我能每天都保证这样的状态。但每次的情况都在表明，人的自我干预能力，远小于外界条件的干预能力。有时间的话我想写一篇有关这个理论的文章，但我也可能不写，因为我没有足够的例子，要说的话并不是很多。</p>
-<p>工作过后，自然是娱乐。连我自己都被我劳逸结合，堪称完美的工作安排折服了。经理论分析，用脑过后不宜玩智力游戏，因此我选择去玩《CupHead》。打了几盘，我突然觉得来网吧不玩平时玩不到的游戏就亏了，于是想去玩《城市：天际线》。结果这破游戏教程都没有，严重违反周弈帆游戏第八定理之游戏必须设法让玩家上手。网上说，要学会玩这游戏，去B站上看个教学视频就好了。看视频哪里都能看，我来网吧看什么视频呢？</p>
-<p>此时，十点半到了，我在把网吧待了4个小时。看着我花掉的网费，我深深体会到了时间就是金钱这一道理，于是速速结账下机。这个网吧的消费制度还真是不错，送新用户3个10块红包，每次上网只能用一个。我一边体会着白嫖十块钱的愉快感，一边试图拉出已经落入消费陷阱的自己。</p>
-<p>网吧离我住的地方挺远，网吧门口也没有自行车了。正好，一天的辛苦劳动后，我需要进行一些真正的放松活动了。我开始了我的巡游演奏会。在晚上街上没什么人，口哨声异常清楚的时候，我一路高歌的爱好总算能得到满足了。在欢快的乐曲声中，我这美妙的一天也步入了尾声。</p>
-<p>今天过得确实很有意思。有懒有勤，有怒有笑，有作有玩。一成不变的人生被一些有趣的事情所扰乱，总会给人带来新奇的体会。正如伟大思想家周弈帆在他本来应该写却没写的游记中的话：旅行不是为了去一个地方游览名胜、品味民俗，只是为了打破现有的生活规律，享受新的环境而已。人生创造快乐的方式很多，我得好好记住这种打破习惯以产生快乐的方式。</p>
-<hr>
-<p>update：这篇文章估计是我快睡着的时候写的，语句不通顺、逻辑不清楚、缺乏上下文，还没有注意保护个人隐私信息。天知道我写的时候在想什么。新版本我修正了文章中的逻辑错误和连贯性问题，文章起码读起来通顺了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/11/08/HDU-6562/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/08/HDU-6562/" class="post-title-link" itemprop="url">HDU-6562 Lovers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-08 00:32:45" itemprop="dateCreated datePublished" datetime="2019-11-08T00:32:45+08:00">2019-11-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>本题是2018CCPC吉林站的H题。吉林站是我参加的第一场正式比赛，当时我们写的最后一题就是这道题。我在赛场上想出了正确的大致解法，却因为细节没有想全，没有在赛场中A掉这道题。也是从这次比赛开始，我所在的队伍在拿银的时候，几乎每次离金牌就差一题，而且这一题的算法已经被我们想到，只是没有写完。每场比赛打完，我的感受大多是“要是再写出一题就好了”。</p>
-<p>时光飞逝，如今我都快退役了。我还有两场正式比赛要打，而其中一场比赛将在这个周末举办。我想在比赛前临阵磨枪，找一些代码量比较大的题来提升写代码的能力。我想起了这道当时认为比较繁琐的题目。</p>
-<p>没想到WA了一次后，这道题就被我十分轻松的A掉了。思路清晰，大脑能量充足的情况下，这道题对我来说竟然算不上一道难题，甚至谈不上一道有代码量的题。我都不知道该怎样评价自己的水平了。该写出题的时候写不出题，训练的时候又看得过去。</p>
-<p>不管怎样，我要给这道对我来说意义重大的题写一篇题解。</p>
-<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>数轴上有$n$个字符串，每个字符串初始为空。现在要进行$m$次以下操作：</p>
-<ul>
-<li>操作1：把一个$[l, r]$区间里所有字符串前面加上一位十进制数字，后面加上一位十进制数字。比如”44”这个字符串“加上”5后，就变成了”5445”.</li>
-<li>操作2：求$[l, r]$区间里所有字符串代表的数字之和。</li>
-</ul>
-<p>样例组数$1\leq t\leq5$，长度$1 \leq n \leq 10^5$，操作次数$1 \leq m \leq 10^5$</p>
-<h2 id="Sample-Input-amp-Output"><a href="#Sample-Input-amp-Output" class="headerlink" title="Sample Input &amp; Output"></a>Sample Input &amp; Output</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3 2</span><br><span class="line">wrap 1 3 1</span><br><span class="line">query 1 2</span><br><span class="line">4 4</span><br><span class="line">wrap 1 3 0</span><br><span class="line">wrap 2 4 3</span><br><span class="line">query 1 4</span><br><span class="line">query 2 3</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Case 1:</span><br><span class="line">22</span><br><span class="line">Case 2:</span><br><span class="line">6039</span><br><span class="line">6006</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>看到关于区间的操作、求和，第一反应肯定是线段树。</p>
-<p>问题的关键在于，在一个数字前面和最后加了一位，这个操作的实质是什么。</p>
-<p>假设当前某个数字是$x$，有$d$位，在它的前后放了一个$y$，那么这步操作的结果是$x \leftarrow y * 10^{d+2} + x \times10 + y$。可以发现，后面的乘法和加法都十分好维护。用两个lazy变量来标记区间该乘和该加的值。每次乘的时候还要改变加的标记。问题的关键是，前面加的那一堆东西和当前数无关，而是和当前数的位数有关。</p>
-<p>既然操作和数位数有关，那么维护每个数的位数一定是一个可行的做法。单由于操作是对区间进行操作，一个区间里不同的数有不同的位数，这个东西哪怕可以用vector存下，合并的时间复杂度都会爆炸。有没有一种办法能够合并区间所有数的位数这个信息呢？</p>
-<p>观察操作的式子我们可以发现，我们做的所有运算都是加法和乘法。我们不关心区间里每一个数有几位，而是要让这些数的最高位乘上一个操作数$y$再乘100，最后再加到一起。这样想的话，我们可以把每个数的最高位加起来，以获取这个区间所有数的最高位信息。比如一个区间的数是$11,2222,4444$，那么最高数位之和就是$10 + 1000 + 1000 = 2010$。那么对这个区间信息操作时，不再是$x \leftarrow y <em> 10^{d+2} + x \times10 + y$，而是$x \leftarrow y </em> 2010^{d+2} + x \times10 + y$。如果我们能维护一个最高数位和信息，我们就能计算出当前区间的数字和，也就是操作2询问的内容了。</p>
-<p>现在问题就变成了如何维护区间的最高数位和及相关lazy变量。为了计算出新的$x$，我们要用$y$来乘最高数位和。由于区间操作要在线段树上下放，而父区间和子区间$y$乘最高数位和的结果是不同的。因此，我们只能每次下放$y$这个操作数。我们需要一个新的lazy变量来储存我们下放的$y$。</p>
-<p>光存了$y$不够，因为子区间可能有没有计算过的操作数。比如子区间进行了操作数3的操作，子区间的数字应当是$3x3$，但子区间没有被访问，标记还没有计算过。现在又对整个区间进行了操作数4的操作，子区间的数字现在应当是$43x34$。此时子区间依然没有被访问。也就是说，之前lazy变量是3，经过操作后lazy变量变成了43。</p>
-<p>每次进行操作，lazy变量前面都会加一个数。往前面加数这个操作可不好做。但是，我们可以记录这个lazy变量的最大位数。比如lazy变量现在是43，那么最大位数就是2。下次进行操作数5的操作时，$5 \times 10^2 + 43 = 543$，就能正确计算出新的lazy变量了。这个lazy变量的最大位数也是一个新的lazy变量。</p>
-<p>所以，所有的变量我们都可以用线段树来维护，这道题就写完了。</p>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	node *l, *r;</span><br><span class="line">	<span class="keyword">int</span> preSum;</span><br><span class="line">	<span class="keyword">int</span> preMult;</span><br><span class="line">	<span class="keyword">int</span> preMove;</span><br><span class="line">	<span class="keyword">int</span> sum;</span><br><span class="line">	<span class="keyword">int</span> markSum;</span><br><span class="line">	<span class="keyword">int</span> markMult;</span><br><span class="line">	<span class="keyword">int</span> len;</span><br><span class="line">	<span class="built_in">node</span>()</span><br><span class="line">	&#123;</span><br><span class="line">		l = r = <span class="literal">nullptr</span>;</span><br><span class="line">		preSum = <span class="number">1</span>;</span><br><span class="line">		len = <span class="number">0</span>;</span><br><span class="line">		preMult = <span class="number">0</span>;</span><br><span class="line">		markMult = <span class="number">1</span>;</span><br><span class="line">		preMove = markSum = sum = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		sum = ((preMult * (ll)preSum) % MOD * p10[preMove] % MOD + (ll)sum * markMult % MOD + markSum * (ll)len % MOD) % MOD;</span><br><span class="line">		preSum = preSum * p10[preMove * <span class="number">2</span>] % MOD;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pushDownTo</span><span class="params">(node* l)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		l-&gt;preMult = (((ll)preMult * p10[l-&gt;preMove] % MOD) + l-&gt;preMult) % MOD;</span><br><span class="line">		l-&gt;preMove += preMove;</span><br><span class="line">		l-&gt;markSum = ((ll)l-&gt;markSum * markMult % MOD + markSum) % MOD;</span><br><span class="line">		l-&gt;markMult = (ll)l-&gt;markMult * markMult % MOD;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pushDown</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">update</span>();</span><br><span class="line">		<span class="keyword">if</span> (l)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">pushDownTo</span>(l);</span><br><span class="line">			<span class="built_in">pushDownTo</span>(r);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">clearMark</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">pushUp</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (l)</span><br><span class="line">		&#123;</span><br><span class="line">			l-&gt;<span class="built_in">pushDown</span>();</span><br><span class="line">			r-&gt;<span class="built_in">pushDown</span>();</span><br><span class="line">			preSum = (l-&gt;preSum + r-&gt;preSum) % MOD;</span><br><span class="line">			sum = (l-&gt;sum + r-&gt;sum) % MOD;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setMark</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		preMult = x;</span><br><span class="line">		preMove = <span class="number">1</span>;</span><br><span class="line">		markMult = <span class="number">10</span>;</span><br><span class="line">		markSum = x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clearMark</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		preMult = preMove = markSum = <span class="number">0</span>;</span><br><span class="line">		markMult = <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*………………a lot of code…………*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> v, node* nd = root, <span class="keyword">int</span> cl = <span class="number">1</span>, <span class="keyword">int</span> cr = n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	nd-&gt;<span class="built_in">pushDown</span>();</span><br><span class="line">	<span class="keyword">if</span> (l == cl &amp;&amp; r == cr)</span><br><span class="line">	&#123;</span><br><span class="line">		nd-&gt;<span class="built_in">setMark</span>(v);</span><br><span class="line">		nd-&gt;<span class="built_in">pushDown</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = (cl + cr) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (r &lt;= mid)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">modify</span>(l, r, v, nd-&gt;l, cl, mid);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (l &gt; mid)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">modify</span>(l, r, v, nd-&gt;r, mid + <span class="number">1</span>, cr);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">modify</span>(l, mid, v, nd-&gt;l, cl, mid);</span><br><span class="line">			<span class="built_in">modify</span>(mid + <span class="number">1</span>, r, v, nd-&gt;r, mid + <span class="number">1</span>, cr);</span><br><span class="line">		&#125;</span><br><span class="line">		nd-&gt;<span class="built_in">pushUp</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, node* nd = root, <span class="keyword">int</span> cl = <span class="number">1</span>, <span class="keyword">int</span> cr = n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	nd-&gt;<span class="built_in">pushDown</span>();</span><br><span class="line">	<span class="keyword">if</span> (l == cl &amp;&amp; r == cr)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> nd-&gt;sum;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = (cl + cr) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span> (r &lt;= mid)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">query</span>(l, r, nd-&gt;l, cl, mid);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (l &gt; mid)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">query</span>(l, r, nd-&gt;r, mid + <span class="number">1</span>, cr);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in"><span class="keyword">return</span></span> (<span class="built_in">query</span>(l, mid, nd-&gt;l, cl, mid) + </span><br><span class="line">			<span class="built_in">query</span>(mid + <span class="number">1</span>, r, nd-&gt;r, mid + <span class="number">1</span>, cr)) % MOD;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我一般是不放代码的，但我觉得这段代码写的非常有条理，所以就打算展示一下。</p>
-<p>线段树操作的精髓在于<code>node</code>的操作。不管是怎样的区间操作、查询，所有<code>modify</code>和<code>query</code>都可以调同一个格式的函数，只要修改<code>node</code>中函数的实现细节就可以了。</p>
-<p><code>len</code>变量不是一个动态的变量，我是在建树的时候把<code>len</code>算了一下。</p>
-<p><code>markMult</code>和<code>preMove</code>似乎是相关的两个变量，但多用一个变量也不会MLE会TLE，用两个变量能够让写代码时思路更加清晰。</p>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>写多了线段树的区间操作后，你就能对线段树有更深的认识。线段树本质是维护一些满足幺半群的运算，也就是一些不可逆，互相叠加的运算，比如加法、乘法、求最值。</p>
-<p>在对区间进行操作的时候，要想清楚两件事。一个是lazy标记怎么对固有变量产生影响的，一个是操作怎么对lazy标记产生影响的。如果只是简单的加法和乘法，这两个步骤实在是过于显然，以至于问题一变复杂，我们就搞不清应该如何维护lazy变量了。只要认识了区间操作的本质，任何单纯线段树区间操作都是很简单的题。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/08/09/slope-optimization-dp-glance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/09/slope-optimization-dp-glance/" class="post-title-link" itemprop="url">速通斜率优化DP</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-09 00:22:18" itemprop="dateCreated datePublished" datetime="2019-08-09T00:22:18+08:00">2019-08-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前几天在写<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=6619">HDU6619</a>的时候，问题最终转化成了一个形如下式的DP：</p>
-<script type="math/tex; mode=display">
-dp[i] =
-\left\{
-\begin{aligned}
-   &x &i = 0 \\
-   &max_{0\leq j < i}\{dp[j] + (n - i)(\Sigma_{k = j}^{i - 1}arr[k])\} &0 < i \leq n
-\end{aligned}
-\right.
-\\</script><p>这个式子很简单，也就是当前状态的值由前面某个状态的值加上两个状态之间的数组值的和得到，且当前状态的值要尽可能大。按照式子直接枚举当前状态的上一状态的话，复杂度是$O(n^2)$。但本题的$n$是$10^5$，直接写肯定会T掉。我一时半会没有想出优化的方法，看了题解才想起来，这个DP可以用<strong>斜率优化</strong>来加速转移。于是，我准备快速复习一下斜率优化的用法。</p>
-<h2 id="斜率优化DP用法示例"><a href="#斜率优化DP用法示例" class="headerlink" title="斜率优化DP用法示例"></a>斜率优化DP用法示例</h2><p>还是回到刚刚那个式子:</p>
-<script type="math/tex; mode=display">
-dp[i] =
-\left\{
-\begin{aligned}
-   &x &i = 0 \\
-   &max_{0\leq j < i}\{dp[j] + (n - i)(\Sigma_{k = j}^{i - 1}arr[k])\} &i>0
-\end{aligned}
-\right.
-\\</script><p>右边一堆求和实在是太碍眼了。我们可以先对数组求前缀和，这样求和直接被前缀和做差代替：</p>
-<script type="math/tex; mode=display">
-dp[i] =
-\left\{
-\begin{aligned}
-   &x &i = 0 \\
-   &max_{0\leq j < i}\{dp[j] + (n - i)(sum[i] - sum[j])\} &i>0
-\end{aligned}
-\right.
-\\</script><p>如果没有那个$(n - i)$就好了。这样上一状态的贡献永远是$dp[j] + sum[j]$，只要对每个状态求这个值再取最大就可以直接$O(1)$获取之前答案的最大贡献了。问题是，前面乘了一个$(n - i)$后，之前状态的贡献就和当前的$i$有关系了。之前所有状态的部分贡献$dp[j],sum[j]$已经是完全确定的东西了，加上当前的$i$就能算出之前状态的全部贡献。那么，有没有一个仅通过当前的$i$来衡量之前哪个方案更优的方法呢？</p>
-<p>如果之前存在两个状态$a,b$，不妨设$a &lt; b$。那么，当从$a$比从$b$转移更优的时候是怎么样的呢？我们不妨列出此时两个状态的贡献值不等式，并且把含$i$的部分移到不等号的一边去。</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-dp[a] + (n - i)(sum[i] - sum[a]) &> dp[b] + (n - i)(sum[i] - sum[b]) \\
-dp[a] - (n - i)sum[a] &> dp[b] - (n - i)sum[b] \\
-dp[a] - dp[b] &> (n - i)(sum[a] - sum[b]) \\
-\frac{dp[a] - dp[b]}{sum[a] - sum[b]} &> n - i
-\end{aligned}</script><p>由于前缀和数组递增，$sum[a] &gt; sum[b]$，不等式不用变号。</p>
-<p>也就是说，通过计算两个状态的$dp$数组差除以$sum$数组差，并将这个结果与$n - i$比较，我们就能知道之前两个状态孰优孰劣。这个计算出的值是反映状态好坏的本质属性，因为这个值的计算与当前的$i$无关。由于这个计算值和数学上斜率的计算十分相似，因此才有斜率优化这个名字。</p>
-<p>如果把之前所有状态都看成一个$(sum[j], dp[j])$的二维点，现在我们知道了$n - i$的值，那么之前哪个状态最优呢？</p>
-<p>我们从左到右从两两相邻的点连线。如果两两相邻的点的斜率是递减的，那就好办了：这就说明，前面有很多点对的斜率大于$n - i$，后面有很多点对的斜率小于$n - i$。那么中间的某个点就是最优的，那个点和它前一个点的斜率大于$n - i$，和它下一个点的斜率小于$n - i$。它比左边的点优，也比右边的点优。</p>
-<p>问题是，如果出现了某三个从左到右相邻点$a, b, c$，且$ab$斜率小于$bc$呢？也就是相邻点对的斜率不是增减的。这种情况下，若斜率$ab$和$bc$都比$n - i$小，则最左边的$a$点最优；反之，若两个斜率都比$n - i$大，则最右边的点$c$最优。剩下的情况只有斜率$ab$小于$n - i$，斜率$bc$大于$n - i$这种情况。但是，此时$a$比$b$优，$c$也比$b$优。可以看到，无论什么情况下，$b$都不是最优的。因此，$b$点永远不会是上一个最优状态，可以把它“抛走”，再也不考虑它了。</p>
-<p>也就是说，可能作为上一个最优状态的点，它们的$(sum[j], dp[j])$构成的二维点的斜率永远是单调递减的。这个单调性，是斜率优化DP的根本原因。</p>
-<p>有了上述的分析，选上一个最优状态，不再需要枚举每一个之前的状态，而是维护一个可能作为上一状态的集合就可以了。这个集合从左到右存了一系列的可能的状态。每次要找最优状态的话，就像之前分析的那样，找到第一个斜率小于的$n - i$的左边的点，那个点对应状态就是最优的上一状态。由于单调性的存在，这个过程可以用二分完成。但由于我们每次的$n - i$是一个递减的量，也就是说我们每次需要找的斜率只会越来越小。那么那些斜率很大的点都可以扔掉去。因此，在本题中，可以不去二分查找，而去删掉前面那些已经斜率过大的点。最后剩下来的第一个点，它和下一个点的斜率小于$n - i$，它就是本次要寻找的最优上一状态。这个集合可以用双端队列Deque来维护。</p>
-<p>同时，这个集合还需要进行维护。每次新得到了一个dp值后，我们就要试图把新的状态加入这个集合中。为了保证集合中点斜率的单调性，我们要取出集合最后两个点，拿它们和当前的点算出两个斜率，看看这个斜率是否满足单调递减的性质。如果不满足，就把中间的那个点去掉，也就是把原来集合中的最后一个点去掉。</p>
-<h2 id="Deque实现斜率优化DP方法简述"><a href="#Deque实现斜率优化DP方法简述" class="headerlink" title="Deque实现斜率优化DP方法简述"></a>Deque实现斜率优化DP方法简述</h2><p>其实上面那道题并不适合用来学习斜率DP，因为它实际上牵扯的细节很多，dp式子并没有上面写得那么简单。<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=3507">HDU3507</a>应该是最适合写的第一道斜率优化DP题。</p>
-<p>这道题状态转移的式子比上面那个例子要复杂一点，而且是取最小值，需要维护的斜率应该满足单调递增而不是单调递减，但本质还是对前缀和什么的做一些运算，再进行斜率的比较，最终优化的方法还是完全一样的。</p>
-<p>这道题中，不等式右边的与当前状态$i$有关的值是$sum[i]$，它是一个单调递增的量，正好与我们维护的是一个单调递增的斜率集合“相符合”（这里“符合”的意义比较微妙，也就是说，如果这里$sum[i]$不是单调递减，是递增或是无规律的，那么就不能用Deque来做了）。因此，我们在找最优状态的时候，不用去二分的找第一个斜率大于某个值的点，而是把前面斜率小的点都删掉去，把剩下来的第一个点作为上一状态。这个东西可以用Deque维护。</p>
-<p>因此，在写代码时，应该按照下列步骤。</p>
-<ol>
-<li>读入数据，初始化dp等数组，该求前缀和求前缀和。</li>
-<li>声明一个deque\&lt; int &gt;，作为上一状态的集合。如果0位置的状态一开始就能被转移，就往deque里push一个0。</li>
-<li>开始for循环，遍历每一个当前状态$i$。</li>
-<li>for循环体中：如果deque的大小大于等于2，说明deque中可能存在斜率不合法的点，循环寻找是否存在这样的点。每次循环得到front()，再pop_front()，再得到front()，也就是取出队列中前面两个点。判断这这两点的斜率，若斜率小于（大于）关键值（本例是2 * sum[i]），则continue掉，也就是扔掉第一个点，继续循环判断；否则，把取出的第一个点push_front()放回去，退出循环。这样，第一个斜率大于（小于）关键值的点就变成了que.front()。</li>
-<li>不妨设j = que.front()，这个j就是最优的上一状态。用推好的dp式子计算dp[i]。</li>
-<li>把状态i加入队列并维护队列的单调性。和开始的操作类似，循环判断deque大小是否大于等于2，若是，则取出队列队尾的两个点，计算它们和新的点$i$的两个斜率是否满足应该具有的单调性。若不满足单调性，则扔掉队尾的点，循环继续。</li>
-<li>把状态i用push_back()扔进队列的队尾。</li>
-<li>for循环结束</li>
-<li>输出dp数组中的答案。</li>
-</ol>
-<h2 id="二分查找实现斜率优化DP方法简述"><a href="#二分查找实现斜率优化DP方法简述" class="headerlink" title="二分查找实现斜率优化DP方法简述"></a>二分查找实现斜率优化DP方法简述</h2><p><a target="_blank" rel="noopener" href="http://codeforces.com/problemset/problem/674/C">CodeForces 674C</a>也是一道斜率优化DP的题目。这道题递推式子相较之前两题更复杂了一些，而且它进行比较的和$i$有关的关键值并不是单调的。因此，这题不能再用Deque来维护最优上一答案，而是要用一个vector来存可能的状态，并进行二分查找。</p>
-<p>写代码的步骤也类似，只是寻找上一最优答案的过程有所变更。</p>
-<ol>
-<li>读入数据，初始化dp等数组，求好所需变量。</li>
-<li>声明一些vector\&lt; int &gt;，作为上一状态的集合。如果dp某一维的0位置的状态一开始就能被转移，就往对应vector里push一个0。</li>
-<li>开始for循环，遍历每一个当前状态$i$。如果dp数组和本题一样是多维的，那么再加一层for循环，按照顺序遍历dp数组的每一维。</li>
-<li>for循环体中：如果对应vector数组是空的，那么说明该状态不存在上一状态，直接跳过；否则，声明一个存储最优上一个状态的变量ii。ii的初始值是vector数组的第一项，因为我们将要二分查找的是最后一个斜率满足不等式的右端点，若二分查找什么都没找到，那么说明最优的点就是数组中的第一项。</li>
-<li>二分查找最后一个斜率满足不等式的右端点。实现时把二分查找的mid对应状态套入不等式判断即可，若满足不等式则更新临时变量ii为vector中mid处对应的状态。</li>
-<li>二分查找结束，ii就是最优的上一状态。用推好的dp式子计算dp[i]。</li>
-<li>把状态i加入数组并维护数组的单调性。循环判断deque大小是否大于等于2，若是，则取出数组尾的两个点，计算它们和新的点$i$的两个斜率是否满足应该具有的单调性。若不满足单调性，则扔掉数组尾的点，循环继续。</li>
-<li>把状态i用push_back()扔进数组尾。</li>
-<li>for循环结束</li>
-<li>输出dp数组中的答案。</li>
-</ol>
-<h2 id="写代码的注意事项"><a href="#写代码的注意事项" class="headerlink" title="写代码的注意事项"></a>写代码的注意事项</h2><p>写代码的时候会发现，不等式左边分子的那个量会被反复地用到。用一个函数来计算这个值会更加方便可靠。</p>
-<p>在比较相邻两个斜率，而分子分母都是整数的时候，得用交叉相乘来比较斜率，规避除法。</p>
-<h2 id="总结-感想"><a href="#总结-感想" class="headerlink" title="总结/感想"></a>总结/感想</h2><h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p>我算是大概理解了斜率优化DP的原理，但对什么时候可以用这个算法还有一点模糊。斜率优化DP本质上是在寻找最优上一状态时，找到衡量每一个状态的本质量，也就是那个二维点。对于每一对二维点，都有同一个判断它们两个谁更优的标准，那就是比较二者斜率是大于还是小于某个值（等于的情况可以忽略）。由于判断条件相同，只有斜率单调的点才可能成为最优上一状态。又由于有了单调的性质，才能在状态中进行二分查找。如果进行判断的斜率值还相对应是单调的，那么二分查找都可以省略，直接就可以得到最优的上一个状态。</p>
-<p>能用斜率DP优化问题的核心原因就在于，对每一对二维点，判断它们谁更优的标准是一样的。但是，如果对于一个dp递推式子推导出的不等式中，作为分母的不是$(sum[a] - sum[b])$，而是另一组值，这一组值并不满足单调。这样的话，哪怕对于$a &gt; b$的点，算出来的分母可能是个负数，除过去的话不等式要变号。对于相邻的两个点，有的时候斜率大于某个值更优，有的时候是斜率小于某个值更优。好像在这种情况下就不能用斜率优化DP了。</p>
-<h3 id="算法适用情况"><a href="#算法适用情况" class="headerlink" title="算法适用情况"></a>算法适用情况</h3><p>能够用斜率优化DP的题都有类似的地方。这些题的dp在计算新值时，是在旧dp值的基础上加上一个和当前状态$i$有关的贡献。这个贡献往往是和上一位置到这一位置的区间和有关，以保证不等式分母是永远是正的。当看到一个类似这样的DP，且数据范围不允许$O(n^2)$时，就要考虑用斜率优化DP了。</p>
-<p>和大部分DP题目一样，这种题目推式子是最重要的，代码实现上只要写个2、3题就能学会套路，很难出错。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/08/02/Introspection-of-Perfectionism/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/08/02/Introspection-of-Perfectionism/" class="post-title-link" itemprop="url">我对自己过分追求完美的反思</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-08-02 03:53:35" itemprop="dateCreated datePublished" datetime="2019-08-02T03:53:35+08:00">2019-08-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/%E8%AE%AE%E8%AE%BA%E6%96%87/" itemprop="url" rel="index"><span itemprop="name">议论文</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我之所以开通博客，是因为我感觉自己有很多想法，想把它们整理、发表出来。但在我开通了博客之后，我写的文章却非常少。我仔细分析了一下自己的心理，发现我并不是没有东西可写；相反，我经常会想到一些想写的话题。但是，当我准备去构思文章该怎么写的时候，我总不自觉地会开始想一些问题：“我要写的东西会不会太短内容不够？”“我写的东西会不会内容涉及得不够全面？”“我不去查阅资料就来写会不会失去严谨性甚至是正确性？”想的问题多了起来后，我就会发现自己还没有做好写这篇文章的准备。于是乎，一篇文章就这么搁置下来了。</p>
-<p>再仔细一想，我这种有想法却没写出来的现象是有原因的。原因分客观原因和我自己的主观原因。</p>
-<p>先来控诉一下这个世界的不公。文章的质量的越高，所需要的投入也越高。正如我想的那些问题那样，一篇高质量的文章，需要先对所谈的话题进行信息的收集，保证全面性、严谨性；再把自己之前的思考同收集的信息整合起来，整理总结自己的思想，确定表述的内容；最后确定好文章的结构，按照合理的顺序，用文字把想法表达出来。文章的质量越高，花费的精力肯定就越多。但是，写一篇好文章，对我来说没有任何利益上的回报。不管我再怎么欣赏自己的才华，再怎么愿意给未来的自己多留一份回忆，也掩盖不了我的内心对于做一件没有收益的事情的抵制。投入和回报不成比例，我写高质量的文章注定会缺乏动力。要不是实在是时间有多，精力有剩，我是无法具备足够的动力的。因此，从客观上来看，对我来说，一直写质量较高的文章是不可能的。</p>
-<p>现在可以谈我自己的问题了。我为什么非得要写那么好的文章呢？想到什么就说什么不行吗？非得把博客当成高考作文来写？我开始分析起了自己的心理。我也有想过快速完成一些短一点的文章，但我一想到这些文章可能会写得不够好，像程序一样充满“BUG”，心里就很不是滋味。我想的事情并不是写出好的文章，而是不希望文章中有漏洞，有缺点。我把写文章当成了一种自我展示、自我实现的工具。文章中有纰漏，文章写得不好，就会显得我这个人有缺点。为了让我自己显得更完美，我把这种对于完美的追求代入了文章中。我希望用一篇质量高的文章，来反映一个能力强的自己。我产生这些想法的原因和其他很多表现都是一样的。有些人在乎穿着打扮，认为外貌能反映自己；有些人在乎言行，以自谦来衬托自己的高尚。我虽然不在意别人的看法，但我也在用我写的文章，或者我的一些其他成果，来作为自己好与差的评判标准。对于事物的缺点的掩饰，不过是出于自卑，出于对自己的不足的掩饰罢了。</p>
-<p>显然，客观的原因不可改变。除非有人说：“你写的文章太好了，让我五体投地，感慨万分。从今天起，你也不用干其他事了。你写一篇好的文章，我就给你十万块钱。”不然的话，缺乏客观上的利益，我没有足够的动力去写东西的。</p>
-<p>但是，我还是有很多东西要表达出来，我得实现我开通博客的初衷。那么，我只能设法改变自己的想法了。我的问题就在于，过分追求完美。</p>
-<p>说来也有点讽刺。我对于过分追求完美这个问题，也有过很多思考，也有把这些想法整理出来的打算，但也因为上述种种顾虑迟迟动不了笔。我今天只能说对完美主义进行一个简单的分析，并把如何改变自己而不是探讨理论作为文章的重点。</p>
-<p>完美主义的具体定义我是不知道。但很明显，我上述的表现，都是完美主义的常见表现：想把事情做到最好，却最后什么也没有做。</p>
-<p>从本质来看，完美主义是不成立的，因为人本身就不是完美的。人的精力有限，人的能力有限，人注定不可能把每件事做到极致。而完美主义所追求的”完美“，不是事物质量的完美，而是能否通过事情的完美展示人自己的“完美”。由于人的限制，这种完美主义注定会失败。</p>
-<p>完美主义，错就错在动机。人生来自卑，人想尽可能让自己变得更好，或者说仅仅是看上去很好，这种希望本身没有错。但是，把事情做得很好，做得“最好”，并不等价于你这个人就是“最好”。这两者没有任何关系。甚至反过来，不去急功近利地追求成果，而是潜心雕琢，反而能达到结果的完美。一个的人价值，不能被任何外在的事物所体现，所代表。认识到了完美主义出错的那个关键点，纠正事物完美等于自我完美这个想法，就能克服这种完美主义了。</p>
-<p>现在谈回我自己。既然我对自己的想法、自己的问题都深入思考到这个程度了，我以后该做出哪些改变呢？写长的文章没有动力，我就写一些短的文章啊！文章短又如何？质量差一点又如何？只有让写一篇的文章的成本低到一定程度，直到低于我写文章的回报，我自然就有动力去写了。</p>
-<p>那又回到我第一篇博客谈的问题了。我为什么要写博客？我能得到什么回报呢？我也不放眼未来，把这个问题展开来谈。我就谈一下近期我写博客能获得的回报。如果是写一篇介绍算法的博客，我能利用写博客这个机会，去把一个算法彻底学会。写的文章好不好，有没有人看，都和我的收益毫不相关。如果是写一篇像这篇文章一样，吐诉内心想法的文章，那就想到什么写什么，管他写的是什么东西，写得自己爽就好了。如果我想把我的想法一些整理出来，给别人看，认同我提出的观点，那我就得提升文章质量，增强说服力，让他人被我的文笔和人格魅力所折服。如果我写的是题解，那么我只能稍微提升一下对于题目的理解，并且略微提升一下我本来就很强大的语言组织能力，再期待这篇题解能被别人看到，增加自己的知名度，收益就不高了。如果我复习时没有动力，我就像上学期那样，通过写博客来敦促自己系统地复习知识。如果我吃饱了没事，想吹吹牛展示一下自己，就可以针对某项成果单独开一篇博客来吹嘘一番。</p>
-<p>这样一看，不同类型的博客，收益的种类也是不同的。我之前只是把博客当成一种证明自己完美的手段，而忽略了写博客还有如此多其他方面的收益。只要我能把写博客的成本降低，我自然而然地就能获得写博客的收益，就像这篇文章一样。我需要去掉的成本，就是那些名字好听，被称为“完美”的成本。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/07/22/2019Nowcoder-Contest1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/22/2019Nowcoder-Contest1/" class="post-title-link" itemprop="url">2019牛客暑期多校训练营（第一场）部分题解（缺D、G）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-22 11:13:05" itemprop="dateCreated datePublished" datetime="2019-07-22T11:13:05+08:00">2019-07-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>题目按个人感受的难度升序排列。</p>
-<h2 id="J-Fraction-Comparision"><a href="#J-Fraction-Comparision" class="headerlink" title="J Fraction Comparision"></a>J Fraction Comparision</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给$\frac{x}{a},\frac{y}{b},0\leq a,b\leq 10^9,0\leq x,y\leq 10^{18}$，问这两个分数比较大小的结果（大于、小于或等于）。</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>由于浮点数会有误差，不能除了以后再判断。</p>
-<p>用有大整数的语言的话，可以直接通分比较。</p>
-<p>用C++的话，可以把两个分数划为带分数。比较带分数时先比较整数部分，再通分比较真分数部分。由于分母在1e9范围内，不会爆long long。</p>
-<h2 id="F-Random-Point-in-Triangle"><a href="#F-Random-Point-in-Triangle" class="headerlink" title="F Random Point in Triangle"></a>F Random Point in Triangle</h2><h3 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h3><p>给平面上一个三角形，顶点为ABC。现在随机再三角形内部取一点S，S把三角形划分为三个小三角形。问这三个小三角形面积的最大值的期望乘36（保证这样算出来的结果是整数）。</p>
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>我在知乎上看到过类似的题目，原理没记住，结论倒记住了：这种三角形随机取点求面积期望的题，与三角形形状无关，只与面积有关。原理好像是坐标变换什么的，不管三角形形状是怎么样的，都可以通过坐标变换变成同一个三角形。这个坐标变换的过程面积也是按照比例变化的。大概是这个意思，我也说不清楚具体的原理。</p>
-<p>有了这个结论，只需要知道面积为1的三角形的答案就行了，这个直接在本地模拟就行。我把三点设为(0, 0), (0, 1), (1, 0)，取两个随机数后把随机数都映射到[0, 1]中，再判断这个点是否在三角形内。如果这个点在三角形内，就用叉积算三个小三角形面积。不断地大量随机取点后再除一下有效点数量就是答案。</p>
-<p>判断点是否在三角形内可以考虑判断三个小三角形的面积是否“正负号相同”（即叉积结果符号是否相同）。</p>
-<p>最后发现面积乘22就是答案,也就是叉积的结果乘11。</p>
-<h2 id="B-Integration"><a href="#B-Integration" class="headerlink" title="B Integration"></a>B Integration</h2><h3 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h3><p>已知$\int<em>{0}^{\infty}\frac{1}{1+x^2}dx=\frac{\pi}{2}$，<br>给定$a_1, a_2…a_n(1\leq n\leq 10^3，1\leq a_i\leq 10^9,a_i互不相同)$，求$\frac{1}{\pi}\frac{1}{\Sigma</em>{i = 1}^{n}(a_i^2+x^2)}dx$模$10^9+7$意义下的值。</p>
-<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>这道题只需要微积分的基础知识，即积分的线性性质：积分里面如果是相加的话可以拆开来积分再相加。但题目里面的积分是相乘，只能考虑把积分内的乘积化为简单的分式相加，再套入题目给的公式了。</p>
-<p>分式的乘拆分成分式的和则是初等数学的内容了。不妨先考虑$n=2$的情况，考虑$\frac{1}{(a^2+x^2)(b^2+x^2)}$的拆分结果。</p>
-<p>设$\frac{1}{(a^2+x^2)(b^2+x^2)} = \frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2}$，则：  </p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\frac{1}{(a^2+x^2)(b^2+x^2)} &= \frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2} \\
-\frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2} &= \frac{b^2n+x^2n+a^2m+x^2m}{(a^2+x^2)(b^2+x^2)} \\
-1 &= b^2n+x^2n+a^2m+x^2m \\
-1 &= b^2n+a^2m+x^2(m+n)
-\end{aligned}</script><p>由于上式恒成立，可得：</p>
-<script type="math/tex; mode=display">
-\left\{
-\begin{aligned}
-    b^2n+a^2m = 1 \\
-    m+n = 0
-\end{aligned}
-\right.</script><p>解得：</p>
-<script type="math/tex; mode=display">
-\left\{
-\begin{aligned}
-    n = \frac{1}{b^2 - a^2} \\
-    m = \frac{1}{a^2 - b^2}
-\end{aligned}
-\right.</script><p>用同样的方法可以求得n为任意值时的拆分结果。对于分母是$a<em>i^2+x^2$的项，它的分子是$\frac{1}{\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。</p>
-<p>再由微积分的知识，$\int<em>{0}^{\infty}\frac{C}{a^2+x^2}dx=\frac{C}{a^2}\int</em>{0}^{\infty}\frac{1}{1+(x/a)^2}dx =\frac{C}{a}\int_{0}^{\infty}\frac{1}{1+(x/a)^2}d(x/a) =\frac{C\pi}{2a}$，</p>
-<p>因此，对于分母是$a<em>i^2+x^2$的项，积分的结果是$\frac{\pi}{2a_i\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。算出了公式，转换成程序就行了。</p>
-<h2 id="C-Euclidean-Distance"><a href="#C-Euclidean-Distance" class="headerlink" title="C Euclidean Distance"></a>C Euclidean Distance</h2><h3 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h3><p>给一个n维空间的点$A(a<em>1/m, a_2/m…a_n/m)$，求它到点$P(p_1, p_2, …p_n)$的最短距离的平方，即$\Sigma</em>{i = 1}^{n}(a_i/m - p_i)^2$。其中点$P$要满足下列条件：<br>$p_i\in \Reals$<br>$p_i \geq 0$<br>$\Sigma p_i = 1$</p>
-<p>答案用分数的形式表示。</p>
-<p>数据范围：<br>$1 \leq n \leq 10^4,1\leq m \leq 10^3, -m\leq a_i \leq m$</p>
-<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>为了方便说明，先把点$P$的每个坐标分量乘一个m，我们要求的东西变成了$\Sigma_{i = 1}^{n}(a_i - p_im)^2$。只要把这个结果除以一个$m^2$就是题目的答案。</p>
-<p>由于点$P$的分量都大于等于0，且和为$m$，我们可以考虑把点$P$的坐标看成是实数$m$“分配”到每一个坐标分量$p_i$上。即我们可以让每一个$p_i$变大一点。</p>
-<p>我们如何让距离尽可能短呢？如果在某一维上，比如第$i$维，若$a_i &lt; 0$，那么此时令$p_i$增长的话，那么距离只会越来越长；如果$a_i &gt; 0$，那么$p_i$越靠近$a_i$，那么最终的距离就会越短。当$p_i = a_i$时，我们就不用让$p_i$增长了。</p>
-<p>由不等式$a^2+b^2\geq2ab(仅当a=b时等号成立)$我们发现，数越大，其平方也增长得越快。如果此时我们去缩小一个本身就很大的数，就能让平方和减少得更多。具体来说，对于两个点的第$i, j$两个维的坐标分量,若$|a_i-p_i|&gt;|a_j-p_j|$，那么让$a_i,p_i$更接近一点，比让$a_j,p_j$更接近一点，更能让总距离减小。那么在分配$m$到$P$的每一维时，应该先分配给$a_i$最大的地方，缩小此处$a_i和p_i$的差距。等这一维的距离和$a_i$中第二大的数时，就要同时缩小这两个维上的距离了。</p>
-<p>比如$A(2,3)，m = 3$，我们发现$a_2 &gt; a_1$，于是先从$m$中分配$1$给$p_2$，此时$P(0,1)$，$|a_2 - p_2| = |a_1 - p_1|$。我们再让这两个距离同步减小，从$m$再分配1分别给$p_1,p_2$，此时$m=0$,分配结束，而$P(1,2)$，$|a_2 - p_2| = |a_1 - p_1|$依然成立。这种情况下得到的$A,P$两点的距离是最短的。</p>
-<p>有了上述思想，算法也就呼之欲出了。把所有$a_i$降序排序，按照上述方法分配$m$的值，尽可能让最大的几个距离相等，再同步减少这几个最大的距离。这种分配方式对于$a_i$是负数的情况也是成立的，不用多加考虑。注意一下有理数分子分母的处理方式即可。</p>
-<h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>有时对于一道看上去复杂的数学题目，用一些比较简单的、定性的方法就能解出来。</p>
-<h2 id="A-Equivalent-Prefixes"><a href="#A-Equivalent-Prefixes" class="headerlink" title="A Equivalent Prefixes"></a>A Equivalent Prefixes</h2><h3 id="Description-4"><a href="#Description-4" class="headerlink" title="Description"></a>Description</h3><p>在两个数组$a, b$的前$m$项上，定义一个等价关系：若两个数组前$m$项任意一个区间$<a href="1\leq l \leq r \leq m">l,r</a>$的最小数的位置相同，则称两个数组前$m$项等价。现在给两个数组$a,b$，问它们最多前几项是等价的？</p>
-<p>数组长度为$n$ </p>
-<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$1 \leq a_i,b_i \leq n, 所有a_i,所有b_i互异$</p>
-<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><p>这个等价关系的意思好像就是说，每个数作为最小值的影响范围相同，即每个数碰到的左边、右边第一个比它小的数的位置都相同。这个东西好像就是笛卡尔树啊！</p>
-<p>二分答案，对前$mid$项构建笛卡尔树，若笛卡尔树完全相同就check成功。</p>
-<h3 id="Review-1"><a href="#Review-1" class="headerlink" title="Review"></a>Review</h3><p>从知识和写代码的复杂性来看，这道题肯定不是难度第二低的题目。但是，从全场的通过情况来看，这是大部分队第二道通过的题，也是通过人数第二多的题。</p>
-<p>可以得出结论：很多题目，不是难到不会写，而是难到不敢写；有本来比较简单的题目没来得及写，不是你没有AC，而是别人没有AC。</p>
-<p>话说笛卡尔树的定义和用途其实我现在都没有弄清，但我知道这个东西用单调栈就可以构造，而且所涉及的所有知识都建立在单调栈方面的知识上。</p>
-<h2 id="E-ABBA"><a href="#E-ABBA" class="headerlink" title="E ABBA"></a>E ABBA</h2><h3 id="Description-5"><a href="#Description-5" class="headerlink" title="Description"></a>Description</h3><p>给定$n,m$，问有多少个长为$2(n+m)$的字符串，’A’和’B’各$(n+m)$个，使得该字符串能够被拆成$(n+m)$个长度为2的子序列，其中有$n$个子序列是”AB”，$m$个子序列是”BA”。</p>
-<p>数据范围：<br>$0 \leq n,m \leq 10^3$</p>
-<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><p>本题最大的障碍在于，题目对于n个AB子序列和m个BA子序列的限制条件，等价于说：对于任意的$i$，字符串前$i$中不能出现A比B多$n$个以上的情况，也不能出现A比B少$m$个以上的情况。证明如下：</p>
-<p>充分性：<br>即证逆否命题：如果字符串中出现了A比B多$n$个以上的情况，则不能满足题目的条件。假设在某个位置，A比B多$n+1$个，则前面这些多出来的$n+1$个A永远不能放在B的后面，也就是最多只有剩下的$(m+n)-(n+1)=m-1$个A能够构成BA，但是$m-1$个BA是不能满足题目的限制条件的。</p>
-<p>不能有A比B少$m$个以上的情况的证明类似的。</p>
-<p>必要性：<br>即证满足AB的数量条件即能满足题目的限制条件。考虑构造出题目中要求的$(n+m)$个子序列。从左到右读一个满足AB数量条件的栈，用一个栈来构造这些序列。首先，构造$n$个AB。像括号匹配一样，A当成左括号，B当成右括号。一旦栈中出现了AB，就弹出AB并且令AB子序列数+1，直到构造完$n$个AB。由于在任何时刻不会出现A比B少$m$个的情况，栈中最多有$m$个B，剩下的B全部可以构造成AB。所以这个$n$个AB一定可以构造出来。</p>
-<p>栈中可能会剩下很多B，B后面又跟了很多A。而现在我们要构造出$m$个BA。先把栈中已经配对成功的BA弹出，直到栈中全部是A或者全部是B为止。继续从左向右读字符串，如果当前栈顶是B，又读入一个A，则弹出这个BA；若当前栈顶是A，又读入了一个B，则从前面我们构造好的$n$个AB中随便挑一个出来，则之前的AB和现在栈顶的两个AB构成的子序列是ABAB，注意到这个子序列可以拆成A(BA)B，因此我们依然可以构造出一个BA来。后面这种替换是有限度的，如果连续的A碰到了连续的B，则需要之前有足够的AB才行。比如栈里面现在是AAAA，下面4个字符是BBBB，则需要连续替换4次。为了保证替换成功，前面一定要有4个AB才行。但我们现在有前提条件，不存在A比B多$n$个以上的情况，即栈中不可能有$n$个以上的A，也就是说连续替换的次数一定小于等于$n$。而我们已经构造出了$n$个AB，这种替换的一定可行的。</p>
-<p>综上，按照上述方法，我们可以构造出题目要求的$(n+m)$个子序列。</p>
-<p>有了上面的证明，题目的要求就变成我们自己的等价描述。那么只需要一个dp数组来统计方案就行了。$dp[i][j]$表示长度为$i$的字符串，A的个数减B的个数等于j的方案数。这个dp十分巧妙，dp的范围自动删除掉了A与B数量不符合要求的字符串。那么转移方程为：</p>
-<script type="math/tex; mode=display">
-dp[i][j]=
-\left\{
-\begin{aligned}
-    &1 &i = 0\bigwedge j = 0 \\ 
-    &dp[i - 1][j - 1] + dp[i - 1][j + 1] &i\geq 1 \bigwedge -m \leq j \leq n \\
-    &0 &else
-\end{aligned}
-\right.</script><p>$dp[n][0]$就是题目的答案。数组下标不能是负数，稍微处理一下就好了。</p>
-<h3 id="Review-2"><a href="#Review-2" class="headerlink" title="Review"></a>Review</h3><p>很久没打比赛，我的思维现在非常死板。我想这道题的时候误入歧途，一直想用排列组合算这道题。明明我在暴力枚举验证我猜的结论的时候，已经用到了栈来判定字符串是否合法了，但我还是没有想到只要保证A与B之间的数量关系就行了。</p>
-<p>当我看到这个结论的时候，觉得这个结论十分简单。但证明起来却发现，充分性很容易想到，必要性的构造却是要花一番功夫才能证明出来的。比赛中我们往往想到了某个结论的充分性，就会匆匆忙忙地猜结论。这样有时候或许侥幸能过题，但一旦过不了就会很伤士气。我平时就要养成严格证明的习惯，并且同时加快证明的速度，对于一个想到的结论要简单地从两个方面证明等价，不要想到一个结论就立刻跃跃欲试，脑袋都空掉了。</p>
-<h2 id="H-XOR"><a href="#H-XOR" class="headerlink" title="H XOR"></a>H XOR</h2><h3 id="Description-6"><a href="#Description-6" class="headerlink" title="Description"></a>Description</h3><p>给$n$个数$a_1, a_2…,a_n$构成的集合，从该集合找出子集，这些子集的异或和为0，求这些子集的集合大小之和。</p>
-<p>答案模$1e9+7$</p>
-<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$0 \leq a_i \leq 10^18$</p>
-<h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><p>首先，求出所有的集合并统计它们的大小是十分困难的。但所有集合的大小和，等于分别讨论每个元素的贡献，再求出每个元素在多少个集合中出现，最后对每个元素出现集合数求和。</p>
-<p>集合的异或信息可以用线性基来得到。得到了集合中的一组线性基后，那些不是基的元素无论怎么异或，都可以用这组基得到，也就是和某些基在一起是线性相关的，也就是异或和为0。假设基的大小是$r$，那么还剩$n - r$个不是基的元素。对于每一个剩下的元素分别讨论贡献。$n - r$个元素中，某个元素一定存在的集合数有$2^{n - r - 1}$2^{n - r - 1}$$个。对于每个这样的集合，我都可以选取一些基，使得最后的集合异或和为0。因此，这些元素的贡献都是$2^{n - r - 1}$。</p>
-<p>现在要单独讨论剩下的$r$个作为基的元素了。算这$r$个元素的贡献的方法是类似的，如果除掉其中某个元素外，剩余的$n - 1$个元素又构成了一个空间，又选出了一些基，则这个单独的元素又可以被新的基所表示，这个元素的贡献同样是<br>$2^{n - r - 1}$。</p>
-<p>但是，如果运气不好，$r$个基中的某个元素是必不可少的一个基。少了这个基，整个空间就少了一维。换句话说，谁和它的异或和都不能为0。在这样的情况下，这个元素就毫无贡献了。</p>
-<p>那么对于作为基的$r$个元素，我们的任务就是判断它们是否可以被任意一个其它的基所表示。对于某个基，有一种很简单的方法能构造出其它$n - 1$个元素的基。先构造出$n - r$个元素的基，它们代表了剩余$n - r$个数的空间。再把$r$个基中除了当前这个基外的$r - 1$个基也加入这个新的空间里面。现在，这个空间就能代表剩下$n - 1$个数了。判断选出的这个基是否在新的空间里即可。</p>
-<h3 id="Review-3"><a href="#Review-3" class="headerlink" title="Review"></a>Review</h3><p>在写这题之前我是不会线性基的，但稍微学了一下就发现，只要学过了线性代数的话很快就能理解线性基。只要理解了线性基，那么这题就非常简单了。</p>
-<p>不过这题的一个关键是把问题从求集合大小转换成求每个元素出现集合数。这个转换十分关键。我由于是看着题解写的，没有在这个问题上碰到障碍。但若是要在比赛中快速把难求的问题转换成容易求的问题，就需要极高的解题灵活度了。这种能力只有通过大量写题目才能获得。这也是大量刷题培养手感的意义所在吧。</p>
-<h2 id="I-Points-Division"><a href="#I-Points-Division" class="headerlink" title="I Points Division"></a>I Points Division</h2><h3 id="Description-7"><a href="#Description-7" class="headerlink" title="Description"></a>Description</h3><p>给$n$个点，每个点有$a,b$两种价值。现在要把所有点分成两个部分$A,B$，要保证$\neg \exists p_i \in A, p_j \in B,x_i \geq x_j \bigwedge y_i \leq y_j$。在$A$里面的点算$a$价值，在$B$里面的点算$B$价值。求最大价值和。</p>
-<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$1 \leq x_i, y_i, a_i, b_i \leq 10^9$<br>$所有点互异$  </p>
-<h3 id="Solution-7"><a href="#Solution-7" class="headerlink" title="Solution"></a>Solution</h3><p>显然，我们要做的第一件事就是把划分$A,B$的条件弄得更直观一些。题目的要求是：没有两个点，使得左上角的点属于$B$，右下角的点属于$A$。也就是说，如果一个点被分配进了$B$，那么它右下角的所有点都得进入$B$；如果一个点被分配进了$A$，那么它左上角所有的点都得进入$A$。</p>
-<p>也就是说,空间被分成了左上角和右下角两部分。那么是谁把空间划分的呢？仔细一想，划分空间的应该是一条折线。折线左上角的点属于$A$，折线右下角的点属于$B$。不妨再规定一下，折线上面的点都属于$B$（同一种划分下，如果折线上的点属于$A$的话，会得到另一条不同的折线，但效果是一样的）。这条折线是从左下向右上的，也就是随着x的增长y是不减的。</p>
-<p>分$A,B$算价值太麻烦了。不妨假设所有点最开始都属于$A$，然后我们试图让一些点加入$B$，使得总价值能够有所增长。这样的话，每一个点的价值就唯一了，新价值是$b - a$。</p>
-<p>之后要统计结果并保证不重复，不妨尝试对所有点从左到右进行统计。</p>
-<p>如果选择了一个点，那么$x$坐标大于等于它且在它下方的点一定也要被加入，也要统计答案。而只要唯一确定了一条折线，我们就确定了一种方案。因此，我们只要考虑折线上的关键点有哪些，让那些右下角的点在计算关键点的时候被计算到。我们从左到右考虑每个点作为关键点的结果。但如果在把当前点加入的同时就想统计右边所有的点，并立刻算出答案，那么再考虑下一个点时，它就不好知道右边有哪些点已经被左边之前的点计算过了。所以，在考虑加入一个关键点的时候，不能立刻算出它的最终贡献，只能考虑在所有已经访问过的点中，它的临时答案。而经过后面那些点时，后面的点会对之前所有$y$坐标大于等于它的临时答案都加上自己的贡献，因为这些点被强制加入了。在讨论当前进入$B$的点时，不直接计算所有右下角的点，而是反过来，先计算一个临时答案，等碰到了右下角的点再加上它们的贡献。这种统计方式是本题的关键。</p>
-<p>对于一个关键点，我们已经能统计它右下角的点了，现在来考虑如何计算当前点的临时答案。如果把一个点放到折线上，那么之后下一个点无论怎么选点，都与折线上左边的点无关，而只与现在选的这一个点有关。这表明了选择折线时的子结构性质。既然如此，我们把当前点放到折线上时，也不用管以前的点，只要选一个最优的上一个点就行了。这里的最优，指的是临时答案的最优。对每个点选择上一个点的过程，和动态规划的过程是一样的。发现最优子结构性质，是本题的第二个关键。</p>
-<p>现在我们已经可以得到一个正确的算法了：从左到右，从上到下（这个很关键）地枚举每一个点，讨论它作为折线上的点时的情况。对每个点，考虑所有之前走过的，且$y$坐标小于等于它的点（要保证能和这个点构成不降折线），从中选一个临时答案最大的点作为这个点的上一个点。此时，新的这个点的临时答案和上一个点是一样的，因为我们还没有考虑新的这个点自己还有它右边和下面的点。我们把这个点的临时答案也写入记录里面。最后，把已经访问过的，且$y$坐标大于等于它的所有点的临时答案都加上新的这个点的价值，表示这个点对之前所有$y$坐标大于等于它的点的贡献。只要对每个点都进行上述的操作，等处理完最后一个点后，每个点的临时答案就变成了最终答案。从所有最终答案选一个最优的就是题目的答案了。</p>
-<p>但是，这样的话时间复杂度似乎不能接受。遍历每个点肯定要右$O(n)$，讨论之前所有点并修改临时答案是$O(n)$，总的时间复杂度是$O(n^2)$，肯定会超时。我们必须优化一下从之前点找最优值以及修改值的过程。</p>
-<p>我们可以发现，我们在找之前所有点和修改答案时，都是在访问$y$坐标连续的点。找最大临时答案是找所有$y$小于等于当前点的点，修改是修改$y$大于等于当前点的点。那么，我们可以把所有点的临时答案按照$y$坐标的顺序存储。我们存的不再是某个点答案，而是某个$y$坐标的答案，这样我们依然不会漏掉某些情况：如果后面出现了一个和前面$y$坐标相同的点，如果选了之前的点的话，后面这个点一定要选到。因此，不存在不选新的这个点而只选前面那个点的情况，我们可以放心大胆地覆盖掉之前那个临时答案。现在所有答案都存到了$y$轴上。对于连续区间的修改、查询，我们就可以用线段树来维护了。线段树完成区间加一个值、找到区间最大值这两个操作就行了。</p>
-<p>$y$坐标的范围是$[1,10^9]$，读完数据后离散化一下就可以了。</p>
-<p>最终时间复杂度是$O(nlogn)$</p>
-<h3 id="Review-4"><a href="#Review-4" class="headerlink" title="Review"></a>Review</h3><p>这道题考察的知识不难，但对问题的思考、分析是本题的难点，在修改哪些点、访问哪些点、如何选择枚举方向等一些细节上也需要多加注意。我感觉这道题出得非常好。</p>
-<p>我自己写的时候犯的错误只有搞错了从左到右，从上到下的枚举方向，其它部分都很顺利。由于我是看了题解后再写的，少了很多对于问题的思考、分析，我不能保证下次碰到同样难度的题目也能写出。只能说，很多题目用的算法、数据结构大家都会，但是要把问题转换到能用熟悉的方法来解决的那一步，不需要太多的经验积累，而需要对问题做出正确的分析。碰到难题要敢去想。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/07/19/ACM2019/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/07/19/ACM2019/" class="post-title-link" itemprop="url">2019暑假ACM训练进度（持续更新）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-07-19 20:50:29" itemprop="dateCreated datePublished" datetime="2019-07-19T20:50:29+08:00">2019-07-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。</p>
-<p>但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。</p>
-<p>为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。<strong>我在这个暑假计划写完200道题</strong>。每场比赛都能补7~8题的话，就已经能够完成150题了，可见这个目标的达成并不困难。但是，我希望我写每一道题都能认真地去思考，有质量地完成，并顺便补习题目中出现的不会的知识。</p>
-<p>9.7：虽然暑假过了，但是过题清单统计到所有网络赛打完吧</p>
-<p>9.17：虽然我没有完成我的目标，但我这个暑假还算是投入了很多精力在ACM上，学到了不少了东西的。开学后做的题目会另开一个文章来存。</p>
-<p>下面是每道题完成的情况及题解链接（如果有题解的话）：</p>
-<p><u>下划线</u>表示这道题很有价值/我很喜欢</p>
-<p><strong>进度(120/200)</strong>  </p>
-<h4 id="7-18"><a href="#7-18" class="headerlink" title="7.18"></a>7.18</h4><p><strong>共计4题</strong><br>2019牛客1A（笛卡尔树)<br>2019牛客1B（数学）<br>2019牛客1F（找规律）<br>2019牛客1J（水）    </p>
-<h4 id="7-19"><a href="#7-19" class="headerlink" title="7.19"></a>7.19</h4><p><strong>共计4题</strong><br>2019牛客1C（贪心、数学）<br>2019牛客1E（贪心、dp）<br>2019牛客1H（线性基）<br><u>2019牛客1I（二维点，线段树）</u>      </p>
-<h4 id="7-20"><a href="#7-20" class="headerlink" title="7.20"></a>7.20</h4><p><strong>共计2题</strong><br>2019牛客2F（蛮力搜索)<br>2019牛客2H（单调栈）</p>
-<h4 id="7-21"><a href="#7-21" class="headerlink" title="7.21"></a>7.21</h4><p><strong>共计8题</strong><br>2019CCPC江西省赛1<br>2019CCPC江西省赛4<br>2019CCPC江西省赛6<br>2019CCPC江西省赛7<br>2019CCPC江西省赛8<br>2019CCPC江西省赛9<br>2019CCPC江西省赛10<br>2019CCPC江西省赛11<br>(今天题比较水)  </p>
-<h4 id="7-22"><a href="#7-22" class="headerlink" title="7.22"></a>7.22</h4><p><strong>共计3题</strong><br>2019HDU多校1-2（区间异或和最大）<br>2019HDU多校1-4（思维）<br>2019HDU多校1-9（序列自动机、贪心）  </p>
-<h4 id="7-24"><a href="#7-24" class="headerlink" title="7.24"></a>7.24</h4><p><strong>共计5题</strong><br>2019HDU多校1-1（dp）<br>2019HDU多校1-12（组合数学、卷积）<br>2019HDU多校2-I（回文树）<br>2019HDU多校2-J（签到）<br>2019HDU多校2-K（可持久化线段树）  </p>
-<h4 id="7-25"><a href="#7-25" class="headerlink" title="7.25"></a>7.25</h4><p><strong>共计1题</strong><br>2019牛客3-F（st表、双向队列维护区间最值）  </p>
-<h4 id="7-26"><a href="#7-26" class="headerlink" title="7.26"></a>7.26</h4><p><strong>共计4题</strong><br>2019牛客3-G（笛卡尔树上区间二分）<br>2019HDU多校1-6（后缀自动机）<br>2019HDU多校2-H（最小割）<br>2019HDU多校2-L（线段树维护信息）      </p>
-<h4 id="7-27"><a href="#7-27" class="headerlink" title="7.27"></a>7.27</h4><p><strong>共计3题</strong><br>2019牛客4-A（树形DP）<br>2019牛客4-I（后缀自动机、回文树）<br>2019牛客4-J（分层图（令边权为0）） </p>
-<h4 id="7-28"><a href="#7-28" class="headerlink" title="7.28"></a>7.28</h4><p><strong>共计2题</strong><br>2019HDU多校2-F（FWT）<br>2019牛客4-C（笛卡尔树、区间最值）  </p>
-<h4 id="7-29"><a href="#7-29" class="headerlink" title="7.29"></a>7.29</h4><p><strong>共计2题</strong><br>2019HDU多校3-4（二分、线段树/平衡树）<br>2019HDU多校3-7（二分、线段树/平衡树）   </p>
-<h4 id="7-30"><a href="#7-30" class="headerlink" title="7.30"></a>7.30</h4><p><strong>共计2题</strong><br>2019HDU多校1-11(莫比乌斯反演)<br>2019HDU多校2-E(期望、简单dp)  </p>
-<h4 id="7-31"><a href="#7-31" class="headerlink" title="7.31"></a>7.31</h4><p><strong>共计3题</strong><br>2019HDU多校4-3（思维）<br>2019HDU多校4-7（结论题）<br>2019HDU多校4-8（二分、可持久化线段树）</p>
-<h4 id="8-1"><a href="#8-1" class="headerlink" title="8.1"></a>8.1</h4><p><strong>共计3题</strong><br>2019牛客5-G（中等dp）<br><u>2019牛客5-F（思考、补图、二分图最小覆盖方案）</u><br>2019牛客5-H（字符串前后关系转化成对图求环）  </p>
-<h4 id="8-3"><a href="#8-3" class="headerlink" title="8.3"></a>8.3</h4><p><strong>共计4题</strong><br>2019牛客6-D（暴力模拟）<br><u>2019牛客6-E（构造自补图）</u><br>2019牛客6-J（简单dp）<br><u>2019HDU多校4-6（思维、斜率优化）</u>  </p>
-<h4 id="8-5"><a href="#8-5" class="headerlink" title="8.5"></a>8.5</h4><p><strong>共计1题</strong><br>2019HDU多校5-6（exkmp签到）</p>
-<h4 id="8-7"><a href="#8-7" class="headerlink" title="8.7"></a>8.7</h4><p><strong>共计5题</strong><br><u>2019HDU多校6-4（两颗权值线段树）</u><br>2019HDU多校6-6（曼哈顿距离模意义下性质）<br>2019HDU多校6-8（暴力）<br>CodeForeces 674C（斜率优化DP）<br>2019HDU多校5-1（分母最小的给定范围下的分数）  </p>
-<h4 id="8-8"><a href="#8-8" class="headerlink" title="8.8"></a>8.8</h4><p><strong>共计4题</strong><br>2019牛客6-A（最小表示法暴力DP）<br>2019牛客6-B（三次以上多项式必可因式分解结论）<br>2019牛客6-D（签到）<br><u>2019牛客6-H（繁琐的数位DP）</u>  </p>
-<h4 id="8-9"><a href="#8-9" class="headerlink" title="8.9"></a>8.9</h4><p><strong>共计5题</strong><br>Comet8-A（签到）<br>Comet8-B（签到）<br>2019HDU多校6-2（随机数据、LIS、暴力重构）<br>2019HDU多校6-5（线段树维护最大子段和）<br>2019HDU多校6-12（签到）</p>
-<h4 id="8-10"><a href="#8-10" class="headerlink" title="8.10"></a>8.10</h4><p><strong>共计1题</strong><br>2019牛客8-C（找规律）  </p>
-<h4 id="8-11"><a href="#8-11" class="headerlink" title="8.11"></a>8.11</h4><p><strong>共计7题</strong><br>Comet8-C（dp或者线段树维护最大子段和）<br>Comet8-D（思考、树状数组）<br>2019牛客8-A（单调栈、最大矩形去重）<br>2019牛客8-B（签到、单独考虑贡献）<br>2019牛客8-D（暴力BFS重构最短曼哈顿距离）<br>2019牛客8-G（签到）<br><u>2019牛客8-J（组合数学、容斥原理）</u>  </p>
-<h4 id="8-12"><a href="#8-12" class="headerlink" title="8.12"></a>8.12</h4><p><strong>共计1题</strong><br><u>2019HDU多校7-8（思考）</u></p>
-<h4 id="8-13"><a href="#8-13" class="headerlink" title="8.13"></a>8.13</h4><p><strong>共计5题</strong><br>2019HDU多校7-1（高精度模拟）<br>2019HDU多校7-6（思维）<br>2019HDU多校7-7（思考、dp、二分转移）<br>2019HDU多校7-10（思维、map排序）<br>2019HDU多校7-11（期望dp）    </p>
-<h4 id="8-14"><a href="#8-14" class="headerlink" title="8.14"></a>8.14</h4><p><strong>共计3题</strong><br>2019HDU多校8-4（构造）<br>2019HDU多校8-9（离散化后DFS）<br>2019HDU多校8-11（思维）   </p>
-<h4 id="8-15"><a href="#8-15" class="headerlink" title="8.15"></a>8.15</h4><p><strong>共计2题</strong><br>2019牛客9-B（模意义方程、二次剩余）<br>2019牛客9-E（并查集）  </p>
-<h4 id="8-17"><a href="#8-17" class="headerlink" title="8.17"></a>8.17</h4><p><strong>共计6题</strong><br>2019牛客10-B（递归）<br>2019牛客10-D（Java写的中国剩余定理）<br>2019牛客10-F（线段树维护最值）<br>2019百度之星初赛-1（签到）<br>2019百度之星初赛-2（签到）<br>2019百度之星初赛-5（找规律）  </p>
-<h4 id="8-18"><a href="#8-18" class="headerlink" title="8.18"></a>8.18</h4><p><strong>共计3题</strong><br>cf-A (水题)<br>cf-B (无向图最短环)<br>2019HDU多校8-6（树形dp）     </p>
-<h4 id="8-19"><a href="#8-19" class="headerlink" title="8.19"></a>8.19</h4><p><strong>共计1题</strong><br>2019HDU多校9-3（硬核折半搜索+基数排序）</p>
-<h4 id="8-21"><a href="#8-21" class="headerlink" title="8.21"></a>8.21</h4><p><strong>共计2题</strong><br>2019HDU多校10-3（简单概率）<br>2019HDU多校10-9（签到DFS）<strong>（全场一血）</strong>  </p>
-<h4 id="8-23"><a href="#8-23" class="headerlink" title="8.23"></a>8.23</h4><p><strong>共计1题</strong><br>2019CCPC网络赛1（签到）</p>
-<h4 id="8-31"><a href="#8-31" class="headerlink" title="8.31"></a>8.31</h4><p><strong>共计6题</strong><br>2019百度之星复赛-A（树形dp）<br>2019百度之星复赛-B（思维）<br>2019百度之星复赛-C（贪心）<br>2019银川网络赛C（签到）<br>2019银川网络赛D（猜结论概率）<br>2019银川网络赛H（贪心排序） </p>
-<h4 id="9-1"><a href="#9-1" class="headerlink" title="9.1"></a>9.1</h4><p><strong>共计3题</strong><br>2019南京网络赛B（欧拉降幂）<br>2019南京网络赛F（区间最值）<br><u>2019南京网络赛G（组合数学）</u>   </p>
-<h4 id="9-7"><a href="#9-7" class="headerlink" title="9.7"></a>9.7</h4><p><strong>共计4题</strong><br>2019徐州网络赛G（回文树）<br>2019徐州网络赛I（区间询问，固定右端点）<br>2019徐州网络赛L（打表，TSP问题）<br>2019徐州网络赛M（序列自动机贪心）   </p>
-<h4 id="9-8"><a href="#9-8" class="headerlink" title="9.8"></a>9.8</h4><p><strong>共计2题</strong><br>2019银川网络赛重赛E（水）<br>2019南昌网络赛E（约瑟夫问题）   </p>
-<h4 id="9-9"><a href="#9-9" class="headerlink" title="9.9"></a>9.9</h4><p><strong>共计3题</strong><br>min_25筛入门题X3</p>
-<h4 id="9-14"><a href="#9-14" class="headerlink" title="9.14"></a>9.14</h4><p><strong>共计2题</strong><br>2019沈阳网络赛F（二分查找）<br>2019沈阳网络赛G（物理） </p>
-<h4 id="9-15"><a href="#9-15" class="headerlink" title="9.15"></a>9.15</h4><p><strong>共计3题</strong><br>2019上海网络赛B（离散化、区间异或）<br>2019上海网络赛C（FFT、简单容斥、不同数据量不同算法）<br><u>2019上海网络赛E（指数生成函数）</u>       </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1921,20 +1613,20 @@ dp[i][j]=
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
