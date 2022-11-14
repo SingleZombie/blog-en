@@ -162,6 +162,496 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/07/22/2019Nowcoder-Contest1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/22/2019Nowcoder-Contest1/" class="post-title-link" itemprop="url">2019牛客暑期多校训练营（第一场）部分题解（缺D、G）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-22 11:13:05" itemprop="dateCreated datePublished" datetime="2019-07-22T11:13:05+08:00">2019-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目按个人感受的难度升序排列。</p>
+<h2 id="J-Fraction-Comparision"><a href="#J-Fraction-Comparision" class="headerlink" title="J Fraction Comparision"></a>J Fraction Comparision</h2><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给$\frac{x}{a},\frac{y}{b},0\leq a,b\leq 10^9,0\leq x,y\leq 10^{18}$，问这两个分数比较大小的结果（大于、小于或等于）。</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>由于浮点数会有误差，不能除了以后再判断。</p>
+<p>用有大整数的语言的话，可以直接通分比较。</p>
+<p>用C++的话，可以把两个分数划为带分数。比较带分数时先比较整数部分，再通分比较真分数部分。由于分母在1e9范围内，不会爆long long。</p>
+<h2 id="F-Random-Point-in-Triangle"><a href="#F-Random-Point-in-Triangle" class="headerlink" title="F Random Point in Triangle"></a>F Random Point in Triangle</h2><h3 id="Description-1"><a href="#Description-1" class="headerlink" title="Description"></a>Description</h3><p>给平面上一个三角形，顶点为ABC。现在随机再三角形内部取一点S，S把三角形划分为三个小三角形。问这三个小三角形面积的最大值的期望乘36（保证这样算出来的结果是整数）。</p>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>我在知乎上看到过类似的题目，原理没记住，结论倒记住了：这种三角形随机取点求面积期望的题，与三角形形状无关，只与面积有关。原理好像是坐标变换什么的，不管三角形形状是怎么样的，都可以通过坐标变换变成同一个三角形。这个坐标变换的过程面积也是按照比例变化的。大概是这个意思，我也说不清楚具体的原理。</p>
+<p>有了这个结论，只需要知道面积为1的三角形的答案就行了，这个直接在本地模拟就行。我把三点设为(0, 0), (0, 1), (1, 0)，取两个随机数后把随机数都映射到[0, 1]中，再判断这个点是否在三角形内。如果这个点在三角形内，就用叉积算三个小三角形面积。不断地大量随机取点后再除一下有效点数量就是答案。</p>
+<p>判断点是否在三角形内可以考虑判断三个小三角形的面积是否“正负号相同”（即叉积结果符号是否相同）。</p>
+<p>最后发现面积乘22就是答案,也就是叉积的结果乘11。</p>
+<h2 id="B-Integration"><a href="#B-Integration" class="headerlink" title="B Integration"></a>B Integration</h2><h3 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h3><p>已知$\int<em>{0}^{\infty}\frac{1}{1+x^2}dx=\frac{\pi}{2}$，<br>给定$a_1, a_2…a_n(1\leq n\leq 10^3，1\leq a_i\leq 10^9,a_i互不相同)$，求$\frac{1}{\pi}\frac{1}{\Sigma</em>{i = 1}^{n}(a_i^2+x^2)}dx$模$10^9+7$意义下的值。</p>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>这道题只需要微积分的基础知识，即积分的线性性质：积分里面如果是相加的话可以拆开来积分再相加。但题目里面的积分是相乘，只能考虑把积分内的乘积化为简单的分式相加，再套入题目给的公式了。</p>
+<p>分式的乘拆分成分式的和则是初等数学的内容了。不妨先考虑$n=2$的情况，考虑$\frac{1}{(a^2+x^2)(b^2+x^2)}$的拆分结果。</p>
+<p>设$\frac{1}{(a^2+x^2)(b^2+x^2)} = \frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2}$，则：  </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{1}{(a^2+x^2)(b^2+x^2)} &= \frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2} \\
+\frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2} &= \frac{b^2n+x^2n+a^2m+x^2m}{(a^2+x^2)(b^2+x^2)} \\
+1 &= b^2n+x^2n+a^2m+x^2m \\
+1 &= b^2n+a^2m+x^2(m+n)
+\end{aligned}</script><p>由于上式恒成立，可得：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+    b^2n+a^2m = 1 \\
+    m+n = 0
+\end{aligned}
+\right.</script><p>解得：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+    n = \frac{1}{b^2 - a^2} \\
+    m = \frac{1}{a^2 - b^2}
+\end{aligned}
+\right.</script><p>用同样的方法可以求得n为任意值时的拆分结果。对于分母是$a<em>i^2+x^2$的项，它的分子是$\frac{1}{\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。</p>
+<p>再由微积分的知识，$\int<em>{0}^{\infty}\frac{C}{a^2+x^2}dx=\frac{C}{a^2}\int</em>{0}^{\infty}\frac{1}{1+(x/a)^2}dx =\frac{C}{a}\int_{0}^{\infty}\frac{1}{1+(x/a)^2}d(x/a) =\frac{C\pi}{2a}$，</p>
+<p>因此，对于分母是$a<em>i^2+x^2$的项，积分的结果是$\frac{\pi}{2a_i\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。算出了公式，转换成程序就行了。</p>
+<h2 id="C-Euclidean-Distance"><a href="#C-Euclidean-Distance" class="headerlink" title="C Euclidean Distance"></a>C Euclidean Distance</h2><h3 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h3><p>给一个n维空间的点$A(a<em>1/m, a_2/m…a_n/m)$，求它到点$P(p_1, p_2, …p_n)$的最短距离的平方，即$\Sigma</em>{i = 1}^{n}(a_i/m - p_i)^2$。其中点$P$要满足下列条件：<br>$p_i\in \Reals$<br>$p_i \geq 0$<br>$\Sigma p_i = 1$</p>
+<p>答案用分数的形式表示。</p>
+<p>数据范围：<br>$1 \leq n \leq 10^4,1\leq m \leq 10^3, -m\leq a_i \leq m$</p>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>为了方便说明，先把点$P$的每个坐标分量乘一个m，我们要求的东西变成了$\Sigma_{i = 1}^{n}(a_i - p_im)^2$。只要把这个结果除以一个$m^2$就是题目的答案。</p>
+<p>由于点$P$的分量都大于等于0，且和为$m$，我们可以考虑把点$P$的坐标看成是实数$m$“分配”到每一个坐标分量$p_i$上。即我们可以让每一个$p_i$变大一点。</p>
+<p>我们如何让距离尽可能短呢？如果在某一维上，比如第$i$维，若$a_i &lt; 0$，那么此时令$p_i$增长的话，那么距离只会越来越长；如果$a_i &gt; 0$，那么$p_i$越靠近$a_i$，那么最终的距离就会越短。当$p_i = a_i$时，我们就不用让$p_i$增长了。</p>
+<p>由不等式$a^2+b^2\geq2ab(仅当a=b时等号成立)$我们发现，数越大，其平方也增长得越快。如果此时我们去缩小一个本身就很大的数，就能让平方和减少得更多。具体来说，对于两个点的第$i, j$两个维的坐标分量,若$|a_i-p_i|&gt;|a_j-p_j|$，那么让$a_i,p_i$更接近一点，比让$a_j,p_j$更接近一点，更能让总距离减小。那么在分配$m$到$P$的每一维时，应该先分配给$a_i$最大的地方，缩小此处$a_i和p_i$的差距。等这一维的距离和$a_i$中第二大的数时，就要同时缩小这两个维上的距离了。</p>
+<p>比如$A(2,3)，m = 3$，我们发现$a_2 &gt; a_1$，于是先从$m$中分配$1$给$p_2$，此时$P(0,1)$，$|a_2 - p_2| = |a_1 - p_1|$。我们再让这两个距离同步减小，从$m$再分配1分别给$p_1,p_2$，此时$m=0$,分配结束，而$P(1,2)$，$|a_2 - p_2| = |a_1 - p_1|$依然成立。这种情况下得到的$A,P$两点的距离是最短的。</p>
+<p>有了上述思想，算法也就呼之欲出了。把所有$a_i$降序排序，按照上述方法分配$m$的值，尽可能让最大的几个距离相等，再同步减少这几个最大的距离。这种分配方式对于$a_i$是负数的情况也是成立的，不用多加考虑。注意一下有理数分子分母的处理方式即可。</p>
+<h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>有时对于一道看上去复杂的数学题目，用一些比较简单的、定性的方法就能解出来。</p>
+<h2 id="A-Equivalent-Prefixes"><a href="#A-Equivalent-Prefixes" class="headerlink" title="A Equivalent Prefixes"></a>A Equivalent Prefixes</h2><h3 id="Description-4"><a href="#Description-4" class="headerlink" title="Description"></a>Description</h3><p>在两个数组$a, b$的前$m$项上，定义一个等价关系：若两个数组前$m$项任意一个区间$<a href="1\leq l \leq r \leq m">l,r</a>$的最小数的位置相同，则称两个数组前$m$项等价。现在给两个数组$a,b$，问它们最多前几项是等价的？</p>
+<p>数组长度为$n$ </p>
+<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$1 \leq a_i,b_i \leq n, 所有a_i,所有b_i互异$</p>
+<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><p>这个等价关系的意思好像就是说，每个数作为最小值的影响范围相同，即每个数碰到的左边、右边第一个比它小的数的位置都相同。这个东西好像就是笛卡尔树啊！</p>
+<p>二分答案，对前$mid$项构建笛卡尔树，若笛卡尔树完全相同就check成功。</p>
+<h3 id="Review-1"><a href="#Review-1" class="headerlink" title="Review"></a>Review</h3><p>从知识和写代码的复杂性来看，这道题肯定不是难度第二低的题目。但是，从全场的通过情况来看，这是大部分队第二道通过的题，也是通过人数第二多的题。</p>
+<p>可以得出结论：很多题目，不是难到不会写，而是难到不敢写；有本来比较简单的题目没来得及写，不是你没有AC，而是别人没有AC。</p>
+<p>话说笛卡尔树的定义和用途其实我现在都没有弄清，但我知道这个东西用单调栈就可以构造，而且所涉及的所有知识都建立在单调栈方面的知识上。</p>
+<h2 id="E-ABBA"><a href="#E-ABBA" class="headerlink" title="E ABBA"></a>E ABBA</h2><h3 id="Description-5"><a href="#Description-5" class="headerlink" title="Description"></a>Description</h3><p>给定$n,m$，问有多少个长为$2(n+m)$的字符串，’A’和’B’各$(n+m)$个，使得该字符串能够被拆成$(n+m)$个长度为2的子序列，其中有$n$个子序列是”AB”，$m$个子序列是”BA”。</p>
+<p>数据范围：<br>$0 \leq n,m \leq 10^3$</p>
+<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><p>本题最大的障碍在于，题目对于n个AB子序列和m个BA子序列的限制条件，等价于说：对于任意的$i$，字符串前$i$中不能出现A比B多$n$个以上的情况，也不能出现A比B少$m$个以上的情况。证明如下：</p>
+<p>充分性：<br>即证逆否命题：如果字符串中出现了A比B多$n$个以上的情况，则不能满足题目的条件。假设在某个位置，A比B多$n+1$个，则前面这些多出来的$n+1$个A永远不能放在B的后面，也就是最多只有剩下的$(m+n)-(n+1)=m-1$个A能够构成BA，但是$m-1$个BA是不能满足题目的限制条件的。</p>
+<p>不能有A比B少$m$个以上的情况的证明类似的。</p>
+<p>必要性：<br>即证满足AB的数量条件即能满足题目的限制条件。考虑构造出题目中要求的$(n+m)$个子序列。从左到右读一个满足AB数量条件的栈，用一个栈来构造这些序列。首先，构造$n$个AB。像括号匹配一样，A当成左括号，B当成右括号。一旦栈中出现了AB，就弹出AB并且令AB子序列数+1，直到构造完$n$个AB。由于在任何时刻不会出现A比B少$m$个的情况，栈中最多有$m$个B，剩下的B全部可以构造成AB。所以这个$n$个AB一定可以构造出来。</p>
+<p>栈中可能会剩下很多B，B后面又跟了很多A。而现在我们要构造出$m$个BA。先把栈中已经配对成功的BA弹出，直到栈中全部是A或者全部是B为止。继续从左向右读字符串，如果当前栈顶是B，又读入一个A，则弹出这个BA；若当前栈顶是A，又读入了一个B，则从前面我们构造好的$n$个AB中随便挑一个出来，则之前的AB和现在栈顶的两个AB构成的子序列是ABAB，注意到这个子序列可以拆成A(BA)B，因此我们依然可以构造出一个BA来。后面这种替换是有限度的，如果连续的A碰到了连续的B，则需要之前有足够的AB才行。比如栈里面现在是AAAA，下面4个字符是BBBB，则需要连续替换4次。为了保证替换成功，前面一定要有4个AB才行。但我们现在有前提条件，不存在A比B多$n$个以上的情况，即栈中不可能有$n$个以上的A，也就是说连续替换的次数一定小于等于$n$。而我们已经构造出了$n$个AB，这种替换的一定可行的。</p>
+<p>综上，按照上述方法，我们可以构造出题目要求的$(n+m)$个子序列。</p>
+<p>有了上面的证明，题目的要求就变成我们自己的等价描述。那么只需要一个dp数组来统计方案就行了。$dp[i][j]$表示长度为$i$的字符串，A的个数减B的个数等于j的方案数。这个dp十分巧妙，dp的范围自动删除掉了A与B数量不符合要求的字符串。那么转移方程为：</p>
+<script type="math/tex; mode=display">
+dp[i][j]=
+\left\{
+\begin{aligned}
+    &1 &i = 0\bigwedge j = 0 \\ 
+    &dp[i - 1][j - 1] + dp[i - 1][j + 1] &i\geq 1 \bigwedge -m \leq j \leq n \\
+    &0 &else
+\end{aligned}
+\right.</script><p>$dp[n][0]$就是题目的答案。数组下标不能是负数，稍微处理一下就好了。</p>
+<h3 id="Review-2"><a href="#Review-2" class="headerlink" title="Review"></a>Review</h3><p>很久没打比赛，我的思维现在非常死板。我想这道题的时候误入歧途，一直想用排列组合算这道题。明明我在暴力枚举验证我猜的结论的时候，已经用到了栈来判定字符串是否合法了，但我还是没有想到只要保证A与B之间的数量关系就行了。</p>
+<p>当我看到这个结论的时候，觉得这个结论十分简单。但证明起来却发现，充分性很容易想到，必要性的构造却是要花一番功夫才能证明出来的。比赛中我们往往想到了某个结论的充分性，就会匆匆忙忙地猜结论。这样有时候或许侥幸能过题，但一旦过不了就会很伤士气。我平时就要养成严格证明的习惯，并且同时加快证明的速度，对于一个想到的结论要简单地从两个方面证明等价，不要想到一个结论就立刻跃跃欲试，脑袋都空掉了。</p>
+<h2 id="H-XOR"><a href="#H-XOR" class="headerlink" title="H XOR"></a>H XOR</h2><h3 id="Description-6"><a href="#Description-6" class="headerlink" title="Description"></a>Description</h3><p>给$n$个数$a_1, a_2…,a_n$构成的集合，从该集合找出子集，这些子集的异或和为0，求这些子集的集合大小之和。</p>
+<p>答案模$1e9+7$</p>
+<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$0 \leq a_i \leq 10^18$</p>
+<h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><p>首先，求出所有的集合并统计它们的大小是十分困难的。但所有集合的大小和，等于分别讨论每个元素的贡献，再求出每个元素在多少个集合中出现，最后对每个元素出现集合数求和。</p>
+<p>集合的异或信息可以用线性基来得到。得到了集合中的一组线性基后，那些不是基的元素无论怎么异或，都可以用这组基得到，也就是和某些基在一起是线性相关的，也就是异或和为0。假设基的大小是$r$，那么还剩$n - r$个不是基的元素。对于每一个剩下的元素分别讨论贡献。$n - r$个元素中，某个元素一定存在的集合数有$2^{n - r - 1}$2^{n - r - 1}$$个。对于每个这样的集合，我都可以选取一些基，使得最后的集合异或和为0。因此，这些元素的贡献都是$2^{n - r - 1}$。</p>
+<p>现在要单独讨论剩下的$r$个作为基的元素了。算这$r$个元素的贡献的方法是类似的，如果除掉其中某个元素外，剩余的$n - 1$个元素又构成了一个空间，又选出了一些基，则这个单独的元素又可以被新的基所表示，这个元素的贡献同样是<br>$2^{n - r - 1}$。</p>
+<p>但是，如果运气不好，$r$个基中的某个元素是必不可少的一个基。少了这个基，整个空间就少了一维。换句话说，谁和它的异或和都不能为0。在这样的情况下，这个元素就毫无贡献了。</p>
+<p>那么对于作为基的$r$个元素，我们的任务就是判断它们是否可以被任意一个其它的基所表示。对于某个基，有一种很简单的方法能构造出其它$n - 1$个元素的基。先构造出$n - r$个元素的基，它们代表了剩余$n - r$个数的空间。再把$r$个基中除了当前这个基外的$r - 1$个基也加入这个新的空间里面。现在，这个空间就能代表剩下$n - 1$个数了。判断选出的这个基是否在新的空间里即可。</p>
+<h3 id="Review-3"><a href="#Review-3" class="headerlink" title="Review"></a>Review</h3><p>在写这题之前我是不会线性基的，但稍微学了一下就发现，只要学过了线性代数的话很快就能理解线性基。只要理解了线性基，那么这题就非常简单了。</p>
+<p>不过这题的一个关键是把问题从求集合大小转换成求每个元素出现集合数。这个转换十分关键。我由于是看着题解写的，没有在这个问题上碰到障碍。但若是要在比赛中快速把难求的问题转换成容易求的问题，就需要极高的解题灵活度了。这种能力只有通过大量写题目才能获得。这也是大量刷题培养手感的意义所在吧。</p>
+<h2 id="I-Points-Division"><a href="#I-Points-Division" class="headerlink" title="I Points Division"></a>I Points Division</h2><h3 id="Description-7"><a href="#Description-7" class="headerlink" title="Description"></a>Description</h3><p>给$n$个点，每个点有$a,b$两种价值。现在要把所有点分成两个部分$A,B$，要保证$\neg \exists p_i \in A, p_j \in B,x_i \geq x_j \bigwedge y_i \leq y_j$。在$A$里面的点算$a$价值，在$B$里面的点算$B$价值。求最大价值和。</p>
+<p>数据范围：<br>$1 \leq n \leq 10^5$<br>$1 \leq x_i, y_i, a_i, b_i \leq 10^9$<br>$所有点互异$  </p>
+<h3 id="Solution-7"><a href="#Solution-7" class="headerlink" title="Solution"></a>Solution</h3><p>显然，我们要做的第一件事就是把划分$A,B$的条件弄得更直观一些。题目的要求是：没有两个点，使得左上角的点属于$B$，右下角的点属于$A$。也就是说，如果一个点被分配进了$B$，那么它右下角的所有点都得进入$B$；如果一个点被分配进了$A$，那么它左上角所有的点都得进入$A$。</p>
+<p>也就是说,空间被分成了左上角和右下角两部分。那么是谁把空间划分的呢？仔细一想，划分空间的应该是一条折线。折线左上角的点属于$A$，折线右下角的点属于$B$。不妨再规定一下，折线上面的点都属于$B$（同一种划分下，如果折线上的点属于$A$的话，会得到另一条不同的折线，但效果是一样的）。这条折线是从左下向右上的，也就是随着x的增长y是不减的。</p>
+<p>分$A,B$算价值太麻烦了。不妨假设所有点最开始都属于$A$，然后我们试图让一些点加入$B$，使得总价值能够有所增长。这样的话，每一个点的价值就唯一了，新价值是$b - a$。</p>
+<p>之后要统计结果并保证不重复，不妨尝试对所有点从左到右进行统计。</p>
+<p>如果选择了一个点，那么$x$坐标大于等于它且在它下方的点一定也要被加入，也要统计答案。而只要唯一确定了一条折线，我们就确定了一种方案。因此，我们只要考虑折线上的关键点有哪些，让那些右下角的点在计算关键点的时候被计算到。我们从左到右考虑每个点作为关键点的结果。但如果在把当前点加入的同时就想统计右边所有的点，并立刻算出答案，那么再考虑下一个点时，它就不好知道右边有哪些点已经被左边之前的点计算过了。所以，在考虑加入一个关键点的时候，不能立刻算出它的最终贡献，只能考虑在所有已经访问过的点中，它的临时答案。而经过后面那些点时，后面的点会对之前所有$y$坐标大于等于它的临时答案都加上自己的贡献，因为这些点被强制加入了。在讨论当前进入$B$的点时，不直接计算所有右下角的点，而是反过来，先计算一个临时答案，等碰到了右下角的点再加上它们的贡献。这种统计方式是本题的关键。</p>
+<p>对于一个关键点，我们已经能统计它右下角的点了，现在来考虑如何计算当前点的临时答案。如果把一个点放到折线上，那么之后下一个点无论怎么选点，都与折线上左边的点无关，而只与现在选的这一个点有关。这表明了选择折线时的子结构性质。既然如此，我们把当前点放到折线上时，也不用管以前的点，只要选一个最优的上一个点就行了。这里的最优，指的是临时答案的最优。对每个点选择上一个点的过程，和动态规划的过程是一样的。发现最优子结构性质，是本题的第二个关键。</p>
+<p>现在我们已经可以得到一个正确的算法了：从左到右，从上到下（这个很关键）地枚举每一个点，讨论它作为折线上的点时的情况。对每个点，考虑所有之前走过的，且$y$坐标小于等于它的点（要保证能和这个点构成不降折线），从中选一个临时答案最大的点作为这个点的上一个点。此时，新的这个点的临时答案和上一个点是一样的，因为我们还没有考虑新的这个点自己还有它右边和下面的点。我们把这个点的临时答案也写入记录里面。最后，把已经访问过的，且$y$坐标大于等于它的所有点的临时答案都加上新的这个点的价值，表示这个点对之前所有$y$坐标大于等于它的点的贡献。只要对每个点都进行上述的操作，等处理完最后一个点后，每个点的临时答案就变成了最终答案。从所有最终答案选一个最优的就是题目的答案了。</p>
+<p>但是，这样的话时间复杂度似乎不能接受。遍历每个点肯定要右$O(n)$，讨论之前所有点并修改临时答案是$O(n)$，总的时间复杂度是$O(n^2)$，肯定会超时。我们必须优化一下从之前点找最优值以及修改值的过程。</p>
+<p>我们可以发现，我们在找之前所有点和修改答案时，都是在访问$y$坐标连续的点。找最大临时答案是找所有$y$小于等于当前点的点，修改是修改$y$大于等于当前点的点。那么，我们可以把所有点的临时答案按照$y$坐标的顺序存储。我们存的不再是某个点答案，而是某个$y$坐标的答案，这样我们依然不会漏掉某些情况：如果后面出现了一个和前面$y$坐标相同的点，如果选了之前的点的话，后面这个点一定要选到。因此，不存在不选新的这个点而只选前面那个点的情况，我们可以放心大胆地覆盖掉之前那个临时答案。现在所有答案都存到了$y$轴上。对于连续区间的修改、查询，我们就可以用线段树来维护了。线段树完成区间加一个值、找到区间最大值这两个操作就行了。</p>
+<p>$y$坐标的范围是$[1,10^9]$，读完数据后离散化一下就可以了。</p>
+<p>最终时间复杂度是$O(nlogn)$</p>
+<h3 id="Review-4"><a href="#Review-4" class="headerlink" title="Review"></a>Review</h3><p>这道题考察的知识不难，但对问题的思考、分析是本题的难点，在修改哪些点、访问哪些点、如何选择枚举方向等一些细节上也需要多加注意。我感觉这道题出得非常好。</p>
+<p>我自己写的时候犯的错误只有搞错了从左到右，从上到下的枚举方向，其它部分都很顺利。由于我是看了题解后再写的，少了很多对于问题的思考、分析，我不能保证下次碰到同样难度的题目也能写出。只能说，很多题目用的算法、数据结构大家都会，但是要把问题转换到能用熟悉的方法来解决的那一步，不需要太多的经验积累，而需要对问题做出正确的分析。碰到难题要敢去想。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/07/19/ACM2019/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/19/ACM2019/" class="post-title-link" itemprop="url">2019暑假ACM训练进度（持续更新）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-19 20:50:29" itemprop="dateCreated datePublished" datetime="2019-07-19T20:50:29+08:00">2019-07-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在过去的半年里，由于自己和外部的种种原因，我没有认真地进行ACM训练。用愧疚来形容我的感受的话，或许有一些夸张。更多的感受或许是无奈与遗憾。</p>
+<p>但是，暑假ACM集训即将开始了。这或许是我人生中最后一段能够把全部精力投入算法竞赛的时光。每天不需要考虑太多，只是享受思考与解题的快感就好。</p>
+<p>为了能够让自己更有动力，更有目标性，我决定开一篇文档来记录自己的刷题成果。<strong>我在这个暑假计划写完200道题</strong>。每场比赛都能补7~8题的话，就已经能够完成150题了，可见这个目标的达成并不困难。但是，我希望我写每一道题都能认真地去思考，有质量地完成，并顺便补习题目中出现的不会的知识。</p>
+<p>9.7：虽然暑假过了，但是过题清单统计到所有网络赛打完吧</p>
+<p>9.17：虽然我没有完成我的目标，但我这个暑假还算是投入了很多精力在ACM上，学到了不少了东西的。开学后做的题目会另开一个文章来存。</p>
+<p>下面是每道题完成的情况及题解链接（如果有题解的话）：</p>
+<p><u>下划线</u>表示这道题很有价值/我很喜欢</p>
+<p><strong>进度(120/200)</strong>  </p>
+<h4 id="7-18"><a href="#7-18" class="headerlink" title="7.18"></a>7.18</h4><p><strong>共计4题</strong><br>2019牛客1A（笛卡尔树)<br>2019牛客1B（数学）<br>2019牛客1F（找规律）<br>2019牛客1J（水）    </p>
+<h4 id="7-19"><a href="#7-19" class="headerlink" title="7.19"></a>7.19</h4><p><strong>共计4题</strong><br>2019牛客1C（贪心、数学）<br>2019牛客1E（贪心、dp）<br>2019牛客1H（线性基）<br><u>2019牛客1I（二维点，线段树）</u>      </p>
+<h4 id="7-20"><a href="#7-20" class="headerlink" title="7.20"></a>7.20</h4><p><strong>共计2题</strong><br>2019牛客2F（蛮力搜索)<br>2019牛客2H（单调栈）</p>
+<h4 id="7-21"><a href="#7-21" class="headerlink" title="7.21"></a>7.21</h4><p><strong>共计8题</strong><br>2019CCPC江西省赛1<br>2019CCPC江西省赛4<br>2019CCPC江西省赛6<br>2019CCPC江西省赛7<br>2019CCPC江西省赛8<br>2019CCPC江西省赛9<br>2019CCPC江西省赛10<br>2019CCPC江西省赛11<br>(今天题比较水)  </p>
+<h4 id="7-22"><a href="#7-22" class="headerlink" title="7.22"></a>7.22</h4><p><strong>共计3题</strong><br>2019HDU多校1-2（区间异或和最大）<br>2019HDU多校1-4（思维）<br>2019HDU多校1-9（序列自动机、贪心）  </p>
+<h4 id="7-24"><a href="#7-24" class="headerlink" title="7.24"></a>7.24</h4><p><strong>共计5题</strong><br>2019HDU多校1-1（dp）<br>2019HDU多校1-12（组合数学、卷积）<br>2019HDU多校2-I（回文树）<br>2019HDU多校2-J（签到）<br>2019HDU多校2-K（可持久化线段树）  </p>
+<h4 id="7-25"><a href="#7-25" class="headerlink" title="7.25"></a>7.25</h4><p><strong>共计1题</strong><br>2019牛客3-F（st表、双向队列维护区间最值）  </p>
+<h4 id="7-26"><a href="#7-26" class="headerlink" title="7.26"></a>7.26</h4><p><strong>共计4题</strong><br>2019牛客3-G（笛卡尔树上区间二分）<br>2019HDU多校1-6（后缀自动机）<br>2019HDU多校2-H（最小割）<br>2019HDU多校2-L（线段树维护信息）      </p>
+<h4 id="7-27"><a href="#7-27" class="headerlink" title="7.27"></a>7.27</h4><p><strong>共计3题</strong><br>2019牛客4-A（树形DP）<br>2019牛客4-I（后缀自动机、回文树）<br>2019牛客4-J（分层图（令边权为0）） </p>
+<h4 id="7-28"><a href="#7-28" class="headerlink" title="7.28"></a>7.28</h4><p><strong>共计2题</strong><br>2019HDU多校2-F（FWT）<br>2019牛客4-C（笛卡尔树、区间最值）  </p>
+<h4 id="7-29"><a href="#7-29" class="headerlink" title="7.29"></a>7.29</h4><p><strong>共计2题</strong><br>2019HDU多校3-4（二分、线段树/平衡树）<br>2019HDU多校3-7（二分、线段树/平衡树）   </p>
+<h4 id="7-30"><a href="#7-30" class="headerlink" title="7.30"></a>7.30</h4><p><strong>共计2题</strong><br>2019HDU多校1-11(莫比乌斯反演)<br>2019HDU多校2-E(期望、简单dp)  </p>
+<h4 id="7-31"><a href="#7-31" class="headerlink" title="7.31"></a>7.31</h4><p><strong>共计3题</strong><br>2019HDU多校4-3（思维）<br>2019HDU多校4-7（结论题）<br>2019HDU多校4-8（二分、可持久化线段树）</p>
+<h4 id="8-1"><a href="#8-1" class="headerlink" title="8.1"></a>8.1</h4><p><strong>共计3题</strong><br>2019牛客5-G（中等dp）<br><u>2019牛客5-F（思考、补图、二分图最小覆盖方案）</u><br>2019牛客5-H（字符串前后关系转化成对图求环）  </p>
+<h4 id="8-3"><a href="#8-3" class="headerlink" title="8.3"></a>8.3</h4><p><strong>共计4题</strong><br>2019牛客6-D（暴力模拟）<br><u>2019牛客6-E（构造自补图）</u><br>2019牛客6-J（简单dp）<br><u>2019HDU多校4-6（思维、斜率优化）</u>  </p>
+<h4 id="8-5"><a href="#8-5" class="headerlink" title="8.5"></a>8.5</h4><p><strong>共计1题</strong><br>2019HDU多校5-6（exkmp签到）</p>
+<h4 id="8-7"><a href="#8-7" class="headerlink" title="8.7"></a>8.7</h4><p><strong>共计5题</strong><br><u>2019HDU多校6-4（两颗权值线段树）</u><br>2019HDU多校6-6（曼哈顿距离模意义下性质）<br>2019HDU多校6-8（暴力）<br>CodeForeces 674C（斜率优化DP）<br>2019HDU多校5-1（分母最小的给定范围下的分数）  </p>
+<h4 id="8-8"><a href="#8-8" class="headerlink" title="8.8"></a>8.8</h4><p><strong>共计4题</strong><br>2019牛客6-A（最小表示法暴力DP）<br>2019牛客6-B（三次以上多项式必可因式分解结论）<br>2019牛客6-D（签到）<br><u>2019牛客6-H（繁琐的数位DP）</u>  </p>
+<h4 id="8-9"><a href="#8-9" class="headerlink" title="8.9"></a>8.9</h4><p><strong>共计5题</strong><br>Comet8-A（签到）<br>Comet8-B（签到）<br>2019HDU多校6-2（随机数据、LIS、暴力重构）<br>2019HDU多校6-5（线段树维护最大子段和）<br>2019HDU多校6-12（签到）</p>
+<h4 id="8-10"><a href="#8-10" class="headerlink" title="8.10"></a>8.10</h4><p><strong>共计1题</strong><br>2019牛客8-C（找规律）  </p>
+<h4 id="8-11"><a href="#8-11" class="headerlink" title="8.11"></a>8.11</h4><p><strong>共计7题</strong><br>Comet8-C（dp或者线段树维护最大子段和）<br>Comet8-D（思考、树状数组）<br>2019牛客8-A（单调栈、最大矩形去重）<br>2019牛客8-B（签到、单独考虑贡献）<br>2019牛客8-D（暴力BFS重构最短曼哈顿距离）<br>2019牛客8-G（签到）<br><u>2019牛客8-J（组合数学、容斥原理）</u>  </p>
+<h4 id="8-12"><a href="#8-12" class="headerlink" title="8.12"></a>8.12</h4><p><strong>共计1题</strong><br><u>2019HDU多校7-8（思考）</u></p>
+<h4 id="8-13"><a href="#8-13" class="headerlink" title="8.13"></a>8.13</h4><p><strong>共计5题</strong><br>2019HDU多校7-1（高精度模拟）<br>2019HDU多校7-6（思维）<br>2019HDU多校7-7（思考、dp、二分转移）<br>2019HDU多校7-10（思维、map排序）<br>2019HDU多校7-11（期望dp）    </p>
+<h4 id="8-14"><a href="#8-14" class="headerlink" title="8.14"></a>8.14</h4><p><strong>共计3题</strong><br>2019HDU多校8-4（构造）<br>2019HDU多校8-9（离散化后DFS）<br>2019HDU多校8-11（思维）   </p>
+<h4 id="8-15"><a href="#8-15" class="headerlink" title="8.15"></a>8.15</h4><p><strong>共计2题</strong><br>2019牛客9-B（模意义方程、二次剩余）<br>2019牛客9-E（并查集）  </p>
+<h4 id="8-17"><a href="#8-17" class="headerlink" title="8.17"></a>8.17</h4><p><strong>共计6题</strong><br>2019牛客10-B（递归）<br>2019牛客10-D（Java写的中国剩余定理）<br>2019牛客10-F（线段树维护最值）<br>2019百度之星初赛-1（签到）<br>2019百度之星初赛-2（签到）<br>2019百度之星初赛-5（找规律）  </p>
+<h4 id="8-18"><a href="#8-18" class="headerlink" title="8.18"></a>8.18</h4><p><strong>共计3题</strong><br>cf-A (水题)<br>cf-B (无向图最短环)<br>2019HDU多校8-6（树形dp）     </p>
+<h4 id="8-19"><a href="#8-19" class="headerlink" title="8.19"></a>8.19</h4><p><strong>共计1题</strong><br>2019HDU多校9-3（硬核折半搜索+基数排序）</p>
+<h4 id="8-21"><a href="#8-21" class="headerlink" title="8.21"></a>8.21</h4><p><strong>共计2题</strong><br>2019HDU多校10-3（简单概率）<br>2019HDU多校10-9（签到DFS）<strong>（全场一血）</strong>  </p>
+<h4 id="8-23"><a href="#8-23" class="headerlink" title="8.23"></a>8.23</h4><p><strong>共计1题</strong><br>2019CCPC网络赛1（签到）</p>
+<h4 id="8-31"><a href="#8-31" class="headerlink" title="8.31"></a>8.31</h4><p><strong>共计6题</strong><br>2019百度之星复赛-A（树形dp）<br>2019百度之星复赛-B（思维）<br>2019百度之星复赛-C（贪心）<br>2019银川网络赛C（签到）<br>2019银川网络赛D（猜结论概率）<br>2019银川网络赛H（贪心排序） </p>
+<h4 id="9-1"><a href="#9-1" class="headerlink" title="9.1"></a>9.1</h4><p><strong>共计3题</strong><br>2019南京网络赛B（欧拉降幂）<br>2019南京网络赛F（区间最值）<br><u>2019南京网络赛G（组合数学）</u>   </p>
+<h4 id="9-7"><a href="#9-7" class="headerlink" title="9.7"></a>9.7</h4><p><strong>共计4题</strong><br>2019徐州网络赛G（回文树）<br>2019徐州网络赛I（区间询问，固定右端点）<br>2019徐州网络赛L（打表，TSP问题）<br>2019徐州网络赛M（序列自动机贪心）   </p>
+<h4 id="9-8"><a href="#9-8" class="headerlink" title="9.8"></a>9.8</h4><p><strong>共计2题</strong><br>2019银川网络赛重赛E（水）<br>2019南昌网络赛E（约瑟夫问题）   </p>
+<h4 id="9-9"><a href="#9-9" class="headerlink" title="9.9"></a>9.9</h4><p><strong>共计3题</strong><br>min_25筛入门题X3</p>
+<h4 id="9-14"><a href="#9-14" class="headerlink" title="9.14"></a>9.14</h4><p><strong>共计2题</strong><br>2019沈阳网络赛F（二分查找）<br>2019沈阳网络赛G（物理） </p>
+<h4 id="9-15"><a href="#9-15" class="headerlink" title="9.15"></a>9.15</h4><p><strong>共计3题</strong><br>2019上海网络赛B（离散化、区间异或）<br>2019上海网络赛C（FFT、简单容斥、不同数据量不同算法）<br><u>2019上海网络赛E（指数生成函数）</u>       </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/06/25/recurrence-relation-and-generating-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/06/25/recurrence-relation-and-generating-function/" class="post-title-link" itemprop="url">组合数学：递推关系与生成函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-25 23:24:11" itemprop="dateCreated datePublished" datetime="2019-06-25T23:24:11+08:00">2019-06-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="递推关系与生成函数"><a href="#递推关系与生成函数" class="headerlink" title="递推关系与生成函数"></a>递推关系与生成函数</h1><h2 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h2><h3 id="斐波那契数列通项"><a href="#斐波那契数列通项" class="headerlink" title="斐波那契数列通项"></a>斐波那契数列通项</h3><p>俗话说，斐波那契数列的通项是：</p>
+<p>$\frac{1}{\sqrt{5}}(\frac{1 + \sqrt{5}}{2})^n - \frac{1}{\sqrt{5}}(\frac{1 - \sqrt{5}}{2})^n\ \ (n \geq 0)$  </p>
+<p>看上去如此玄妙的式子是怎么推出来的呢？</p>
+<p>我们都知道，斐波那契数列是:$0,1,1,2,3,5,8,13,21,34,55…$。规律是，从第三项开始，后一项等于前两项之和，即$h<em>n = h</em>{n - 1} + h_{n - 2} (n &gt;= 2), h_0 = 0, h_1 = 1$。通过观察，我们发现这个数列增长得十分快，速度似乎和指数函数差不多。因此我们产生了大胆的假设：假设$h_n = a^n$。</p>
+<p>由通项公式：$h<em>n = h</em>{n - 1} + h_{n - 2}$,$a^n = a^{n - 1}+a^{n - 2}$。由于此时$n\geq2,a_n\neq0$，式子化简为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a^2 &= a + 1 \\ 
+a^2 - a-1 &= 0\\
+a &= \frac{1 \pm \sqrt{5}}{2} 
+\end{aligned}</script><p>$h_n$有多个解，这些解的线性组合同样满足条件。因此可以将解表示为$h_n = c_1(\frac{1 + \sqrt{5}}{2})^n + c_2(\frac{1 - \sqrt{5}}{2})^n$。注意到还有条件$h_0 = 0, h_1 = 1$没有使用。等式有两个，未知数也有两个，因此可以解出$c_1, c_2$来：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   & 0 = c_1 + c_2 \\ \\ 
+   & 1 = \frac{1 + \sqrt{5}}{2}c_1 +\frac{1 - \sqrt{5}}{2}c_2
+\end{aligned}
+\right.
+\\</script><p>解得：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   & c_1 = \frac{1}{\sqrt{5}} \\ \\ 
+   & c_2 = -\frac{1}{\sqrt{5}}
+\end{aligned}
+\right.</script><p>所以就得到了开头说的那个通项公式。</p>
+<p>可以发现，解通项公式的过程和求常系数线性微分方程的方法是类似的，碰到一些的问题的处理方式也是类似的。</p>
+<h3 id="常系数线性齐次递推关系"><a href="#常系数线性齐次递推关系" class="headerlink" title="常系数线性齐次递推关系"></a>常系数线性齐次递推关系</h3><p>通过上述的斐波那契数列的通项的求解，我们已经可以感受到递推关系的解法了。</p>
+<p>若某序列$h<em>i$满足递推关系$h_n = a_1 h</em>{n - 1} + … + a<em>k h</em>{n - k} + b$，其中$a_i,b$可能依赖于$n$,$a_k \neq 0$，则称序列满足<strong>k阶线性递推关系</strong>。若$b = 0$，则还称它是<strong>齐次</strong>。若$a_i$都是常数，则称它还是<strong>常系数</strong>。正如标题所讲，本节讨论<strong>常系数线性齐次递推关系</strong>。</p>
+<p>由递推关系得到的方程$x^k = a_1x^{k - 1} + … a_k$被叫做<strong>特征方程</strong>。特征方程的k个根叫<strong>特征根</strong>，一个特征根对应一个原递推关系的解。如果p是根，则$p^n$是$h_n$的一个解。如果p是二重根，则$p^n,np^n$是$h_n$的解，依此类推。$h_n$解的最终表达形式是每个特征根对应的解的线性组合。如果此时数列$h_n$有初始值，那么再解个多元一次方程，就可以完全求出$h_n$的通项了。</p>
+<p>综上，求常系数线性齐次递推关系就是先解一个一元多次的特征方程，求出数列的表达形式，才根据初始条件解一个多元一次方程，得到数列的通项。</p>
+<h3 id="常系数线性非齐次递推关系"><a href="#常系数线性非齐次递推关系" class="headerlink" title="常系数线性非齐次递推关系"></a>常系数线性非齐次递推关系</h3><p>由于特征方程有多个根，因此递推关系有多个解，这些解要以<strong>通解</strong>的形式写出来。而某一个单独能满足条件的递推关系叫做<strong>特解</strong>。又根据<strong>叠加原理</strong>，$h<em>n + a_1 h</em>{n - 1} + … + a<em>k h</em>{n - k} = b$和$h<em>n + a_1 h</em>{n - 1} + … + a<em>k h</em>{n - k} = c$的解加起来，就是$h<em>n + a_1 h</em>{n - 1} + … + a<em>k h</em>{n - k} = b + c$的解。因此对于一个常系数线性非齐次递推关系，不用再像之前一样直接求出通解，而是只要求出一个特解，再加上齐次情况的通解，就可以得到该递推关系的特解。我们现在要完成的任务就是求常系数线性非齐次递推关系的特解。</p>
+<p>求非齐次的特解我只知道公式，不理解公式的由来，这里就直接给公式了。若：</p>
+<script type="math/tex; mode=display">
+h_n + a_1 h_{n - 1} + ... + a_k h_{n - k} = r^n(b_qn^q +b_{q - 1}n^{q - 1} + ...b_0)</script><p>则将</p>
+<script type="math/tex; mode=display">
+(c_0 + c_1n+..c_qn^{q})r^n</script><p>代入$h_n$，解出这些$c$来，就可以得到一个特解。如果$r$还是特征方程的根，且是$m$重根，则要代入</p>
+<script type="math/tex; mode=display">
+(c_0 + c_1n+..c_qn^{q})r^nn^m</script><p>可以看出，求特解时，就是把等式右边的非齐次项按$r^n$的指数分个类。再顺便看一下$r$是否是特征方程的解，若是的话要乘上$n$的次方项。特解的未知数个数取决于非齐次项中的多项式的次数，把这个式子套回去可以解出所有的未知数来。具体看下面的例子。</p>
+<p>例：求$h<em>n = 2h</em>{n - 1} + n^2$的特解。<br>解：<br>特征方程：</p>
+<script type="math/tex; mode=display">
+x = 2</script><p>将</p>
+<script type="math/tex; mode=display">
+c_0 +c_1n+c_2n^2</script><p>代入得：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+c_0 +c_1n+c_2n^2 &= 2 (c_0 +c_1(n-1)+c_2(n - 1)^2)+n^2 \\
+c_0 +c_1n+c_2n^2 &= 2 c_0 + 2c_1n - 2c_1+ 2c_2n^2 - 4c_2n + 2c_2 + n^2 \\
+(c_0 - 2c_0 + 2c_1 - 2c_2) + (c_1 - 2c_1+4c_2)n + (c_2 - 2c_2 - 1)n^2 &= 0 
+\end{aligned}</script><p>上式恒成立，因此：</p>
+<script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+   c_0 - 2c_0 + 2c_1 - 2c_2 &= 0 \\
+   c_1 - 2c_1+4c_2 &= 0 \\
+   c_2 - 2c_2 - 1 &= 0
+\end{aligned}
+\right.</script><p>解得：<br>$<br>\left{<br>\begin{aligned}<br>   c_0 &amp;= -6 \<br>   c_1 &amp;= -4 \<br>   c_2 &amp;= -1<br>\end{aligned}<br>\right.<br>$</p>
+<p>得到一个特解：<br>$h_n = -6 - 4n - n^2$</p>
+<h2 id="生成函数"><a href="#生成函数" class="headerlink" title="生成函数"></a>生成函数</h2><h3 id="生成函数的用处"><a href="#生成函数的用处" class="headerlink" title="生成函数的用处"></a>生成函数的用处</h3><p>若有一个数列$h_0,h_1,h_2…$，则它的<strong>生成函数</strong>定义为$g(x) = h_0 + h_1x + h_2x^2…$。若数列是无穷的，则这个级数也是无穷的。</p>
+<p>生成函数乍看上去非常奇怪，因此必须要先理解生成函数是用来做什么的。生成函数正是为了解决一些问题而定义出来的。</p>
+<p>设$h_n$为从集合${2a}$中取出n个字母的方案数，则数列为$1,1,1,0,0…$，生成函数$g_1(x) = 1 + x + x^2$。同理，从集合${3b}$中取出n个字母的方案数得到的生成函数$g_2(x) = 1 + x + x^2 + x^3$。那么现在，从集合${2a,3b}$中取出n个字母的方案数得到的生成函数是什么呢？</p>
+<p>还是先求出方案数序列。$h_0 = 1,h_1 = |{a,b}| = 2, h_2 = |{aa,ab,bb}| = 3,h_3 = |{aab,abb,bbb}| = 3, h_4 = |{aabb,abbb}| = 2, h_5 = |{aabbb}| = 1$。则其生成函数$g(x) = 1 + 2x + 3x^2 + 3x^3 + 2x^4 + x^5 = (1 + x + x^2)(1 + x + x^2 + x^3) = g_1(x)g_2(x)$。“巧合”发生了。一个问题的解的生成函数等于子问题的解的生成函数相乘。</p>
+<p>生成函数的本质，就是把“总和”为$n$的方案数放到$x^n$的系数上。多项式在进行乘法时，会很自然地进行排列组合，排列组合计算的结果依然保留在系数上。我目前的理解是，生成函数就是用来计算排列组合的。</p>
+<p>生成函数既然是用来计算排列组合的，但我们现在都是在通过排列组合反推生成函数。如果是用多个生成函数的乘积来计算总的生成函数，再算出方案数，那么我们还是要手动进行多项式乘法，这个过程和我们算排列组合的过程是一样的，计算量完全没有减少。那么，生成函数到底有什么用呢？</p>
+<p>当生成函数是无穷级数时，生成函数的形式就美观了许多，比如：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{1}{1-x}&=1+x+x^2+x^3... \\
+\frac{1}{(1-x)^k}&=\Sigma\ _{n = 0}^{\infty}\tbinom{n + k - 1}{k - 1}x^n (由多重集的组合公式)\\
+e^{x} &= 1 + \frac{x}{1} + \frac{x^2}{2!} + \frac{x^3}{3!} +... \\
+e^{-x} &= 1 - \frac{x}{1} + \frac{x^2}{2!} - \frac{x^3}{3!} +... \\
+\end{aligned}</script><p>这样，再求一个复杂的排列组合时，可以先求出简单的子问题的生成函数，才把这些生成函数相乘。当生成函数是无穷级数的时候，往往能进行某些化简。求最终的生成生成函数的某个系数，就可以得到对应的方案数。</p>
+<p>看一道经典例题：<br>例：确定苹果、橘子、香蕉和梨的袋装水果的袋数$h_n$的生成函数，其中各袋要有偶数个苹果，最多两个橘子，3的倍数个香蕉，最多一个梨。然后从该生成函数求出$h_n$的公式。<br>解：  </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+g(x) &= (1 + x^2 + x^4 + ...)(1 + x + x^2)(1 + x^3 + x^6 + ...)(1 + x) \\
+&= \frac{1}{1 - x^2}\frac{1}{1 - x^3}(1 + x + x^2)(1 + x)  \\
+&= \frac{(1 + x + x^2)(1 + x)}{(1 - x^2)(1 - x^3)} \\
+&= \frac{(1 + x + x^2)(1 + x)}{(1 - x)(1 + x + x^2)(1 - x)(1+x)} \\
+&= \frac{1}{(1 - x)^2} = \Sigma\ _{n = 0}^{\infty}\tbinom{n + 1}{1}x^n
+\end{aligned}
+\\</script><p>$\therefore h_n = n + 1$</p>
+<h3 id="指数生成函数"><a href="#指数生成函数" class="headerlink" title="指数生成函数"></a>指数生成函数</h3><p>在求多重集合的排列问题，比如从集合${2a,3b}$中能拼出多少个长度为3的单词这样的问题时，我们要先求出各种组合的方案，除以每个数出现次数的阶乘，最后再乘上总数的阶乘。生成函数既然是解决排列组合问题的，自然也能解决此类多重集排列问题。在刚才的生成函数的基础上，加上我们平时求多重集排列的方法，就得到了<strong>指数生成函数</strong>的概念。</p>
+<p>类似地，对于序列$h_n$，其指数生成函数定义为$g^{(e)}(x) = h_0 + h_1\frac{x}{1} + h_2\frac{x^2}{2}…$。由于在分母上除了一个阶乘，生成函数很容易变成$e^x$之类的形式，大概指数生成函数的名字就是这样得来的。$x^n$前面的系数再乘一个$n!$就是多重集n排列的方案数。</p>
+<p>用法看例题即可快速理解：<br>例：如果偶数个方格被涂成红色以及奇数个方格被涂成白色，试确定用红、白、蓝和绿为1行$n$列棋盘的方格着色的方案数$h_n$。<br>解：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+g^{(e)}(x) &= (1+\frac{x^2}{2!}+\frac{x^4}{4!}+...)(\frac{x}{1}+\frac{x^3}{3!} + ...)(1 + \frac{x}{1} + \frac{x^2}{2!} + \frac{x^3}{3!} +...)^2 \\
+&= \frac{(e^x + e^{-x})}{2}\frac{(e^x - e^{-x})}{2}e^{2x} \\
+&= \frac{e^{4x}-1}{4} \\
+&= \Sigma_{n = 0}^{\infty}\frac{4^nx^n}{4n!} - \frac{1}{4}\\
+\end{aligned}</script><p>$\therefore h_0 = 0, h_n = 4^{n - 1}(n \geq 1)$<br>无穷级数带了一个常数项，因此通项在0的时候要单独写出来。</p>
+<p>ACM中也有一些题要用到生成函数的思想，但解题时最后还是要用FFT。等以后碰到了相关的题目，我会把题解写在ACM分类中。</p>
+<h2 id="递推关系与生成函数-1"><a href="#递推关系与生成函数-1" class="headerlink" title="递推关系与生成函数"></a>递推关系与生成函数</h2><h3 id="用生成函数解递推关系"><a href="#用生成函数解递推关系" class="headerlink" title="用生成函数解递推关系"></a>用生成函数解递推关系</h3><p>好吧，生成函数还是有其他用途的，比如求解递推关系。不然为什么课本把这两个概念放在同一章呢？</p>
+<p>只用一道例题来说明用生成函数求常系数线性齐次递推关系的方法：<br>例：<br>求$h<em>n - 5h</em>{n - 1} + 6h_{n - 2} = 0,h_0 = 0, h_1 = 1, h_2 = 5$的解。<br>设数列的生成函数为$g(x)$，可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+g(x) &= h_0 &+ h_1x &+ h_2x^2...+h_nx^n \\
+-5xg(x) &=  &- 5h_0x &- 5h_1x^2...-5h_{n - 1}x^n \\
+6x^2g(x) &= & &+6h_0x^2...+6h_{n - 2}x^n \\
+\end{aligned}</script><p>把上面三个式子左右相加，由$h<em>n - 5h</em>{n - 1} + 6h_{n - 2} = 0$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(1 - 5x - 6x^2)g(x) &= h_0 + (h_1 - 5h_0)x \\ 
+(1 - 5x - 6x^2)g(x) &= x \\
+g(x) &= \frac{x}{1 - 5x - 6x^2} \\
+g(x) &= \frac{1}{1 - 3x} - \frac{1}{1 - 2x} \\
+g(x) &= (1 + 3x + 3^2x^2 +...) - (1+2x+2^2x^2+...)
+\end{aligned}</script><p>$\therefore h_n = 3^n - 2^n$</p>
+<p>虽然感觉这种方法很高大上，但是比起直接解特征方程来，这种方法还是太麻烦了。既然如此，我们是不是可以不用生成函数来解递推关系的问题了？</p>
+<p>当然不是。仔细看一下上面的解题过程，我们求解递推关系完全是在对生成函数$g(x)$做各种各样的操作，好像和递推关系是否线性、齐次什么的一点关系也没有。对于最开始特征方程法解不了的一些递推，用生成函数可能可以解出来。不妨看下面一个问题：</p>
+<p>例：（Catalan数）对于一个有$n$个节点的二叉树，在保持左右子树的有序性，即不考虑任何变换的情况下，有多少种可能的形态？（比如$n = 2$时有两种，一个节点是根，另一个节点是根的左儿子或者右儿子）</p>
+<p>解：<br>为了方便，记$n$个节点的二叉树的形态数为$h_n$。</p>
+<p>考虑把问题转换成子问题。当现在有$n$个节点时，我们需要先选一个节点为根，再把剩下的节点放到根的左右子树中。如果根的左子树放了$a$个节点，那么右子树就要放$n - 1 - a$个节点，也就是说左右子树的节点和一定是$n - 1$。在这种情况下，问题就变成了两个子问题：$a$个节点的二叉树和$n - 1 - a$个节点的二叉树有多少个？我们把这两个数算出来，再一乘，就是当左边放$a$个节点时，$n$个节点的二叉树的形态数。</p>
+<p>当然，我们不能只算$a$个节点，因为根左右子树的节点数可能是$0, 1，2，3…n - 1$。因此我们要讨论所有情况，并且把每种情况下的总情况数算出来，再进行累加。因此可以得到递推公式:</p>
+<p>$h<em>n = \Sigma</em>{i = 0}^{n - 1}h<em>{i}h</em>{n-1-i}$</p>
+<p>特别地，这里要令$h_0 = 1$。</p>
+<p>由于这个递推关系根本不是线性的，我们无法用特征函数来解。考虑用生成函数$g(x)$来表示数列的每一项，即：</p>
+<p>$g(x) = \Sigma_{i = 0}^{\infty}h_ix^i$</p>
+<p>突然，我们发现：</p>
+<p>$g^2(x) = h_0 + (h_0h_1 + h_1h_0)x + (h_0h_2 + h_1h_1 + h_2h_0)x^2 + …$</p>
+<p>每一项中x的系数在递推公式中都可以找到。把递推公式代入式子：</p>
+<p>$g^2(x) = h_0 + h_2x + h_3x^2 + …$</p>
+<p>由于$h_0 = h_1 = 1$：</p>
+<p>$<br>\begin{aligned}<br>g^2(x) &amp;= h_1 + h_2x + h_3x^2 + … \<br>&amp;= \frac{1}{x}(h_1x + h_2x^2 + h_3x^3 + …) \<br>&amp;= \frac{1}{x}(g(x) - h_0) \<br>&amp;= \frac{1}{x}(g(x) - 1) \<br>xg^2(x) &amp;= g(x) - 1 \<br>\end{aligned}<br>\<br>\begin{aligned}<br>xg^2(x) - g(x) + 1 &amp;= 0 \<br>g(x) &amp;= \frac{1 \pm \sqrt{1-4x}}{2x}<br>\end{aligned}<br>$<br>由于$h_0 = 0$，$g(x) = \frac{1 - \sqrt{1-4x}}{2x} = \frac{1}{x}(\frac{1}{2} - \frac{1}{2}(1 - 4x)^{1/2})$</p>
+<p>根据牛顿二项式定理：<br>$<br>\begin{aligned}<br>(1 + x)^{1/2} = 1 + \Sigma_{n = 1}^{\infty}\frac{(-1)^{n - 1}}{n\times 2^{2n-1}}\tbinom{2n - 2}{n - 1}x^n<br>\end{aligned}<br>$</p>
+<p>所以：<br>$<br>\begin{aligned}<br>(1 - 4x)^{1/2} &amp;= 1 + \Sigma<em>{n = 1}^{\infty}\frac{(-1)^{n - 1}}{n\times 2^{2n-1}}\tbinom{2n - 2}{n - 1}x^n(-4)^n \<br>&amp;= 1 + \Sigma</em>{n = 1}^{\infty}\frac{(-1)^{1}}{n\times 2^{-1}}\tbinom{2n - 2}{n - 1}x^n \<br>&amp;= 1 - 2\times \Sigma_{n = 1}^{\infty}\frac{1}{n}\tbinom{2n - 2}{n - 1}x^n<br>\end{aligned}<br>$</p>
+<p>套回开始的式子中:<br>$g(x) = \Sigma_{n = 1}^{\infty}\frac{1}{n}\tbinom{2n - 2}{n - 1}x^{n - 1}$</p>
+<p>所以，$h_n = \frac{1}{n + 1}\tbinom{2n}{n}$。</p>
+<p>如果我们把$h_0$看成第一项的话，那么第$n$项的值就是$\frac{1}{n}\tbinom{2n - 2}{n - 1}$。这个数就是著名的卡特兰(Catalan)数。</p>
+<p>在这个过程中，我们完全是在对生成函数进行求解，而没有管递推关系的形式是怎么样的。这其中最妙的一步是发现了$g^2(x)$正好可以得到递推关系中的右半部分，只能说这种解法不是推算出来，而是突发奇想的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>有时候推出来看似花里胡哨的递推关系，只要式子是线性的，就可以利用特征方程的方法求出通项来，从而把O(n)的时间复杂度变成O(1)，把编程问题变成数学问题。</p>
+<p>生成函数是用来解决组合问题的，当问固定数量的方案数时，就要想到生成函数了。在求排列时，要利用之前的方法，求出指数生成函数，再在结果前乘一个阶乘。</p>
+<p>递推关系对应一个生成函数，可以用生成函数来解递推关系。对普通的线性方程，这种解法太麻烦了，还不如用普通的解法。对于一些比较复杂的递推关系，生成函数才能发挥出它的用途。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/06/23/Theory-of-Computation-Review1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1082,299 +1572,6 @@ P(B_i|A) = \frac{P(A | B_i)P(B_i)}{ \sum_{j = 1}^nP(A|B_j)P(B_j)}
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/04/30/CF-1149C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/30/CF-1149C/" class="post-title-link" itemprop="url">CodeForces 1149C Tree Generator™</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-30 14:05:00" itemprop="dateCreated datePublished" datetime="2019-04-30T14:05:00+08:00">2019-04-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>给一个由左右括号组成的正确括号序列（保证一个左括号一定对应右边的一个右括号）。  </p>
-<p>通过这个括号序列，我们可以构建一棵树：左括号表示进入子树，右括号表示从当前子树返回。括号相当于描述了一棵树先序遍历的出入栈过程。  </p>
-<p>现在，我们有q次操作。每次操作会交换括号序列中的两个的括号位置，该操作保证括号序列的正确性。每次操作后，都能得到一颗新的树。要求输出最开始和每次操作后树的<em>直径</em>（树上某两点距离的最大值）。</p>
-<p>序列代表的树有$n$个节点，操作共$q$次。$3 \leq n \leq 100\ 000, q \leq100\ 000$<br>输出$n+1$棵树的直径  </p>
-<h2 id="Sample-Input-amp-Output"><a href="#Sample-Input-amp-Output" class="headerlink" title="Sample Input &amp; Output"></a>Sample Input &amp; Output</h2><p>5 5<br>(((())))<br>4 5<br>3 4<br>5 6<br>3 6<br>2 5</p>
-<hr>
-<p>4<br>3<br>3<br>2<br>4<br>4  </p>
-<p><img src="/2019/04/30/CF-1149C/example.png" alt="Sample"></p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>首先考虑到树的子树具有子结构性质。每一步操作都没有完全改变整棵树，有很多子结构的信息是相同的。</p>
-<p>那么可以这样思考，在括号序列的任意一个位置开始往后走，我都可以得到一颗与这个位置前面的节点独立的一颗树。这棵树不一定是子树，因为从任意一个位置开始的括号序列可能会多出几个右括号，这种情况下这棵树会往回生长。</p>
-<p>再从题目的问题入手，题目要我们求出每颗树的直径来。路径长可以看成两个树的深度减去两倍他们lca的深度。即：设点$u$的深度为$d(u)$,那么$u$到$v$的路径长$l(u, v)=d(u)+d(v)-2\times d(lca(u,v))$。而直径就是所有路径长的最大值。也就是说，如果能得知每个点的深度，并设法维护最大的路径长，就能得到答案。通过括号序列得到每个点每个时刻的深度是很容易的，现在我们就要设法维护路径长，得知路径长又必须知道点对的lca是谁。</p>
-<p>恰好，题目给的是树的一个dfs序。任意两点的lca，都是在左边节点之后，右边节点之前访问。那我们也不用管lca是谁了，随便拿$u,v$点中间的一个点$w$，使得$d(u)+d(v)-2\times d(w)$最大的$w$就是它们的lca。即：$l(u, v)=max { d(u)+d(v)-2\times d(w) | t_u \leq t_w \leq t_v }$ ，其中 $t$ 为括号序列中访问节点的时间(也可以说是序列中的下标）。</p>
-<p>那问题就变得更简单了。只要是满足 $t_a \leq t_b \leq t_c$ 的三元组 $a,b,c$ ，$d(a) + d(c) - 2 * d(b)$ 就可能是一条路径长。维护最大的这个值，就可以得到直径。</p>
-<p>如果只是算一次的话，一边维护当前深度，一边记录下最大的$d(a)$，最小的$d(b)$等值很容易就可以地$O(n)$维护当前直径。但问题是，题目有q次操作。这就得回到开始的分析了——每次操作过后，还有很多子结构的信息保留了下来。</p>
-<p>我们需要的是子结构的哪些信息呢？注意到我们计算答案只用到了深度，在每一个子结构代表的树中，我们也必须得维护一些用于计算最大的 $d(a)+d(c)-2\times d(b)$ 的一些深度信息。我们可以把某个子结构开始位置当作相对深度，并记录在这个相对深度下，深度的最大最小值，路径左半边（左边的点到lca距离）的最大值和路径右半边的最大值。同时，还要记录这个子结构的总深度，以得到它和后面一个子结构的相对深度。通过以上信息，就可以维护子结构中最大的 $d(a)+d(c)-2\times d(b)$了。</p>
-<p>这种用子结构来解决问题的思想和分治是类似的。分治的每一个结果都可以存在线段树中。虽然第一次求解的复杂度是$O(nlogn)$，但对于每次修改，都能在$O(logn)$的时间里得到新的答案。</p>
-<p>总的时间复杂度$O((n + q)logn)$</p>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>这道题实际上算法并没有很难，写起来也很容易，但比较考验思维，需要把问题进行巧妙地转换。我一直没有想出解法，是看完官方题解才写出这道题的。虽然我没有自己想出来，但在回味题目巧妙的解法时，还是学到了很多东西的。</p>
-<p>在每次操作中，一定是有一些子结构没有改变的。这一点我一直都很清楚，一直都想找出这个子结构。但我一直都拘泥于树的结构，希望先把括号序列转变成树，再找出交换括号是对应树上的把哪一个子树移到哪个地方的操作。这样想下去的话，是怎么也找不出正解的。</p>
-<p>想出这道题的关键，应该是想出lca可以用深度表示，而括号序列保证了lca在两点之间。这样的话，求直径就变成了维护几个最大最小值再做计算的问题。这里可以反映出我对树上的一些计算的表达形式还不够熟悉，没有第一时间把求直径的方法转换。而且，我对dfs序的性质不够敏感，没有利用好这个性质。</p>
-<p>这样想出了用最大最小值维护答案，怎么建线段树，要维护哪些变量稍微想一想就能想出来。而其中能用线段树维护答案是这道题可以在时限内被解出来的关键。能够用线段树维护子结构，是因为每个路径包含的$a,b,c$三个值的时间是在一个连续区间里的，即$t_a \leq t_b \leq t_c$。这一个序列上的连续性使得问题能够通过线段树来维护。</p>
-<p>这也给了我一些启示：线段树不是只能做那些给一个$[l,r]$区间，做一些修改操作的题目的。线段树维护的是连续区间上的性质。如果一个题目中看到了子结构性质，且这些结构构成了连续区间，就可以考虑用线段树来维护。或者换一种想法，如果一个问题可以用连续区间的分治来解决，那么分治的每一步结果就可以用线段树来保存。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/04/25/HowToWriteSolutionToACMProblem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/25/HowToWriteSolutionToACMProblem/" class="post-title-link" itemprop="url">如何写ACM解题记录 ~ Introspection</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-25 16:39:13" itemprop="dateCreated datePublished" datetime="2019-04-25T16:39:13+08:00">2019-04-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%9B%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">创作</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%88%9B%E4%BD%9C/%E6%96%B9%E6%B3%95%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">方法论</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自信地点击提交按钮后，得到依旧是一行刺眼的Wrong Answer。  </p>
-<p>数个小时的付出，丝毫没有得到回报。提交记录上，代码行数越变越多，判题结果却永远见不到绿色的那8个字母。</p>
-<p>绝望笼罩了心头，焦躁充斥了大脑，整个世界变得黑暗了起来。</p>
-<p>万般无奈下，颤颤巍巍地用鼠标复制一段文字，放到搜索引擎里面，点开第一个链接。</p>
-<p>片刻之后，你恍然大悟。一切都好起来了，世界再次变得光明。</p>
-<p>题解，正是照亮世界的那束光。</p>
-<hr>
-<p>只要你参加过算法竞赛的训练，就一定接触过题解，上面的提到的经历，也都能感同身受。</p>
-<p>我看过很多题解，也一直有考虑过自己写题解。但我一直因为一些问题而犹豫不前：我为什么要写题解呢？怎么样的解题记录才算好呢？</p>
-<p>思考了很久后，我今天写出我的第一篇解题记录。我也顺便写一下我的思考结果，稍微谈一谈我对解题记录的认识。</p>
-<h2 id="别人的“题解”"><a href="#别人的“题解”" class="headerlink" title="别人的“题解”"></a>别人的“题解”</h2><p>大多数的题解都是这样的：标题是题目来源及题目名称，后面用括号写下题目算法。正文内容先把题目完完全全复制过来，之后贴上自己代码，谈一下解题的思路。大家写题解都默认使用了这套“模板”。</p>
-<p>这样写题解是为了什么呢？是用来给那些想不出题的人来看吗？仔细一想这是不太合理的。没写过这道题的人，认真阅读这篇题解的概率极低；看过而不会写这道题的人，肯定已经理解了题意，试过了输入输出。再把多余的信息写上来是没有意义的。此外，「别人的代码」是比医生的病例还要难看懂的东西。如果要把方法讲清楚来，很多时候用文字或者伪代码来表达算法，比直接贴代码效果好很多。最后还有一小点，很多题目偏向思维题，知道了做法就可以立刻写出题来。如果把题目的算法直接写在标题里，会让那些还摇摆不定不知道要不要认真看完题解的人立刻知道题目的做法。综上，只要稍微想想就能发现，“题解”并不是写给别人看的。虽然网上的题解被大家当成了写不出题的救命稻草。</p>
-<p>比较合理的想法是，“题解”的称呼有失偏颇，正确说法应该是解题记录。解题记录就是给以后的自己复习看的。标题里的算法方便自己找到对应类型的题目；复制的题面能避免翻原网站的麻烦；自己的代码让自己能快速理解思路；解题思路里的三言两语能快速唤起写这道题时的记忆。这样一看，解题记录纯粹是为了方便自己而写，这种说法有道理多了。</p>
-<p>但我依旧对这种写解题记录的方式抱有一丝的厌恶。</p>
-<p>以我狭隘的心理来揣测，许多人写题解，只是为了写题解而已。他们看到了别人的博客，看到了几百篇、上千篇解题的记录，他们感到了敬畏与心虚。于是，他们开通了自己的博客，用同样的格式来写解题记录。自己的博客越写越多，那颗空虚的内心也会越来越踏实。</p>
-<p>也不能说这样完全不好。起码每写完一道题，贴完一道题目的题解，你能够收获一份成就感，能够让自己坚持下去。</p>
-<p>但除此之外，这样写解题记录就是浪费自己时间。</p>
-<p>写完一道题目，这题水不水，你学到了多少东西，你有没有学到东西，大家心里自己都有数。单纯地让解题记录数目++，只是让自己心里好受一点：不管参加比赛打得怎么样，不管我菜不菜，起码我还写了这么多题目。</p>
-<p>那些写了几百题上千题的人，不是因为他们写了解题记录而厉害，是因为他们真的认认真真想要去提升自己，认认真真地写了那么多题目才厉害啊！</p>
-<p>这是我一直没去写解题记录的原因。</p>
-<h2 id="我对自己解题记录的要求"><a href="#我对自己解题记录的要求" class="headerlink" title="我对自己解题记录的要求"></a>我对自己解题记录的要求</h2><p>做事首先要目标明确。思考与尝试了一段时间后，我总结出了我自己写解题记录想要达到的目的。</p>
-<ol>
-<li>对于解题时思路不清楚，甚至看了题解的题目，要借写解题记录的机会，彻底地把题目再思考一遍，把题目吃透来。</li>
-<li>记录反思写题时碰到的一些轻微的思考错误、代码错误，争取以后不犯错。</li>
-<li>对于略带套路的题目，写解题记录能让自己加深印象，记住这种比较特殊的题型。</li>
-<li>如果有人在写这题时碰到了困难，碰巧看到我的解题记录，我能保证他能通过我的解题记录彻底理解这道题。</li>
-<li>给未来的自己当回忆录看。</li>
-</ol>
-<p>上述目的是按重要性降序排序的。与学新东西同理，写解题记录时，你会为了把事情说清楚，而不得不自己先把事情全部理解透。通过写解题记录这种手段来达到完全理解题目，这大概是写解题记录最大的目的。可以说第一条是最最重要的，相比之下后面几条都没那么重要。</p>
-<p>可以看出，最应该写解题记录的题目，应该是在补题或学新专题时，那些略微超出自己当前能力，要稍微看看题解才能想出的题目。这些题是真正能提升自己的题。而在比赛中，你能过的题目，你一定都已经完全掌握了，这些题目就没有写记录的必要了。</p>
-<p>顺带提一下我当前的记录格式。我会先把题意用较为清晰的话表达出来，再附上题目的样例。之后我会按照思维顺序把题目的解法娓娓道来。最后以反思收尾，回顾整道题的收获。整篇记录，起承转合，抑扬顿挫，虽无音韵、色彩之美，却有逻辑、通顺之妙。能想出这种格式的人，不可谓不是一个奇才。</p>
-<p>今天是我第一次在博客里写解题记录。老实说，花的时间很多，我也能理解为什么很多人只是贴个代码稍微提两句题目——有认真写一篇解题记录的时间，下一题都写完了。但是我还是不愿意潦草地只把解题记录当成普通的记录。要做就把事情做好。哪怕以后我因为怕苦怕累，再也不写解题记录了。哪怕整个互联网中，只流传了我一篇质量奇高的解题记录，这篇解题记录成了我的绝唱，那也没有什么遗憾的。毕竟我的优秀作品还会有很多，这篇解题记录只是钻石里的一块金子。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2019/04/25/CF-86C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/25/CF-86C/" class="post-title-link" itemprop="url">CodeForces-86C Genetic engineering</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-25 13:22:48" itemprop="dateCreated datePublished" datetime="2019-04-25T13:22:48+08:00">2019-04-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>给m个由A,C,G,T组成的DNA片段。现在你需要构造一些长度为n的字符串，使这些字符串完全被这些DNA片段覆盖。求构造方案数 $mod$ $1e9+9$ 。（DNA片段之间可以互相重叠）</p>
-<p>长度 $n\leq1000$，片段个数 $m\leq10$，片段长度不大于10.</p>
-<h2 id="Sample-Input-amp-Output"><a href="#Sample-Input-amp-Output" class="headerlink" title="Sample Input &amp; Output"></a>Sample Input &amp; Output</h2><p>6 2<br>CAT<br>TACT  </p>
-<p>2</p>
-<p>（CATCAT和CATACT是可行的方案）</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>DNA间可以相互重叠，也就是匹配完某个DNA后，匹配下一个DNA时不一定会从头开始，而是从下一个DNA的某个前缀开始（这个前缀也是当前DNA的后缀）。为了表示这种关系，肯定会想到使用AC自动机来表示匹配的状态。</p>
-<p>有了AC自动机，我们就可以把所有 $4^n$个字符串全部输入自动机，保证状态转移“合法”，统计出最终所有满足条件的状态就行了。现在我们要做的事情有三件：统计状态，判断状态转移是否合法，判断结果是否满足条件。我们一件一件来解决。</p>
-<p>每个状态对应AC自动机上的一个节点，因此用一个dp[MAX_NODE]数组就可以存处于当前状态的方案数。每多放入一个字符，状态就会发生转移。理论上，当前字符数的状态只与上一字符数的状态有关，拿两个dp数组循环用就行了。但为了书写方便还是先定义成dp[MAXN][MAX_NODE]，每次dp[i]由dp[i - 1]转移而来。</p>
-<p>接下来来判断合法的状态。所有字符串都要被DNA覆盖，也就是在AC自动机上转移的时候，不能还没走到终点（DNA的结束点），就跑到另一个DNA字符串的前缀去了。只有当走到了终点的时候，才可以随意地走下一步（但是不能走回根）。</p>
-<p>统计答案也很简单，只有那些DNA字符串结束点对应的状态才能被统计进最终答案。</p>
-<p>根据以上分析可以写出以下式子：  </p>
-<p>$当j 为终点:$<br>$dp[i][j.next[k]] += dp[i - 1][j] (j.next[k] \neq root, k \in {A, C, G, T})$<br>$否则:$<br>$dp[i][j.next[k]] += dp[i - 1][j] (j.next[k] 不通过fail转移, k \in {A, C, G, T})$  </p>
-<p>提交上述代码会得到WA的结果。</p>
-<p>考虑下面的例子: 3 3 ACCC A C。ACC显然是一个满足条件的字符串，但在自动机上，ACC却不是一个字符串的结尾，最终不会被统计答案。</p>
-<p>那我是不是应该把字符串结尾通过fail传递下去呢？也就是说，只要一个字符串的后缀是某个更短的字符串的结尾，那这个字符串也被认为是满足条件的字符串。这样更不对了。考虑例子：2 2 ACC C，AC不满足条件，却因为有后缀C被错误地统计进了答案。</p>
-<p>这个时候我们发现，怎么样都无法合理地表示答案。换句话说，现在这种定义状态的方式，会混淆一些本质不同的状态。在定义一个状态时，只是记录这个状态处于AC自动机的哪个节点是不够的，还得记录一些其它的东西。</p>
-<p>从本质上思考，一个满足条件的字符串可以分成两部分，后一部分是最后一个被覆盖的DNA，前一部分是之前匹配好的一堆DNA。前一部分和后一部分可以重复。对于AC自动机上的一个状态，它的最长的DNA后缀是确定的，但是它之前已经被匹配好的长度是不确定的。而一旦我们确定了这两个值，我们只要判断之前匹配好的长度加上最长的DNA的后缀长度是否大于等于整个当前字符串的长度即可（等价于前一部分和后一部分正好拼接或覆盖）。我们在dp中还要加一维，记录某个状态被匹配的长度。顺便，为了之后的判断，AC自动机上每个节点的长度和最长DNA后缀的长度也要提前统计好来，后者可以通过fail边来转移。</p>
-<p>和开始一样，继续解决三个问题：状态定义、答案判断、合法转移判断。</p>
-<p>现在，$dp[i][j][k]$被定义为放第$i$个字符时，处于AC自动机上$j$号节点，在自动机前面已经匹配好了长度为$k$（而不是总长度已经匹配好了$k$）的方案数。$j.len,j.low$分别表示某个节点的长度，最长DNA后缀长度。</p>
-<p>对于某个$j,k$，若$j.low + k  \geq j.len$，则说明这个状态满足条件。最终$dp[n][j][k]$中满足条件的状态的dp值之和就是题目的答案。</p>
-<p>转移时，我们不再死板通过判断一条边是否是通过fail转移的来判断这个转移合不合法。在当前一个非答案状态$i,j,k$上，对于下一状态$j.next$，只要$j.next.len + k &gt; j.len$，就能保证在状态转移时中间没有“断掉”。下一个状态的最长匹配长度为$j.next.len + k - j.len - 1$。也就是说:<br>$dp[i + 1][j.next][j.next.len + k - j.len - 1] += dp[i][j][k]$  </p>
-<p>对于某个状态，如果它已经满足了被覆盖的条件，则下一状态的最长匹配长度一定是下一状态的长度减1（因为多出了一个新的未匹配字符），写成式子的话：<br>$dp[i + 1][j.next][j.next.len - 1] += dp[i][j][k]$</p>
-<p>至此，题目顺利解完。dp数组是1000 <em> 100 </em> 10的，时间复杂度$O(n|str|\sum|str|)$</p>
-<h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><p>题解部分应该是正常的思考过程，发现二维不够后用三维dp，这也是我写这题从WA改到AC的过程。</p>
-<p>之前我一直以为，AC自动机中dp都很容易，只和处于哪个节点有关。看完题面后，我立马敲了一个二维dp出来，很快WA了。</p>
-<p>在cf上对着样例调试多次后，我才发现怎么定义dp都不行。看了一眼题解，发现状态要多定义一维后，我重新地把题目考虑了一遍，定义出了新的状态。</p>
-<p>后来状态转移我差不多写完了，交上去WA了一个大的样例。仔细思考过后我发现，非答案状态在转移时，它的最长匹配长度可能会变的，这一步转移需要认真考虑。改完这一处后总算AC了。</p>
-<p>这题对我最大的启示和警示是，AC自动机的dp不一定都那么简单，很多时候但靠节点来定义状态是不够的。</p>
-<p>在用dp时，一定要把状态的每一个变量的转移都考虑好。尤其是在重新定义了dp状态后，最好能完全从头推一遍递推关系。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1444,7 +1641,7 @@ P(B_i|A) = \frac{P(A | B_i)P(B_i)}{ \sum_{j = 1}^nP(A|B_j)P(B_j)}
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
