@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zhouyifan.net/2022/12/19/20221213-toefl-listening/</loc>
+    <lastmod>2022-12-19</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/12/19/20221126-ArcFace/</loc>
+    <lastmod>2022-12-19</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/12/19/20221029-torch-parallel-training/</loc>
+    <lastmod>2022-12-19</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/12/19/20221016-VAE/</loc>
+    <lastmod>2022-12-19</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/12/19/20221009-style-transfer-via-stylegan/</loc>
+    <lastmod>2022-12-19</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
+    <lastmod>2022-12-13</lastmod>
+  </url>  <url>
     <loc>https://zhouyifan.net/2022/11/12/DLS-note-summary-5/</loc>
     <lastmod>2022-11-12</lastmod>
   </url>  <url>
@@ -147,9 +165,6 @@
   </url>  <url>
     <loc>https://zhouyifan.net/2022/05/23/DLS-note-3/</loc>
     <lastmod>2022-05-28</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2022/03/18/20220315-custom-op/</loc>
-    <lastmod>2022-05-20</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2022/04/23/DLS-note-1/</loc>
     <lastmod>2022-05-10</lastmod>

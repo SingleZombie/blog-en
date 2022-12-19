@@ -1,3 +1,8 @@
+https://zhouyifan.net/2022/12/19/20221213-toefl-listening/
+https://zhouyifan.net/2022/12/19/20221126-ArcFace/
+https://zhouyifan.net/2022/12/19/20221029-torch-parallel-training/
+https://zhouyifan.net/2022/12/19/20221016-VAE/
+https://zhouyifan.net/2022/12/19/20221009-style-transfer-via-stylegan/
 https://zhouyifan.net/2022/11/12/20220925-Transformer/
 https://zhouyifan.net/2022/11/12/DLS-note-summary-5/
 https://zhouyifan.net/2022/11/12/DLS-note-summary-4/
