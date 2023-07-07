@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zhouyifan.net/2023/07/07/20230702-DDIM/</loc>
+    <lastmod>2023-07-07</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2023/07/07/20230330-diffusion-model/</loc>
+    <lastmod>2023-07-07</lastmod>
+  </url>  <url>
     <loc>https://zhouyifan.net/2023/07/01/20230622-VQVAE-2/</loc>
-    <lastmod>2023-07-01</lastmod>
+    <lastmod>2023-07-06</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2023/06/19/20230605-VQGAN/</loc>
     <lastmod>2023-06-19</lastmod>

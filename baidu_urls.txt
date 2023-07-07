@@ -1,3 +1,5 @@
+https://zhouyifan.net/2023/07/07/20230702-DDIM/
+https://zhouyifan.net/2023/07/07/20230330-diffusion-model/
 https://zhouyifan.net/2023/07/01/20230622-VQVAE-2/
 https://zhouyifan.net/2023/06/19/20230605-VQGAN/
 https://zhouyifan.net/2023/06/11/20221106-transformer-pytorch/
