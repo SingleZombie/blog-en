@@ -1563,14 +1563,15 @@ sg(x) = \left\{
         &x  \ (in \ forward \ propagation)\\
         &0  \ (in \ backward \ propagation)
     \end{aligned}
-\right.</script><p>也就是说，前向传播时，$sg$里的值不变；反向传播时，$sg$里的值为0。</p>
+\right.</script><p>也就是说，前向传播时，$sg$里的值不变；反向传播时，$sg$按值为0求导，即此次计算无梯度。（反向传播其实不会用到式子的值，只会用到式子的梯度。反向传播用到的loss值是在前向传播中算的）。</p>
 <p>基于这种运算，我们可以设计一个把梯度从$z_e(x)$复制到$z_q(x)$的误差：</p>
 <script type="math/tex; mode=display">
 L_{reconstruct} = ||x - decoder(z_e(x) + sg(z_q(x) - z_e(x)))||_2^2</script><p>也就是说，前向传播时，就是拿解码器输入$z_q(x)$来算梯度。</p>
 <script type="math/tex; mode=display">
 L_{reconstruct} = ||x - decoder(z_q(x))||_2^2</script><p>而反向传播时，按下面这个公式求梯度，等价于把解码器的梯度全部传给$z_e(x)$。</p>
 <script type="math/tex; mode=display">
-L_{reconstruct} = ||x - decoder(z_e(x))||_2^2</script><p>这部分的PyTorch实现如下所示。在PyTorch里，<code>(x).detach()</code>就是$sg(x)$，它的值在前向传播时取<code>x</code>，反向传播时取<code>0</code>。<br>e<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L = x - decoder(z_e + (z_q - z_e).detach())</span><br></pre></td></tr></table></figure></p>
+L_{reconstruct} = ||x - decoder(z_e(x))||_2^2</script><p>这部分的PyTorch实现如下所示。在PyTorch里，<code>(x).detach()</code>就是$sg(x)$，它的值在前向传播时取<code>x</code>，反向传播时取<code>0</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L = x - decoder(z_e + (z_q - z_e).detach())</span><br></pre></td></tr></table></figure>
 <p>通过这一技巧，我们完成了梯度的传递，可以正常地训练编码器和解码器了。</p>
 <h3 id="优化嵌入空间"><a href="#优化嵌入空间" class="headerlink" title="优化嵌入空间"></a>优化嵌入空间</h3><p>到目前为止，我们的讨论都是建立在嵌入空间已经训练完毕的前提上的。现在，我们来讨论一下嵌入空间的训练方法。</p>
 <p>嵌入空间的优化目标是什么呢？嵌入空间的每一个向量应该能概括一类编码器输出的向量，比如一个表示「青年」的向量应该能概括所有14-35岁的人的照片的编码器输出。因此，嵌入空间的向量应该和其对应编码器输出尽可能接近。如下面的公式所示，$z_e(x)$是编码器的输出向量，$z_q(x)$是其在嵌入空间的最近邻向量。</p>
@@ -2515,7 +2516,7 @@ P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
