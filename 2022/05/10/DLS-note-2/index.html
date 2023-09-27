@@ -36,9 +36,9 @@
 <meta property="article:published_time" content="2022-05-10T09:16:34.000Z">
 <meta property="article:modified_time" content="2022-08-14T07:40:11.017Z">
 <meta property="article:author" content="Zhou Yifan">
-<meta property="article:tag" content="Python">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="编程">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2022/05/10/DLS-note-2/preface.png">
 
@@ -236,7 +236,7 @@
 <h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="本节课的目标"><a href="#本节课的目标" class="headerlink" title="本节课的目标"></a>本节课的目标</h2><p>在这节课里，我们要完成一个二分类任务。所谓二分类任务，就是给一个问题，然后给出一个“是”或“否”的回答。比如给出一张照片，问照片里是否有一只猫。</p>
 <p>这节课中，我们用到的方法是逻辑回归。逻辑回归可以看成是一个非常简单的神经网络。</p>
 <h3 id="符号标记"><a href="#符号标记" class="headerlink" title="符号标记"></a>符号标记</h3><p>从这节课开始，我们会用到一套统一的符号标记：</p>
-<p>$(x, y)$ 是一个训练样本。其中，$x$ 是一个长度为 $n_x$ 的一维向量，即 $x \in \mathcal{R}^{n_x}$。$y$ 是一个实数，取0或1，即$y \in {0, 1}$。取0表示问题的的答案为“否”，取1表示问题的答案为“是”。</p>
+<p>$(x, y)$ 是一个训练样本。其中，$x$ 是一个长度为 $n_x$ 的一维向量，即 $x \in \mathcal{R}^{n_x}$。$y$ 是一个实数，取0或1，即$y \in \{0, 1\}$。取0表示问题的的答案为“否”，取1表示问题的答案为“是”。</p>
 <blockquote>
 <p>这套课默认读者对统计机器学习有基本的认识，似乎没有过多介绍训练集是什么。在有监督统计机器学习中，会给出<strong>训练数据</strong>。训练数据中的每一条<strong>训练样本</strong>包含一个“问题”和“问题的答案”。神经网络根据输入的问题给出一个自己的解答，再和正确的答案对比，通过这样一个“学习”的过程来优化解答能力。</p>
 <p>对计算机知识有所了解的人会知道，在计算机中，颜色主要是通过RGB（红绿蓝）三种颜色通道表示。每一种通道一般用长度8位的整数表示，即用一个0~255的数表示某颜色在红、绿、蓝上的深浅程度。这样，一个颜色就可以用一个长度为3的向量表示。一幅图像，其实就是许多颜色的集合，即许多长度为3的向量的集合。颜色通道，再算上某颜色所在像素的位置$(x, y)$，图像就可以看成一个3维张量$I \in \mathcal{R}^{H \times W \times 3}$，其中$H$是图像高度，$W$是图像宽度，$3$是图像的通道数。在把图像输入逻辑回归时，我们会把图像“拉直”成一个一维向量。这个向量就是前面提到的网络输入$x$，其中$x$的长度$n_x$满足$n_x = H \times W \times 3$。这里的“拉直”操作就是把张量里的数据按照顺序一个一个填入新的一维向量中。</p>
@@ -260,7 +260,7 @@ Y=\left[
   \end{matrix}
 \right]
 ,Y \in \mathcal{R}^{m}</script><p>由于每个样本$y^{(i)}$是一个实数，所以集合$Y$是一个向量。</p>
-<h2 id="逻辑回归的公式描述"><a href="#逻辑回归的公式描述" class="headerlink" title="逻辑回归的公式描述"></a>逻辑回归的公式描述</h2><p>逻辑回归是一个学习算法，用于对真值只有0或1的“逻辑”问题进行建模。给定输入$x$,逻辑回归输出一个$\hat{y}$。这个$\hat{y}$是对真值$y$的一个估计，准确来说，它描述的是$y=1$的概率，即$\hat{y}=P(y=1 \ | \ x)$</p>
+<h2 id="逻辑回归的公式描述"><a href="#逻辑回归的公式描述" class="headerlink" title="逻辑回归的公式描述"></a>逻辑回归的公式描述</h2><p>逻辑回归是一个学习算法，用于对真值只有0或1的“逻辑”问题进行建模。给定输入$x$,逻辑回归输出一个$\hat{y}$。这个$\hat{y}$是对真值$y$的一个估计，准确来说，它描述的是$y=1$的概率，即$\hat{y}=P(y=1  |  x)$</p>
 <p>逻辑回归会使用一个带参数的函数计算$\hat{y}$。这里的参数包括$w \in \mathcal{R}^{n_x}, b \in \mathcal{R}$。</p>
 <p>说起用于拟合的函数，最容易想到的是线性函数$w^Tx+b$（即做点乘再加$b$： $w^Tx+b = (\Sigma_{i=1}^{n_x}w_ix_i)+b$ ）。但线性函数的值域是$(- \infty,+\infty)$（即全体实数$\mathcal{R}$），概率的取值是$[0, 1]$。我们还需要一个定义域为$\mathcal{R}$，值域为$[0, 1]$，把线性函数映射到$[0, 1]$上的一个函数。</p>
 <p>逻辑回归中，使用的映射函数是sigmoid函数$\sigma$,它的定义为：</p>
@@ -417,7 +417,7 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dZ^{(i)}
 </ul>
 </li>
 <li>误差函数与损失函数<ul>
-<li>逻辑回归的误差函数：$L(\hat{y}, y)=-(y \ log\hat{y} + (1-y) \ log(1-\hat{y}))$</li>
+<li>逻辑回归的误差函数：$L(\hat{y}, y)=-(y  log\hat{y} + (1-y)  log(1-\hat{y}))$</li>
 </ul>
 </li>
 <li>用梯度下降算法优化损失函数</li>
@@ -556,9 +556,9 @@ db &= \frac{1}{m} \Sigma_{i=1}^m dZ^{(i)}
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"># Python</a>
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
               <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         

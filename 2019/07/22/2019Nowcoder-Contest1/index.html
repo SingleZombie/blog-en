@@ -227,7 +227,7 @@
 <p>有了这个结论，只需要知道面积为1的三角形的答案就行了，这个直接在本地模拟就行。我把三点设为(0, 0), (0, 1), (1, 0)，取两个随机数后把随机数都映射到[0, 1]中，再判断这个点是否在三角形内。如果这个点在三角形内，就用叉积算三个小三角形面积。不断地大量随机取点后再除一下有效点数量就是答案。</p>
 <p>判断点是否在三角形内可以考虑判断三个小三角形的面积是否“正负号相同”（即叉积结果符号是否相同）。</p>
 <p>最后发现面积乘22就是答案,也就是叉积的结果乘11。</p>
-<h2 id="B-Integration"><a href="#B-Integration" class="headerlink" title="B Integration"></a>B Integration</h2><h3 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h3><p>已知$\int<em>{0}^{\infty}\frac{1}{1+x^2}dx=\frac{\pi}{2}$，<br>给定$a_1, a_2…a_n(1\leq n\leq 10^3，1\leq a_i\leq 10^9,a_i互不相同)$，求$\frac{1}{\pi}\frac{1}{\Sigma</em>{i = 1}^{n}(a_i^2+x^2)}dx$模$10^9+7$意义下的值。</p>
+<h2 id="B-Integration"><a href="#B-Integration" class="headerlink" title="B Integration"></a>B Integration</h2><h3 id="Description-2"><a href="#Description-2" class="headerlink" title="Description"></a>Description</h3><p>已知$\int_{0}^{\infty}\frac{1}{1+x^2}dx=\frac{\pi}{2}$，<br>给定$a_1, a_2…a_n(1\leq n\leq 10^3，1\leq a_i\leq 10^9,a_i互不相同)$，求$\frac{1}{\pi}\frac{1}{\Sigma_{i = 1}^{n}(a_i^2+x^2)}dx$模$10^9+7$意义下的值。</p>
 <h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>这道题只需要微积分的基础知识，即积分的线性性质：积分里面如果是相加的话可以拆开来积分再相加。但题目里面的积分是相乘，只能考虑把积分内的乘积化为简单的分式相加，再套入题目给的公式了。</p>
 <p>分式的乘拆分成分式的和则是初等数学的内容了。不妨先考虑$n=2$的情况，考虑$\frac{1}{(a^2+x^2)(b^2+x^2)}$的拆分结果。</p>
 <p>设$\frac{1}{(a^2+x^2)(b^2+x^2)} = \frac{n}{a^2 + x^2} + \frac{m}{b^2+x^2}$，则：  </p>
@@ -251,10 +251,10 @@
     n = \frac{1}{b^2 - a^2} \\
     m = \frac{1}{a^2 - b^2}
 \end{aligned}
-\right.</script><p>用同样的方法可以求得n为任意值时的拆分结果。对于分母是$a<em>i^2+x^2$的项，它的分子是$\frac{1}{\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。</p>
-<p>再由微积分的知识，$\int<em>{0}^{\infty}\frac{C}{a^2+x^2}dx=\frac{C}{a^2}\int</em>{0}^{\infty}\frac{1}{1+(x/a)^2}dx =\frac{C}{a}\int_{0}^{\infty}\frac{1}{1+(x/a)^2}d(x/a) =\frac{C\pi}{2a}$，</p>
-<p>因此，对于分母是$a<em>i^2+x^2$的项，积分的结果是$\frac{\pi}{2a_i\Sigma</em>{j\neq i}(a_j^2-a_i^2)}$。算出了公式，转换成程序就行了。</p>
-<h2 id="C-Euclidean-Distance"><a href="#C-Euclidean-Distance" class="headerlink" title="C Euclidean Distance"></a>C Euclidean Distance</h2><h3 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h3><p>给一个n维空间的点$A(a<em>1/m, a_2/m…a_n/m)$，求它到点$P(p_1, p_2, …p_n)$的最短距离的平方，即$\Sigma</em>{i = 1}^{n}(a_i/m - p_i)^2$。其中点$P$要满足下列条件：<br>$p_i\in \Reals$<br>$p_i \geq 0$<br>$\Sigma p_i = 1$</p>
+\right.</script><p>用同样的方法可以求得n为任意值时的拆分结果。对于分母是$a_i^2+x^2$的项，它的分子是$\frac{1}{\Sigma_{j\neq i}(a_j^2-a_i^2)}$。</p>
+<p>再由微积分的知识，$\int_{0}^{\infty}\frac{C}{a^2+x^2}dx=\frac{C}{a^2}\int_{0}^{\infty}\frac{1}{1+(x/a)^2}dx =\frac{C}{a}\int_{0}^{\infty}\frac{1}{1+(x/a)^2}d(x/a) =\frac{C\pi}{2a}$，</p>
+<p>因此，对于分母是$a_i^2+x^2$的项，积分的结果是$\frac{\pi}{2a_i\Sigma_{j\neq i}(a_j^2-a_i^2)}$。算出了公式，转换成程序就行了。</p>
+<h2 id="C-Euclidean-Distance"><a href="#C-Euclidean-Distance" class="headerlink" title="C Euclidean Distance"></a>C Euclidean Distance</h2><h3 id="Description-3"><a href="#Description-3" class="headerlink" title="Description"></a>Description</h3><p>给一个n维空间的点$A(a_1/m, a_2/m…a_n/m)$，求它到点$P(p_1, p_2, …p_n)$的最短距离的平方，即$\Sigma_{i = 1}^{n}(a_i/m - p_i)^2$。其中点$P$要满足下列条件：<br>$p_i\in \Reals$<br>$p_i \geq 0$<br>$\Sigma p_i = 1$</p>
 <p>答案用分数的形式表示。</p>
 <p>数据范围：<br>$1 \leq n \leq 10^4,1\leq m \leq 10^3, -m\leq a_i \leq m$</p>
 <h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>为了方便说明，先把点$P$的每个坐标分量乘一个m，我们要求的东西变成了$\Sigma_{i = 1}^{n}(a_i - p_im)^2$。只要把这个结果除以一个$m^2$就是题目的答案。</p>

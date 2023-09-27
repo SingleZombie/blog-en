@@ -38,9 +38,9 @@
 <meta property="article:published_time" content="2020-02-09T03:48:22.000Z">
 <meta property="article:modified_time" content="2022-03-15T08:58:55.342Z">
 <meta property="article:author" content="Zhou Yifan">
+<meta property="article:tag" content="编程">
 <meta property="article:tag" content="计算机科学">
 <meta property="article:tag" content="C++">
-<meta property="article:tag" content="编程">
 <meta property="article:tag" content="自然语言处理">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2020/02/09/Chinese-Spelling-Checker/p1.jpg">
@@ -273,7 +273,7 @@
 <p>分词函数先定义了节点二维数组<code>vertice[i][j]</code>,从字符串的每个位置开始进行DFS。DFS在递归过程中，会尝试替换每一个字符，并且在词典的字典树上移动。如果字典树上没这条路径，即当前节点号<code>crtTrieIndex==0</code>，就可以对DFS进行剪枝。通过DFS可以生成图网格中所有可能的词节点，并且得到每一节点的最大概率。通过最后一个节点可以反向遍历出结果字符串。</p>
 <p>具体节点概率（准确来说是权值）计算公式如下：</p>
 <p><img src="/2020/02/09/Chinese-Spelling-Checker/p6.jpg" alt></p>
-<p><code>word</code>指当前词，<code>preword</code>是上一词。$P<em>{LM}$是语言模型的概率，直接调用二元语法模型的函数就可以计算。$P</em>{err}$为出错概率，其公式为：</p>
+<p><code>word</code>指当前词，<code>preword</code>是上一词。$P_{LM}$是语言模型的概率，直接调用二元语法模型的函数就可以计算。$P_{err}$为出错概率，其公式为：</p>
 <p><img src="/2020/02/09/Chinese-Spelling-Checker/p7.jpg" alt></p>
 <p>公式就是把出错词中每一个出错字的出错概率累乘。其中：</p>
 <p><img src="/2020/02/09/Chinese-Spelling-Checker/p8.jpg" alt></p>
@@ -347,9 +347,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
               <a href="/tags/C/" rel="tag"># C++</a>
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
               <a href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" rel="tag"># 自然语言处理</a>
           </div>
 

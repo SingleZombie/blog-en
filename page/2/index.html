@@ -221,7 +221,7 @@
 <p><img src="/2022/12/19/20221126-ArcFace/1.jpg" alt></p>
 <p>为了让不同的类别之间存在间隔，研究者们详细分析了 softmax 函数。假设$x \in \mathbb{R}^d$是人脸图片提取出的维度为$d$的特征向量，它属于$N$类里的第$y$类。softmax 前的线性层的参数是$W\in \mathbb{R}^{d\times N}, b\in \mathbb{R}^N$。则基于 softmax 的多分类误差可以写成：</p>
 <script type="math/tex; mode=display">
-L = -log\frac{e^{W^{T}_{y}x+b_y}}{\sum_{j=1}^{N}e^{W^{T}_{j}x+b_j}}</script><p>其中，向量内积$W^T_jx$可以展开为：$W^T_jx=||W^T_j|| \ ||x|| \ cos \theta_j$，其中$\theta_j$是两个向量的夹角。如果对向量$W^T_j$和$x$都做归一化的话，再令$b=0$，则新的误差可以写成：</p>
+L = -log\frac{e^{W^{T}_{y}x+b_y}}{\sum_{j=1}^{N}e^{W^{T}_{j}x+b_j}}</script><p>其中，向量内积$W^T_jx$可以展开为：$W^T_jx=||W^T_j||  ||x||  cos \theta_j$，其中$\theta_j$是两个向量的夹角。如果对向量$W^T_j$和$x$都做归一化的话，再令$b=0$，则新的误差可以写成：</p>
 <script type="math/tex; mode=display">
 L = -log\frac{e^{cos\theta_y}}{\sum_{j=1}^{N}e^{cos\theta_j}}</script><p>也就是说，对于这种归一化的多分类误差，对误差产生贡献的只有特征向量和$W$的列向量的夹角。那么，我们就可以换一个视角来看待这个误差：$W$其实是$N$个维度为$d$的向量的数组，它们表示了$N$个人脸类别的中心特征向量。误差要求每个特征和它对应的中心向量的夹角更小。</p>
 <p>为了让不同的类别之间有更大的间隔，相同类别内部更加聚拢，ArcFace 在误差的$cos$中加了一个常数项。</p>
@@ -820,7 +820,7 @@ Q = EW^Q \\
 K = EW^K \\
 V = EW^V 
 \end{aligned}
-\right.</script><p>其中，$E$是词嵌入矩阵，也就是每个单词的词嵌入的数组；$W^Q, W^K, W^V$是可学习的参数矩阵。在Transformer中，大部分中间向量的长度都用$d<em>{model}$表示，词嵌入的长度也是$d</em>{model}$。因此，设输入的句子长度为$n$，则$E$的形状是$n \times d<em>{model}$，$W^Q, W^K$的形状是$d</em>{model} \times d<em>k$，$W^V$的形状是$d</em>{model} \times d_v$。</p>
+\right.</script><p>其中，$E$是词嵌入矩阵，也就是每个单词的词嵌入的数组；$W^Q, W^K, W^V$是可学习的参数矩阵。在Transformer中，大部分中间向量的长度都用$d_{model}$表示，词嵌入的长度也是$d_{model}$。因此，设输入的句子长度为$n$，则$E$的形状是$n \times d_{model}$，$W^Q, W^K$的形状是$d_{model} \times d_k$，$W^V$的形状是$d_{model} \times d_v$。</p>
 <p>就像卷积层能够用多个卷积核生成多个通道的特征一样，我们也用多组$W^Q, W^K, W^V$生成多组自注意力结果。这样，每个单词的自注意力表示会更丰富一点。这种机制就叫做多头注意力。把多头注意力用在自注意力上的公式为：</p>
 <blockquote>
 <p>Transformer似乎默认所有向量都是行向量，参数矩阵都写成了右乘而不是常见的左乘。</p>
@@ -829,11 +829,11 @@ V = EW^V
 \begin{aligned}
 &head_i = Attention(EW^Q_i, EW^K_i, EW^V_i) \\
 &MultiHeadSelfAttention(E) = Concat(head_1, ...head_h)W^O
-\end{aligned}</script><p>其中，$h$是多头自注意力的“头”数，$W^O$是另一个参数矩阵。多头注意力模块的输入输出向量的长度都是$d<em>{model}$。因此，$W^O$的形状是$hd_v \times d</em>{model}$（自注意力的输出长度是$d_v$，有$h$个输出）。在论文中，Transfomer的默认参数配置如下：</p>
+\end{aligned}</script><p>其中，$h$是多头自注意力的“头”数，$W^O$是另一个参数矩阵。多头注意力模块的输入输出向量的长度都是$d_{model}$。因此，$W^O$的形状是$hd_v \times d_{model}$（自注意力的输出长度是$d_v$，有$h$个输出）。在论文中，Transfomer的默认参数配置如下：</p>
 <ul>
 <li>$d_{model} = 512$</li>
 <li>$h = 8$</li>
-<li>$d<em>k = d_v = d</em>{model}/h = 64$</li>
+<li>$d_k = d_v = d_{model}/h = 64$</li>
 </ul>
 <p>实际上，多头注意力机制不仅仅可以用在计算自注意力上。推广一下，如果把多头自注意力的输入$E$拆成三个矩阵$Q, K, V$，则多头注意力的公式为：</p>
 <script type="math/tex; mode=display">
@@ -854,11 +854,11 @@ V = EW^V
 <p>另外要注意的是，残差连接有一个要求：输入$x$和输出$F(x)+x$的维度必须等长。在Transformer中，包括所有词嵌入在内的向量长度都是$d_{model}=512$。</p>
 <h3 id="前馈网络"><a href="#前馈网络" class="headerlink" title="前馈网络"></a>前馈网络</h3><p>架构图中的前馈网络（Feed Forward）其实就是一个全连接网络。具体来说，这个子网络由两个线性层组成，中间用ReLU作为激活函数。</p>
 <script type="math/tex; mode=display">
-FFN(x) = max(0, xW_1+b_1)W_2+b_2</script><p>中间的隐藏层的维度数记作$d<em>{ff}$。默认$d</em>{ff}=2048$。</p>
+FFN(x) = max(0, xW_1+b_1)W_2+b_2</script><p>中间的隐藏层的维度数记作$d_{ff}$。默认$d_{ff}=2048$。</p>
 <h3 id="整体架构与掩码多头注意力"><a href="#整体架构与掩码多头注意力" class="headerlink" title="整体架构与掩码多头注意力"></a>整体架构与掩码多头注意力</h3><p>现在，我们基本能看懂模型的整体架构了。只有读懂了整个模型的运行原理，我们才能搞懂多头注意力前面的masked是哪来的。</p>
 <p>论文第3章开头介绍了模型的运行原理。和多数强力的序列转换模型一样，Transformer使用了encoder-decoder的架构。早期基于RNN的序列转换模型在生成序列时一般会输入前$i$个单词，输出第$i+1$个单词。</p>
 <p><img src="/2022/11/12/20220925-Transformer/7-1.jpg" alt></p>
-<p>而Transformer不同。对于输入序列$(x<em>1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y</em>{t+1})$的预测。</p>
+<p>而Transformer不同。对于输入序列$(x_1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y_{t+1})$的预测。</p>
 <p><img src="/2022/11/12/20220925-Transformer/7.jpg" alt></p>
 <blockquote>
 <p>Transformer 默认会并行地输出结果。而在推理时，序列必须得串行生成。直接调用Transformer的并行输出逻辑会产生非常多的冗余运算量。推理的代码实现可以进行优化。</p>
@@ -1060,7 +1060,7 @@ Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>注意力的本�
 \begin{aligned}
 &head_i = Attention(EW^Q_i, EW^K_i, EW^V_i) \\
 &MultiHeadSelfAttention(E) = Concat(head_1, ...head_h)W^O
-\end{aligned}</script><h3 id="3-并行解码"><a href="#3-并行解码" class="headerlink" title="3. 并行解码"></a>3. 并行解码</h3><p>对于输入序列$(x<em>1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y</em>{t+1})$的预测。</p>
+\end{aligned}</script><h3 id="3-并行解码"><a href="#3-并行解码" class="headerlink" title="3. 并行解码"></a>3. 并行解码</h3><p>对于输入序列$(x_1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y_{t+1})$的预测。</p>
 <p>为了模拟解码器的串行执行，其第一个多头注意力有掩码机制，盖住了此时刻之后的数据。</p>
 <p><img src="/2022/11/12/DLS-note-summary-5/20220925-Transformer/7.jpg" alt></p>
 <h3 id="4-位置编码"><a href="#4-位置编码" class="headerlink" title="4. 位置编码"></a>4. 位置编码</h3><p>由于 Transformer 没有利用到数据的先后顺序这一信息，包含位置信息的位置编码会作为额外输入加到输入的张量上。</p>
@@ -1387,7 +1387,7 @@ H(P, Q) = -\sum_{i}{}P(i)log_2Q(i)</script><p>这是不是和熵的公式</p>
 <p>可以总结出，如果我们还是用分布$Q$去估计分布的$P$的话，则这其中损失的编码量可以用下面的公式直接计算。</p>
 <script type="math/tex; mode=display">
 D_{KL}(P||Q) = H(P, Q) - H(P) = \sum_{i}{}P(i)log_2\frac{P(i)}{Q(i)}</script><p>这个公式描述的量叫做<strong>相对熵</strong>，又叫做<strong>KL散度</strong>。KL散度的定义非常易懂，它只不过是交叉熵和熵的差而已，反映了一个分布与另一个分布的差异程度。最理想情况下，$P=Q$，则KL散度为0。</p>
-<p>当然，KL散度不是一个距离指标。从公式中能够看出，$D<em>{KL}(P||Q)\neq D</em>{KL}(Q||P)$，这个指标并不满足交换律。</p>
+<p>当然，KL散度不是一个距离指标。从公式中能够看出，$D_{KL}(P||Q)\neq D_{KL}(Q||P)$，这个指标并不满足交换律。</p>
 <p>KL散度常用来描述正态分布之间的差异。比如VAE（变分自编码器）中，就用了KL散度来比较估计的分布和标准正态分布。计算正态分布间的KL散度时，我们不用从头推导，可以直接去套一个公式。</p>
 <p>设一维正态分布$P, Q$的公式如下：</p>
 <script type="math/tex; mode=display">

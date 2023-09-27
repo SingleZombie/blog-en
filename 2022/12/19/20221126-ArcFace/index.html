@@ -230,7 +230,7 @@
 <p><img src="/2022/12/19/20221126-ArcFace/1.jpg" alt></p>
 <p>为了让不同的类别之间存在间隔，研究者们详细分析了 softmax 函数。假设$x \in \mathbb{R}^d$是人脸图片提取出的维度为$d$的特征向量，它属于$N$类里的第$y$类。softmax 前的线性层的参数是$W\in \mathbb{R}^{d\times N}, b\in \mathbb{R}^N$。则基于 softmax 的多分类误差可以写成：</p>
 <script type="math/tex; mode=display">
-L = -log\frac{e^{W^{T}_{y}x+b_y}}{\sum_{j=1}^{N}e^{W^{T}_{j}x+b_j}}</script><p>其中，向量内积$W^T_jx$可以展开为：$W^T_jx=||W^T_j|| \ ||x|| \ cos \theta_j$，其中$\theta_j$是两个向量的夹角。如果对向量$W^T_j$和$x$都做归一化的话，再令$b=0$，则新的误差可以写成：</p>
+L = -log\frac{e^{W^{T}_{y}x+b_y}}{\sum_{j=1}^{N}e^{W^{T}_{j}x+b_j}}</script><p>其中，向量内积$W^T_jx$可以展开为：$W^T_jx=||W^T_j||  ||x||  cos \theta_j$，其中$\theta_j$是两个向量的夹角。如果对向量$W^T_j$和$x$都做归一化的话，再令$b=0$，则新的误差可以写成：</p>
 <script type="math/tex; mode=display">
 L = -log\frac{e^{cos\theta_y}}{\sum_{j=1}^{N}e^{cos\theta_j}}</script><p>也就是说，对于这种归一化的多分类误差，对误差产生贡献的只有特征向量和$W$的列向量的夹角。那么，我们就可以换一个视角来看待这个误差：$W$其实是$N$个维度为$d$的向量的数组，它们表示了$N$个人脸类别的中心特征向量。误差要求每个特征和它对应的中心向量的夹角更小。</p>
 <p>为了让不同的类别之间有更大的间隔，相同类别内部更加聚拢，ArcFace 在误差的$cos$中加了一个常数项。</p>

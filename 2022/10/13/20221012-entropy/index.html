@@ -40,8 +40,8 @@
 <meta property="article:published_time" content="2022-10-13T11:35:26.000Z">
 <meta property="article:modified_time" content="2022-10-16T10:16:12.362Z">
 <meta property="article:author" content="Zhou Yifan">
-<meta property="article:tag" content="数学">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2022/10/13/20221012-entropy/20221012-entropy/1.jpg">
 
@@ -302,7 +302,7 @@ H(P, Q) = -\sum_{i}{}P(i)log_2Q(i)</script><p>这是不是和熵的公式</p>
 <p>可以总结出，如果我们还是用分布$Q$去估计分布的$P$的话，则这其中损失的编码量可以用下面的公式直接计算。</p>
 <script type="math/tex; mode=display">
 D_{KL}(P||Q) = H(P, Q) - H(P) = \sum_{i}{}P(i)log_2\frac{P(i)}{Q(i)}</script><p>这个公式描述的量叫做<strong>相对熵</strong>，又叫做<strong>KL散度</strong>。KL散度的定义非常易懂，它只不过是交叉熵和熵的差而已，反映了一个分布与另一个分布的差异程度。最理想情况下，$P=Q$，则KL散度为0。</p>
-<p>当然，KL散度不是一个距离指标。从公式中能够看出，$D<em>{KL}(P||Q)\neq D</em>{KL}(Q||P)$，这个指标并不满足交换律。</p>
+<p>当然，KL散度不是一个距离指标。从公式中能够看出，$D_{KL}(P||Q)\neq D_{KL}(Q||P)$，这个指标并不满足交换律。</p>
 <p>KL散度常用来描述正态分布之间的差异。比如VAE（变分自编码器）中，就用了KL散度来比较估计的分布和标准正态分布。计算正态分布间的KL散度时，我们不用从头推导，可以直接去套一个公式。</p>
 <p>设一维正态分布$P, Q$的公式如下：</p>
 <script type="math/tex; mode=display">
@@ -328,8 +328,8 @@ D_{KL}(P||Q) = log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2+(\mu_1-\mu_2)^2}{
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
               <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
           </div>
 
         

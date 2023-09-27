@@ -237,7 +237,7 @@
 <h3 id="挑选最好的句子"><a href="#挑选最好的句子" class="headerlink" title="挑选最好的句子"></a>挑选最好的句子</h3><p>但是，这种基础的架构类似于我们第一周学的语言模型。它可能生成多个新句子，而不能保证生成最好的句子。为了按要求生成最好的句子，我们要使用一些其他的方法。</p>
 <p>比如把“Jane九月要访问非洲”翻译成英文，可以翻译成”Jane is visiting Africa in September.”，也可以翻译成”Jane is going to be visiting Africa in September.”。上节提到的那个类似于语言模型的RNN架构可以生成出这两个句子中的任何一个。</p>
 <p>从语言的角度，”Jane is visiting Africa in September.”这个翻译比”Jane is going to be visiting Africa in September.”更好。或者说，前面那个句子的概率更高一点。用数学公式来表达，给定被翻译的句子$x$, 我们希望求一个使$P(y^{&lt; 1 &gt;}, y^{&lt; 2 &gt;}, …y^{&lt; T_y &gt;},|x)$最大的序列$y$。</p>
-<p>求解这个最优化问题时，我们可能会想到贪心算法。由于RNN解码器每步的softmax可以输出下一个词的概率（还是和语言模型一样的道理），我们可以求出$argmax<em>{y^{&lt; 1 &gt;}}P(y^{&lt; 1 &gt;}|x)$, $argmax</em>{y^{&lt; 2 &gt;}}P(y^{&lt; 2 &gt;}|y^{&lt; 1 &gt;}, x)$, …，即用贪心算法每次求出一个概率最大的单词。</p>
+<p>求解这个最优化问题时，我们可能会想到贪心算法。由于RNN解码器每步的softmax可以输出下一个词的概率（还是和语言模型一样的道理），我们可以求出$argmax_{y^{&lt; 1 &gt;}}P(y^{&lt; 1 &gt;}|x)$, $argmax_{y^{&lt; 2 &gt;}}P(y^{&lt; 2 &gt;}|y^{&lt; 1 &gt;}, x)$, …，即用贪心算法每次求出一个概率最大的单词。</p>
 <p><img src="/2022/09/21/DLS-note-16/a1.jpg" alt></p>
 <p>然而，每次选一个概率最大的单词，不能保证整句话概率最大。比如，模型可能有”Jane is visiting Africa in September.”和”Jane is going to be visiting Africa in September.”这两个潜在的候选翻译结果。选第三个单词时，”going”的概率可能比”visiting”要高，按贪心算法，我们最后会生成出第二个句子。可是，从翻译质量来看，第一个句子显然更好，它的概率更高。</p>
 <p>为了求出概率最大的输出序列，我们要使用一种较好的搜索算法。</p>

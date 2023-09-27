@@ -304,7 +304,7 @@ J(G) = \alpha J_{content}(C, G) + \beta J_{style}(S, G).</script><p>我们来看
 <p><img src="/2022/08/09/DLS-note-13/8.jpg" alt></p>
 <p>从直觉上认识了风格，现在我们来看一看风格的具体计算方法。在计算两个向量的相关量时，可以直接求两个向量的积。因此，我们要用到一种叫做”风格矩阵“的中间量，它计算了所有通道向量的乘积：</p>
 <script type="math/tex; mode=display">
-G^{[l]}_{kk'}=\Sigma_i^{H} \Sigma_i^{W} a^{[l]}_{i, j, k} a^{[l]}_{i, j, k'}</script><p>其中，$a^{[l]}<em>{i, j, k}$是第$i$行$j$列第$k$个通道的激活输出，风格矩阵$G$的形状是$n_c^{[l]} \times n_c^{[l]}$，$G^{[l]}</em>{kk’}$描述的是第$l$层激活输出中，第$k, k’$个通道间的相关量。</p>
+G^{[l]}_{kk'}=\Sigma_i^{H} \Sigma_i^{W} a^{[l]}_{i, j, k} a^{[l]}_{i, j, k'}</script><p>其中，$a^{[l]}_{i, j, k}$是第$i$行$j$列第$k$个通道的激活输出，风格矩阵$G$的形状是$n_c^{[l]} \times n_c^{[l]}$，$G^{[l]}_{kk’}$描述的是第$l$层激活输出中，第$k, k’$个通道间的相关量。</p>
 <blockquote>
 <p>在数学中这个矩阵叫做gram矩阵。</p>
 </blockquote>

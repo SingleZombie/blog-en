@@ -263,7 +263,7 @@
 a^{< t >} &= g_1(W_{ax} x^{< t >} + W_{aa} a^{< t - 1 >} + b_a) \\
 \hat{y}^{< t >} &=g_2(W_{ya} a^{< t >} + b_y)
 \end{aligned}</script><p>其中，$W_{ij}$表示用于计算$i$的，乘在$j$上的矩阵。$g$是激活函数。中间层激活函数多数情况下用tanh，也可以用ReLU。输出的激活函数视任务而定，在二分类的命名实体识别中，输出激活函数是sigmoid。</p>
-<p>为了简化表示，可以把$W<em>{ax}, W</em>{aa}$拼一下，$x^{&lt; t &gt;}, a^{&lt; t - 1 &gt;}$拼一下：</p>
+<p>为了简化表示，可以把$W_{ax}, W_{aa}$拼一下，$x^{&lt; t &gt;}, a^{&lt; t - 1 &gt;}$拼一下：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 W_a &= [W_{aa} | W_{ax}] \\
@@ -369,7 +369,7 @@ a^{< t >} &= \Gamma_o
 <h2 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h2><p>之前提过，标准的RNN有一个问题：先出现的单词无法获取后续单词的信息。比如句首单词是Teddy，你不知道这是“泰迪熊”还是“泰迪”这个人名。为了解决这个问题，我们可以升级一下RNN的基础架构，使用双向RNN（BRNN）。在这个新架构下，GRU和LSTM的单元可以照用，不受影响。</p>
 <p>BRNN的示意图如下：</p>
 <p><img src="/2022/09/21/DLS-note-14/9.jpg" alt></p>
-<p>假设一句话有4个单词。在BRNN中，除了会先从1-4正着输入一遍序列外，还会从4-1倒着输入一遍序列。正着传的中间变量叫$\overrightarrow{a}$，倒着传的中间变量叫做$\overleftarrow{a}$。每一轮输出满足$\hat{y}=g(W_y[\ \overrightarrow{a}, \overleftarrow{a} \ ] + b_y)$。</p>
+<p>假设一句话有4个单词。在BRNN中，除了会先从1-4正着输入一遍序列外，还会从4-1倒着输入一遍序列。正着传的中间变量叫$\overrightarrow{a}$，倒着传的中间变量叫做$\overleftarrow{a}$。每一轮输出满足$\hat{y}=g(W_y[ \overrightarrow{a}, \overleftarrow{a}  ] + b_y)$。</p>
 <p>BRNN+LSTM通常是一个新序列任务的标配。当然，BRNN也有一个缺点：必须等一个序列输入完了才能返回结果，而不能实时返回结果。在语音识别等实时性较强的任务里，可能普通RNN更合适一点。</p>
 <h2 id="深层RNN"><a href="#深层RNN" class="headerlink" title="深层RNN"></a>深层RNN</h2><p>到目前为止，我们学的RNN都是由几个简单的矩阵运算构成的，似乎和这套课的标题“深度学习”不沾边。实际上，也可以给基础的RNN多加一些参数，变成一个深层的RNN。</p>
 <p>正如堆叠标准神经网络的隐藏层一样，我们可以堆叠RNN的基础模块，并传递多个中间变量。由于时序计算的计算成本很高，堆3层的计算量就已经很大了。</p>

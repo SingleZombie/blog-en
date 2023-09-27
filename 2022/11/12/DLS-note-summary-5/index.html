@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/11/12/DLS-note-summary-5/DLS-note-15/1.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/11/12/DLS-note-summary-5/DLS-note-15/2.jpg">
 <meta property="article:published_time" content="2022-11-12T11:37:13.000Z">
-<meta property="article:modified_time" content="2022-11-12T14:21:25.579Z">
+<meta property="article:modified_time" content="2022-11-14T12:01:07.417Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
@@ -276,7 +276,7 @@ Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>注意力的本�
 \begin{aligned}
 &head_i = Attention(EW^Q_i, EW^K_i, EW^V_i) \\
 &MultiHeadSelfAttention(E) = Concat(head_1, ...head_h)W^O
-\end{aligned}</script><h3 id="3-并行解码"><a href="#3-并行解码" class="headerlink" title="3. 并行解码"></a>3. 并行解码</h3><p>对于输入序列$(x<em>1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y</em>{t+1})$的预测。</p>
+\end{aligned}</script><h3 id="3-并行解码"><a href="#3-并行解码" class="headerlink" title="3. 并行解码"></a>3. 并行解码</h3><p>对于输入序列$(x_1, …, x_s)$，它会被编码器编码成中间表示 $\mathbf{z} = (z_1, …, z_s)$。给定$\mathbf{z}$的前提下，解码器输入$(y_1, …, y_t)$，输出$(y_2, …, y_{t+1})$的预测。</p>
 <p>为了模拟解码器的串行执行，其第一个多头注意力有掩码机制，盖住了此时刻之后的数据。</p>
 <p><img src="/2022/11/12/DLS-note-summary-5/20220925-Transformer/7.jpg" alt></p>
 <h3 id="4-位置编码"><a href="#4-位置编码" class="headerlink" title="4. 位置编码"></a>4. 位置编码</h3><p>由于 Transformer 没有利用到数据的先后顺序这一信息，包含位置信息的位置编码会作为额外输入加到输入的张量上。</p>
