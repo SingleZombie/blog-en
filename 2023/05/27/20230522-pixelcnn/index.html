@@ -27,43 +27,43 @@
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="图像生成是一个较难建模的任务。为此，我们要用GAN、VAE、Diffusion等精巧的架构来建模图像生成。可是，在NLP中，文本生成却有一种非常简单的实现方法。NLP中有一种基础的概率模型——N元语言模型。N元语言模型可以根据句子的前几个字预测出下一个字的出现概率。比如看到「我爱吃苹……」这句话的前几个字，我们不难猜出下一个字大概率是「果」字。利用N元语言模型，我们可以轻松地实现一个文本生成算法：">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/2.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/3.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/4.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/5.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/6.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/7.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/8.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/9.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/10.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/11.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/12.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/13.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/14.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/15.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/16.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/16.5.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/17.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/18.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/19.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/4.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/5.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/6.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/7.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/8.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/9.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/10.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/11.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/12.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/13.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/14.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/15.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/16.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/16.5.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/17.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/18.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/19.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230330-diffusion-model/c1.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/9.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/14.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/15.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/20.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/21.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/r_0_8.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/r_1_8.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/r_0_256.jpg">
-<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/r_1_256.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/9.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/14.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/15.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/21.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/r_0_8.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/r_1_8.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/r_0_256.jpg">
+<meta property="og:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/r_1_256.jpg">
 <meta property="article:published_time" content="2023-05-27T06:23:28.000Z">
-<meta property="article:modified_time" content="2023-05-27T06:23:28.316Z">
+<meta property="article:modified_time" content="2023-09-27T16:15:47.332Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="深度学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/20230522-pixelcnn/1.jpg">
+<meta name="twitter:image" content="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/1.jpg">
 
 <link rel="canonical" href="https://zhouyifan.net/2023/05/27/20230522-pixelcnn/">
 
@@ -250,41 +250,41 @@
       
         <p>图像生成是一个较难建模的任务。为此，我们要用GAN、VAE、Diffusion等精巧的架构来建模图像生成。可是，在NLP中，文本生成却有一种非常简单的实现方法。NLP中有一种基础的概率模型——N元语言模型。N元语言模型可以根据句子的前几个字预测出下一个字的出现概率。比如看到「我爱吃苹……」这句话的前几个字，我们不难猜出下一个字大概率是「果」字。利用N元语言模型，我们可以轻松地实现一个文本生成算法：输入空句子，采样出第一个字；输入第一个字，采样出第二个字；输入前两个字，输出第三个字……以此类推。</p>
 <p>既然如此，我们可不可以把相同的方法搬到图像生成里呢？当然可以。虽然图像是二维的数据，不像一维的文本一样有先后顺序，但是我们可以强行给图像的每个像素规定一个顺序。比如，我们可以从左到右，从上到下地给图像标上序号。这样，从逻辑上看，图像也是一个一维数据，可以用NLP中的方法来按照序号实现图像生成了。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/1.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/1.jpg" alt></p>
 <p>PixelCNN就是一个使用这种方法生成图像的模型。可为什么PixelCNN的名气没有GAN、VAE那么大？为什么PixelCNN可以用CNN而不是RNN来处理一维化图像？为什么PixelCNN是一种「自回归模型」？别急，在这篇文章中，我们将认识PixelCNN及其改进模型Gated PixelCNN和PixelCNN++，并认真学习它们的实现代码。看完文章后，这些问题都会迎刃而解。</p>
 <h2 id="PixelCNN"><a href="#PixelCNN" class="headerlink" title="PixelCNN"></a>PixelCNN</h2><p>如前所述，PixelCNN借用了NLP里的方法来生成图像。模型会根据前<code>i - 1</code>个像素输出第<code>i</code>个像素的概率分布。训练时，和多分类任务一样，要根据第<code>i</code>个像素的真值和预测的概率分布求交叉熵损失函数；采样时，直接从预测的概率分布里采样出第<code>i</code>个像素。根据这些线索，我们来尝试自己「发明」一遍PixelCNN。</p>
 <p>这种模型最朴素的实现方法，是输入一幅图像的前<code>i - 1</code>个像素，输出第<code>i</code>个像素的概率分布，即第<code>i</code>个像素取某种颜色的概率的数组。为了方便讨论，我们先只考虑单通道图像，每个像素的颜色取值只有256种。因此，准确来说，模型的输出是256个经过softmax的概率。这样，我们得到了一个V1.0版本的模型。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/2.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/2.jpg" alt></p>
 <p>等等，模型不是叫「PixelCNN」吗？CNN跑哪去了？的确，对于图像数据，最好还是使用CNN，快捷又有效。因此，我们应该修改模型，令模型的输入为整幅图像和序号<code>i</code>。我们根据序号<code>i</code>，过滤掉<code>i</code>及<code>i</code>之后的像素，用CNN处理图像。输出部分还是保持一致。</p>
 <blockquote>
 <p>V2.0并不是最终版本，我们可以暂时不用考虑实现细节，比如这里的「过滤」是怎么实现的。硬要做的话，这种过滤也可以暴力实现：把无效像素初始化为0，每次卷积后再把无效像素置0。</p>
 </blockquote>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/3.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/3.jpg" alt></p>
 <p>改进之后，V2.0版本的模型确实能快速计算第<code>i</code>个像素的概率分布了。可是，CNN是很擅长同时生成一个和原图像长宽相同的张量的，只算一个像素的概率分布还称不上高效。所以，我们可以让模型输入一幅图像，同时输出图像每一处的概率分布。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/4.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/4.jpg" alt></p>
 <p>这次的改进并不能加速采样。但是，在训练时，由于整幅训练图像已知，我们可以在一次前向传播后得到图像每一处的概率分布。假设图像有N个像素，我们就等于是在并行地训练N个样本，训练速度快了N倍！</p>
 <blockquote>
 <p>这种并行训练的想法和Transformer如出一辙。</p>
 </blockquote>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/5.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/5.jpg" alt></p>
 <p>V3.0版本的PixelCNN已经和论文里的PixelCNN非常接近了，我们来探讨一下网络的实现细节。相比普通的CNN，PixelCNN有一个特别的约束：第<code>i</code>个像素只能看到前<code>i-1</code>个像素的信息，不能看到第<code>i</code>个像素及后续像素的信息。对于V2.0版本只要输出一个概率分布的PixelCNN，我们可以通过一些简单处理过滤掉第<code>i</code>个像素之后的信息。而对于并行输出所有概率分布的V3.0版本，让每个像素都忽略后续像素的信息的方法就不是那么显然了。</p>
 <p>PixelCNN论文里提出了一种掩码卷积机制，这种机制可以巧妙地掩盖住每个像素右侧和下侧的信息。具体来说，PixelCNN使用了两类掩码卷积，我们把两类掩码卷积分别称为「A类」和「B类」。二者都是对卷积操作的卷积核做了掩码处理，使得卷积核的右下部分不产生贡献。A类和B类的唯一区别在于卷积核的中心像素是否产生贡献。CNN的第一个的卷积层使用A类掩码卷积，之后每一层的都使用B类掩码卷积。如下图所示。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/6.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/6.jpg" alt></p>
 <p>为什么要先用一次A类掩码卷积，再每次使用B类掩码卷积呢？我们不妨来做一个实验。对于一个7x7的图像，我们先用1次3x3 A类掩码卷积，再用若干次3x3 B类掩码卷积。我们观察图像中心处的像素在每次卷积后的感受野（即输入图像中哪些像素的信息能够传递到中心像素上）。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/7.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/7.jpg" alt></p>
 <p>不难看出，经过了第一个A类掩码卷积后，每个像素就已经看不到自己位置上的输入信息了。再经过两次B类卷积，中心像素能够看到左上角大部分像素的信息。这满足PixelCNN的约束。</p>
 <p>而如果一直使用A类卷积，每次卷积后中心像素都会看漏一些信息（不妨对比下面这张示意图和上面那张示意图）。多卷几层后，中心像素的值就会和输入图像毫无关系。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/8.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/8.jpg" alt></p>
 <p>只是用B类卷积也是不行的。显然，如果第一层就使用B类卷积，中心像素还是能看到自己位置的输入信息。这打破了PixelCNN的约束。这下，我们能明白为什么只能先用一次A类卷积，再用若干次B类卷积了。</p>
 <p>利用两类掩码卷积，PixelCNN满足了每个像素只能接受之前像素的信息这一约束。除此之外，PixelCNN就没有什么特别的地方了。我们可以用任意一种CNN架构来实现PixelCNN。PixelCNN论文使用了一种类似于ResNet的架构。其中，第一个7x7卷积层用了A类掩码卷积，之后所有3x3卷积都是B类掩码卷积。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/9.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/9.jpg" alt></p>
 <p>到目前为止，我们已经成功搭建了处理单通道图像的PixelCNN。现在，我们来尝试把它推广到多通道图像上。相比于单通道图像，多通道图像只不过是一个像素由多个颜色分量组成。我们可以把一个像素的颜色分量看成是<strong>子像素</strong>。在定义约束关系时，我们规定一个子像素只由它之前的子像素决定。比如对于RGB图像，R子像素由它之前所有像素决定，G子像素由它的R子像素和之前所有像素决定，B子像素由它的R、G子像素和它之前所有像素决定。生成图像时，我们一个子像素一个子像素地生成。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/10.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/10.jpg" alt></p>
 <p>把我们的PixelCNN V3.0推广到RGB图像时，我们要做的第一件事就是修改网络的通道数量。由于现在要预测三个颜色通道，网络的输出应该是一个<code>[256x3, H, W]</code>形状的张量，即每个像素输出三个概率分布，分别表示R、G、B取某种颜色的概率。同时，本质上来讲，网络是在并行地为每个像素计算3组结果。因此，为了达到同样的性能，网络所有的特征图的通道数也要乘3。</p>
 <blockquote>
 <p>这里说网络中间的通道数要乘3只是一种方便理解的说法。实际上，中间的通道数可以随意设置，是不是3的倍数都无所谓，只是所有通道在逻辑上被分成了3组。我们稍后会利用到「中间结果的通道数应该能被拆成3组」这一性质。</p>
 </blockquote>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/11.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/11.jpg" alt></p>
 <p>图像变为多通道后，A类卷积和B类卷积的定义也需要做出一些调整。我们不仅要考虑像素在空间上的约束，还要考虑一个像素内子像素间的约束。为此，我们要用不同的策略实现约束。为了方便描述，我们设卷积核组的形状为<code>[o, i, h, w]</code>，其中<code>o</code>为输出通道数，<code>i</code>为输入通道数，<code>h, w</code>为卷积核的高和宽。</p>
 <ol>
 <li><p>对于通道间的约束，我们要在<code>o, i</code>两个维度上设置掩码。设输出通道可以被拆成三组<code>o1, o2, o3</code>，输入通道可以被拆成三组<code>i1, i2, i3</code>，即<code>o1 = 0:o/3, o2 = o/3:o*2/3, o3 = o*2/3:o</code>，<code>i1 = 0:i/3, i2 = i/3:i*2/3, i3 = i*2/3:i</code>。序号<code>1, 2, 3</code>分别表示这组通道是在维护R, G, B的计算。我们对输入通道组和输出通道组之间进行约束。对于A类卷积，我们令<code>o1</code>看不到<code>i1, i2, i3</code>，<code>o2</code>看不到<code>i2, i3</code>，<code>o3</code>看不到<code>i3</code>；对于B类卷积，我们取消每个通道看不到自己的限制，即在A类卷积的基础上令<code>o1</code>看到<code>i1</code>，<code>o2</code>看到<code>i2</code>，<code>o3</code>看到<code>i3</code>。</p>
@@ -292,13 +292,13 @@
 <li><p>对于空间上的约束，我们还是和之前一样，在<code>h, w</code>两个维度上设置掩码。由于「是否看到自己」的处理已经在<code>o, i</code>两个维度里做好了，我们直接在空间上用原来的B类卷积就行。</p>
 </li>
 </ol>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/12.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/12.jpg" alt></p>
 <p>就这样，修改了通道数，修改了卷积核的掩码后，我们成功实现了论文里的PixelCNN。让我们把这个过程总结一下。PixelCNN的核心思想是给图像的子像素定义一个先后顺序，之后让每个子像素的颜色取值分布由之前所有的子像素决定。实现PixelCNN时，可以用任意一种CNN架构，并注意两点：</p>
 <ol>
 <li>网络的输出是一个经softmax的概率分布。</li>
 <li>网络的所有卷积层要替换成带掩码的卷积层，第一个卷积层用A类掩码，后面的用B类掩码。</li>
 </ol>
-<p>学完了PixelCNN，我们在闲暇之余来谈一谈PixelCNN和其他生成网络的对比情况。精通数学的人，会把图像生成问题看成学习一个图像的分布。每次生成一张图片，就是在图像分布里随机采样一个张量。学习一个分布，最便捷的方法是定义一个带参数$\theta$的概率模型$P<em>\theta$，最大化来自数据集的图像$\mathbf{x}$的概率$P</em>\theta(\mathbf{x})$。</p>
+<p>学完了PixelCNN，我们在闲暇之余来谈一谈PixelCNN和其他生成网络的对比情况。精通数学的人，会把图像生成问题看成学习一个图像的分布。每次生成一张图片，就是在图像分布里随机采样一个张量。学习一个分布，最便捷的方法是定义一个带参数$\theta$的概率模型$P_\theta$，最大化来自数据集的图像$\mathbf{x}$的概率$P_\theta(\mathbf{x})$。</p>
 <p>可问题来了：一个又方便采样，又能计算概率的模型不好设计。VAE和Diffusion建模了把一个来自正态分布的向量$\mathbf{z}$变化成$\mathbf{x}$的过程，并使用了统计学里的变分推理，求出了$P_\theta(\mathbf{x})$的一个下界，再设法优化这个下界。GAN干脆放弃了概率模型，直接拿一个神经网络来评价生成的图像好不好。</p>
 <p>PixelCNN则正面挑战了建立概率模型这一任务。它把$P_\theta(\mathbf{x})$定义为每个子像素出现概率的乘积，而每个子像素的概率仅由它之前的子像素决定。</p>
 <script type="math/tex; mode=display">
@@ -308,13 +308,13 @@ P_\theta(\mathbf{x})=\prod_{i=1}^{N}P_\theta(x_i|x_1, ..., x_{i-1})</script><p>�
 <p>在后续的文献中，PixelCNN被归类为了自回归生成模型。这是因为PixelCNN在生成图像时，要先输入空图像，得到第一个像素；把第一个像素填入空图像，输入进模型，得到第二个像素……。也就是说，一个图像被不断扔进模型，不断把上一时刻的输出做为输入。这种用自己之前时刻的状态预测下一个状态的模型，在统计学里被称为自回归模型。如果你在其他图像生成文献中见到了「自回归模型」这个词，它大概率指的就是PixelCNN这种每次生成一个像素，该像素由之前所有像素决定的生成模型。</p>
 <h2 id="Gated-PixelCNN"><a href="#Gated-PixelCNN" class="headerlink" title="Gated PixelCNN"></a>Gated PixelCNN</h2><p>首篇提出PixelCNN的论文叫做<em>Pixel Recurrent Neural Networks</em>。没错！这篇文章的作者提出了一种叫做PixelRNN的架构，PixelCNN只是PixelRNN的一个变种。可能作者一开始也没指望PixelCNN有多强。后来，人们发现PixelCNN的想法还挺有趣的，但是原始的PixelCNN设计得太烂了，于是开始着手改进原始的PixelCNN。</p>
 <p>PixelCNN的掩码卷积其实有一个重大漏洞：像素存在视野盲区。如下图所示，在我们刚刚的实验中，中心像素看不到右上角三个本应该能看到的像素。哪怕你对用B类卷积多卷几次，右上角的视野盲区都不会消失。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/13.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/13.jpg" alt></p>
 <p>为此，PixelCNN论文的作者们又打了一些补丁，发表了<em>Conditional Image Generation with PixelCNN Decoders</em>这篇论文。这篇论文提出了一种叫做Gated PixelCNN的改进架构。Gated PixelCNN使用了一种更好的掩码卷积机制，消除了原PixelCNN里的视野盲区。如下图所示，Gated PixelCNN使用了两种卷积——垂直卷积和水平卷积——来分别维护一个像素上侧的信息和左侧的信息。垂直卷积的结果只是一些临时量，而水平卷积的结果最终会被网络输出。可以看出，使用这种新的掩码卷积机制后，每个像素能正确地收到之前所有像素的信息了。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/14.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/14.jpg" alt></p>
 <p>除此之外，Gated PixelCNN还把网络中的激活函数从ReLU换成了LSTM的门结构。Gated PixelCNN用下图的模块代替了原PixelCNN的普通残差模块。<br>模块的输入输出都是两个量，左边的量是垂直卷积中间结果，右边的量是最后用来计算输出的量。垂直卷积的结果会经过偏移和一个1x1卷积，再加到水平卷积的结果上。两条计算路线在输出前都会经过门激活单元。所谓门激活单元，就是输入两个形状相同的量，一个做tanh，一个做sigmoid，两个结果相乘再输出。此外，模块右侧那部分还有一个残差连接。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/15.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/15.jpg" alt></p>
 <p>除了上面的两项改动，Gated PixelCNN还做出了其他的一些改动。比如，Gated PixelCNN支持带约束的图像生成，比如根据文字生成图片、根据类别生成图片。用于约束生成的向量$\mathbf{h}$会被输入进网络每一层的激活函数中。当然，这些改动不是为了提升原PixelCNN的性能。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/16.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/16.jpg" alt></p>
 <h2 id="PixelCNN-1"><a href="#PixelCNN-1" class="headerlink" title="PixelCNN++"></a>PixelCNN++</h2><p>之后，VAE的作者也下场了，提出了一种改进版的PixelCNN，叫做PixelCNN++。这篇论文没有多余的废话，在摘要中就简明地指出了PixelCNN++的几项改动：</p>
 <ol>
 <li>使用logistic分布代替256路softmax</li>
@@ -327,13 +327,13 @@ P_\theta(\mathbf{x})=\prod_{i=1}^{N}P_\theta(x_i|x_1, ..., x_{i-1})</script><p>�
 <p>作者把颜色的概率分布建模成了连续分布，一下子克服掉了上述所有难题。让我们来仔细看一下新概率分布的定义方法。</p>
 <p>首先，新概率分布使用到的连续分布叫做logistic分布。它有两个参数：均值$\mu$和方差$s^2$。它的概率密度函数为：</p>
 <script type="math/tex; mode=display">
-logistic(\mu, s)=\frac{1}{4s}sech^2(\frac{x-\mu}{2s})</script><p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/16.5.jpg" alt></p>
+logistic(\mu, s)=\frac{1}{4s}sech^2(\frac{x-\mu}{2s})</script><p><img src="/2023/05/27/20230522-pixelcnn/16.5.jpg" alt></p>
 <p>logistic分布的概率密度函数看起来比较复杂。但是，如果对这个函数积分，得到的累计分布函数就是logistic函数。如果令均值为0，方差为1，则logistic函数就是我们熟悉的sigmoid函数了。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/17.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/17.jpg" alt></p>
 <p>接着，每个分布可能是$K$个参数不同的logistic分布中的某一个，选择某个logistic分布的概率由$\pi_i$表示。比如$K=2$，$\pi_1 = 0.3, \pi_2=0.7$，就说明有两个可选的logisti分布，每个分布有30%的概率会使用1号logistic分布，有70%的概率会使用2号logistic分布。 这里的$\pi_i$和原来256路softmax的输出的意义一样，都是选择某个东西的概率。当然，$K$会比256要小很多，不然这种改进就起不到减小计算量的作用了。设一个输出颜色为$v$，它的数学表达式为：</p>
 <script type="math/tex; mode=display">
 v \ \sim \ \sum_{i=1}^{K}\pi_i logistic(\mu_i, s_i)</script><p>可logsitc分布是一个连续分布，而我们想得到256个颜色中某个颜色的概率，即得到一个离散的分布。因此，在最后一步，我们要从上面这个连续分布里得到一个离散的分布。我们先不管$K$和$\pi_i$，只考虑有一个logistic分布的情况。根据统计学知识可知，要从连续分布里得到一个离散分布，可以把定义域拆成若干个区间，对每个区间的概率求积分。在我们的例子里，我们可以把实数集拆成256个区间，令$(-\infty, 0.5]$为第1个区间，$(0.5, 1.5]$为第2个区间，……，$(253.5, 254.5]$为第255个区间, $(254.5, +\infty)$为第256个区间。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/18.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/18.jpg" alt></p>
 <p>对概率密度函数求积分，就是在累积分布函数上做差。因此，对于某个离散颜色值$x\in[0, 255], x\in \mathbb{N}$，已知一个logistic分布$logistic(\mu, s)$，则这个颜色值的出现概率是：</p>
 <script type="math/tex; mode=display">
 
@@ -345,7 +345,7 @@ P(x|\mu, s) = \left\{
   \end{aligned}
 \right.</script><p>其中，$\sigma()$是sigmoid函数。$\sigma((x-\mu)/s)$就是分布的累积分布函数。</p>
 <p>可以看出，使用这种区间划分方法，位于0处和位于255处的颜色的概率相对会高一点。这一特点符合作者统计出的CIFAR-10里的颜色分布规律。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/19.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/19.jpg" alt></p>
 <p>当有$K$个logistic分布时，只要把各个分布的概率做一个加权和就行（公式省略掉了$x$位于边界处的情况）。</p>
 <script type="math/tex; mode=display">
 P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0.5 - \mu_i)/s_i)]</script><p>至此，我们已经知道了怎么用一个「离散logistic混合似然」来建模颜色的概率分布了。这个更高级的颜色分布以logistic分布为基础，以比例（概率）$\pi_i$混合了$K$个logstic分布，并用巧妙的方法把连续分布转换成了离散分布。</p>
@@ -382,7 +382,7 @@ P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">length of MNIST 60000</span><br><span class="line">&lt;PIL.Image.Image image mode=L size=28x28 at 0x7FB3F09CCE50&gt;</span><br><span class="line">9</span><br><span class="line">torch.Size([1, 28, 28])</span><br><span class="line">tensor(1.)</span><br><span class="line">tensor(0.)</span><br></pre></td></tr></table></figure>
 <p>第一行输出表明，MNIST数据集里有60000张图片。而从第二行和第三行输出中，我们发现每一项数据由图片和标签组成，图片是大小为<code>28x28</code>的PIL格式的图片，标签表明该图片是哪个数字。我们可以用<code>torchvision</code>里的<code>ToTensor()</code>把PIL图片转成PyTorch张量，进一步查看图片的信息。最后三行输出表明，每一张图片都是单通道图片（灰度图），颜色值的取值范围是0~1。</p>
 <p>我们可以查看一下每张图片的样子。如果你是在用带显示器的电脑，可以去掉<code>img.show</code>那一行的注释，直接查看图片；如果你是在用服务器，可以去<code>img.save</code>的路径里查看图片。该图片的应该长这个样子：</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230330-diffusion-model/c1.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/20230330-diffusion-model/c1.jpg" alt></p>
 <p>我们可以用下面的代码预处理数据并创建<code>DataLoader</code>。PixelCNN对输入图片的颜色取值没有特别的要求，我们可以不对图片的颜色取值做处理，保持取值范围在0~1即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_dataloader</span>(<span class="params">batch_size: <span class="built_in">int</span></span>):</span></span><br><span class="line">    dataset = torchvision.datasets.MNIST(root=<span class="string">&#x27;./data/mnist&#x27;</span>,</span><br><span class="line">                                         transform=ToTensor())</span><br><span class="line">    <span class="keyword">return</span> DataLoader(dataset, batch_size=batch_size, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 <p>准备好数据后，我们来实现PixelCNN和Gated PixelCNN。先从PixelCNN开始。</p>
@@ -395,22 +395,22 @@ P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0
 <p>在前向传播时，只需要先让卷积核乘掩码，再做普通的卷积。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">    self.conv.weight.data *= self.mask</span><br><span class="line">    conv_res = self.conv(x)</span><br><span class="line">    <span class="keyword">return</span> conv_res</span><br></pre></td></tr></table></figure>
 <p>有了最核心的掩码卷积，我们来根据论文中的模型结构图把模型搭起来。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/9.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/9.jpg" alt></p>
 <p>我们先照着论文实现残差块<code>ResidualBlock</code>。原论文并没有使用归一化，但我发现使用归一化后效果会好一点，于是往模块里加了BatchNorm。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ResidualBlock</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, h, bn=<span class="literal">True</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">2</span> * h, h, <span class="number">1</span>)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(h) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.conv2 = MaskConv2d(<span class="string">&#x27;B&#x27;</span>, h, h, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(h) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.conv3 = nn.Conv2d(h, <span class="number">2</span> * h, <span class="number">1</span>)</span><br><span class="line">        self.bn3 = nn.BatchNorm2d(<span class="number">2</span> * h) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        y = self.relu(x)</span><br><span class="line">        y = self.conv1(y)</span><br><span class="line">        y = self.bn1(y)</span><br><span class="line">        y = self.relu(y)</span><br><span class="line">        y = self.conv2(y)</span><br><span class="line">        y = self.bn2(y)</span><br><span class="line">        y = self.relu(y)</span><br><span class="line">        y = self.conv3(y)</span><br><span class="line">        y = self.bn3(y)</span><br><span class="line">        y = y + x</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
 <p>有了所有这些基础模块后，我们就可以拼出最终的PixelCNN了。注意，我们可以自己决定颜色有几个亮度级别。要修改亮度级别的数量，只需要修改softmax输出的通道数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PixelCNN</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, n_blocks, h, linear_dim, bn=<span class="literal">True</span>, color_level=<span class="number">256</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.conv1 = MaskConv2d(<span class="string">&#x27;A&#x27;</span>, <span class="number">1</span>, <span class="number">2</span> * h, <span class="number">7</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(<span class="number">2</span> * h) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.residual_blocks = nn.ModuleList()</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n_blocks):</span><br><span class="line">            self.residual_blocks.append(ResidualBlock(h, bn))</span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.linear1 = nn.Conv2d(<span class="number">2</span> * h, linear_dim, <span class="number">1</span>)</span><br><span class="line">        self.linear2 = nn.Conv2d(linear_dim, linear_dim, <span class="number">1</span>)</span><br><span class="line">        self.out = nn.Conv2d(linear_dim, color_level, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        <span class="keyword">for</span> block <span class="keyword">in</span> self.residual_blocks:</span><br><span class="line">            x = block(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.linear1(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.linear2(x)</span><br><span class="line">        x = self.out(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 <p>PixelCNN实现完毕，我们来按照同样的流程实现Gated PixelCNN。首先，我们要实现其中的垂直掩码卷积和水平掩码卷积，二者的实现和PixelCNN里的掩码卷积差不多，只是<code>mask</code>的内容不太一样。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/14.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/14.jpg" alt></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VerticalMaskConv2d</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, *args, **kwags</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.conv = nn.Conv2d(*args, **kwags)</span><br><span class="line">        H, W = self.conv.weight.shape[-<span class="number">2</span>:]</span><br><span class="line">        mask = torch.zeros((H, W), dtype=torch.float32)</span><br><span class="line">        mask[<span class="number">0</span>:H // <span class="number">2</span> + <span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">        mask = mask.reshape((<span class="number">1</span>, <span class="number">1</span>, H, W))</span><br><span class="line">        self.register_buffer(<span class="string">&#x27;mask&#x27;</span>, mask, <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.conv.weight.data *= self.mask</span><br><span class="line">        conv_res = self.conv(x)</span><br><span class="line">        <span class="keyword">return</span> conv_res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HorizontalMaskConv2d</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, conv_type, *args, **kwags</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="keyword">assert</span> conv_type <span class="keyword">in</span> (<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>)</span><br><span class="line">        self.conv = nn.Conv2d(*args, **kwags)</span><br><span class="line">        H, W = self.conv.weight.shape[-<span class="number">2</span>:]</span><br><span class="line">        mask = torch.zeros((H, W), dtype=torch.float32)</span><br><span class="line">        mask[H // <span class="number">2</span>, <span class="number">0</span>:W // <span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> conv_type == <span class="string">&#x27;B&#x27;</span>:</span><br><span class="line">            mask[H // <span class="number">2</span>, W // <span class="number">2</span>] = <span class="number">1</span></span><br><span class="line">        mask = mask.reshape((<span class="number">1</span>, <span class="number">1</span>, H, W))</span><br><span class="line">        self.register_buffer(<span class="string">&#x27;mask&#x27;</span>, mask, <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        self.conv.weight.data *= self.mask</span><br><span class="line">        conv_res = self.conv(x)</span><br><span class="line">        <span class="keyword">return</span> conv_res</span><br></pre></td></tr></table></figure>
 <p>水平卷积其实只要用一个<code>1x3</code>的卷积就可以实现了。但出于偷懒（也为了方便理解），我还是在<code>3x3</code>卷积的基础上添加的<code>mask</code>。</p>
 <p>之后我们来用两种卷积搭建论文中的Gated Block。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/15.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/15.jpg" alt></p>
 <p>Gated Block搭起来稍有难度。如上面的结构图所示，我们主要要维护两个<code>v</code>, <code>h</code>两个变量，分别表示垂直卷积部分的结果和水平卷积部分的结果。<code>v</code>会经过一个垂直掩码卷积和一个门激活函数。<code>h</code>会经过一个类似于残差块的结构，只不过第一个卷积是水平掩码卷积、激活函数是门激活函数、进入激活函数之前会和垂直卷积的信息融合。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GatedBlock</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, conv_type, in_channels, p, bn=<span class="literal">True</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.conv_type = conv_type</span><br><span class="line">        self.p = p</span><br><span class="line">        self.v_conv = VerticalMaskConv2d(in_channels, <span class="number">2</span> * p, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(<span class="number">2</span> * p) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.v_to_h_conv = nn.Conv2d(<span class="number">2</span> * p, <span class="number">2</span> * p, <span class="number">1</span>)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(<span class="number">2</span> * p) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.h_conv = HorizontalMaskConv2d(conv_type, in_channels, <span class="number">2</span> * p, <span class="number">3</span>, <span class="number">1</span>,</span><br><span class="line">                                           <span class="number">1</span>)</span><br><span class="line">        self.bn3 = nn.BatchNorm2d(<span class="number">2</span> * p) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line">        self.h_output_conv = nn.Conv2d(p, p, <span class="number">1</span>)</span><br><span class="line">        self.bn4 = nn.BatchNorm2d(p) <span class="keyword">if</span> bn <span class="keyword">else</span> nn.Identity()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, v_input, h_input</span>):</span></span><br><span class="line">        v = self.v_conv(v_input)</span><br><span class="line">        v = self.bn1(v)</span><br><span class="line">        v_to_h = v[:, :, <span class="number">0</span>:-<span class="number">1</span>]</span><br><span class="line">        v_to_h = F.pad(v_to_h, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>))</span><br><span class="line">        v_to_h = self.v_to_h_conv(v_to_h)</span><br><span class="line">        v_to_h = self.bn2(v_to_h)</span><br><span class="line"></span><br><span class="line">        v1, v2 = v[:, :self.p], v[:, self.p:]</span><br><span class="line">        v1 = torch.tanh(v1)</span><br><span class="line">        v2 = torch.sigmoid(v2)</span><br><span class="line">        v = v1 * v2</span><br><span class="line"></span><br><span class="line">        h = self.h_conv(h_input)</span><br><span class="line">        h = self.bn3(h)</span><br><span class="line">        h = h + v_to_h</span><br><span class="line">        h1, h2 = h[:, :self.p], h[:, self.p:]</span><br><span class="line">        h1 = torch.tanh(h1)</span><br><span class="line">        h2 = torch.sigmoid(h2)</span><br><span class="line">        h = h1 * h2</span><br><span class="line">        h = self.h_output_conv(h)</span><br><span class="line">        h = self.bn4(h)</span><br><span class="line">        <span class="keyword">if</span> self.conv_type == <span class="string">&#x27;B&#x27;</span>:</span><br><span class="line">            h = h + h_input</span><br><span class="line">        <span class="keyword">return</span> v, h</span><br></pre></td></tr></table></figure>
 <p>代码中的其他地方都比较常规，唯一要注意的是<code>v</code>和<code>h</code>的合成部分。这一部分的实现初看下来比较难懂。为了把<code>v</code>的信息贴到<code>h</code>上，我们并不是像前面的示意图所写的令<code>v</code>上移一个单位，而是用下面的代码令<code>v</code>下移了一个单位（下移即去掉最下面一行，往最上面一行填0）。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v_to_h = v[:, :, 0:-1]</span><br><span class="line">v_to_h = F.pad(v_to_h, (0, 0, 1, 0))</span><br></pre></td></tr></table></figure></p>
 <p>为什么实际上是要对特征图<code>v</code>下移一个单位呢？实际上，在拼接<code>v</code>和<code>h</code>时，我们是想做下面这个计算：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(H):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(W):</span><br><span class="line">      h[:, :, i, j] += v[:, :, i - <span class="number">1</span>, j]</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/20.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/20.jpg" alt></p>
 <p>但是，写成循环就太慢了，我们最好是能做向量化计算。注意到，<code>v</code>和<code>i</code>相加的位置只差了一个单位。为了把相加的位置对齐，我们要把<code>v</code>往下移一个单位，把原来在<code>i-1</code>处的信息移到<code>i</code>上。这样，移动过后的<code>v_to_h</code>就能和<code>h</code>直接用向量加法并行地加到一起了。</p>
 <p>除了<code>v</code>和<code>h</code>的合成有点麻烦外，<code>GatedBlock</code>还有一个细节值得注意。<code>h</code>的计算通路中有一个残差连接，但是，在网络的第一层，每个数据是不能看到自己的。所以，当<code>GatedBlock</code>发现卷积类型为A类时，不应该对<code>h</code>做残差连接。</p>
 <p>最后，我们来用<code>GatedBlock</code>搭出Gated PixelCNN。Gated PixelCNN和原版PixelCNN的结构非常相似，只是把<code>ResidualBlock</code>替换成了<code>GatedBlock</code>而已。</p>
@@ -433,7 +433,7 @@ P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0
 <blockquote>
 <p>由于一个整型只能映射到一个浮点数，而多个浮点数会映射到一个整数，严格来说，大部分浮点数转成整数再转回来是变不回原来的浮点数的。这两个转换过程从数学上来说不是严格的互逆。但是，如果我们马虎一点，把位于同一个区间的浮点数看成等价的，那么浮点数和整数之间的映射就是一个双射，来回转换不会有任何信息损失。</p>
 </blockquote>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/21.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/21.jpg" alt></p>
 <p>刚才代码中<code>y = torch.ceil(x * (color_level - 1)).long()</code>这一行实际上就是在描述怎样把训练集的浮点颜色值转换成<code>0~color_level-1</code>之间的整型标签的。</p>
 <p>再来看看采样部分的代码。和正文里的描述一样，在采样时，我们把<code>x</code>初始化成一个0张量。之后，循环遍历每一个像素，输入<code>x</code>，把预测出的下一个像素填入<code>x</code>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample</span>(<span class="params">model, device, model_path, output_path, n_sample=<span class="number">81</span></span>):</span></span><br><span class="line"></span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    model.load_state_dict(torch.load(model_path))</span><br><span class="line">    model = model.to(device)</span><br><span class="line">    C, H, W = get_img_shape()  <span class="comment"># (1, 28, 28)</span></span><br><span class="line">    x = torch.zeros((n_sample, C, H, W)).to(device)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(H):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(W):</span><br><span class="line">                output = model(x)</span><br><span class="line">                prob_dist = F.softmax(output[:, :, i, j], -<span class="number">1</span>)</span><br><span class="line">                pixel = torch.multinomial(prob_dist,</span><br><span class="line">                                          <span class="number">1</span>).<span class="built_in">float</span>() / (color_level - <span class="number">1</span>)</span><br><span class="line">                x[:, :, i, j] = pixel</span><br><span class="line"></span><br><span class="line">    imgs = x * <span class="number">255</span></span><br><span class="line">    imgs = imgs.clamp(<span class="number">0</span>, <span class="number">255</span>)</span><br><span class="line">    imgs = einops.rearrange(imgs,</span><br><span class="line">                            <span class="string">&#x27;(b1 b2) c h w -&gt; (b1 h) (b2 w) c&#x27;</span>,</span><br><span class="line">                            b1=<span class="built_in">int</span>(n_sample**<span class="number">0.5</span>))</span><br><span class="line"></span><br><span class="line">    imgs = imgs.detach().cpu().numpy().astype(np.uint8)</span><br><span class="line"></span><br><span class="line">    cv2.imwrite(output_path, imgs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -442,12 +442,12 @@ P(x|\pi, \mu, s) = \sum_{i=1}^{K}\pi_i[\sigma((x+0.5 - \mu_i)/s_i) - \sigma((x-0
 <p>当然，最后得到的图像<code>x</code>是一个用0~1浮点数表示的图像，可以直接把它乘255变成一个用8位字节表示的图像，这一步浮点到整型的转换是为了让图像输出，和其他图像任务的后处理是一样的，和PixelCNN对于离散颜色和连续颜色的建模不是同一个意思，不是非得取一次<code>ceil()</code>。</p>
 <p>PixelCNN训练起来很慢。在代码中，我默认训练40个epoch。原版PixelCNN要花一小时左右训完，Gated PixelCNN就更慢了。</p>
 <p>以下是我得到的一些采样结果。首先是只有8个颜色级别的PixelCNN和Gated PixelCNN。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/r_0_8.jpg" alt></p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/r_1_8.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/r_0_8.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/r_1_8.jpg" alt></p>
 <p>可以看出，PixelCNN经常会生成一些没有意义的「数字」，而Gated PixelCNN生成的大部分数字都是正常的。但由于颜色级别只有8，模型偶尔会生成较粗的色块。这个在Gated PixelCNN的输出里比较明显。</p>
 <p>之后看一下正常的256个颜色级别的PixelCNN和Gated PixelCNN采样结果。</p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/r_0_256.jpg" alt></p>
-<p><img src="/2023/05/27/20230522-pixelcnn/./20230522-pixelcnn/r_1_256.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/r_0_256.jpg" alt></p>
+<p><img src="/2023/05/27/20230522-pixelcnn/r_1_256.jpg" alt></p>
 <p>由于颜色级别增大，任务难度变大，这两个模型的生成效果就不是那么好了。当然，Gated PixelCNN还是略好一些。训练效果差，与MNIST的特性（大部分像素都是0和255）以及PixelCNN对于离散颜色的建模有关。PixelCNN的这一缺陷已经在PixelCNN++论文里分析过了。</p>
 <h3 id="PixelCNN-源码阅读"><a href="#PixelCNN-源码阅读" class="headerlink" title="PixelCNN++ 源码阅读"></a>PixelCNN++ 源码阅读</h3><p>PixelCNN++在实现上细节颇多，复现起来难度较大。而且它的官方实现是拿TensorFlow写的，对于只会PyTorch的选手来说不够友好。还好，PixelCNN++的官方实现非常简练，核心代码只有两个文件，没有过度封装，也没有过度使用API，哪怕不懂TensorFlow也不会有障碍（但由于代码中有很多科学计算，阅读起来没有障碍，却难度不小）。让我们来通过阅读官方源码来学习PixelCNN++的实现。</p>
 <p>官方代码的地址在 <a target="_blank" rel="noopener" href="https://github.com/openai/pixel-cnn">https://github.com/openai/pixel-cnn</a> 。源码有两个核心文件：<code>nn.py</code>实现了网络模块及一些重要的训练和采样函数，<code>model.py</code>定义了网络的结构。让我们自顶向下地学习，先看<code>model.py</code>，看到函数调用后再跑到<code>nn.py</code>里查看实现细节。</p>
