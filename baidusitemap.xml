@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zhouyifan.net/2024/03/09/20240228-DiffMorpher/</loc>
+    <lastmod>2024-03-09</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2023/06/19/20230605-VQGAN/</loc>
+    <lastmod>2024-02-21</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2023/06/06/20230527-VQVAE/</loc>
+    <lastmod>2024-02-21</lastmod>
+  </url>  <url>
     <loc>https://zhouyifan.net/2024/02/21/20240216-Sora-Comment/</loc>
     <lastmod>2024-02-21</lastmod>
   </url>  <url>
@@ -28,9 +37,6 @@
     <loc>https://zhouyifan.net/2023/05/27/20230522-pixelcnn/</loc>
     <lastmod>2023-09-27</lastmod>
   </url>  <url>
-    <loc>https://zhouyifan.net/2023/06/06/20230527-VQVAE/</loc>
-    <lastmod>2023-09-27</lastmod>
-  </url>  <url>
     <loc>https://zhouyifan.net/2023/07/01/20230622-VQVAE-2/</loc>
     <lastmod>2023-09-27</lastmod>
   </url>  <url>
@@ -39,9 +45,6 @@
   </url>  <url>
     <loc>https://zhouyifan.net/2022/12/19/20221029-torch-parallel-training/</loc>
     <lastmod>2023-06-23</lastmod>
-  </url>  <url>
-    <loc>https://zhouyifan.net/2023/06/19/20230605-VQGAN/</loc>
-    <lastmod>2023-06-19</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2023/06/11/20221106-transformer-pytorch/</loc>
     <lastmod>2023-06-10</lastmod>
