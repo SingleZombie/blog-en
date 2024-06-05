@@ -1,3 +1,5 @@
+https://zhouyifan.net/2024/06/05/20240407-SVD-1/
+https://zhouyifan.net/2024/06/05/20240405-SVD/
 https://zhouyifan.net/2024/04/04/20240221-TorchEval-FID/
 https://zhouyifan.net/2024/03/09/20240228-DiffMorpher/
 https://zhouyifan.net/2024/02/21/20240216-Sora-Comment/

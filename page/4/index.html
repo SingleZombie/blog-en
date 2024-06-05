@@ -162,6 +162,420 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/09/21/DLS-note-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/21/DLS-note-16/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》笔记（十六）：序列模型与注意力机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-09-21 17:47:51" itemprop="dateCreated datePublished" datetime="2022-09-21T17:47:51+08:00">2022-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在前两周的课中，我们分别学习了RNN的基础结构、词嵌入的知识。学完这些东西后，我们已经能够开发大多数NLP应用了。</p>
+<p>正如我们第一周所学，序列任务的本质区别是输入和输出的映射关系不同。我们曾经把任务按映射关系分成一对一、一对多、多对一、等长多对多、不等长多对多。其中，不等长的多对多任务是最常见、最通用的。这周，我们就要以机器翻译任务为例，学习解决多对多问题的更多技巧。同时，我们也会学习机器翻译任务中比较出名的一种模型架构——注意力模型。</p>
+<p>学完了机器翻译任务的一些常见架构后，我们还会把这些方法拓展到语音识别问题上，了解一些语音识别中的常见任务。</p>
+<h2 id="序列到序列模型"><a href="#序列到序列模型" class="headerlink" title="序列到序列模型"></a>序列到序列模型</h2><h3 id="基础模型"><a href="#基础模型" class="headerlink" title="基础模型"></a>基础模型</h3><p>有一些问题，它们的输入和输出都是一个序列。比如说机器翻译，输入是某种语言的一句话，输出是另一种语言的一句话。这种序列到序列的问题可以简单地套用RNN解决。</p>
+<p>如我们第一周所学，不等长的序列到序列问题可以用如下的RNN模型解决。前面只有输入的部分叫做编码器(encoder)，后面输出的部分叫做解码器(decoder)。</p>
+<p><img src="/2022/09/21/DLS-note-16/1.jpg" alt></p>
+<p>再举另一个任务——看图说话的例子。看图说话，就是输入一幅图片，输出该图片的文字描述。比如给定下图的图片，我们可以说“小猫在椅子上”。这个任务的输入看上去并不是一个序列，但我们可以用某种CNN架构把图片转换成一个向量。这个向量就可以看成图片的编码，和刚刚那个RNN编码器的输出一样。利用这个编码，我们可以用RNN解码器生成一句话。</p>
+<p><img src="/2022/09/21/DLS-note-16/2.jpg" alt></p>
+<h3 id="挑选最好的句子"><a href="#挑选最好的句子" class="headerlink" title="挑选最好的句子"></a>挑选最好的句子</h3><p>但是，这种基础的架构类似于我们第一周学的语言模型。它可能生成多个新句子，而不能保证生成最好的句子。为了按要求生成最好的句子，我们要使用一些其他的方法。</p>
+<p>比如把“Jane九月要访问非洲”翻译成英文，可以翻译成”Jane is visiting Africa in September.”，也可以翻译成”Jane is going to be visiting Africa in September.”。上节提到的那个类似于语言模型的RNN架构可以生成出这两个句子中的任何一个。</p>
+<p>从语言的角度，”Jane is visiting Africa in September.”这个翻译比”Jane is going to be visiting Africa in September.”更好。或者说，前面那个句子的概率更高一点。用数学公式来表达，给定被翻译的句子$x$, 我们希望求一个使$P(y^{&lt; 1 &gt;}, y^{&lt; 2 &gt;}, …y^{&lt; T_y &gt;},|x)$最大的序列$y$。</p>
+<p>求解这个最优化问题时，我们可能会想到贪心算法。由于RNN解码器每步的softmax可以输出下一个词的概率（还是和语言模型一样的道理），我们可以求出$argmax_{y^{&lt; 1 &gt;}}P(y^{&lt; 1 &gt;}|x)$, $argmax_{y^{&lt; 2 &gt;}}P(y^{&lt; 2 &gt;}|y^{&lt; 1 &gt;}, x)$, …，即用贪心算法每次求出一个概率最大的单词。</p>
+<p><img src="/2022/09/21/DLS-note-16/a1.jpg" alt></p>
+<p>然而，每次选一个概率最大的单词，不能保证整句话概率最大。比如，模型可能有”Jane is visiting Africa in September.”和”Jane is going to be visiting Africa in September.”这两个潜在的候选翻译结果。选第三个单词时，”going”的概率可能比”visiting”要高，按贪心算法，我们最后会生成出第二个句子。可是，从翻译质量来看，第一个句子显然更好，它的概率更高。</p>
+<p>为了求出概率最大的输出序列，我们要使用一种较好的搜索算法。</p>
+<h3 id="Beam-Search"><a href="#Beam-Search" class="headerlink" title="Beam Search"></a>Beam Search</h3><p>贪心算法每次只求出能令当前句子概率最大的下一个单词。这种算法太容易遗漏更优的输出了。而如果真的想求出最优的句子，即求出$argmax_{y}P(y|x)$，需要遍历所有可能的$y$。假如每个单词有$N$种选择，句子长度$T_y$，则搜索算法的复杂度是$O(N^{T_y})$。这个指数增长的复杂度是不能接受的。</p>
+<p>Beam Search是这样一种折中的启发式搜算算法。它不能保证求出最优解，却能比贪心算法找出更多更优的解。</p>
+<p>Beam Search的核心思想可以用一句话概括：相比于只维护一个概率最优句子的贪心算法，Beam Search每次维护$B$个概率最优的句子。</p>
+<p>还是拿开始那句话的翻译为例，并假设$B=3$，词汇表大小为10000。生成第一个单词时，概率最高的三个单词可能是in, Jane, September。生成第二个单词时，我们要遍历第一个单词是in, Jane, September时的所有30000种两个单词组合的可能。最终，我们可能发现in September, Jane is, Jane visits这三个句子的概率最高。依次类推，我们继续遍历下去，直到生成句子里的所有单词。</p>
+<p><img src="/2022/09/21/DLS-note-16/a2.jpg" alt></p>
+<p>这个算法用伪代码表示如下:</p>
+<blockquote>
+<p>这份伪代码不是用来是解读的，而是用来对齐想法的。看懂了算法的流程后，读者应该能够用自己的伪代码把这个算法写出来。如果读者自己能写出伪代码，就也能顺着思路读懂我的这份伪代码。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Input x, B</span><br><span class="line"></span><br><span class="line"><span class="comment"># encoder</span></span><br><span class="line">a = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(tx):</span><br><span class="line">    a, _ = RNN(embed(x[i]), a)</span><br><span class="line"><span class="comment"># decoder</span></span><br><span class="line"><span class="comment"># step 1</span></span><br><span class="line">a, p = RNN(<span class="number">0</span>, a)</span><br><span class="line">a_arr = [a] * B</span><br><span class="line">words, prob = get_max_words_from_softmax(p, B)</span><br><span class="line">sentences = copy(words)</span><br><span class="line"><span class="comment"># step 2 - ty</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(ty - <span class="number">1</span>):</span><br><span class="line">    all_words = []</span><br><span class="line">    all_prob = []</span><br><span class="line">    all_a = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(B):</span><br><span class="line">        new_a, p = RNN(embed(words[j]), a_arr[j])</span><br><span class="line">        tmp_words, tmp_prob = get_max_words_from_softmax(p, B)</span><br><span class="line">        tmp_a = [new_a] * B</span><br><span class="line">        <span class="comment"># Accmulative multiply the probablity </span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(B):</span><br><span class="line">            tmp_prob[k] *= prob[j]</span><br><span class="line">        all_words += tmp_words</span><br><span class="line">        all_parob += tmp_prob</span><br><span class="line">        all_a += tmp_a</span><br><span class="line">    words, prob, a_arr = get_max_B(all_words, all_prob, all_a)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Cancatenate output</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(B):</span><br><span class="line">        sentences[j].append(words[B])</span><br><span class="line"></span><br><span class="line">y = get_max_sentences(sentences[j], prob)</span><br><span class="line">Output y</span><br></pre></td></tr></table></figure>
+<p>Beam Search 还有一些优化的手段。</p>
+<p>在Beam Search中，我们用了语言模型中求句子的概率的方法，即：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+P(y|x) &=P(y^{< 1 >}, y^{< 2 >} ... y^{< T_y >} |x)\\
+&= P(y^{< 1 >} | x) P(y^{< 2 >} | x, y^{< 1 >}) ... P(y^{< T_y >} | x, y^{< 1 >}, ..., y^{< T_y-1 >}) \\
+&= \prod_{t=1}^{T_y}P(y^{< t >} | x, y^{< 1 >}, ..., y^{< t-1 >})
+\end{aligned}</script><p>这个概率是我们的优化目标。但是，使用累乘会碰到计算机硬件精度不够的问题。为此，我们可以把优化目标由累乘取log变成累加：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&argmax_y \prod_{t=1}^{T_y}P(y^{< t >} | x, y^{< 1 >}, ..., y^{< t-1 >}) \\
+\Rightarrow &argmax_y \sum_{t=1}^{T_y}logP(y^{< t >} | x, y^{< 1 >}, ..., y^{< t-1 >})
+\end{aligned}</script><p>此外，大多情况下，输出的句子越短，句子可能越不准确。因此，我们可以给优化目标添加一个和长度有关的归一化项：</p>
+<script type="math/tex; mode=display">
+\frac{1}{T_y^\alpha}\sum_{t=1}^{T_y}logP(y^{< t >} | x, y^{< 1 >}, ..., y^{< t-1 >})</script><p>这里的$\alpha(\alpha&lt; 1)$是一个超参数，它用于让长度惩罚更平滑一点，即模型更容易生成长句子。一般$\alpha=0.7$。</p>
+<p>为了生成不同长度的句子，在让decoder输出句子时，我们可以记录下$T_y=1, 2…$时概率最大的句子。得到了这些不同长度的候选句子后，把它们的概率乘上归一化项，找出整体概率最大的句子。</p>
+<p>Beam Search是一种启发式算法，它的效果取决于超参数B。一般情况下，为了保证速度，B取10就挺不错了。只有在某些不考虑速度的应用或研究中才会令B=100或更高。</p>
+<p>加入Beam Search会让我们调试机器翻译算法时更加困难。还是对于开始那个翻译示例，假如人类给出了翻译$y^{\ast}$：Jane visits Africa in September，算法给出了翻译$\hat{y}$：Jane visited Africa last September。这个算法的翻译不够好，我们想利用第三门课学的错误分析方法来分析错误的来源。这究竟是Beam Search出了问题，还是RNN神经网络出了问题呢？</p>
+<p>对此，我们可以把训练好的RNN当成一个语言模型，输入$y^{\ast}$和$\hat{y}$，求出这两个句子的概率。如果$y^{\ast} \gt \hat{y}$，那说明RNN的判断是准确的，是Beam Search漏搜了；如果$y^{\ast} \leq \hat{y}$，那说明RNN判断得不准，是RNN出了问题。</p>
+<h3 id="Bleu-Score"><a href="#Bleu-Score" class="headerlink" title="Bleu Score"></a>Bleu Score</h3><p>在图像分类中，我们可以用识别准确率来轻松地评价一个模型。但是，在机器翻译任务中，最优的翻译可能不只一个。比如把“小猫在垫子上”翻译成英文，既可以说”The cat is on the mat”，也可以说”There is a cat on the mat”。我们不太好去评价每句话的翻译质量。Bleu Score就是一种衡量翻译质量的指标。</p>
+<p>为了评价一句话的翻译质量，我们还是需要专业翻译者给出的参考翻译。比如把刚刚那两句英文翻译作为参考译句：</p>
+<ul>
+<li>The cat is on the mat</li>
+<li>There is a cat on the mat</li>
+</ul>
+<p>我们可以把机器的翻译结果和这两句参考结果做对比。对比的第一想法是看看机器翻译的句子里的单词有多少个在参考句子里出现过。但是，这种比较方法有问题。假如机器输出了”the the the the the the the”，the在参考句子里出现过，输出的7个单词全部都出现过。因此，翻译准确率是$\frac{7}{7}$。这显然不是一个好的评价指标。</p>
+<p>一种更公平的比较方法是，每个单词重复计分的次数是原句中该单词出现的最大次数。比如，the在第一个参考句子里出现2次，在第二个参考句子里出现1次。因此，我们认为the最多计分两次。这样，这句话的翻译准确率就是$\frac{2}{7}$。这个评价结果好多了。</p>
+<p>我们不仅可以对单个单词计分，还可以对相邻两个单词构成的单词对计分。比如机器翻译输出了句子The cat the cat on the cat。我们统计每一个词对在输出里出现的次数和计分的次数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>count</th>
+<th>score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>the cat</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>cat the</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>cat on</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>on the</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>the mat</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这样，这个句子的准确率是$\frac{4}{6}$。</p>
+<p>这种打分方式就叫做bleu score。刚刚我们只讨论了考虑一个单词、两个单词时的打分结果。实际上，我们可以用$p_n$表示连续考虑$n$个单词的bleu score。最终评价一个翻译出来的句子时，我们会考虑到$n$取不同值的情况，比如考虑$n=1, 2, 3, 4$的情况。最终使用的这种指标叫做组合bleu score，它的计算公式为：</p>
+<script type="math/tex; mode=display">
+BP \ exp(\frac{1}{4}\sum_{n=1}^{4}p_n)</script><p>其中，BP的全称是brevity penalty（简短惩罚）。这是一个系数，用于防止输出的句子过短。它的计算公式是:</p>
+<script type="math/tex; mode=display">
+BP = \left\{\begin{aligned}
+&1 \ &L_o  > L_r, \\
+&exp(1 - \frac{L_r}{L_o}) \ &otherwise
+
+\end{aligned}
+\right.</script><p>其中，$L_o$是输出句子的长度，$L_r$是参考句子的长度。</p>
+<p>bleu score是一个能十分合理地评价机器翻译句子的指标。在评估机器翻译模型时，我们只要使用这一种指标就行了，这符合我们在第三门课中学习的单一优化目标原则。bleu score最早是在机器翻译任务中提出的，后续很多和句子生成相关的任务都使用了此评估指标。</p>
+<h3 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h3><p>我们刚刚学习的这种“编码器-解码器”架构的RNN确实能在机器翻译上取得不错的效果。但是，这种架构存在一定的限制：模型的编码（输入）和解码（输出）这两步都是一步完成的，模型一次性输入所有的句子，一次性输出所有的句子。这种做法在句子较短的时候还比较可行，但输入句子较长时，模型就“记不住”之前的信息了。而我们这一节学习的注意力模型能够很好地处理任意长度的句子。</p>
+<p><img src="/2022/09/21/DLS-note-16/3.jpg" alt></p>
+<p>让我们看看人类在翻译长句的时候是怎么做的。比如把“简访问非洲”翻译成”Jane visits Africa”时，我们一般不会把整句话一次性翻译，而是会对单词（或文字）逐个翻译。我们会把“简”翻译成”Jane”，“访问”翻译成”visits”，“非洲”翻译成”Africa”。在输出每一个单词时，我们往往只需要关心输入里的某几个单词就行了，而不需要关注所有单词。</p>
+<p>注意力模型就使用了类似的原理。在注意力模型中，我们先把输入喂给一个BRNN（双向RNN）。这个BRNN不用来输出句子，而是用于提取每一个输入单词的特征。我们会用另一个单向RNN来输出句子。每一个输出单词的RNN会去查看输入特征，看看它需要“关注”哪些输入。比如，”Jane”的RNN会关注“简”的特征，”visits”的RNN会关注“访”和“问”的特征。这一过程如下图所示（线条表示输出对输入的关注，线条越粗关注度越高）。</p>
+<p><img src="/2022/09/21/DLS-note-16/4.jpg" alt></p>
+<p>这样，不管输入的序列有多长，每一个输出都能找到它需要关注的部分单词，仅根据这些输入来完成翻译，就和我们人类的做法一样。这就是注意力模型的思想。</p>
+<p>让我们看一下具体的计算过程。为了区分上下两个RNN，我们用$a$表示编码RNN的状态，$t’$表示输入序号；$s$表示解码RNN的状态，$t$表示输出序号。刚才提到的那种关注每个输入单词的注意力机制会给每个输出一个上下文向量$c^{&lt; t &gt;}$。这个向量和上一轮输出$\hat{y}^{&lt; t-1 &gt;}$拼在一起作为这轮解码RNN的输入。</p>
+<p><img src="/2022/09/21/DLS-note-16/5.jpg" alt></p>
+<blockquote>
+<p>注意，从逻辑上来讲，解码RNN有两个输入。第一个输入和我们之前见过的解码RNN一样，是上一轮的输出$\hat{y}^{&lt; t-1 &gt;}$。第二个输入是注意力上下文$c^{&lt; t &gt;}$。这两个输入通过拼接（concatenate）的方式一起输入解码RNN。我在学到这里的时候一直很疑惑，两个输入该怎么输入进RNN。原视频并没有强调两个输入是拼接在一起的。</p>
+<p>如果输出的单词不是很依赖于上一个单词，解码RNN也可以不输入上一个单词，只输入注意力上下文。这门课的编程作业就采用了这种只有一个输入的更为简单的结构。</p>
+</blockquote>
+<p>接下来，我们来详细看看注意力机制是怎么工作的。如前文所述，注意力机制就是要算一个对每个输入的关注度，根据这个关注度以不同的权重去输入里取值。这个过程的表示如下。</p>
+<p>设输入状态$a^{&lt; t’ &gt;}=(\overrightarrow{a}^{&lt; t’ &gt;}, \overleftarrow{a}^{&lt; t’ &gt;})$（把BRNN前后的状态拼接到一起）。假如我们得到了权重$\alpha^{&lt; t, t’ &gt;}$，它表示第$t$个输出对第$t’$个输入的关注度，则注意力上下文$c^{&lt; t &gt;}$的计算方法为：</p>
+<script type="math/tex; mode=display">
+c^{< t >} = \sum_{t'=1}^{T_x}\alpha^{< t, t' >}a^{< t' >}.</script><p>对于每一个$t$, 所有$t’$的$\alpha^{&lt; t, t’ &gt;}$和为1。也就是说，上式其实就是一个加权平均数，其中$\alpha^{&lt; t, t’ &gt;}$是权重。“注意力”这个名词看上去很高端，其实就是一个中学生都会的概念而已。</p>
+<p>现在，我们还不知道关注度$\alpha^{&lt; t, t’ &gt;}$是怎么算的。让我们思考一下，第$t$个输出单词和第$t’$个输入单词的关注度取决于谁的信息呢？答案很简单，取决于第$t$个输出单词的信息和第$t’$个输入单词的信息。第$t$个输出单词的信息，可以用其上一层的状态$s^{&lt; t-1 &gt;}$表达；第$t’$个输入单词的信息，可以用$a^{&lt; t’ &gt;}$表达。怎么用它们算一个关注度出来呢？谁也给不出一个具体的公式，干脆就用一个神经网络来拟合就好了。</p>
+<p>具体的计算过程如下图所示：</p>
+<p><img src="/2022/09/21/DLS-note-16/6.jpg" alt></p>
+<p>我们用一个小全连接网络算出一个输出$e^{&lt; t, t’ &gt;}$。由于$\alpha^{&lt; t, t’ &gt;}$最后的和要为1，我们用对$e^{&lt; t, t’ &gt;}$做一个softmax，得到归一化的$\alpha^{&lt; t, t’ &gt;}$。</p>
+<p>整理一下，注意力模型的计算步骤如下：</p>
+<ol>
+<li>用一个编码RNN（比如Bi-LSTM）算出输入的特征$a^{&lt; t’ &gt;}$。</li>
+<li>用一个解码RNN（比如LSTM）的状态$s^{&lt; t-1 &gt;}$和所有$a^{&lt; t’ &gt;}$算一个对每个输入的关注度$\alpha^{&lt; t, t’ &gt;}$ 。</li>
+<li>以关注度为权重，以$a^{&lt; t’ &gt;}$为值，算一个加权平均数$c^{&lt; t &gt;}$作为第$t$个输出的注意力上下文。</li>
+<li>以上一轮输出$y^{&lt; t-1 &gt;}$和$c^{&lt; t &gt;}$为输入，以$s^{&lt; t-1 &gt;}$为上一轮状态，计算解码RNN这一轮的输出$y^{&lt; t &gt;}$。</li>
+</ol>
+<p>注意力模型的效果不错，但它的计算复杂度是平方级别的（输入长度乘输出长度）。不过，机器翻译任务的输入输出都不会太大，这一性能弊端没有那么明显。</p>
+<h2 id="语音任务"><a href="#语音任务" class="headerlink" title="语音任务"></a>语音任务</h2><h3 id="语音识别"><a href="#语音识别" class="headerlink" title="语音识别"></a>语音识别</h3><p>到目前为止，我们主要用序列模型完成NLP任务。其实序列模型也很适合用在语音数据上。让我们来快速认识一下语音识别任务的解决方法。</p>
+<p>语音数据是一维数据，表示每一时刻的声音强度。而我们人脑在在接受声音时，会自动对声音处理，感知到声音的音调（频率）和响度。</p>
+<p>语音识别任务的输入是语音数据，输出是一个句子。我们可以直接用注意力模型解决这个问题（令输出元素为<strong>字母</strong>而不是单词），也可以用一种叫做CTC（connectionist temporal classification)的算法解决。</p>
+<p>CTC算法用于把语音识别的输入输出长度对齐。这样，我们用一个简单的等长多对多RNN就可以了。在语音识别中，输入的长度远大于输出的长度，我们可以想办法扩大输出长度。这种扩充方式如下：</p>
+<p>比如，对于句子”the quick brown fox”，我们可以把”the q”它扩充成<code>ttt_h_eee____&lt; space &gt;____qqq__</code>。这个和输入等长的序列表示每一个时刻发音者正在说哪个字母。序列中有一些特殊标记，下划线表示没有识别出任何东西，空格<code>&lt; space &gt;</code>表示英语里的空格。</p>
+<p>通过这种方法，我们可以把所有训练数据的标签预处理成和输入等长的序列，进而用普通RNN解决语音识别问题。</p>
+<h3 id="触发词检测"><a href="#触发词检测" class="headerlink" title="触发词检测"></a>触发词检测</h3><p>触发词检测也是一类常见的语音问题，我们可以用序列模型轻松解决它。</p>
+<p>触发词检测在生活中比较常见，比如苹果设备的”Hey Siri”就可以唤醒苹果语音助手。我们的任务，就是给定一段语音序列，输出何时有人说出了某个触发词。</p>
+<p>我们可以用一张图快速地学会如何解决这个问题。如下图所示，对于每一个输入，我们可以构造一个等长的输出，表示每一时刻是否说完了触发词。每当一个触发词说完，我们就往它后面几个时刻标上1。用一个普通RNN就可以解决这个问题了。</p>
+<p><img src="/2022/09/21/DLS-note-16/7.jpg" alt></p>
+<p>从这两个示例中，我们能看出，学会了序列模型后，我们掌握了很多武器。而在解决实际问题时，关键在于如何建模，把问题的输入输出对应到RNN的输入输出上，把我们的武器用出去。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这堂课以机器翻译任务为例，介绍了序列到序列问题的一些解决方法。特别地，这堂课介绍了注意力模型。注意力模型在序列到序列问题上有着极佳的表现，并催生了后续纯粹由注意力机制构成的更加强大的Transformer模型。利用这些学到的知识，我们可以轻松地解决大多数序列到序列问题，比如和语音相关的语音识别与触发词检测问题。</p>
+<p>这堂课的知识点有：</p>
+<ul>
+<li>Beam Search<ul>
+<li>序列到序列问题的建模方法：解码器与生成器，生成一个概率尽可能大的输出序列</li>
+<li>为什么需要搜索算法，为什么贪心算法不好</li>
+<li>Beam Search 的过程</li>
+</ul>
+</li>
+<li>Bleu Score 的计算思想：公平地根据参考序列评价生成序列的质量</li>
+<li>注意力模型<ul>
+<li>新的编码器-解码器架构</li>
+<li>注意力机制的动机</li>
+<li>解码器怎么利用注意力权重</li>
+<li>注意力权重怎么生成</li>
+</ul>
+</li>
+<li>语音问题<ul>
+<li>建模思想：对齐输入输出序列，用简单的RNN解决问题</li>
+<li>语音识别CTC算法：输出每一时刻正在发音的字符</li>
+<li>触发词检测：用01表示是否有触发词</li>
+</ul>
+</li>
+</ul>
+<p>本来，深度学习专项的课程就到此为止了。但是，后来Transformer太火了，课程专门加了一节介绍Transformer的内容。让我们在下周详细学习一下Transformer这一功能强大的模型架构。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/09/21/DLS-note-16-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/21/DLS-note-16-2/" class="post-title-link" itemprop="url">PyTorch 注意力模型实现详解（以简单的机器翻译为例）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-09-21 17:47:45" itemprop="dateCreated datePublished" datetime="2022-09-21T17:47:45+08:00">2022-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Transformer中的“注意力”最早来自于NLP里的注意力模型。通过动手实现一遍注意力模型，我们能够更深刻地理解注意力的原理，以便于学习Transformer等后续那些基于注意力的模型。在这篇文章中，我将分享如何用PyTorch的基本API实现注意力模型，完成一个简单的机器翻译项目——把各种格式的日期“翻译”成统一格式的日期。</p>
+<p>有关机器翻译、注意力模型相关知识请参考我之前的文章。如<a href>序列模型与注意力机制</a>。</p>
+<p>项目网址：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/attention">https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/attention</a></p>
+<h2 id="知识背景"><a href="#知识背景" class="headerlink" title="知识背景"></a>知识背景</h2><p>注意力模型发源自机器翻译任务。最早，基于RNN的机器翻译模型都采用如下的架构：</p>
+<p><img src="/2022/09/21/DLS-note-16-2/1.jpg" alt></p>
+<p>前半部分的RNN只有输入，后半部分的RNN只有输出。两个部分通过一个简单的隐状态来传递信息。把隐状态看成输入信息的一种编码的话，前半部分可以叫做“编码器”，后半部分可以叫做“解码器”。这种架构因而被称为“编码器-解码器”架构。</p>
+<p>这种架构在翻译短句子时确实有效，但面对长文章时就捉襟见肘了。使用“编码器-解码器”架构时，无论输入有多长，输入都会被压缩成一个简短的编码。也就是说，模型要一次性阅读完所有输入，再一次性输出所有翻译。这显然不是一种好的方法。联想一下，我们人类在翻译时，一般会读一句话，翻译一句话，读一句话，翻译一句话。基于这种思想，有人提出了注意力模型。注意力模型能够有效地翻译长文章。</p>
+<p><img src="/2022/09/21/DLS-note-16-2/2.jpg" alt></p>
+<p>在注意力模型中，编码器和解码器以另一种方式连接在一起。在完成编码后，解码器会以不同的权重去各个编码输出中取出相关信息，也就是以不同的“注意力”去关注输入信息。</p>
+<p><img src="/2022/09/21/DLS-note-16-2/3.jpg" alt></p>
+<p>具体来说，注意力模型的结构如下。</p>
+<p><img src="/2022/09/21/DLS-note-16-2/4.jpg" alt></p>
+<p>对于每一轮的输出$\hat{y}^{&lt; t &gt;}$，它的解码RNN的输入由上一轮输出$\hat{y}^{&lt; t - 1&gt;}$和注意力上下文$c^{&lt; t &gt;}$拼接而成。注意力上下文$c^{&lt; t &gt;}$，就是所有输入的编码RNN的隐变量$a^{&lt; t &gt;}$的一个加权平均数。这里加权平均数的权重$\alpha$就是该输出对每一个输入的注意力。每一个$\alpha$由编码RNN本轮状态$a^{&lt; t’ &gt;}$和解码RNN上一轮状态$s^{&lt; t - 1 &gt;}$决定。这两个输入会被送入一个简单的全连接网络，输出权重$e$（一个实数）。所有输入元素的$e$经过一个softmax输出$\alpha$。</p>
+<h2 id="日期翻译任务及其数据集"><a href="#日期翻译任务及其数据集" class="headerlink" title="日期翻译任务及其数据集"></a>日期翻译任务及其数据集</h2><p>为了简化项目的实现，我们来完成一个简单的日期翻译任务。在这个任务中，输入是各式各样的日期，输出是某一个标准格式的日期。比如：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>input</th>
+<th>output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nov 23, 1999</td>
+<td>1999-11-23</td>
+</tr>
+<tr>
+<td>3 April 2005</td>
+<td>2005-04-03</td>
+</tr>
+<tr>
+<td>14/01/1989</td>
+<td>1989-01-14</td>
+</tr>
+<tr>
+<td>Thursday, February 7, 1985</td>
+<td>1985-02-07</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们可以自己动手用Python生成数据集。在生成数据集时，我们要用到随机生成日期的<code>faker</code>库和格式化日期的<code>babel</code>库。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install faker babel</span><br></pre></td></tr></table></figure>
+<p>运行下面这段代码，我们可以生成不同格式的日期。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> babel.dates <span class="keyword">import</span> format_date</span><br><span class="line"><span class="keyword">from</span> faker <span class="keyword">import</span> Faker</span><br><span class="line"></span><br><span class="line">faker = Faker()</span><br><span class="line">format_list = [</span><br><span class="line">    <span class="string">&#x27;short&#x27;</span>, <span class="string">&#x27;medium&#x27;</span>, <span class="string">&#x27;long&#x27;</span>, <span class="string">&#x27;full&#x27;</span>, <span class="string">&#x27;d MMM YYY&#x27;</span>, <span class="string">&#x27;d MMMM YYY&#x27;</span>, <span class="string">&#x27;dd/MM/YYY&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;dd-MM-YYY&#x27;</span>, <span class="string">&#x27;EE d, MMM YYY&#x27;</span>, <span class="string">&#x27;EEEE d, MMMM YYY&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">format</span> <span class="keyword">in</span> format_list:</span><br><span class="line">        date_obj = faker.date_object()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">format</span>&#125;</span>:&#x27;</span>, date_obj,</span><br><span class="line">              format_date(date_obj, <span class="built_in">format</span>=<span class="built_in">format</span>, locale=<span class="string">&#x27;en&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Possible output:</span><br><span class="line">short: 1986-02-25 2/25/86</span><br><span class="line">medium: 1979-08-05 Aug 5, 1979</span><br><span class="line">long: 1971-12-15 December 15, 1971</span><br><span class="line">full: 2017-02-14 Tuesday, February 14, 2017</span><br><span class="line">d MMM YYY: 1984-02-21 21 Feb 1984</span><br><span class="line">d MMMM YYY: 2011-06-22 22 June 2011</span><br><span class="line">dd/MM/YYY: 1991-08-02 02/08/1991</span><br><span class="line">dd-MM-YYY: 1987-06-12 12-06-1987</span><br><span class="line">EE d, MMM YYY: 1986-11-02 Sun 2, Nov 1986</span><br><span class="line">EEEE d, MMMM YYY: 1996-01-26 Friday 26, January 1996</span><br></pre></td></tr></table></figure>
+<p><code>Faker()</code>是生成随机数据的代理类，用它的<code>date_object()</code>方法可以随机生成一个日期字符串<code>date_obj</code>。这个日期就是我们期望的标准格式。而通过使用<code>format_date</code>函数，我们可以通过改变该函数的<code>format</code>参数来得到格式不一样的日期字符串。各种格式的日期示例可以参考上面的输出。</p>
+<p>利用这些工具函数，我们可以编写下面这些生成、读取数据集的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_date</span>():</span></span><br><span class="line">    <span class="built_in">format</span> = random.choice(format_list)</span><br><span class="line">    date_obj = faker.date_object()</span><br><span class="line">    formated_date = format_date(date_obj, <span class="built_in">format</span>=<span class="built_in">format</span>, locale=<span class="string">&#x27;en&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> formated_date, date_obj</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_date_data</span>(<span class="params">count, filename</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(count):</span><br><span class="line">            formated_date, date_obj = generate_date()</span><br><span class="line">            fp.write(<span class="string">f&#x27;<span class="subst">&#123;formated_date&#125;</span>\t<span class="subst">&#123;date_obj&#125;</span>\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_date_data</span>(<span class="params">filename</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        lines = fp.readlines()</span><br><span class="line">        <span class="keyword">return</span> [line.strip(<span class="string">&#x27;\n&#x27;</span>).split(<span class="string">&#x27;\t&#x27;</span>) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">generate_date_data(<span class="number">50000</span>, <span class="string">&#x27;dldemos/attention/train.txt&#x27;</span>)</span><br><span class="line">generate_date_data(<span class="number">10000</span>, <span class="string">&#x27;dldemos/attention/test.txt&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h2><p>在这个项目中，最难的部分是注意力模型的实现，即如何把上一节那个结构图用PyTorch描述出来。所有模型实现的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.nn.utils.rnn <span class="keyword">import</span> pad_sequence</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, Dataset</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dldemos.attention.dataset <span class="keyword">import</span> generate_date, load_date_data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EMBEDDING_LENGTH = <span class="number">128</span></span><br><span class="line">OUTPUT_LENGTH = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AttentionModel</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,</span></span></span><br><span class="line"><span class="params"><span class="function">                 embeding_dim=<span class="number">32</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                 encoder_dim=<span class="number">32</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                 decoder_dim=<span class="number">32</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                 dropout_rate=<span class="number">0.5</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.drop = nn.Dropout(dropout_rate)</span><br><span class="line">        self.embedding = nn.Embedding(EMBEDDING_LENGTH, embeding_dim)</span><br><span class="line">        self.attention_linear = nn.Linear(<span class="number">2</span> * encoder_dim + decoder_dim, <span class="number">1</span>)</span><br><span class="line">        self.softmax = nn.Softmax(-<span class="number">1</span>)</span><br><span class="line">        self.encoder = nn.LSTM(embeding_dim,</span><br><span class="line">                               encoder_dim,</span><br><span class="line">                               <span class="number">1</span>,</span><br><span class="line">                               batch_first=<span class="literal">True</span>,</span><br><span class="line">                               bidirectional=<span class="literal">True</span>)</span><br><span class="line">        self.decoder = nn.LSTM(EMBEDDING_LENGTH + <span class="number">2</span> * encoder_dim,</span><br><span class="line">                               decoder_dim,</span><br><span class="line">                               <span class="number">1</span>,</span><br><span class="line">                               batch_first=<span class="literal">True</span>)</span><br><span class="line">        self.output_linear = nn.Linear(decoder_dim, EMBEDDING_LENGTH)</span><br><span class="line">        self.decoder_dim = decoder_dim</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x: torch.Tensor, n_output: <span class="built_in">int</span> = OUTPUT_LENGTH</span>):</span></span><br><span class="line">        <span class="comment"># x: [batch, n_sequence, EMBEDDING_LENGTH]</span></span><br><span class="line">        batch, n_squence = x.shape[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># x: [batch, n_sequence, embeding_dim]</span></span><br><span class="line">        x = self.drop(self.embedding(x))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># a: [batch, n_sequence, hidden]</span></span><br><span class="line">        a, _ = self.encoder(x)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># prev_s: [batch, n_squence=1, hidden]</span></span><br><span class="line">        <span class="comment"># prev_y: [batch, n_squence=1, EMBEDDING_LENGTH]</span></span><br><span class="line">        <span class="comment"># y: [batch, n_output, EMBEDDING_LENGTH]</span></span><br><span class="line">        prev_s = x.new_zeros(batch, <span class="number">1</span>, self.decoder_dim)</span><br><span class="line">        prev_y = x.new_zeros(batch, <span class="number">1</span>, EMBEDDING_LENGTH)</span><br><span class="line">        y = x.new_empty(batch, n_output, EMBEDDING_LENGTH)</span><br><span class="line">        tmp_states = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> i_output <span class="keyword">in</span> <span class="built_in">range</span>(n_output):</span><br><span class="line">            <span class="comment"># repeat_s: [batch, n_squence, hidden]</span></span><br><span class="line">            repeat_s = prev_s.repeat(<span class="number">1</span>, n_squence, <span class="number">1</span>)</span><br><span class="line">            <span class="comment"># attention_input: [batch * n_sequence, hidden_s + hidden_a]</span></span><br><span class="line">            attention_input = torch.cat((repeat_s, a),</span><br><span class="line">                                        <span class="number">2</span>).reshape(batch * n_squence, -<span class="number">1</span>)</span><br><span class="line">            alpha = self.softmax(self.attention_linear(attention_input))</span><br><span class="line">            c = torch.<span class="built_in">sum</span>(a * alpha.reshape(batch, n_squence, <span class="number">1</span>), <span class="number">1</span>)</span><br><span class="line">            c = c.unsqueeze(<span class="number">1</span>)</span><br><span class="line">            decoder_input = torch.cat((prev_y, c), <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> tmp_states <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                prev_s, tmp_states = self.decoder(decoder_input)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                prev_s, tmp_states = self.decoder(decoder_input, tmp_states)</span><br><span class="line"></span><br><span class="line">            prev_y = self.output_linear(prev_s)</span><br><span class="line">            y[:, i_output] = prev_y.squeeze(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<p>让我们把这份实现一点一点过一遍。</p>
+<p>在实现前，我们要准备一些常量。我们首先要决定“词汇表”的大小。在日期翻译任务中，输入和输出应当看成是字符序列。字符最多有128个，因此我们可以令“词汇表”大小为128。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EMBEDDING_LENGTH = <span class="number">128</span></span><br></pre></td></tr></table></figure>
+<p>在我们这个任务中，输出序列的长度是固定的。对于<code>yyyy-mm-dd</code>这个日期字符串，其长度为10。我们要把这个常量也准备好。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OUTPUT_LENGTH = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>接下来是模型的实现。先看<code>__init__</code>里的结构定义。一开始，按照RNN模型的惯例，我们要让输入过Dropout和嵌入层。对于单词序列，使用预训练的单词嵌入会好一点。然而，我们这个项目用的是字符序列，直接定义一个可学习的嵌入层即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.drop = nn.Dropout(dropout_rate)</span><br><span class="line">self.embedding = nn.Embedding(EMBEDDING_LENGTH, embeding_dim)</span><br></pre></td></tr></table></figure>
+<p>接下来是编码器和解码器。在注意力模型中，编码器和解码器是两个不同的RNN。为了充分利用输入信息，可以把双向RNN当作编码器。而由于机器翻译是一个生成答案的任务，每轮生成元素时需要用到上一轮生成出来的元素，解码器必须是一个单向RNN。在本项目中，我使用的RNN是LSTM。模块定义代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">self.encoder = nn.LSTM(embeding_dim,</span><br><span class="line">                        encoder_dim,</span><br><span class="line">                        <span class="number">1</span>,</span><br><span class="line">                        batch_first=<span class="literal">True</span>,</span><br><span class="line">                        bidirectional=<span class="literal">True</span>)</span><br><span class="line">self.decoder = nn.LSTM(EMBEDDING_LENGTH + <span class="number">2</span> * encoder_dim,</span><br><span class="line">                        decoder_dim,</span><br><span class="line">                        <span class="number">1</span>,</span><br><span class="line">                        batch_first=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>这里要注意一下这两个模块的输入通道数。<code>encoder</code>的输入来自嵌入层，因此是<code>embeding_dim</code>，这个很好理解。<code>decoder</code>的输入通道则需要计算一番了。<code>decoder</code>的输入由模型上一轮的输出和注意力输出拼接而成。模型每轮会输出一个字符，字符的通道数是“词汇表”大小，即<code>EMBEDDING_LENGTH</code>。注意力的输出是<code>encoder</code>的隐变量的加权和，因此其通道数和<code>encoder</code>的隐变量一致。<code>encoder</code>是双向RNN，其隐变量的通道数是<code>2 * encoder_dim</code>。最终，<code>decoder</code>的输入通道数应是<code>EMBEDDING_LENGTH + 2 * encoder_dim</code>。</p>
+<p>在注意力模块中，解码RNN对各编码RNN的注意力由一个线性层计算而得。该线性层的输入由解码RNN和编码RNN的隐变量拼接而成，因此其通道数为<code>2 * encoder_dim + decoder_dim</code>；该线性层的输出是注意力权重——一个实数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.attention_linear = nn.Linear(<span class="number">2</span> * encoder_dim + decoder_dim, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>解码结束后，还需要经过一个线性层才能输出结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.output_linear = nn.Linear(decoder_dim, EMBEDDING_LENGTH)</span><br></pre></td></tr></table></figure>
+<p>看完了<code>__init__</code>，来看看<code>forward</code>里各模块是怎么连接起来的。</p>
+<p>机器翻译其实是一个生成序列的任务。一般情况下，生成序列的长度是不确定的，需要用一些额外的技巧来选择最佳的输出序列。为了简化实现，在这个项目中，我们生成一个固定长度的输出序列。该长度应该在<code>forward</code>的参数里指定。因此，<code>forward</code>的参数如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x: torch.Tensor, n_output: <span class="built_in">int</span> = OUTPUT_LENGTH</span>):</span></span><br></pre></td></tr></table></figure></p>
+<p>一开始，先获取一些形状信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># x: [batch, n_sequence, EMBEDDING_LENGTH]</span></span><br><span class="line">batch, n_squence = x.shape[<span class="number">0</span>:<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p>输入通过嵌入层和dropout层。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># x: [batch, n_sequence, embeding_dim]</span></span><br><span class="line">x = self.drop(self.embedding(x))</span><br></pre></td></tr></table></figure>
+<p>再通过编码器，得到编码隐状态<code>a</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a: [batch, n_sequence, hidden]</span></span><br><span class="line">a, _ = self.encoder(x)</span><br></pre></td></tr></table></figure>
+<p>接下来，要用for循环输出每一轮的结果了。在此之前，我们要准备一些中间变量：用于计算注意力的解码器上一轮状态<code>prev_s</code>，用于解码器输入的上一轮输出<code>prev_y</code>，输出张量<code>y</code>。另外，由于我们要在循环中手动调用<code>decoder</code>完成每一轮的计算，还需要保存<code>decoder</code>的所有中间变量<code>tmp_states</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># prev_s: [batch, n_squence=1, hidden]</span></span><br><span class="line"><span class="comment"># prev_y: [batch, n_squence=1, EMBEDDING_LENGTH]</span></span><br><span class="line"><span class="comment"># y: [batch, n_output, EMBEDDING_LENGTH]</span></span><br><span class="line">prev_s = x.new_zeros(batch, <span class="number">1</span>, self.decoder_dim)</span><br><span class="line">prev_y = x.new_zeros(batch, <span class="number">1</span>, EMBEDDING_LENGTH)</span><br><span class="line">y = x.new_empty(batch, n_output, EMBEDDING_LENGTH)</span><br><span class="line">tmp_states = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>在每一轮输出中，我们首先要获得当前的解码器对于每一个输入的注意力<code>alpha</code>。每一个<code>alpha</code>由解码器上一轮状态<code>prev_s</code>和编码器本轮状态决定（一个全连接层+softmax）。为了充分利用并行计算，我们可以把所有alpha的计算打包成batch，一步做完。</p>
+<p><img src="/2022/09/21/DLS-note-16-2/5.jpg" alt></p>
+<blockquote>
+<p>注意，这里的全连接层+softmax和普通的全连接网络不太一样。这里全连接层的输出通道数是1，会对n组输入做n次计算，得到n个结果，再对n个结果做softmax。我们之所以能一次得到n个结果，是巧妙地把n放到了batch那一维。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i_output <span class="keyword">in</span> <span class="built_in">range</span>(n_output):</span><br><span class="line">    <span class="comment"># repeat_s: [batch, n_squence, hidden]</span></span><br><span class="line">    repeat_s = prev_s.repeat(<span class="number">1</span>, n_squence, <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># attention_input: [batch * n_sequence, hidden_s + hidden_a]</span></span><br><span class="line">    attention_input = torch.cat((repeat_s, a),</span><br><span class="line">                                <span class="number">2</span>).reshape(batch * n_squence, -<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># x: [batch * n_sequence, 1]</span></span><br><span class="line">    x = self.attention_linear(attention_input)</span><br><span class="line">    <span class="comment"># x: [batch, n_sequence]</span></span><br><span class="line">    x = x.reshape(batch, n_squence)</span><br><span class="line">    alpha = self.softmax(x)</span><br></pre></td></tr></table></figure>
+<p>求出了注意力<code>alpha</code>后，就可以用它来算出注意力上下文<code>c</code>了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c = torch.<span class="built_in">sum</span>(a * alpha.reshape(batch, n_squence, <span class="number">1</span>), <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>之后，我们把<code>c</code>和上一轮输出<code>prev_y</code>拼一下，作为解码器的输出。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c = c.unsqueeze(<span class="number">1</span>)</span><br><span class="line">decoder_input = torch.cat((prev_y, c), <span class="number">2</span>)</span><br></pre></td></tr></table></figure><br>再调用解码器即可。这里我利用PyTorch的机制偷了个懒。理论上解码器第一轮的状态应该是全零张量，我们应该初始化两个全零张量作为LSTM的初始状态。但是，在PyTorch里，如果调用RNN时不传入状态，就默认会使用全零状态。因此，在第一轮调用时，我们可以不去传状态参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> tmp_states <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    prev_s, tmp_states = self.decoder(decoder_input)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    prev_s, tmp_states = self.decoder(decoder_input, tmp_states)</span><br></pre></td></tr></table></figure>
+<p>最后，用线性层算出这轮的输出，维护输出变量<code>y</code>。循环结束后，返回<code>y</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    prev_y = self.output_linear(prev_s)</span><br><span class="line">    y[:, i_output] = prev_y.squeeze(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<h2 id="训练、测试、推理"><a href="#训练、测试、推理" class="headerlink" title="训练、测试、推理"></a>训练、测试、推理</h2><p>写完了最核心的注意力模型，剩下的代码就比较简单了。</p>
+<p>首先，我们要准备一个<code>Dataset</code>类。这个类可以读取输入、输出字符串，并把它们转换成整形数组。字符和整形数字间的映射非常暴力，一个字符的序号就是该字符的ASCII码。这样写比较简洁，但由于很多字符是用不到的，会浪费一些计算性能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stoi</span>(<span class="params"><span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="keyword">return</span> torch.LongTensor([<span class="built_in">ord</span>(char) <span class="keyword">for</span> char <span class="keyword">in</span> <span class="built_in">str</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">itos</span>(<span class="params">arr</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> arr])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DateDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, lines</span>):</span></span><br><span class="line">        self.lines = lines</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.lines)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        line = self.lines[index]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> stoi(line[<span class="number">0</span>]), stoi(line[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>准备好DataSet后，就可以生成DataLoader了。在序列任务中，各个样本的序列长度可能是不一致的。我们可以用PyTorch的<code>pad_sequence</code>对长度不足的样本进行0填充，使得一个batch里的所有样本都有着同样的序列长度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_dataloader</span>(<span class="params">filename</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">collate_fn</span>(<span class="params">batch</span>):</span></span><br><span class="line">        x, y = <span class="built_in">zip</span>(*batch)</span><br><span class="line">        x_pad = pad_sequence(x, batch_first=<span class="literal">True</span>)</span><br><span class="line">        y_pad = pad_sequence(y, batch_first=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> x_pad, y_pad</span><br><span class="line"></span><br><span class="line">    lines = load_date_data(filename)</span><br><span class="line">    dataset = DateDataset(lines)</span><br><span class="line">    <span class="keyword">return</span> DataLoader(dataset, <span class="number">32</span>, collate_fn=collate_fn)</span><br></pre></td></tr></table></figure>
+<p>这里要稍微注意一下，<code>pad_sequence</code>默认会做0填充，0填充在我们的项目里是合理的。在我们定义的“词汇表”里，0对应的是ASCII里的0号字符，这个字符不会和其他字符起冲突。</p>
+<p>做好一切准备工作后，可以开始训练模型了。训练模型的代码非常常规，定义好Adam优化器、交叉熵误差，跑完模型后reshape一下算出loss再反向传播即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    device = <span class="string">&#x27;cuda:0&#x27;</span></span><br><span class="line">    train_dataloader = get_dataloader(<span class="string">&#x27;dldemos/attention/train.txt&#x27;</span>)</span><br><span class="line">    test_dataloader = get_dataloader(<span class="string">&#x27;dldemos/attention/test.txt&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    model = AttentionModel().to(device)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train</span></span><br><span class="line"></span><br><span class="line">    optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">0.001</span>)</span><br><span class="line">    citerion = torch.nn.CrossEntropyLoss()</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line"></span><br><span class="line">        loss_sum = <span class="number">0</span></span><br><span class="line">        dataset_len = <span class="built_in">len</span>(train_dataloader.dataset)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> train_dataloader:</span><br><span class="line">            x = x.to(device)</span><br><span class="line">            y = y.to(device)</span><br><span class="line">            hat_y = model(x)</span><br><span class="line">            n, Tx, _ = hat_y.shape</span><br><span class="line">            hat_y = torch.reshape(hat_y, (n * Tx, -<span class="number">1</span>))</span><br><span class="line">            label_y = torch.reshape(y, (n * Tx, ))</span><br><span class="line">            loss = citerion(hat_y, label_y)</span><br><span class="line"></span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            loss.backward()</span><br><span class="line">            torch.nn.utils.clip_grad_norm_(model.parameters(), <span class="number">0.5</span>)</span><br><span class="line">            optimizer.step()</span><br><span class="line"></span><br><span class="line">            loss_sum += loss * n</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;Epoch <span class="subst">&#123;epoch&#125;</span>. loss: <span class="subst">&#123;loss_sum / dataset_len&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    torch.save(model.state_dict(), <span class="string">&#x27;dldemos/attention/model.pth&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>训练完模型后，我们可以测试一下模型在测试集上的正确率。在日期翻译任务中，我们可以把“正确”定义为输出和真值一模一样。比如一条日期的真值是”2000-01-01”，模型的输出必须也是”2000-01-01”才能说这个输出是正确的。编写并行化计算正确率的代码稍有难度。</p>
+<p>模型的输出<code>hat_y</code>表示各个字符的出现概率。我们先用<code>prediction = torch.argmax(hat_y, 2)</code>把序列里每个概率最大的字符作为模型预测的字符。现在，我们要用并行化编程判断每对序列（整形标签数组）<code>predition[i]</code>和<code>y[i]</code>是否相等（注意，<code>predition</code>和<code>y</code>是带了batch那个维度的）。这里，我们可以让<code>predition[i]</code>和<code>y[i]</code>做减法再求和。仅当这个和为0时，我们才能说<code>predition[i]</code>和<code>y[i]</code>完全相等。通过这样一种曲折的实现方法，我们可以并行地算出正确率。</p>
+<blockquote>
+<p>也许有更方便的API可以完成这个逻辑判断，但去网上搜索这么复杂的一个需求太麻烦了，我偷了个懒。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line">model.load_state_dict(torch.load(<span class="string">&#x27;dldemos/attention/model.pth&#x27;</span>))</span><br><span class="line"></span><br><span class="line">accuracy = <span class="number">0</span></span><br><span class="line">dataset_len = <span class="built_in">len</span>(test_dataloader.dataset)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x, y <span class="keyword">in</span> test_dataloader:</span><br><span class="line">    x = x.to(device)</span><br><span class="line">    y = y.to(device)</span><br><span class="line">    hat_y = model(x)</span><br><span class="line">    prediction = torch.argmax(hat_y, <span class="number">2</span>)</span><br><span class="line">    score = torch.where(torch.<span class="built_in">sum</span>(prediction - y, -<span class="number">1</span>) == <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">    accuracy += torch.<span class="built_in">sum</span>(score)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Accuracy: <span class="subst">&#123;accuracy / dataset_len&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>最后，我们也可以临时生成几个测试用例，输出模型的预测结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># inference</span></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    x, y = generate_date()</span><br><span class="line">    origin_x = x</span><br><span class="line">    x = stoi(x).unsqueeze(<span class="number">0</span>).to(device)</span><br><span class="line">    hat_y = model(x)</span><br><span class="line">    hat_y = hat_y.squeeze(<span class="number">0</span>).argmax(<span class="number">1</span>)</span><br><span class="line">    hat_y = itos(hat_y)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;input: <span class="subst">&#123;origin_x&#125;</span>, prediction: <span class="subst">&#123;hat_y&#125;</span>, gt: <span class="subst">&#123;y&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>训练20-30个epoch后，模型差不多就收敛了。我训练的模型在测试集上的正确率约有98%。下面是随机测试用例的推理结果，可以看出模型的判断确实很准确。</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input: 4 November 1988, prediction: 1988-11-04, gt: 1988-11-04</span><br><span class="line">input: Friday 26, March 2021, prediction: 2021-03-26, gt: 2021-03-26</span><br><span class="line">input: Saturday 2, December 1989, prediction: 1989-12-02, gt: 1989-12-02</span><br><span class="line">input: 15/10/1971, prediction: 1971-10-15, gt: 1971-10-15</span><br><span class="line">input: Mon 9, Oct 1989, prediction: 1989-10-09, gt: 1989-10-09</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章中，我展示了一个用PyTorch编写的注意力模型，它用于完成日期翻译任务。在这个项目中，最重要的是注意力模型的编写。如今，注意力模型已经不是功能最强大的模型架构了。不过，通过动手实现这个模型，我们可以对注意力机制有着更深刻的认识，有助于理解那些更先进的模型。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/09/21/DLS-note-15/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1722,357 +2136,6 @@ J^{[l]}_{style}(S, G) = ||G^{[l]}(S)- G^{[l]}(G)||_F^2</script><p>这是一层�
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/08/09/DLS-note-12-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/08/09/DLS-note-12-2/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》代码实战（十二）：目标检测 NMS 的 Python 实现（附算法动图）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-08-09 14:09:41" itemprop="dateCreated datePublished" datetime="2022-08-09T14:09:41+08:00">2022-08-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在这篇文章中，我将给出一份带运行示例的NMS Python脚本，并对算法和代码进行详细解说。相信大家看完这篇文章后，能够轻松地掌握NMS的底层原理。</p>
-<p>如果你对目标检测的基础知识不太熟，欢迎先阅读我的上篇文章：<a href="https://zhouyifan.net/2022/07/26/DLS-note-12/">目标检测简介</a></p>
-<p>示例脚本（包括可视化的代码）链接：<a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/nms">https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/nms</a> </p>
-<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><p>在目标检测算法中，为了尽量不漏掉物体，会输出大量的检测结果（每一条结果由检测概率与检测框组成）。这些检测结果很可能有重复的，即会有多个框标出了同一个物体。下图就是一个例子，算法正确识别出了两辆车，但却有多个检测框标出了同一辆车。</p>
-<p><img src="/2022/08/09/DLS-note-12-2/1.jpg" alt></p>
-<p>我们需要一个算法来过滤多余的检测框。最常用的算法就是NMS(Non-Maximum Suppresion, 非极大值抑制)。该算法的思路很简单：只保留局部概率最大的检测框，与其重合的其他检测框都会被舍去。</p>
-<p>算法的伪代码如下：</p>
-<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入所有检测概率、检测框</span><br><span class="line">当还有检测框没有处理：</span><br><span class="line">    从剩下的框里挑出检测概率最大的框 bbox_a</span><br><span class="line">    遍历所有没有处理的框bbox_i：</span><br><span class="line">        如果 bbox_i != bbox_a 且 bbox_i 与 bbox_a 重合：</span><br><span class="line">            舍去 bbox_i</span><br><span class="line">    把 bbox_a 输出成一个检测结果</span><br></pre></td></tr></table></figure>
-<p>当然，这个算法的描述还不够准确：究竟该怎么定义两个检测框是“重合”呢？如果两个检测框有交集就说它们重合是行不通的，因为图片中很可能会有挨得很近的物体，它们的检测框就是相交的。因此，我们一般用IoU（交并比）来描述两个框的重合程度，如果IoU超出某个阈值，就说这两个框是“重合”的。</p>
-<p>IoU的计算很简单，算出两个矩形的「交面积」，再用两个矩形面积之和减去「交面积」就可以得到「并面积」，「交面积」比「并面积」就是IoU。</p>
-<p><img src="/2022/08/09/DLS-note-12-2/1.gif" alt></p>
-<p>在NMS之前，一般还会先做一步预处理：对于预测概率小于某个阈值的检测框，我们不信任它们，会在进行NMS之前就把它们舍去。在代码实现时这部分逻辑常常会放到NMS的函数里。这样，整个NMS的流程是这样的：</p>
-<p><img src="/2022/08/09/DLS-note-12-2/2.gif" alt></p>
-<p>上述的NMS针对是识别一种物体的任务，在推广到多分类NMS时，只要把输入的检测概率换成有物体的概率乘上概率最大的类别的概率即可。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><blockquote>
-<p>理论上这段代码是兼容任何格式的张量的。经测试，NumPy, PyTorch 的张量都可以正确运行。</p>
-</blockquote>
-<p>先看一下IoU的实现代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">b1: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>], b2: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span></span><br><span class="line">    intersection = box_intersection(b1, b2)</span><br><span class="line">    inter_area = area(intersection)</span><br><span class="line">    union_area = area(b1) + area(b2) - inter_area</span><br><span class="line">    <span class="keyword">return</span> inter_area / union_area</span><br></pre></td></tr></table></figure>
-<p>所有的检测框用一个长度为4的元组表示。<code>box_intersection</code>用于计算两个框的相交框，<code>area</code>用于计算框的面积。这段代码和之前描述得一样，先获取相交区域，计算交面积，再计算并面积，最后算除法。</p>
-<p><code>box_intersection</code>的实现如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">box_intersection</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        b1: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>],</span></span></span><br><span class="line"><span class="params"><span class="function">        b2: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]:</span></span><br><span class="line">    x11, y11, x12, y12 = b1</span><br><span class="line">    x21, y21, x22, y22 = b2</span><br><span class="line"></span><br><span class="line">    xl = <span class="built_in">max</span>(x11, x21)</span><br><span class="line">    xr = <span class="built_in">min</span>(x12, x22)</span><br><span class="line">    yt = <span class="built_in">max</span>(y11, y21)</span><br><span class="line">    yb = <span class="built_in">min</span>(y12, y22)</span><br><span class="line">    <span class="keyword">return</span> (xl, yt, xr, yb)</span><br></pre></td></tr></table></figure>
-<p>算相交区域，可以理解成分别求出x, y方向上的相交部分，再把两部分合成一个框。而求直线的相交，就是取最大的左端点和最小的右端点。</p>
-<p><code>area</code>的实现如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">area</span>(<span class="params">box: <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]</span>) -&gt; <span class="built_in">float</span>:</span></span><br><span class="line">    x1, y1, x2, y2 = box</span><br><span class="line">    width = <span class="built_in">max</span>(x2 - x1, <span class="number">0</span>)</span><br><span class="line">    height = <span class="built_in">max</span>(y2 - y1, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br></pre></td></tr></table></figure>
-<p>如果两个框不相交，<code>x2 - x1</code>和<code>y2 - y1</code>会出现小于0的情况。因此，要保证它们最小为0，再算面积就不会有错了。</p>
-<p>有了<code>iou</code>，就可以实现了NMS了。我的NMS函数定义如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nms</span>(<span class="params">predicts: np.ndarray,</span></span></span><br><span class="line"><span class="params"><span class="function">        score_thresh: <span class="built_in">float</span> = <span class="number">0.6</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">        iou_thresh: <span class="built_in">float</span> = <span class="number">0.3</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Non-Maximum Suppression</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        predicts (np.ndarray): Tensor of shape [n, 5]. The second demesion</span></span><br><span class="line"><span class="string">            includes 1 probability and 4 numbers x, y, w, h denoting a bounding</span></span><br><span class="line"><span class="string">            box.</span></span><br><span class="line"><span class="string">        score_thresh (float): The boxes with probability lower than</span></span><br><span class="line"><span class="string">            score_threash will be discarded.</span></span><br><span class="line"><span class="string">        iou_thresh (float): The threshold determining whether two boxes are</span></span><br><span class="line"><span class="string">            &quot;overlapped&quot;.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        (np.ndarray, List[int]): The filtered predictions and the indices of</span></span><br><span class="line"><span class="string">            remaining boxes.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></p>
-<p>NMS算法需要输入检测结果<code>predicts</code>，输出过滤后的检测结果<code>filtered_predicts</code>。此外，NMS算法有两个输入属性<code>score_thresh</code>， <code>iou_thresh</code>，分别表示被选定的检测框最小需要的概率、判断两个框是否重合的IoU阈值。为了方便其他的计算（比如多分类NMS），我还输出了一个索引数组indices，表示被选中的框的索引。这方面的逻辑可以根据自己的项目要求进行优化，没有统一的规定。</p>
-<p>NMS的实现和开始的伪代码几乎一模一样：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nms</span>(<span class="params">predicts: np.ndarray,</span></span></span><br><span class="line"><span class="params"><span class="function">        score_thresh: <span class="built_in">float</span> = <span class="number">0.6</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">        iou_thresh: <span class="built_in">float</span> = <span class="number">0.3</span></span>):</span></span><br><span class="line">    n_remainder = <span class="built_in">len</span>(predicts)</span><br><span class="line">    vis = [<span class="literal">False</span>] * n_remainder</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Filter predicts with low probability</span></span><br><span class="line">    <span class="keyword">for</span> i, predict <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">        <span class="keyword">if</span> predict[<span class="number">0</span>] &lt; score_thresh:</span><br><span class="line">            vis[i] = <span class="literal">True</span></span><br><span class="line">            n_remainder -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># NMS</span></span><br><span class="line">    output_predicts = []</span><br><span class="line">    output_indices = []</span><br><span class="line">    <span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br><span class="line">        max_pro = -<span class="number">1</span></span><br><span class="line">        max_index = <span class="number">0</span></span><br><span class="line">        <span class="comment"># Find argmax</span></span><br><span class="line">        <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> vis[i]:</span><br><span class="line">                <span class="keyword">if</span> max_pro &lt; p[<span class="number">0</span>]:</span><br><span class="line">                    max_index = i</span><br><span class="line">                    max_pro = p[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Append output</span></span><br><span class="line">        max_p = predicts[max_index]</span><br><span class="line">        output_predicts.append(max_p)</span><br><span class="line">        output_indices.append(max_index)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Suppress</span></span><br><span class="line">        <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> vis[i] <span class="keyword">and</span> i != max_index:</span><br><span class="line">                <span class="keyword">if</span> iou(p[<span class="number">1</span>:<span class="number">5</span>], max_p[<span class="number">1</span>:<span class="number">5</span>]) &gt; iou_thresh:</span><br><span class="line">                    vis[i] = <span class="literal">True</span></span><br><span class="line">                    n_remainder -= <span class="number">1</span></span><br><span class="line">        vis[max_index] = <span class="literal">True</span></span><br><span class="line">        n_remainder -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output_predicts, output_indices</span><br></pre></td></tr></table></figure>
-<p>一开始，先声明一些辅助的变量。<code>n_remainder</code>表示还有多少个框没被访问，<code>vis[i]</code>表示第<code>i</code>个框是否被访问。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">n_remainder = <span class="built_in">len</span>(predicts)</span><br><span class="line">vis = [<span class="literal">False</span>] * n_remainder</span><br></pre></td></tr></table></figure>
-<p>一开始，先过滤那些概率过小的框：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, predict <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">    <span class="keyword">if</span> predict[<span class="number">0</span>] &lt; score_thresh:</span><br><span class="line">        vis[i] = <span class="literal">True</span></span><br><span class="line">        n_remainder -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>之后，正式进入NMS，先准备好输出的列表：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NMS</span></span><br><span class="line">output_predicts = []</span><br><span class="line">output_indices = []</span><br><span class="line">    <span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br></pre></td></tr></table></figure>
-<p>在还有没访问的框时，先找出剩下的框中概率最大的那个框：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br><span class="line">    max_pro = -<span class="number">1</span></span><br><span class="line">    max_index = <span class="number">0</span></span><br><span class="line">    <span class="comment"># Find argmax</span></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> vis[i]:</span><br><span class="line">            <span class="keyword">if</span> max_pro &lt; p[<span class="number">0</span>]:</span><br><span class="line">                max_index = i</span><br><span class="line">                max_pro = p[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-<p>之后，抑制掉和概率最大框“重合”的框。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="comment"># Find argmax</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    max_p = predicts[max_index]</span><br><span class="line">    <span class="comment"># Suppress</span></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(predicts):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> vis[i] <span class="keyword">and</span> i != max_index:</span><br><span class="line">            <span class="keyword">if</span> iou(p[<span class="number">1</span>:<span class="number">5</span>], max_p[<span class="number">1</span>:<span class="number">5</span>]) &gt; iou_thresh:</span><br><span class="line">                vis[i] = <span class="literal">True</span></span><br><span class="line">                n_remainder -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>最后，把这个结果添加进输出，并维护好<code>vis</code>和<code>n_remainder</code>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="comment"># Find argmax</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Suppress</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Append output</span></span><br><span class="line">    output_predicts.append(max_p)</span><br><span class="line">    output_indices.append(max_index)</span><br><span class="line">    vis[max_index] = <span class="literal">True</span></span><br><span class="line">    n_remainder -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这里可以把<code>vis[max_index] = True</code>那两行移到抑制操作的前面，这样判断里就不用加<code>i != max_index</code>了。我这样写是为了强调一下，判断重合的时候不需要判断自己。</p>
-</blockquote>
-<p>实现完了，返回结果。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> output_predicts, output_indices</span><br></pre></td></tr></table></figure>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>做单元测试的时候，最好是找一份现有的实现用做对照。为了让整个测试过程更贴合实际一些，我用MMDetection的YOLOv3跑了一个NMS前和NMS后的检测框结果，并把NMS前的检测框输入进了自己实现的NMS，比较了两份NMS的输出。以下是具体的测试过程。</p>
-<p>照着MMDetection的官方文档，下载好YOLOv3模型，用下面的代码即可对MMDetection的demo图片进行推理并保存结果：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mmdet.apis <span class="keyword">import</span> inference_detector, init_detector, show_result_pyplot</span><br><span class="line"><span class="keyword">from</span> mmdet.models.detectors <span class="keyword">import</span> BaseDetector</span><br><span class="line"></span><br><span class="line"><span class="comment"># Choose to use a config and initialize the detector</span></span><br><span class="line">config = <span class="string">&#x27;configs/yolo/yolov3_mobilenetv2_320_300e_coco.py&#x27;</span></span><br><span class="line"><span class="comment"># Setup a checkpoint file to load</span></span><br><span class="line">checkpoint = <span class="string">&#x27;checkpoints/yolov3_mobilenetv2_320_300e_coco_20210719_215349-d18dff72.pth&#x27;</span></span><br><span class="line"><span class="comment"># initialize the detector</span></span><br><span class="line">model: BaseDetector = init_detector(config, checkpoint, device=<span class="string">&#x27;cuda:0&#x27;</span>)</span><br><span class="line"></span><br><span class="line">img = <span class="string">&#x27;demo/demo.jpg&#x27;</span></span><br><span class="line">result = inference_detector(model, img)</span><br><span class="line"></span><br><span class="line">model.show_result(img, result, score_thr=<span class="number">0.3</span>, out_file=<span class="string">&#x27;work_dirs/1.jpg&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="/2022/08/09/DLS-note-12-2/d_1.jpg" alt></p>
-<p>为了得到NMS前的输入，我在<code>mmdet/models/dense_head/YOLOV3Head.get_bboxes</code>里面插入了一段输出结果的代码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">save_dict = &#123;</span><br><span class="line">    <span class="string">&#x27;bboxes&#x27;</span>: bboxes,</span><br><span class="line">    <span class="string">&#x27;cls_scores&#x27;</span>: scores,</span><br><span class="line">    <span class="string">&#x27;prob&#x27;</span>: objectness</span><br><span class="line">&#125;</span><br><span class="line">torch.save(save_dict, <span class="string">&#x27;work_dirs/bboxes.pt&#x27;</span>)</span><br><span class="line"></span><br><span class="line">det_bboxes, det_labels = multiclass_nms(</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>得到NMS前的输入是<br><img src="/2022/08/09/DLS-note-12-2/d_2.jpg" alt></p>
-<p>把这份数据输入进我们的NMS中，得到的可视化结果如下：</p>
-<p><img src="/2022/08/09/DLS-note-12-2/3.jpg" alt></p>
-<p>这跟开始那份输出一模一样。看来我们实现的这份NMS完全正确。</p>
-<p>如果你对测试过程、可视化、多分类NMS感兴趣，欢迎直接阅读我的项目源码。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章中，我给出了一份NMS的简洁而靠近底层的Python实现，并对NMS算法进行了介绍。通过阅读这篇文章，相信大家已经完全理解了NMS的原理，并且能够用任何一种语言实现NMS。一般的NMS开源实现支持的参数更多，代码会更复杂一些，但它们的核心和我的这份实现是一样的。</p>
-<p>这份NMS的实现还有很大的改进空间。比如每轮求概率最大的框时，可以先排好序，或者用优先队列，这样均摊下来每次获取概率最大的框的复杂度是<code>O(logn)</code>。但是后面判断重复的框一定有一个<code>O(n)</code>的计算，这部分的优化并不显著。大家有余力可以参考成熟的CV项目里NMS是怎么高效用C++实现的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/07/26/DLS-note-12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/26/DLS-note-12/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》笔记（十二）：目标检测与语义分割简介 (YOLO, U-Net)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-07-26 21:00:00" itemprop="dateCreated datePublished" datetime="2022-07-26T21:00:00+08:00">2022-07-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这节课中，我们要学习计算机视觉中最重要的任务之一——目标检测任务。我们会先认识目标定位和关键点检测这两个比较简单的任务，慢慢过度到目标检测任务。之后，我们会详细学习目标检测的经典算法YOLO。最后，我们会稍微认识一下语义分割任务及适用于此问题的U-Net架构。</p>
-<h1 id="课堂笔记"><a href="#课堂笔记" class="headerlink" title="课堂笔记"></a>课堂笔记</h1><h2 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h2><p>在<strong>图像分类问题</strong>中，给定一幅图片，我们只要说出图片里的物体是什么就行了。在这堂课要讨论的任务中，我们还要多做一件事——定位。我们要先用边框圈出图中的物体，再说出框里的物体是什么。这叫做<strong>带定位(localization)的分类问题</strong>。更进一步，如果我们不再是只讨论一个物体，而是要把图片中所有物体都框出来，并标出每一个物体的类别，这就是<strong>目标检测</strong>问题，</p>
-<p><img src="/2022/07/26/DLS-note-12/1.jpg" alt></p>
-<p>我们对分类任务的神经网络结构已经很熟悉了。那么，带定位的分类该使用怎样的网络呢？实际上，一个边框可以用边框中心和边框宽高这四个量表示。除了softmax出来的分类结果外，我们只要让网络再多输出四个数就行了。如下图所示：</p>
-<p><img src="/2022/07/26/DLS-note-12/2.jpg" alt></p>
-<p>这里，要统一一下对于边框的定义。我们用$b_x, b_y$表示边框的中心坐标，$b_h, b_w$表示边框的高、宽。</p>
-<p>来看一下标签$y$的具体写法。假设一共有四类物体：行人、汽车、摩托车、背景（没有物体）。那么，标签$y$应该用$y=[p_c, b_x, b_y, b_h, b_w, c_1, c_2, c_3]^T$表示。其中，$p_c$表示图中有没有物体。若$p_c=1$，则$c_1, c_2, c_3$分别表示物体属于除背景外的哪一类；若$p_c=0$，则其他值无意义。</p>
-<p>这样，在算误差时，也需要分类讨论。若$p_c=1$，则算估计值与标签8个分量两两之间的均方误差；若$p_c=0$，只算$p_c$的均方误差，不用管其他量。</p>
-<p><img src="/2022/07/26/DLS-note-12/3.jpg" alt></p>
-<p>只要更换一下神经网络的输出格式，我们就能得到一个完成目标定位问题的网络。</p>
-<h2 id="关键点检测"><a href="#关键点检测" class="headerlink" title="关键点检测"></a>关键点检测</h2><p>我们刚刚学了用2个点表示一个边框。其实，拓展一下边框检测，就是一个关键点（英文有时叫做”landmark”，是“地标”的意思）检测问题。</p>
-<p>比如，在人脸关键点检测中，我们可以定义一堆关键点，分别表示眼睛、鼻子、嘴巴……的位置。我们还是让网络先输出一个数，表示图中有没有人脸；再输出2n个数，表示n个人脸关键点。这样，网络就能学习怎么标出人脸关键点了。</p>
-<p><img src="/2022/07/26/DLS-note-12/4.jpg" alt></p>
-<p>很多应用都基于人脸关键点检测技术。比如我们检测到了眼睛周围的关键点后，就可以给人“戴上”墨镜。</p>
-<p>总之，通过这一节的学习，我们要知道，目标定位中输出2个坐标只是关键点检测的一个特例。只要训练数据按照某种规律标出了关键点，不管这些关键点是表示一个框，还是人脸上各器官的位置，网络都能学习这种规律。</p>
-<h2 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a>目标检测</h2><p>有了之前的知识储备，现在我们来正式学习目标检测。目标检测可以用一种叫做“滑动窗口”的技术实现。</p>
-<p>假设我们要构建一个汽车的目标检测系统。我们可以先构造一个汽车分类数据集——数据集的x是一些等大的图片，y表示图片里是不是有汽车。如果图片里有汽车，汽车应该占据图片的大部分位置。</p>
-<p><img src="/2022/07/26/DLS-note-12/5.jpg" alt></p>
-<p>通过学习，网络就能够判断一个框里的物体是不是汽车了。这样，我们可以用一个边框框出图片的一部分，裁剪下来，让网络看看图片的这一部分是不是汽车。只要我们尝试的次数够多，总能找出图中的汽车。</p>
-<p><img src="/2022/07/26/DLS-note-12/6.jpg" alt></p>
-<p>在遍历边框时，我们是通过“滑动”的方法：遍历边框的大小，选择好大小后把框放到左上角，先往右移，再往下移。所以这种方法叫做“滑动窗口”。</p>
-<p>滑动窗口算法有一个缺点：如果我们移动窗口的步伐过小，则运行分类器的次数会很多；如果移动窗口的步伐过大，则算法的精度会受到影响。在深度学习时代之前，分类器都是一些简单的线性函数，能够快速算完，多遍历一些滑动窗口没有问题。而使用了深度CNN后，遍历滑动窗口的代价就很大了。</p>
-<p>幸好，滑动窗口也可以通过卷积来生成，而不一定要遍历出来。让我们看下去。</p>
-<h2 id="基于卷积的滑动窗口"><a href="#基于卷积的滑动窗口" class="headerlink" title="基于卷积的滑动窗口"></a>基于卷积的滑动窗口</h2><p>滑动窗口其实可以通过执行巧妙的卷积来生成。在那之前，我们先学一门前置技能：怎么把全连接层变成卷积层。</p>
-<p>前两周学习CNN时，我们学过，卷积结束后，卷积的输出会被喂入全连接层中。实际上，我们可以用卷积来等价实现全连接层。比如下图中，一个$5 \times 5 \times 16$的体积块想变成一个长度为400的向量，可以通过执行400个$5 \times 5$的卷积来实现。</p>
-<p><img src="/2022/07/26/DLS-note-12/7.jpg" alt></p>
-<p>知道了这一点后，我们就可以利用卷积来快速实现滑动窗口了。</p>
-<p>假设我们按照上一节的算法，先实现了对$14 \times 14$的小图片进行分类的分类器。之后，我们输入了一张$16 \times 16$的大图片。我们遍历滑动窗口，令步幅为2。这样，理论上，有4个合法的滑动窗口，应该执行4次分类器的运算，如下图所示：</p>
-<p><img src="/2022/07/26/DLS-note-12/8-2.jpg" alt></p>
-<p>可是，仔细一想，在执行4次分类器的过程中，有很多重复的运算。比如，对于4个滑动窗口中间那共有的$12 \times 12$个像素，它们的卷积结果被算了4次。理想情况下，只需要对它们做一次卷积就行了。这该怎么优化呢？</p>
-<p>其实，很简单，我们可以利用卷积本身的特性来优化。卷积层只定义了卷积核，而没有规定输入图像的大小。我们可以拿出之前在$14 \times 14$的图像上训练好的卷积层，把它们用在$16 \times 16$的图片的卷积上。经过相同的网络，$16 \times 16$的图片会生成一个$2 \times 2$大小的分类结果，而不是$1 \times 1$的。这$2 \times 2$个分类结果，恰好就是那4个滑动窗口的分类结果。通过这样巧妙地利用卷积操作，我们规避了遍历滑动窗口带来的重复计算。</p>
-<p><img src="/2022/07/26/DLS-note-12/8.jpg" alt></p>
-<p>不过，这个方法还是有一些缺陷的。在刚才那个例子中，$16 \times 16$的图片其实可以放下9个$14 \times 14$大小的边框。但是，由于分类网络中max pool的存在，我们只能生成4个分类结果，也就是步幅为2的滑动窗口的分类结果。同时，最准确的检测框也不一定是正方形的，而可能是长方形的。为了让生成的滑动窗口更准确一些，我们要用到其他方法。</p>
-<h2 id="预测边框"><a href="#预测边框" class="headerlink" title="预测边框"></a>预测边框</h2><p>在这一节，我们要使用YOLO(You Only Look Once)算法解决上一节中碰到的问题。还记得这周课开头学的目标定位问题吗？我们可以把滑动窗口和目标定位结合一下。</p>
-<p>给定一幅图像，我们可以把图像分成$3 \times 3$个格子。训练模型前，我们要对训练数据做预处理。根据每个训练样本中物体的中心点所在的格子，我们把物体分配到每一个格子中。也就是说，不管一个物体的边框跨越了几个格子，它的中心点在哪，它就属于哪个格子。比如对于下图的训练样本，右边那辆车就属于橙色的格子。之后，我们给每个格子标上标签$y$。这个标签$y$就是目标定位中那个表示图片中是否有物体、物体的边框、物体的类别的标签向量。对于这个$3 \times 3$的格子，有9个标签向量，整个标签张量的形状是$3 \times 3 \times 8$。</p>
-<p><img src="/2022/07/26/DLS-note-12/9.jpg" alt></p>
-<p>这样，每一幅图像的输出和标签一样，也是一个$3 \times 3 \times 8$的张量了。输入一幅图片后，我们利用上一节学的卷积滑动窗口，同时预测出每个格子里的物体边框。</p>
-<p>另外，这里要详细讨论一下$b_x, b_y, b_h, b_w$的表示方法。由于我们只关心框相对于格子的位置，因此我们可以把规定一个格子的边长为1。这样，就满足$0 \leq b_x, b_y \leq 1$了。不过，由于物体的边框可以超出小框，$b_h, b_w &gt; 1$是很有可能的。</p>
-<p>看到这，大家可能会有一些疑问：如果一个格子里有多个物体呢？的确，这个算法无法输出一个格子里的多个物体。一种解决方法是，我们可以把格子分得更细一点，比如$19 \times 19$个格子。这样，可以被检测到物体会多一些。但是，增加格子数又会引入一个新的问题——多个格子检测到了同一个物体。下面的两节里我们会尝试解决这个新的问题。</p>
-<blockquote>
-<p>吴恩达老师说，YOLO这篇论文很难读懂，他和其他几个资深研究者都花了很大的功夫才读懂这篇论文。</p>
-</blockquote>
-<h2 id="IoU-交并比"><a href="#IoU-交并比" class="headerlink" title="IoU(交并比)"></a>IoU(交并比)</h2><p>在目标检测中，有一个微妙的问题：框出一个物体的边框有无数个，想精确框出标签的边框是不可能的。怎么判定一个输出结果和标签里的边框“差不多”呢？这就要用到<strong>IoU(Intersection over Union，交并比)</strong> 这个概念。</p>
-<p>IoU，顾名思义，二者的交集比上二者的并集，很好理解。比如下图中，网络的输出是紫框，真值是红框。二者的并集是绿色区域，交集是橙色区域。则IoU就是橙色比绿色。</p>
-<p><img src="/2022/07/26/DLS-note-12/10.jpg" alt></p>
-<p>依照惯例，如果IoU$\geq 0.5$，我们就认为网络的输出是正确的。当然，想更严格一点，0.6,0.7也是可以的。</p>
-<blockquote>
-<p>IOU 也是 “I owe you(我欠了你的钱)”的缩写，哈哈哈。</p>
-</blockquote>
-<h2 id="NMS-非极大值抑制"><a href="#NMS-非极大值抑制" class="headerlink" title="NMS(非极大值抑制)"></a>NMS(非极大值抑制)</h2><p>假设在YOLO中，我们用$19 \times 19$个小格来检测物体。可是，由于小格子太多了，算法得到了多个重复的检测框（以及每个框中有物体的概率）。这该怎么办呢？</p>
-<p><img src="/2022/07/26/DLS-note-12/11.jpg" alt></p>
-<p>NMS(Non-Maximum Suppresion，非极大值抑制)就是解决这个问题的算法。这个算法的名字听起来很奇怪，但大家理解了这个算法的实现后，就知道这个“抑制”是什么意思了。</p>
-<blockquote>
-<p>讲起算法我就不困了。我会抛弃视频中的讲解思路，用我自己的逻辑讲一遍。讲算法，千万不能一上来就讲算法的步骤，一定要先讲清楚算法的思路。</p>
-</blockquote>
-<p>在学NMS之前，我们先动动脑，看看在去掉重复的框时，我们期望得到怎样的去重输出结果。</p>
-<p>首先，既然是去重，那么就不能出现两个框过度重合的情况。其次，我们希望留下来的框的预测概率尽可能大。</p>
-<p>在这两个要求下，我们来看看上面那幅图的输出应该是怎样的。<br>我们一眼就能看出，对于左边那辆车，我们应该保留0.8的框；对于右边那辆车，我们应该保留0.9的框。</p>
-<p>为什么我们能“一眼看出”呢？这是因为左边两个框、右边三个框恰好都分别表示了一辆车。我们能够快速地把这些框分成两类。但是，在情况比较复杂时，我们就难以快速找出最好的框了。比如下面这种情况中，两辆车很近，有些框甚至同时标出了两辆车：</p>
-<p><img src="/2022/07/26/DLS-note-12/11-2.jpg" alt></p>
-<p>为了处理这种复杂的情况，我们必须想出一种万全的算法，以筛选出那些概率比较大的框。</p>
-<p>稍微思考一下，其实这样的算法非常简单：找出最大的框，去掉所有和它过度重合的框；在剩下的框中，找出最大的框，去掉所有和它过度重合的框；……。一直重复直到没有未处理的框为止。这就是NMS算法。</p>
-<p>还是让我们来看看刚刚那个例子。使用NMS时，我们会先找到0.9这个框，“抑制”掉右边0.6和0.7的框。在剩下的框中，最大的是0.8这个框，它会“抑制”掉左边那个0.7的框。</p>
-<p><img src="/2022/07/26/DLS-note-12/11-3.jpg" alt></p>
-<p>接下来，让我们来严格描述一下这个算法。假设我们有$19 \times 19=361$个输出结果，每个输出结果是一个长度为5的向量$[p_c, b_x, b_y, b_h, b_w]$，分别表示有物体的概率、边框的中心和高宽（我们先不管检测多个物体的情况。事实上，当推广到多个物体时，只要往这个输出结果里多加几个概率就行了）。我们要用NMS输出应该保留的检测结果。“过度重合”，就是两个框的IoU大于0.5。</p>
-<p>首先，先做一步初筛，扔掉概率$p_c$小于0.6的结果。</p>
-<p>之后，对于没有遍历的框，重复执行：找出概率最大的框，把它加入输出结果；去掉所有和它IoU大于0.5的框。</p>
-<p>这个过程用伪代码表示如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Input and preprocessing</span></span><br><span class="line"><span class="built_in">input</span> predicts of size [<span class="number">19</span>, <span class="number">19</span>, <span class="number">5</span>]</span><br><span class="line">resize predicts to [<span class="number">361</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter predicts with low probability</span></span><br><span class="line">filtered_predicts = []</span><br><span class="line"><span class="keyword">for</span> predict <span class="keyword">in</span> predicts:</span><br><span class="line">    <span class="comment"># drop p_c &lt; 0.6</span></span><br><span class="line">    <span class="keyword">if</span> predict[<span class="number">0</span>] &gt;= <span class="number">0.6</span>:  </span><br><span class="line">        filtered_predicts.append(predict)</span><br><span class="line"></span><br><span class="line"><span class="comment"># NMS</span></span><br><span class="line">n_remainder  = <span class="built_in">len</span>(filtered_predicts)</span><br><span class="line">vis = [<span class="literal">False</span>] * n_remainder <span class="comment"># False for unvisited item</span></span><br><span class="line">output_predicts = []</span><br><span class="line"><span class="keyword">while</span> n_remainder &gt; <span class="number">0</span>:</span><br><span class="line">    max_pro = -<span class="number">1</span></span><br><span class="line">    max_index = <span class="number">0</span></span><br><span class="line">    <span class="comment"># Find argmax</span></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(filtered_predicts):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> vis[i]:</span><br><span class="line">            <span class="keyword">if</span> max_pro &lt; p[<span class="number">0</span>]:</span><br><span class="line">                max_index = i</span><br><span class="line">                max_pro = p[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Append output</span></span><br><span class="line">    max_p = filtered_predicts[max_index]</span><br><span class="line">    output_predicts.append(max_p)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Suppress</span></span><br><span class="line">    <span class="keyword">for</span> i, p <span class="keyword">in</span> <span class="built_in">enumerate</span>(filtered_predicts):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> vis[i] <span class="keyword">and</span> i != max_index:</span><br><span class="line">            <span class="keyword">if</span> get_IoU(p[<span class="number">1</span>:<span class="number">5</span>], max_p[<span class="number">1</span>:<span class="number">5</span>]) &gt; <span class="number">0.5</span>:</span><br><span class="line">                vis[i] = <span class="literal">True</span></span><br><span class="line">                n_remainder -= <span class="number">1</span></span><br><span class="line">    vis[max_index] = <span class="literal">True</span></span><br><span class="line">    n_remainder -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>假设进NMS的框有$N$个。算法里求当前最大框那一步可以用优先队列来优化，这一步复杂度是$O(logN)$。但是“抑制”那一步必须要遍历一遍剩下的框，还是有一个$O(N)$复杂度（我暂时想不出朴素的低复杂度的算法）。因此，不用优先队列优化也差不多。算上外层的循环，整个算法的复杂度是$O(N^2)$。在实际的应用中，送入NMS的结果没那么多，不会超过10000个。而且，随着框被不断过滤，外层循环的次数会减少不少。这个算法的性能瓶颈不在输入数$N$上，而在于求IoU实现的细节上。</p>
-</blockquote>
-<h2 id="锚框（Anchor-Boxes"><a href="#锚框（Anchor-Boxes" class="headerlink" title="锚框（Anchor Boxes)"></a>锚框（Anchor Boxes)</h2><p>为了让一个格子能够检测到多个物体，YOLO论文还提出了一种叫做锚框(Anchor Boxes)的技术。</p>
-<p>假设一个格子里同时包含了两个物体：一个“竖着”的人和一个“横着”的车。那么，我们可以以这个格子的中心点为“锚”，画一个竖的框和横的框，让每个格子可以检测到两个物体。这样，人和车都能被检测了。</p>
-<p><img src="/2022/07/26/DLS-note-12/12.jpg" alt></p>
-<p>严谨地描述，锚框技术是这样做改进的：</p>
-<ul>
-<li>之前，每一个格子只能包含<strong>一个</strong>样本。训练数据中每一个标签框会被分配到<strong>它中点所在</strong>的<strong>格子</strong>。</li>
-<li>现在，每一个格子能包含<strong>多个</strong>样本。每个格子都会预定义几个不同形状的锚框，有几个锚框，就最多能检测到几个物体。训练数据的每一个标签框会被分配到<strong>和它交并比最大的</strong>的<strong>锚框</strong>。</li>
-</ul>
-<p>注意，之前的最小单元是格子，现在是锚框，所以说现在每个样本被分配到锚框上而不是格子上。可以看下面这两个样本的例子，第一个例子是两个物体都检测到了，第二个是只有锚框2里有物体。和之前一样，如果有某个锚框里没有物体，则除了$p_c$外全填问号即可。</p>
-<p><img src="/2022/07/26/DLS-note-12/13.jpg" alt></p>
-<p>锚框技术实际上只是对训练数据做了一个约束，改变了训练数据的格式。检测算法本身没有什么改变。</p>
-<h2 id="YOLO-算法总结"><a href="#YOLO-算法总结" class="headerlink" title="YOLO 算法总结"></a>YOLO 算法总结</h2><p>让我们把前几节的内容总结一下，看一下YOLO算法的全貌。</p>
-<p>在训练前，我们要对数据做预处理。首先，我们要指定以下超参数：图片切分成多大的格子、每个格子里有多少个锚框。之后，根据这些信息，我们可以得到每一个训练标签张量的形状。比如$3 \times 3 \times 2 \times 8$的一个训练标签，表示图片被切成了$3 \times 3$的格子，每个格子有两个锚框。这是一个三分类问题，对于每一个检测出来的物体，都可以用一个长度为$8$的向量表示。其中，$p_c$表示这个锚框里有没有物体, $(b_x, b_y), (b_h, b_w)$分别表示中心点坐标、框的高宽，$c_1, c_2, c_3$分别表示是否为该类物体。</p>
-<p>有了预处理好的训练数据，就可以训练一个CNN了。</p>
-<p><img src="/2022/07/26/DLS-note-12/14.jpg" alt></p>
-<p>在网络给出了输出后，由于输出的框往往多于标签中的框，还要对输出结果进行筛选。筛选的过程如前文所述，先去掉概率过小的框，再分别对每一类物体的框做NMS。</p>
-<blockquote>
-<p>课堂上没有介绍loss。loss的组成比较复杂，建议阅读原论文。</p>
-</blockquote>
-<h2 id="区域提案"><a href="#区域提案" class="headerlink" title="区域提案"></a>区域提案</h2><p>YOLO算法是在一堆固定的框里找物体。实际上，我们还可以用神经网络来找出候选框，再在这些框里详细检测。这种技术就叫做区域提案(region proposal)，相关的网络叫做R-CNN(Region with CNN)。</p>
-<p>R-CNN 系列网络有多个改进版本：</p>
-<ul>
-<li>R-CNN: 使用区域提案，但是每次只对一个区域里的物体做分类。</li>
-<li>Fast R-CNN: 使用区域提案，并使用基于卷积的滑动窗口加速各区域里物体的分类。</li>
-<li>Faster R-CNN: 前两个算法都是用传统方法提案区域，Faster R-CNN用CNN来提案区域，进一步令算法加速。</li>
-</ul>
-<p>吴恩达老师认为，虽然区域提案的方法很酷，但把目标检测分两步来完成还是太麻烦了，一步到位的YOLO系列算法已经挺方便了。</p>
-<h2 id="基于U-Net的语义分割"><a href="#基于U-Net的语义分割" class="headerlink" title="基于U-Net的语义分割"></a>基于U-Net的语义分割</h2><blockquote>
-<p>最早这门课是没有这一节的，估计U-Net的架构太常用了，吴恩达老师把基于U-Net的语义分割加入了这周的课中。</p>
-</blockquote>
-<p>语义分割也是应用非常广泛的一项CV任务。相较于只把物体框出来的目标检测，语义分割会把每一类物体的每个像素都精确地标出来。如下图的示例所示，输入一张图片，语义分割会把每一类物体准确地用同一种颜色表示。</p>
-<p><img src="/2022/07/26/DLS-note-12/15.jpg" alt></p>
-<p>具体来说，语义分割的输出是一个单通道图片。图片的数字表示此处像素的类别。</p>
-<p><img src="/2022/07/26/DLS-note-12/16.jpg" alt></p>
-<p>在分类模型中，图像会越卷越小，最后压平放进全连接层并输出多个类别的分类概率。而在语义分割模型中，由于模型的输出也是一幅图像，在输入图像被卷小了以后，应该还有一个放大的过程。</p>
-<p><img src="/2022/07/26/DLS-note-12/17.jpg" alt></p>
-<p>目前，我们还没有学过带学习参数的可以放大图像分辨率的结构。下一节介绍的反卷积能够完成这件事。</p>
-<h2 id="反卷积"><a href="#反卷积" class="headerlink" title="反卷积"></a>反卷积</h2><p><img src="/2022/07/26/DLS-note-12/1.gif" alt></p>
-<p>反卷积和卷积的输入输出大小彻底相反。让我们看看反卷积的形状是怎么计算的。</p>
-<p><img src="/2022/07/26/DLS-note-12/18.jpg" alt></p>
-<p>如上图所示，反卷积也有卷积核大小、步幅、填充这些参数。不过这些参数都是在输出图像上做的。也就是说，我们会在输出图像上做填充，并且每次在输出图像上一步一步移动。我们把正卷积的输出大小计算公式套到反卷积上的输出上，就能算出反卷积的输入的大小。</p>
-<p>在卷积时，我们是把卷积核与图像对应位置的数字乘起来，再求和，算出一个输出值；反卷积则是反了过来，把一个输入值乘到卷积核的每个位置上，再把乘法结果放再输出的对应位置上。一趟反卷积计算如下图所示：</p>
-<p><img src="/2022/07/26/DLS-note-12/19.jpg" alt></p>
-<p>这里我们只需要知道反卷积可以做上采样就行了，不需要纠结底层实现细节。</p>
-<blockquote>
-<p>本课对反卷积的介绍甚少。实际上，反卷积可以通过正卷积来实现。我扫了一圈没看到讲解得比较好的相关文章，有兴趣的可以自行查找资料。</p>
-</blockquote>
-<h2 id="U-Net-架构"><a href="#U-Net-架构" class="headerlink" title="U-Net 架构"></a>U-Net 架构</h2><p>学完了反卷积，可以来看U-Net的结构了。</p>
-<p>U-Net除了对图像使用了先缩小再放大的卷积外，还使用了一种跳连（不是ResNet中残差连接的跳连，而是把两份输入拼接在了一起）。这样，在反卷积层中，不仅有来自上一层的输入，还有来自前面相同大小的正卷积的结果。这样做的好处是，后半部分的网络既能获得前一个卷积的抽象、高级（比如类别）的输入，又能获得前半部分网络中具体，低级的特征（比如形状）。这样，后面的层能够更好地生成输出。</p>
-<p><img src="/2022/07/26/DLS-note-12/20.jpg" alt></p>
-<p>U-Net具体的结构如下：</p>
-<p><img src="/2022/07/26/DLS-note-12/21.jpg" alt></p>
-<p>这幅图中，做运算的图像张量被表示成了一个二维矩形，矩形的高度是图像的宽高，矩形的宽度是通道数。U-Net的前半部分和常见的CNN一样，缩小图像大小，增大图像通道数。而在后半部分中，每次上采样时，一半的通道来自上一层的输出，另一半的通道来自于网络前半部分。</p>
-<p>从图中能看出，U-Net的结构图是一个“U”型，因此它才被叫做U-Net。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在这篇文章中，我们主要学习了以下内容：</p>
-<ul>
-<li>任务定义与输出格式<ul>
-<li>目标定位</li>
-<li>关键点检测</li>
-<li>目标检测</li>
-<li>语义分割</li>
-</ul>
-</li>
-<li>YOLO<ul>
-<li>用卷积实现全连接</li>
-<li>用卷积实现滑动窗口</li>
-<li>锚框</li>
-<li>IoU</li>
-<li>NMS</li>
-<li>YOLO算法</li>
-</ul>
-</li>
-<li>U-Net<ul>
-<li>反卷积</li>
-<li>U-Net架构</li>
-</ul>
-</li>
-</ul>
-<p>这周的代码实战中，我会详细讲解NMS的实现。时间允许的话，我还会展示一下如何在COCO上训练YOLO。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2142,20 +2205,20 @@ J^{[l]}_{style}(S, G) = ||G^{[l]}(S)- G^{[l]}(G)||_F^2</script><p>这是一层�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
