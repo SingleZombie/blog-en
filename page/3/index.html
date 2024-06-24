@@ -162,6 +162,144 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/12/19/20221213-toefl-listening/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhou Yifan">
+      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="周弈帆的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/12/19/20221213-toefl-listening/" class="post-title-link" itemprop="url">用深度学习的思想准备托福听力</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-12-19 19:28:02" itemprop="dateCreated datePublished" datetime="2022-12-19T19:28:02+08:00">2022-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%9B%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">创作</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%9B%E4%BD%9C/%E6%96%B9%E6%B3%95%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">方法论</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近，我在考托福。第一次考完，我惊讶地发现我的听力只有19分（满分30）。我两年前考的成绩都不止这么一点。这两年我也一直在接触英语，英语水平不可能退步。如果托福真的是一个合理的，能够反映考生真实水平的考试，那我不可能考出差别这么大的分数。因此，我认为，考出这么差的分数，不是我的问题，是托福考试的问题。托福考试过分强调应试技巧，而无法稳定地反映我的水平。为了证明我的观点，我不服气地宣誓道：「我要用一周时间，学习听力应试技巧，考出一个较高的听力分数。」一周后，我又考了一次托福。结果很喜人，我的听力考了27分。</p>
+<p>在这几天里，我总结了网上的托福听力准备方法，用一套规范的算法流程把方法表达了出来。我将分享一下这一套和深度学习算法形式相似的托福听力准备方法。我会从头把方法的背景、解决方法讲清楚。哪怕你不需要准备托福考试，或者说对深度学习没那么了解，也可以把这篇文章当故事读一遍。</p>
+<h2 id="托福听力规则"><a href="#托福听力规则" class="headerlink" title="托福听力规则"></a>托福听力规则</h2><p>托福听力主要涉及两类材料：对话与讲座。对话通常发生在学生与教授或学校工作人员之间，描述了校园中常见的一些讨论、询问。讲座则模拟了真实的课堂教学，讲师会对某一专业话题做简要的描述，偶尔会穿插几句学生的提问。讲座涉及的知识面很广，常常会谈及艺术、历史、生物学、地理学、心理学等领域。不过，这些讲座不会讲特别深入的内容，也不会讲过于偏离生活的概念，保证多数人都能听懂讲座的内容。</p>
+<p>一场无加试的托福听力由两轮组成。每轮会听1段对话和1~2段讲座。对话有5题，讲座有6题。</p>
+<p>托福听力的答题形式和国内多数英语考试不同。每段听力中，考生只有听完了听力材料后，才能看到题目。并且，只有确认提交了前一题才能答下一题。当然，可以在听的同时记笔记。</p>
+<p>题目全是选择题。每段听力材料给3~4分钟，基本不会有时间不够的情况出现。</p>
+<p>托福这种不允许提前看题的考试模式把考生的记忆力也变成了考察目标之一，为考试增添了不合理的难度。后续算法的诸多改进都是为了解决「记不住」这一问题。</p>
+<h2 id="托福应试流程"><a href="#托福应试流程" class="headerlink" title="托福应试流程"></a>托福应试流程</h2><p>大多数人在初次接触托福听力时都会采用这一套非常直观的算法：</p>
+<p><img src="/2022/12/19/20221213-toefl-listening/1.jpg" alt></p>
+<p>但是，这套算法有一个问题：无论我们的听力水平多么优秀，都不可能把材料原原本本地记忆下来。一旦有题目考察了一个我们没记住的地方，这道题就答不上来了。</p>
+<p>因此，多数托福教程会给出一套改进的算法。这套算法把「听材料」细分成了两部分。第一部分是「语音转文字」，这是我们大脑自己训练出来的功能。理解了听力材料的内容后，我们根据一些先验知识（知道听力材料的哪些部分容易出考题），对部分内容做重点记忆。重点记忆的方法可以是竖起耳朵集中注意力，也可以是用笔记记录关键词。最后，根据重点记忆的内容和大脑中残留的其他记忆，回答问题。</p>
+<p><img src="/2022/12/19/20221213-toefl-listening/2.jpg" alt></p>
+<p>这套算法出色地把托福听力分成了三个独立的子任务：语音识别、记忆、阅读理解。这三个子任务恰好对应了三种要考察的能力：听力能力、记忆能力、理解能力。把这三种能力拆开来讨论是很有必要的。如果你没有意识到自己哪种能力相对相差，盲目地做题，尝试同时提升这三项能力，那你的学习是十分低效的。后文我们将基于这一套算法讨论如何分别提升这三种能力。</p>
+<h2 id="错因分析"><a href="#错因分析" class="headerlink" title="错因分析"></a>错因分析</h2><p>在正式开始学习之前，我们一定要诊断出自己哪方面的能力有所缺失，进而对症下药，从最差的一项开始练习。为了找出做听力的问题，我们要进行错因分析。</p>
+<p>为了考察听力、记忆、理解这三种能力，我们固然可以用做托福听力题以外的方式去分别测试这三种能力。但是，使用其他测试方式的话，我们不能保证我们测试出来的能力恰好是托福考试要求的能力。比如，你可以拿托福阅读来测试自己的理解能力。但是，由于托福阅读的理解难度比听力的理解难度要大，哪怕你阅读做得不好，也不能说明你听力就理解不好。因此，做托福听力题这件事本身就是最好的测试方式。</p>
+<p>可是，正如前文所述，做托福听力会同时考察三种能力。该怎么分别考察这三种能力呢？其实，使用一些巧妙的控制变量法，就可以把这些能力区分出来了。我把网上提出的各种错因分析方法加以总结融合，提出了一种「反掩码错因分析」法。</p>
+<p>什么是「反掩码」呢？众所周知，掩码 (mask)，指的是计算机中用于屏蔽其他数据的一种数据，有时也泛指屏蔽数据这一过程。那么，我提出的「反掩码」，指的就是把原本不透明的数据变得透明。</p>
+<p>在托福听力中，听力材料是不透明的。你需要通过自己的听力能力把听力材料变成可理解的文字。如果直接把听力材料变成了阅读材料，你就可以直接根据听力原文答题。这样，做题考察的就只有理解能力，而不再考察听力和记忆能力了。</p>
+<p>因此，为了考察自己的理解能力。可以<strong>先听一遍材料，做题，不看答案，读一遍原文，再做题</strong>。第一遍做题是正常的练习，第二次做题是控制变量。如果第二次做题还是错了很多，就说明理解能力不行；如果第一遍做题相较第二遍错了很多，就说明听力和记忆存在问题。</p>
+<p>同理，为了进一步区分听力和记忆的问题，我们可以调整反掩码，使用更精妙的控制变量方式：<strong>先听一遍材料，做题，不看答案，再听一遍材料，再做题</strong>。在第二次听力的时候，你已经知道题目了，不存在记不住的问题。如果第二遍答题还是错了很多，就说明听力和理解有问题；如果第一遍相较第二遍错了很多，就说明记忆有问题。当然，如果你的理解已经基本没问题了，在这一步就可以排除掉理解能力的影响，直接区分听力问题和记忆问题。</p>
+<p>综上，「反掩码错因分析」的流程如下：</p>
+<ol>
+<li>找出几套听力题。先听一遍材料，做题，不看答案，读一遍原文，再做题。主要分析自己的理解是否存在问题。</li>
+<li>理解能力最容易提升。先想办法提升理解能力。</li>
+<li>再找出几套听力题。先听一遍材料，做题，不看答案，再听一遍材料，再做题。区分听力问题和记忆问题。</li>
+<li>根据诊断结果，先后提升听力问题和记忆问题。</li>
+</ol>
+<h2 id="能力提升"><a href="#能力提升" class="headerlink" title="能力提升"></a>能力提升</h2><p>诊断出了问题后。就应该考虑如何设计子任务分别训练这三种能力了。</p>
+<h3 id="听力能力"><a href="#听力能力" class="headerlink" title="听力能力"></a>听力能力</h3><p>使用听力能力时，输入是英语音频，输出是大脑中可理解的英文文字。这一过程完全由大脑的本能决定，几乎不需要主观思考。因此，我们可以设计一个非常直接的子任务：使用任意一种英语音频，一边听，一边「输出」自己的听到的文字。听完音频后，比较自己的输出和原文，看看自己哪些地方没听懂。不断反思，让大脑自己提升。</p>
+<p>网上的很多托福听力攻略会叫你去「精听」，「听写」，或者使用什么「影子跟读法」。其实，所有这些方法都只是为了提升听力水平。他们的目的都是构造一个输入音频输出文字的训练任务。只是「输出」的方式不同而已。在我看来，输出文字的方式，可以是复述，可以是听写，甚至不用讲出来，在大脑里有个印象就行。所有这些具体的方法里，我不推荐听写法，因为你大量的学习时间都会浪费在写单词上。听完一句话后，复述这句话即可。至于是一句话反复听，还是听完一整段材料，这些形式都不重要。保证你在强迫自己不断输出听到的内容即可。</p>
+<p>另外，与其纠结听力练习的具体方法，不如去花一点时间准备恰当的听力材料。对于有高考英语听力水平的人，直接拿托福官方题目（TPO）的听力材料练就可以，类似于TED的知识分享、新闻播报也可以。看电视剧的提升可能没那么快，因为电视剧的语速较快，且通常只有日常用语，与托福听力材料的内容不符。我个人推荐去上自己专业的英文公开课，比如大名鼎鼎的「MIT线性代数」。这些公开课语速适中，用语朴素，比较容易听懂，形式与托福听力类似，还可以顺便学一下专业知识。</p>
+<h3 id="记忆能力"><a href="#记忆能力" class="headerlink" title="记忆能力"></a>记忆能力</h3><p>托福听力考试的记忆分两类：第一类是被动记忆，也就是你听完整段材料后自然残留在大脑里的记忆；另一类是主动记忆，是你根据以往的答题经验，对材料中你认为的重点段落的记忆（或者笔记）。被动记忆我们没法操控，只能祈求考试当天头脑清醒一点。因此，练习记忆时，主要是练习托福听力应试技巧，提高对出题点的灵敏度，并且做到在不影响听力的情况下记下笔记。</p>
+<p>在培训班或者网上，都能找到大量的托福听力技巧。这些技巧告诉你什么地方容易出题，听到哪些词的时候做笔记之类的。但是，我觉得背技巧的效率是很低的。最好的方式是，自己去尝试发现技巧，有了一定的经验后再去和别人的技巧对比。</p>
+<p>那么，怎么去学会洞察听力材料的出题点呢？有两个方面的事要做。一方面，做完了题目后，总结归纳常见题型，并且找题目对应的原文，总结规律；另一方面，在听材料时，多做一点笔记，做题时看看哪些笔记用到了，哪些没有。甚至，对于以前练过的材料，可以直接跳过听力，读原文，猜出题点。通过正向和反向的练习，很快就能掌握技巧。</p>
+<p>作为示例，我来分享几个我发现的技巧。</p>
+<ul>
+<li>对话材料90%会问对话发起的原因是什么。注意，这道题不是问整段对话的主题是什么，而是问学生为什么找老师或老师为什么找学生。很可能两个人寒暄了老半天，学生突然支支吾吾地说出自己过来的原因，然后话题一下就飞走了。如果你没有预判出题点，很可能这一句话就被你忽略了。</li>
+<li>讲座有时会先讲理论，再讲示例。题目会问这个示例是揭示哪个理论。如果示例里恰好冒出两个专有名词，你又不知道这里会出题，这个例子就会被你忘掉了。因此，听到示例，赶快把示例里涉及的几个名词记下来。</li>
+<li>讲座中，老师和学生都可能会表达对于某一理论的态度。尤其是结尾，老师很可能冷不丁地说「虽然这个理论很有名，但我并不是很认可」。题目很喜欢考这些态度。你可能辛辛苦苦听了4分钟的材料，想着听力要结束了，可以放松一下了。结果最后这两句很重要的态度就被你忽略了。</li>
+</ul>
+<p>找到材料中的出题点，其实只是比较初级的技巧。如果你想成为高手，还有一种高阶的，更一般的方法。我把它称之为「基于注意力的记忆法」。听力材料，甚至是阅读材料，以及我们生活中各种各样的文字讯息，都是有很多废话的。如果你知道哪些话言之无物，你就可以过滤掉这些话，而集中记忆那些有意义的话。更进一步，如果你知道听力中哪些话一定不会出题，那么这些话也可以过滤掉。你可以只把注意力集中在哪些容易出题的有意义的话上。</p>
+<p>比如说，老师讲「好久不见」、「我们上节课讲了什么什么，但是这节课……」。这些话都可以直接当成废话忽略掉。讲座时提到某个名人出生于何处，几几年在哪上学，这种过于细节的地方也不可能出题，可以忽略掉。</p>
+<p>这种基于注意力的记忆法是很有用的。一来，它可以帮你找到重点和非重点的话，有助于合理安排精力；二来，在知道这句话不重要时，可以放心地去记上一句话的笔记。</p>
+<p>这种记忆法不用刻意训练，多听了几段材料后就能自然地知道听力材料中哪些地方是可以忽略的。</p>
+<h3 id="理解能力"><a href="#理解能力" class="headerlink" title="理解能力"></a>理解能力</h3><p>托福听力中的理解，既包括对材料的理解，也包含对题目和选项的理解。整体来说，托福听力对理解的要求不高。只要清楚地听懂了材料，做题时一般不会因为理解而扣分。</p>
+<p>材料理解比较简单。只有介绍一个复杂的理科概念，或者人物表明态度时过于委婉，才可能导致材料理解错误。只要把托福阅读题练好，听力材料不可能有理解问题。</p>
+<p>理解题目、选项时则可能会碰到一些问题。比如在主旨题中，每一个选项概括主旨都概括得不是很确切，但是其中三个选项有明显错误，一个选项概括得不全。这个时候，得选择那个概括得不全的选项。为了解决这个问题，只需要多做点题，总结记录选项理解错误导致的错题，很快避开常见的一些坑。另外，听力的时间非常充足，碰到模棱两可的选项时可以多读两遍题，千万不要把题目读错。</p>
+<h3 id="综合练习"><a href="#综合练习" class="headerlink" title="综合练习"></a>综合练习</h3><p>TPO 30之前的题都比较简单，可以拿这些题目来反复训练各个子能力。预训练好了大脑中的各个子模块后，就可以直接开始做TPO 30之后的题，进一步综合训练所有能力。</p>
+<p>综合练习时，应按照正常的应试流程，一边听材料，一边做笔记。听完了材料就做题，对答案。有题目做错了，大致把错因归个类，看看是三步中哪一步出了问题。根据错题的情况做进一步的查缺补漏。</p>
+<p>在评估自己的综合练习水平时，除了对答案，还需要反思两件事：材料中的哪几句话没有听清；笔记是否记下了重要信息。</p>
+<p>很多时候，你可能听漏了某几句话，但依然把题目都做对了。但这样并不保险，最好是把每一句话都理解透来，保证听力能力没有问题。</p>
+<p>哪怕你已经熟悉了材料中的出题点，依然需要练习一下记笔记的方法。首先，你要保证记笔记的时机合理，不能影响听力。其次，你要保证重要的信息没有记漏。在不影响听力的前提下，多记笔记是没有坏处的。因此，反思时，只需要评估哪些题目中考察的信息是漏记的，尤其是哪些导致你做题出错的漏记的信息。</p>
+<p>最后，再总结一下各种能力在托福听力中的重要性。理解能力是必须的，也是难度最低的。一定要把理解能力练到满分。听力能力是答题的基础，是托福听力题的主要考察对象。听力能力是最考验基本功，最难在短期提升的，一定要早做准备。记忆能力是把听力能力转换成分数的必备途径，你可能文章听得津津有味，答题时却头脑发昏。记忆能力最好提升，几天内就可以总结套路，掌握记忆关键信息的方法。</p>
+<h2 id="方法总结"><a href="#方法总结" class="headerlink" title="方法总结"></a>方法总结</h2><p>我们来把这篇文章讲过的托福听力准备方法和应试方法整理一下。</p>
+<p>准备考试：</p>
+<ol>
+<li>做几套TPO听力，使用分析错因，找出自己较弱的能力。分析错因时，先听一遍，做题，然后在不看答案的前提下再听一遍或看一遍原文，排除出做题出错的原因。</li>
+<li>从较弱的能力开始，逐个提升提升能力。</li>
+<li>练得差不多了以后，综合练习，查缺补漏，同时练习应试的状态与技巧。</li>
+</ol>
+<p>考试时：</p>
+<ol>
+<li>听语音，在脑中把语音变成文字，判断这句话有没有重要信息。</li>
+<li>如果觉得这句话很重要，就着重记在脑子里，或者用笔记记下。对话可以少记或不记笔记。讲座必须记下关键信息，比如举例、分类讨论、态度之类的。</li>
+<li>根据笔记或印象答题。</li>
+</ol>
+<p>托福听力题本质上还是在考察听力能力。如果你听力的基础不好，还是要把主要的时间花在打基础上。等听力水平差不多了，可以按照这篇文章介绍的内容，学习一些技巧，把听力能力转换成分数。希望大家能够考出一个不错的托福分数。</p>
+<h2 id="附录：托福听力框架图"><a href="#附录：托福听力框架图" class="headerlink" title="附录：托福听力框架图"></a>附录：托福听力框架图</h2><p><img src="/2022/12/19/20221213-toefl-listening/3.jpg" alt></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/12/19/20221126-ArcFace/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,138 +1720,6 @@ D_{KL}(P||Q) = log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2+(\mu_1-\mu_2)^2}{
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/09/21/DLS-note-17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="周弈帆的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/09/21/DLS-note-17/" class="post-title-link" itemprop="url">吴恩达《深度学习专项》笔记（十七）：Transformer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-09-21 17:47:58" itemprop="dateCreated datePublished" datetime="2022-09-21T17:47:58+08:00">2022-09-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E7%9F%A5%E8%AF%86%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">知识记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在最后一课中，我们要学习Transformer模型。Transformer是深度学习发展史上的一次重大突破，它在多个领域中取得了傲人的成绩。Transformer最早用于解决NLP任务，它在CV任务上的潜力也在近几年里被挖掘出来。</p>
-<p>RNN有一个致命的缺陷：计算必须按照时序执行，无法并行。为了改进这一点，Transformer借用了CNN的想法，并行地用注意力机制处理所有输入，抛弃了经典RNN的组件。</p>
-<p>为了理解Transformer，我们将主要学习两个概念：自注意力和多头注意力。</p>
-<ul>
-<li>自注意力：Transformer会为序列里的每一个元素用注意力生成一个新的表示，就和CNN里卷积层能为每个像素生成高维特征向量一样。这个表示和词嵌入不同，词嵌入只能表示一个单词本身的意义，而「自注意力」生成的表示是和句子里其他单词相关的。</li>
-<li>多头注意力：「多头注意力」表示多次利用自注意力机制，生成多个表示，就和CNN里N个卷积核能生成N个特征一样。</li>
-</ul>
-<blockquote>
-<p>这节课是《深度学习专项》新增的课程，内容比较简短。估计是因为Transformer太火了，不得不在教材里加上这些新内容。这节课讲得并不是很清楚，我会用更易懂的逻辑把这节课讲一遍。</p>
-</blockquote>
-<h2 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h2><h3 id="自注意力"><a href="#自注意力" class="headerlink" title="自注意力"></a>自注意力</h3><p>词嵌入只能反映一个词本身的意思，而不能反映一个词在句子中的意思。比如我们要把”简访问非洲“翻译成英文，其中第三个字“问”有很多意思，比如询问、慰问等。自注意力的目的就是为每个词生成一个新的表示$A$，反映它在句子中的意思，比如我们为“问”字生成的表示$A^{&lt; 3 &gt;}$是“访问”这个具体的意思。</p>
-<p>自注意力，顾名思义，就是对句子自己使用注意力机制。我们先回忆一下最初的注意力机制。</p>
-<p><img src="/2022/09/21/DLS-note-17/1.jpg" alt></p>
-<p>在翻译句子时，我们要算每个输出单词对每个输入单词的注意力$\alpha$，以这个注意力为权重，我们可以算所有输入状态$a$的加权平均数$c$（公式1）。这个$c$用于输出每一个单词。</p>
-<p>注意力$\alpha$是权重$e$的归一化结果（如公式2所示，因为是求平均数，得保证权重$\alpha$的和为1），这里的$e^{&lt; t, t’ &gt;}$表示第$t’$个输入和第$t$个输出的相关量。由于$e^{&lt; t, t’ &gt;}$是用于计算$s^{&lt; t &gt;}$的，$s^{&lt; t &gt;}$还获取不了，我们只能用$s^{&lt; t - 1 &gt;}$来表示第$t$个输出。另外，我们用$a^{&lt; t’ &gt;}$表示第$t’$个输入。这样，$e^{&lt; t, t’ &gt;}$就应该由$s^{&lt; t - 1 &gt;}$和$a^{&lt; t’ &gt;}$决定。</p>
-<p>Transformer用一种通用的公式表示了这种注意力的计算。</p>
-<script type="math/tex; mode=display">
-A(q, K, V) = \sum_i\frac{exp(qk^{< i >})}{\Sigma_jexp(qk^{< j >})}v^{< i >}</script><p>我们先不管这里的$q, K, V$是什么意思，暂且把它们当成标记。用它来表示最初的注意力机制的话，$q$就相当于输出状态$s$，$k$就相当于输入状态$a$，二者的相关关系$e$就是两个向量的内积$qk$。$v$也是输入状态$a$。</p>
-<p>现在，我们来看看如何用这个公式计算自注意力。我们将以第三个输入$x ^ {&lt; 3 &gt;}$的注意力表示$A^{&lt; 3 &gt;}$为例。</p>
-<p>假设我们为每个输入单词都已经维护好了3个变量$q^{&lt; t &gt;}, k^{&lt; t &gt;}, v^{&lt; t &gt;}$。q, k, v是英文query, key, value的缩写，这一概念来自于数据库。假如数据库里存了学生的年龄，第一条记录的key-value是<code>(&quot;张三&quot;, 18)</code>，第二条记录的key-value是<code>(&quot;李四&quot;, 19)</code>。现在，有一条query，询问<code>&quot;张三&quot;</code>的年龄。我们把这一条query和所有key比对，发现第一条记录是我们需要的。因此，我们取出第一个value，即<code>18</code>。</p>
-<p>每个单词的$q, k, v$也可以有类似的解释。比如第三个字“问”的query $q^{&lt; 3 &gt;}$是：哪个字和“问”字组词了？当然，在这个句子里，我们人类可以很轻松地知道答案，“问”和“访”组成了“访问”这个词。每个字的key可以认为是字的固有属性，比如是名词还是动词。每个字的value就可以认为是这个字的词嵌入。</p>
-<p><img src="/2022/09/21/DLS-note-17/2.jpg" alt></p>
-<p>让计算机去查询$q^{&lt; 3 &gt;}$的话，我们要用这个query去句子的其他字里查出我们要的答案。和数据库的查询一样，我们也要把这个query和所有字的key进行比对。根据注意力的公式，我们用$q^{&lt; 3 &gt;}$和所有$k$相乘再做softmax，得到注意力权重。再用这个权重乘上每个$v$，加起来，得到所有$v$的加权平均数。既然是查询“问”字和谁组词了，那么这个要找的字肯定是一个动词。因此，计算机会发现$q^{&lt; 3 &gt;}, k^{&lt; 2 &gt;}$比较相关，即这两个向量的内积比较大。一切顺利的话，这个$A^{&lt; 3 &gt;}$应该和$v^{&lt; 2 &gt;}$很接近，即问题“哪个字和‘问’字组词了？”的答案是第二个字“访”。</p>
-<p><img src="/2022/09/21/DLS-note-17/3.jpg" alt></p>
-<p>这是$A^{&lt; 3 &gt;}$的计算过程。准确来说，$A^{&lt; 3 &gt;}=A(q^{&lt; 3 &gt;}, K, V)$。类似地，$A^{&lt; 1 &gt;}-A^{&lt; 5 &gt;}$都是用这个公式来计算。把所有$A$的计算合起来，把$q$合起来，得到的就是下面这个公式。</p>
-<script type="math/tex; mode=display">
-Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>其中，$d_k$是一个常量，$\sqrt{d_k}$这一项是用来防止点乘结果的数值过大的。它属于实现细节，对整个式子的意义不影响。抛去这一项的话，上式不过是之前那个公式的矩阵版本。这个公式在原论文里叫做Scaled Dot-Product Attention。</p>
-<p>现在，我们已经理解了注意力的公式。自注意力，其实就是令$Q=K=V=E$，对$E$这个向量自己做注意力。但是，我们还有一个重要的问题没有解决：$Q, K, V$在Transformer里是怎么获得的？别急，后几节我们会把所有的概念串起来，学习Transformer的结构。现在，让我们再看一看Transformer里的另一个概念——多头注意力。</p>
-<h3 id="多头注意力"><a href="#多头注意力" class="headerlink" title="多头注意力"></a>多头注意力</h3><p>在CNN中，我们会在一个卷积层里使用多个卷积核，以提取出不同的特征。比如第一个卷积核提取出图像水平方向的边缘，第二个卷积核提取出图像垂直方向的边缘。类似地，一次自注意力也只能得到部分的信息，我们可以多次使用自注意力得到多个信息。</p>
-<p>上一节的$A^{&lt; 3 &gt;}$是问题“哪个字和‘问’字组词了？”的答案。我们可以多问几个问题，得到有关“问”字的更多信息，比如“‘问’的主语是谁？”、“‘问’的宾语是谁？”。为了描述这些不同的问题，我们要准备一些可学习的矩阵$W^Q_i, W^K_i, W^V_i$。$Attention(W^Q_1Q, W^K_1K, W^V_1V)$就是第一组注意力结果，$Attention(W^Q_2Q, W^K_2K, W^V_2V)$就是第二组注意力结果，以此类推。这种机制叫做多头注意力。</p>
-<p><img src="/2022/09/21/DLS-note-17/4.jpg" alt></p>
-<p>每次Attention的结果是一个向量，所有Attention的结果concat起来就是多头注意力的结果。</p>
-<h3 id="Transformer-网络结构"><a href="#Transformer-网络结构" class="headerlink" title="Transformer 网络结构"></a>Transformer 网络结构</h3><p>搞懂了自注意力、多头注意力这两个核心机制后，我们就能够看懂Transformer的整体结构了。</p>
-<p>让我们看看Transformer是怎么翻译一句话的。给定一个单词序列（为了方便，我们认为输入句子已经被token化，且输入的是每个token的嵌入），我们要先用encoder提取特征，再用decoder逐个输出翻译出来的token。</p>
-<p>在encoder中，输入会经过一个多头注意力层。这一层的Q, K, V都是输入的词嵌入。多头注意力层会接到一个前馈神经网络上，这个网络就是一个简单的全连接网络。</p>
-<blockquote>
-<p>别忘了，多头注意力层的可学习参数是$W^Q_i, W^K_i, W^V_i$，Q, K, V可以是预训练好的词嵌入。</p>
-</blockquote>
-<p>再看decoder。先看一下decoder的输出流程。第一轮，decoder的输入是<code>&lt;SOS&gt;</code>，输出<code>Jane</code>；第二轮，decoder的输入是<code>&lt;SOS&gt; Jane</code>，输出是<code>visits</code>。也就是说，decoder的输入是现有的翻译序列，输出是下一个翻译出来的单词。</p>
-<p>在decoder中，输入同样要经过一个多头注意力层。这一层的Q, K, V全是输入的词嵌入。之后，数据会经过另一个多头注意力层，它的Q是上一层的输出，K, V来自于Encoder。为什么这一层有这样的设计呢？大家不妨翻回到前几节，回顾一下经典注意力模型中注意力是怎么计算的。其实，经典注意力模型就是以decoder的隐状态为Q，以encoder的隐状态为K, V的注意力。Transformer不过是用一套全新的公式把之前的机制搬过来了而已。做完这次多头注意力后，数据也是会经过一个全连接网络，输出结果。</p>
-<p>encoder和decoder的大模块一共重复了N次，原论文中N=6。</p>
-<p><img src="/2022/09/21/DLS-note-17/5.jpg" alt></p>
-<p>总结一下注意力在Transformer里的使用。多头注意力其实有两个版本：第一个版本是自注意力，用于进一步提取输入的特征；第二个版本和经典注意力模型一样，把输出序列和输入序列关联了起来。</p>
-<p>刚才我们学习的是Transformer的主要结构。实际上，Transformer的结构里还有很多细节。</p>
-<ol>
-<li>Positional Encoding （位置编码）: 和RNN不同，Transformer的多头注意力无法区分每一个输入的顺序。为了告诉模型每一个token的先后顺序，词嵌入在输入模型之前还要加上一个Positional Encoding。这个编码会给每一个词嵌入的每一维加上一个三角函数值。三角函数之间的差具有周期性，模型能够从这个值里认识到输入序列的顺序信息。</li>
-</ol>
-<blockquote>
-<p>我会在之后的文章详细介绍位置编码，这里只需要明白位置编码的意义即可。</p>
-</blockquote>
-<ol>
-<li><p>Add &amp; Norm 层：参考深度CNN的结构，Transformer给每个模块的输出都做了一次归一化，并且使用了残差连接。</p>
-</li>
-<li><p>输出前的线性层和Softmax：为了输出一个单词，我们肯定要做一个softmax。这些层是输出单词的常规操作，和RNN结构里的相同。</p>
-</li>
-</ol>
-<p><img src="/2022/09/21/DLS-note-17/6.jpg" alt></p>
-<p>最后，在训练Tranformer时，还有一个重要的模块：Masked Multi-head Attention。刚刚我们学到，在输出翻译的句子时，我们要输出一个单词，更新一次decoder的输入；输出一个单词，更新一次decoder的输入。然而，在训练时，我们实际上已经有了正确的输出。因此，我们可以同时给decoder看前1个单词，看前2个单词……，并行地训练所有的这些情况。为了只让decoder看到前几个单词，我们可以给输入加一个mask，把后面那些不应该看到的单词“蒙上”。</p>
-<p>Masked Multi-head Attention 其实只是一个实现上的小技巧，不能算作一个新模块。具体的实现方式其实有很多，我们只要重点理解这一设计的原因即可。总之，这种设计让Transformer能够并行地训练翻译进度不同的句子。因此，Transfomer的训练效率会比RNN快很多。</p>
-<p><img src="/2022/09/21/DLS-note-17/7.jpg" alt></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这节课我们主要学习了Transformer模型。在学习时，我们主要应该关注两个核心机制：自注意力、多头注意力。搞懂Transformer的注意力机制后，我们基本就理解了Transformer的原理了。剩下的一些细节知识可以去看原论文，这些细节不干扰论文主体思想的理解。</p>
-<p>《深度学习专项》的课就到此结束了。不过，之后我还会围绕这门课发两篇文章。第一篇文章会详细地解读“Attention Is All You Need”这篇论文，第二篇文章会详细介绍Transformer的复现过程，作为这节课的大作业。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1783,20 +1789,20 @@ Attention(Q, K, V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>其中，$d_k$�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-count">129</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

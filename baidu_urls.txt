@@ -1,3 +1,4 @@
+https://zhouyifan.net/2024/06/24/20240622-CVPR2024/
 https://zhouyifan.net/2024/06/05/20240407-SVD-1/
 https://zhouyifan.net/2024/06/05/20240405-SVD/
 https://zhouyifan.net/2024/04/04/20240221-TorchEval-FID/
