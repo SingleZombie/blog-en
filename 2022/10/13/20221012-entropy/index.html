@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2022/10/13/20221012-entropy/20221012-entropy/9.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2022/10/13/20221012-entropy/20221012-entropy/10.jpg">
 <meta property="article:published_time" content="2022-10-13T11:35:26.000Z">
-<meta property="article:modified_time" content="2022-10-16T10:16:12.362Z">
+<meta property="article:modified_time" content="2024-06-28T04:42:11.021Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="数学">
@@ -293,7 +293,7 @@ log_2x=\frac{log_ex}{log_e2}</script><p>可知，对数用不同的底只是差�
 H(P, Q) = -\sum_{i}{}P(i)log_2Q(i)</script><p>这是不是和熵的公式</p>
 <script type="math/tex; mode=display">
 -\sum_{i}{}P(i)log_2P(i)</script><p>很像？没错，这就是<strong>交叉熵</strong>的公式。交叉熵表示当你不知道某个系统的概率分布时，用一个估计的概率分布去编码得到的平均编码长度。$-log_2Q(i)$表示的是每一条信息的编码长度，由于编码长度是由我们自己决定的，只能用估计的分布来算，所以它里面用的是$Q$这个分布。而算期望时，得用真实的概率分布$P$。因此，这个式子外面乘上的是$P(i)$。</p>
-<p>交叉熵有一个很重要的性质：交叉熵一定不大于熵。熵是最优的编码长度，你估计出来的编码方案，一定不会比最优的更好。所有交叉熵的应用基本上都是利用了这一性质。</p>
+<p>交叉熵有一个很重要的性质：交叉熵一定不小于熵。熵是最优的编码长度，你估计出来的编码方案，一定不会比最优的更好。所有交叉熵的应用基本上都是利用了这一性质。</p>
 <p>在机器学习中，我们会为分类任务使用交叉熵作为损失函数。这正是利用了交叉熵不比熵更大这一性质。让我们以猫狗分类为例看看这是怎么回事。</p>
 <p>在猫狗分类中，我们会给每张图片标一个one-hot编码。如果图片里是猫，编码就是<code>[1, 0]</code>；如果是狗，编码就是<code>[0, 1]</code>。one-hot编码，其实就是一个概率分布，只不过某种事件的出现概率是100%而已。可以轻松地算出，one-hot编码的熵是0。</p>
 <p>机器学习模型做分类任务，其实就是在估计的one-hot编码表示的概率分布。模型输出的概率分布就是交叉熵公式里的$Q$，实际的概率分布，也就是one-hot编码，就是交叉熵公式里的$P$。由于熵是0，交叉熵的值一定大于等于0。因此，交叉熵的值可以表示它和熵——最优的概率分布的信息量——之间的差距。</p>
