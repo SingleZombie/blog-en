@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2024/01/23/20230707-SD1/18.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2024/01/23/20230707-SD1/19.jpg">
 <meta property="article:published_time" content="2024-01-23T11:41:17.000Z">
-<meta property="article:modified_time" content="2024-01-23T11:41:17.446Z">
+<meta property="article:modified_time" content="2024-07-29T11:25:52.112Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="扩散模型">
@@ -267,7 +267,7 @@
 <p><img src="/2024/01/23/20230707-SD1/7.jpg" alt></p>
 <p>在众多对VAE的改进方法中，一个叫做<strong>去噪扩散概率模型（Denoising Diffusion Probabilistic Model, DDPM）</strong> 的图像生成模型脱颖而出。DDPM正是当今扩散模型的开山鼻祖。我们来看一下DDPM是怎样基于VAE对图像生成建模的。</p>
 <p>VAE之所以效果不好，很可能是因为它的约束太少了。VAE的编码和解码都是用神经网络表示的。神经网络是一个黑盒，我们不好对神经网络的中间步骤施加约束，只好在编码器的输出（某个正态分布）和解码器的输出（重建图像）上施加约束。能不能让VAE的编码和解码过程更可控一点呢？</p>
-<p>DDPM的设计灵感来自热力学：一个分布可以通过一系列简单的变化（如添加高斯噪声）逐渐变成另一个分布。恰好，VAE的编码器不正是想让来自训练集的图像（训练集分布）变成标准正态分布吗？既然如此，就不要用一个可学习的神经网络来表示VAE的编码器了，干脆用一些预定义好的加噪声操作来表示解码过程。可以从数学上证明，经过了多次加噪声操作后，最后的图像分布会是一个标准正态分布。</p>
+<p>DDPM的设计灵感来自热力学：一个分布可以通过一系列简单的变化（如添加高斯噪声）逐渐变成另一个分布。恰好，VAE的编码器不正是想让来自训练集的图像（训练集分布）变成标准正态分布吗？既然如此，就不要用一个可学习的神经网络来表示VAE的编码器了，干脆用一些预定义好的加噪声操作来表示编码过程。可以从数学上证明，经过了多次加噪声操作后，最后的图像分布会是一个标准正态分布。</p>
 <p><img src="/2024/01/23/20230707-SD1/8.jpg" alt></p>
 <p>既然编码是加噪声，那解码时就应该去掉噪声。DDPM的解码器也不再是一个不可解释的神经网络，而是一个能预测若干个去噪结果的神经网络。</p>
 <p><img src="/2024/01/23/20230707-SD1/9.jpg" alt></p>
@@ -441,14 +441,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
