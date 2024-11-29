@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2024/01/23/20230707-SD1/18.jpg">
 <meta property="og:image" content="https://zhouyifan.net/2024/01/23/20230707-SD1/19.jpg">
 <meta property="article:published_time" content="2024-01-23T11:41:17.000Z">
-<meta property="article:modified_time" content="2024-07-29T11:25:52.112Z">
+<meta property="article:modified_time" content="2024-10-23T06:42:17.397Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="扩散模型">
@@ -292,7 +292,7 @@
 <p><img src="/2024/01/23/20230707-SD1/13.jpg" alt></p>
 <p>由于神经网络不能很好地处理离散数据，我们要引入NLP里的通常做法，加一个把离散向量映射成连续向量的嵌入层。</p>
 <p><img src="/2024/01/23/20230707-SD1/14.jpg" alt></p>
-<p>现在我们再回头讨论怎么让编码器输出一个离散向量。我们可以让AE的解码器保持不变，还是输出一个连续向量，再通过一个「向量离散化」操作，把连续向量变成离散向量。这个操作会把编码器的输出对齐到嵌入层的向量上，其原理类似于把0.99和1.01离散化成1，只不过它是对向量整体考虑，而不是对每一个数单独考虑。向量离散化操作的具体原理我们不在此处细究。</p>
+<p>现在我们再回头讨论怎么让编码器输出一个离散向量。我们可以让AE的编码器保持不变，还是输出一个连续向量，再通过一个「向量离散化」操作，把连续向量变成离散向量。这个操作会把编码器的输出对齐到嵌入层的向量上，其原理类似于把0.99和1.01离散化成1，只不过它是对向量整体考虑，而不是对每一个数单独考虑。向量离散化操作的具体原理我们不在此处细究。</p>
 <p><img src="/2024/01/23/20230707-SD1/15.jpg" alt></p>
 <p>忽略掉实现细节，我们可以认为VQVAE能够把图像压缩成离散向量。更准确地说，VQVAE能把图像等比例压缩成离散的「小图像」。压缩成二维图像而不是一维向量，能够保留原图像的一些空间特性，为之后第二步图像生成铺路。</p>
 <p><img src="/2024/01/23/20230707-SD1/16.jpg" alt></p>
@@ -441,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">135</span>
+          <span class="site-state-item-count">136</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -454,7 +454,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
