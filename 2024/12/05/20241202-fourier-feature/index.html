@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://zhouyifan.net/2024/12/05/20241202-fourier-feature/12.png">
 <meta property="og:image" content="https://zhouyifan.net/2024/12/05/20241202-fourier-feature/13.png">
 <meta property="article:published_time" content="2024-12-05T03:34:08.000Z">
-<meta property="article:modified_time" content="2024-12-05T11:10:21.092Z">
+<meta property="article:modified_time" content="2024-12-06T03:10:17.129Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="位置编码">
@@ -367,6 +367,10 @@ k_{NTK}(\mathbf{x_i}, \mathbf{x_j}) = \mathbb{E}_{\theta\sim\mathcal{N}} \langle
 <p>除了过拟合连续数据外，傅里叶特征的另一个作用是直接表示带宽有限信号，以实现在空域上的连续采样。StyleGAN3 在用傅里叶特征时，允许对输入坐标进行仿射变换，并且计算特征时只用了正弦函数而不是同时用正弦、余弦函数。这表明有关 NTK 的理论分析可能是没有必要的，主要说明问题的还是实验结果。</p>
 <p>傅里叶特征论文仅研究了拟合连续数据这一类问题，没有讨论 Transformer 中位置编码的作用。论文中的一些结论可能无法适用。比如在大模型的位置编码中，我们还是得用密集的 <code>sin, cos</code> 变换来表示位置编码。不过，我们可以依然借助该论文中提到的理论分析工具，来尝试分析所有位置编码的行为。</p>
 <p>只通过文字理解可能还不太够，欢迎大家尝试我为这篇博客写的 Notebook，通过动手做实验来加深理解。 <a target="_blank" rel="noopener" href="https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/FourierFeature">https://github.com/SingleZombie/DL-Demos/tree/master/dldemos/FourierFeature</a></p>
+<p>推荐参考资料：</p>
+<p>用代码示例理解核回归：<a target="_blank" rel="noopener" href="https://towardsdatascience.com/kernel-regression-made-easy-to-understand-86caf2d2b844">https://towardsdatascience.com/kernel-regression-made-easy-to-understand-86caf2d2b844</a></p>
+<p>直观理解 NTK: <a target="_blank" rel="noopener" href="https://www.inference.vc/neural-tangent-kernels-some-intuition-for-kernel-gradient-descent/">https://www.inference.vc/neural-tangent-kernels-some-intuition-for-kernel-gradient-descent/</a></p>
+<p>傅里叶特征官方示例 PyTorch 实现: <a target="_blank" rel="noopener" href="https://github.com/ndahlquist/pytorch-fourier-feature-networks/tree/master">https://github.com/ndahlquist/pytorch-fourier-feature-networks/tree/master</a></p>
 
     </div>
 
