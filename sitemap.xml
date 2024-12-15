@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhouyifan.net/blog-en/2024/11/28/20241128-diffusion-forcing/</loc>
+    
+    <lastmod>2024-12-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhouyifan.net/blog-en/about/index.html</loc>
     
     <lastmod>2023-11-10</lastmod>
@@ -37,6 +46,41 @@
   </url>
 
   
+  <url>
+    <loc>https://zhouyifan.net/blog-en/tags/Deep-Learning/</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/tags/Diffusion-Models/</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/tags/Paper-Overview/</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/categories/Study/</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/categories/Study/Knowledge-Record/</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>
