@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zhouyifan.net/2024/12/15/20241212-Pyramid-Flow/</loc>
+    <lastmod>2024-12-15</lastmod>
+  </url>  <url>
+    <loc>https://zhouyifan.net/2024/12/15/20241209-Laplacian-DM/</loc>
+    <lastmod>2024-12-15</lastmod>
+  </url>  <url>
     <loc>https://zhouyifan.net/2024/12/09/20241208-Context-Window-Extension/</loc>
-    <lastmod>2024-12-08</lastmod>
+    <lastmod>2024-12-12</lastmod>
   </url>  <url>
     <loc>https://zhouyifan.net/2024/12/05/20241202-fourier-feature/</loc>
     <lastmod>2024-12-06</lastmod>

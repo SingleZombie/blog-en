@@ -1,3 +1,5 @@
+https://zhouyifan.net/2024/12/15/20241212-Pyramid-Flow/
+https://zhouyifan.net/2024/12/15/20241209-Laplacian-DM/
 https://zhouyifan.net/2024/12/09/20241208-Context-Window-Extension/
 https://zhouyifan.net/2024/12/05/20241202-fourier-feature/
 https://zhouyifan.net/2024/11/28/20241128-diffusion-forcing/

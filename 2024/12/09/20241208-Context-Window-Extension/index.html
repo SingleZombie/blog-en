@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://files.mdnice.com/user/32105/522a0160-e00f-4988-9dc2-54d1fd28d96d.png">
 <meta property="og:image" content="https://files.mdnice.com/user/32105/adf72101-248f-4967-b46a-efbada316b30.png">
 <meta property="article:published_time" content="2024-12-08T18:15:32.000Z">
-<meta property="article:modified_time" content="2024-12-08T18:15:32.519Z">
+<meta property="article:modified_time" content="2024-12-12T08:07:57.909Z">
 <meta property="article:author" content="Zhou Yifan">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="位置编码">
@@ -238,7 +238,7 @@
 <script type="math/tex; mode=display">
 [\sin(k), \cos(k)]</script><p>如果模型的中间变量都是 $d$ 维向量 （为了方便不妨认为 $d$ 是偶数），我们只需要把 $d$ 拆成 $d/2$ 组，每组用不同频率的三角函数即可。这样，长度为 $d$ 的词元在位置 $k$ 的位置编码是：</p>
 <script type="math/tex; mode=display">
-[\sin(k/10000^{2\cdot 0/d}), \sin(k/10000^{2\cdot 0/d}), ..., \sin(k/10000^{2\cdot i/d}), \sin(k/10000^{2\cdot i/d}) , ...]</script><p>直观上来看，随着中间变量的维度越来越长，位置编码中对应的三角函数的频率不断变低，从一开始的 $1$ 逐渐靠向 $1/10000$。</p>
+[\sin(k/10000^{2\cdot 0/d}), \cos(k/10000^{2\cdot 0/d}), ..., \sin(k/10000^{2\cdot i/d}), \cos(k/10000^{2\cdot i/d}) , ...]</script><p>直观上来看，随着中间变量的维度越来越长，位置编码中对应的三角函数的频率不断变低，从一开始的 $1$ 逐渐靠向 $1/10000$。</p>
 <blockquote>
 <p>上述公式来自论文，代码实现时要注意更多细节。比如有些代码中 $i$ 是从 $0$ 开始计数的。由于指数的分子的范围是从$0$到$d-2$，代码会把指数的分母也改成 $d-2$，保证最后一组三角函数的频率是 $1/10000$。</p>
 </blockquote>
@@ -447,7 +447,10 @@ q_5 \\
     <a href="/2024/12/05/20241202-fourier-feature/" rel="prev" title="位置编码背后的理论解释——傅里叶特征 (Fourier Feature）与核回归">
       <i class="fa fa-chevron-left"></i> 位置编码背后的理论解释——傅里叶特征 (Fourier Feature）与核回归
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/15/20241209-Laplacian-DM/" rel="next" title="论文速览 | Laplacian Diffusion Models：将图像拆成不同频率分量并分别生成">
+      论文速览 | Laplacian Diffusion Models：将图像拆成不同频率分量并分别生成 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -520,7 +523,7 @@ q_5 \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -533,7 +536,7 @@ q_5 \\
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
