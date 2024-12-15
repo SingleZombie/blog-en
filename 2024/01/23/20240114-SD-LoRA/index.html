@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/en/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/en/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/en/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/en/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/en/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/en/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="如果你一直关注 Stable Diffusion (SD) 社区，那你一定不会对 “LoRA” 这个名词感到陌生。社区用户分享的 SD LoRA 模型能够修改 SD 的画风，使之画出动漫、水墨或像素等风格的图片。但实际上，LoRA 不仅仅能改变 SD 的画风，还有其他的妙用。在这篇文章中，我们会先简单学习 LoRA 的原理，再认识科研中 LoRA 的三种常见应用：1） 还原单幅图像；2）风格调整；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LoRA 在 Stable Diffusion 中的三种应用：原理讲解与代码示例">
-<meta property="og:url" content="https://zhouyifan.net/2024/01/23/20240114-SD-LoRA/index.html">
+<meta property="og:url" content="https://zhouyifan.net/en/2024/01/23/20240114-SD-LoRA/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="如果你一直关注 Stable Diffusion (SD) 社区，那你一定不会对 “LoRA” 这个名词感到陌生。社区用户分享的 SD LoRA 模型能够修改 SD 的画风，使之画出动漫、水墨或像素等风格的图片。但实际上，LoRA 不仅仅能改变 SD 的画风，还有其他的妙用。在这篇文章中，我们会先简单学习 LoRA 的原理，再认识科研中 LoRA 的三种常见应用：1） 还原单幅图像；2）风格调整；">
 <meta property="og:locale" content="en_US">
@@ -43,7 +43,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2024/01/23/20240114-SD-LoRA/20240114-SD-LORA/1.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2024/01/23/20240114-SD-LoRA/">
+<link rel="canonical" href="https://zhouyifan.net/en/2024/01/23/20240114-SD-LoRA/">
 
 
 <script id="page-configurations">
@@ -105,7 +105,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/en/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">周弈帆的博客</h1>
       <span class="logo-line-after"><i></i></span>
@@ -125,27 +125,32 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-switch_lang">
+
+    <a href="https://zhouyifan.net" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a>
 
   </li>
   </ul>
@@ -176,12 +181,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2024/01/23/20240114-SD-LoRA/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/en/2024/01/23/20240114-SD-LoRA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/en/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -393,10 +398,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
-              <a href="/tags/PyTorch/" rel="tag"># PyTorch</a>
-              <a href="/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" rel="tag"># 扩散模型</a>
+              <a href="/en/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/en/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/en/tags/PyTorch/" rel="tag"># PyTorch</a>
+              <a href="/en/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" rel="tag"># 扩散模型</a>
           </div>
 
         
@@ -405,11 +410,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/01/23/20230713-SD3/" rel="prev" title="Stable Diffusion 解读（三）：原版实现及Diffusers实现源码解读">
+    <a href="/en/2024/01/23/20230713-SD3/" rel="prev" title="Stable Diffusion 解读（三）：原版实现及Diffusers实现源码解读">
       <i class="fa fa-chevron-left"></i> Stable Diffusion 解读（三）：原版实现及Diffusers实现源码解读
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/01/27/20240123-SD-Attn/" rel="next" title="Stable Diffusion 中的自注意力替换技术与 Diffusers 实现">
+    <a href="/en/2024/01/27/20240123-SD-Attn/" rel="next" title="Stable Diffusion 中的自注意力替换技术与 Diffusers 实现">
       Stable Diffusion 中的自注意力替换技术与 Diffusers 实现 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -477,25 +482,25 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+  <div class="site-description" itemprop="description">Designer, artist, philosopher, researcher.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/en/archives/">
         
           <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/en/categories/">
           
         <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+            <a href="/en/tags/">
           
         <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
@@ -547,19 +552,19 @@
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/en/lib/anime.min.js"></script>
+  <script src="/en/lib/velocity/velocity.min.js"></script>
+  <script src="/en/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/en/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
+<script src="/en/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/en/js/schemes/muse.js"></script>
+
+
+<script src="/en/js/next-boot.js"></script>
 
 
 

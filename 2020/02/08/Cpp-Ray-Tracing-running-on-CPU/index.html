@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/en/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/en/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/en/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/en/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/en/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/en/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="由于套暑研要准备一个简单的简历，我打算总结一下之前做的一些项目，发博客并上传Github。虽然我能明确地知道，做这些事情对看我简历的人来说毫无影响，但写博客记录自己人生是我自己想做的一件事。 做之前这些项目的时候我都没有去写博客，当时我还没有想好博客该怎么用。以后应该不会出现这些情况了。只要是有一些规模的项目，我都会把从技能学习到编程实现的整个过程发到博客上。 写这个项目是因为我图形学的导师在写一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CPU光线追踪C++OpenGL实现">
-<meta property="og:url" content="https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/index.html">
+<meta property="og:url" content="https://zhouyifan.net/en/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="由于套暑研要准备一个简单的简历，我打算总结一下之前做的一些项目，发博客并上传Github。虽然我能明确地知道，做这些事情对看我简历的人来说毫无影响，但写博客记录自己人生是我自己想做的一件事。 做之前这些项目的时候我都没有去写博客，当时我还没有想好博客该怎么用。以后应该不会出现这些情况了。只要是有一些规模的项目，我都会把从技能学习到编程实现的整个过程发到博客上。 写这个项目是因为我图形学的导师在写一">
 <meta property="og:locale" content="en_US">
@@ -39,7 +39,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/ray%20tracing.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/">
+<link rel="canonical" href="https://zhouyifan.net/en/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/">
 
 
 <script id="page-configurations">
@@ -101,7 +101,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/en/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">周弈帆的博客</h1>
       <span class="logo-line-after"><i></i></span>
@@ -121,27 +121,32 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-switch_lang">
+
+    <a href="https://zhouyifan.net" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a>
 
   </li>
   </ul>
@@ -172,12 +177,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/en/2020/02/08/Cpp-Ray-Tracing-running-on-CPU/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/en/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -203,11 +208,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                  <a href="/en/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                  <a href="/en/categories/%E8%AE%B0%E5%BD%95/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
                 </span>
             </span>
 
@@ -247,11 +252,11 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
-              <a href="/tags/C/" rel="tag"># C++</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
-              <a href="/tags/OpenGL/" rel="tag"># OpenGL</a>
+              <a href="/en/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/en/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
+              <a href="/en/tags/C/" rel="tag"># C++</a>
+              <a href="/en/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/" rel="tag"># 计算机图形学</a>
+              <a href="/en/tags/OpenGL/" rel="tag"># OpenGL</a>
           </div>
 
         
@@ -260,11 +265,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/01/DIP-image-segmentation-project-2/" rel="prev" title="数字图像处理大作业：图像分割项目之代码实现（基于SLIC和AP的图像分割算法C++实现）">
+    <a href="/en/2020/02/01/DIP-image-segmentation-project-2/" rel="prev" title="数字图像处理大作业：图像分割项目之代码实现（基于SLIC和AP的图像分割算法C++实现）">
       <i class="fa fa-chevron-left"></i> 数字图像处理大作业：图像分割项目之代码实现（基于SLIC和AP的图像分割算法C++实现）
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/02/09/Chinese-Spelling-Checker/" rel="next" title="中文拼写检查器（基于图网格，C++实现）">
+    <a href="/en/2020/02/09/Chinese-Spelling-Checker/" rel="next" title="中文拼写检查器（基于图网格，C++实现）">
       中文拼写检查器（基于图网格，C++实现） <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -332,25 +337,25 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+  <div class="site-description" itemprop="description">Designer, artist, philosopher, researcher.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/en/archives/">
         
           <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/en/categories/">
           
         <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+            <a href="/en/tags/">
           
         <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
@@ -402,19 +407,19 @@
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/en/lib/anime.min.js"></script>
+  <script src="/en/lib/velocity/velocity.min.js"></script>
+  <script src="/en/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/en/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
+<script src="/en/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/en/js/schemes/muse.js"></script>
+
+
+<script src="/en/js/next-boot.js"></script>
 
 
 

@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/en/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/en/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/en/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/en/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/en/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/en/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="由于这个学期没有返校，我变懒了不少。明明有不少可以写的东西，却没有去写。等学期结束了有时间了我会好好补写一些博客。 这几天，我在赶一个高性能计算的大作业。题目要求优化一段代码，使程序的运行时间尽可能短。大作业本来是一个令人烦躁忧虑，头皮发麻的事物，但在deadline的紧逼之下，我仿佛按下了大脑的启动按钮，火力全开地应对起这个大作业来。于是，我的漫长的编程时间就开始了。——看到这里，如何你对编程不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拆掉循环竟然让代码性能大幅提升？ ~ 有趣的高性能计算大作业">
-<meta property="og:url" content="https://zhouyifan.net/2022/03/08/Code-Optimization-Fun/index.html">
+<meta property="og:url" content="https://zhouyifan.net/en/2022/03/08/Code-Optimization-Fun/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="由于这个学期没有返校，我变懒了不少。明明有不少可以写的东西，却没有去写。等学期结束了有时间了我会好好补写一些博客。 这几天，我在赶一个高性能计算的大作业。题目要求优化一段代码，使程序的运行时间尽可能短。大作业本来是一个令人烦躁忧虑，头皮发麻的事物，但在deadline的紧逼之下，我仿佛按下了大脑的启动按钮，火力全开地应对起这个大作业来。于是，我的漫长的编程时间就开始了。——看到这里，如何你对编程不">
 <meta property="og:locale" content="en_US">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="高性能计算">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://zhouyifan.net/2022/03/08/Code-Optimization-Fun/">
+<link rel="canonical" href="https://zhouyifan.net/en/2022/03/08/Code-Optimization-Fun/">
 
 
 <script id="page-configurations">
@@ -98,7 +98,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/en/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">周弈帆的博客</h1>
       <span class="logo-line-after"><i></i></span>
@@ -118,27 +118,32 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-switch_lang">
+
+    <a href="https://zhouyifan.net" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a>
 
   </li>
   </ul>
@@ -169,12 +174,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2022/03/08/Code-Optimization-Fun/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/en/2022/03/08/Code-Optimization-Fun/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/en/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -200,11 +205,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                  <a href="/en/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
+                  <a href="/en/categories/%E8%AE%B0%E5%BD%95/%E4%BD%9C%E4%B8%9A-%E7%BB%83%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">作业/练习</span></a>
                 </span>
             </span>
 
@@ -269,10 +274,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
-              <a href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/" rel="tag"># 计算机组成</a>
-              <a href="/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97/" rel="tag"># 高性能计算</a>
+              <a href="/en/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag"># 计算机科学</a>
+              <a href="/en/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
+              <a href="/en/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/" rel="tag"># 计算机组成</a>
+              <a href="/en/tags/%E9%AB%98%E6%80%A7%E8%83%BD%E8%AE%A1%E7%AE%97/" rel="tag"># 高性能计算</a>
           </div>
 
         
@@ -281,11 +286,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/08/20220123-everyone-is-lonely/" rel="prev" title="人，都是孤独的">
+    <a href="/en/2022/03/08/20220123-everyone-is-lonely/" rel="prev" title="人，都是孤独的">
       <i class="fa fa-chevron-left"></i> 人，都是孤独的
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/03/18/20220315-custom-op/" rel="next" title="PyTorch Custom OP （自定义算子） 教程">
+    <a href="/en/2022/03/18/20220315-custom-op/" rel="next" title="PyTorch Custom OP （自定义算子） 教程">
       PyTorch Custom OP （自定义算子） 教程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -352,25 +357,25 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+  <div class="site-description" itemprop="description">Designer, artist, philosopher, researcher.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/en/archives/">
         
           <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/en/categories/">
           
         <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+            <a href="/en/tags/">
           
         <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
@@ -422,19 +427,19 @@
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/en/lib/anime.min.js"></script>
+  <script src="/en/lib/velocity/velocity.min.js"></script>
+  <script src="/en/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/en/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
+<script src="/en/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/en/js/schemes/muse.js"></script>
+
+
+<script src="/en/js/next-boot.js"></script>
 
 
 

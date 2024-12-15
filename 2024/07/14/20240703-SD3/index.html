@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/en/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/en/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/en/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/en/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/en/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/en/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhouyifan.net","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/en/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="近期，最受开源社区欢迎的文生图模型 Stable Diffusion 的最新版本 Stable Diffusion 3 开放了源码和模型参数。开发者宣称，Stable Diffusion 3 使用了全新的模型结构和文本编码方法，能够生成更符合文本描述且高质量的图片。得知 Stable Diffusion 3 开源后，社区用户们纷纷上手测试，在网上分享了许多测试结果。而在本文中，我将面向之前已经熟悉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Stable Diffusion 3 论文及源码概览">
-<meta property="og:url" content="https://zhouyifan.net/2024/07/14/20240703-SD3/index.html">
+<meta property="og:url" content="https://zhouyifan.net/en/2024/07/14/20240703-SD3/index.html">
 <meta property="og:site_name" content="周弈帆的博客">
 <meta property="og:description" content="近期，最受开源社区欢迎的文生图模型 Stable Diffusion 的最新版本 Stable Diffusion 3 开放了源码和模型参数。开发者宣称，Stable Diffusion 3 使用了全新的模型结构和文本编码方法，能够生成更符合文本描述且高质量的图片。得知 Stable Diffusion 3 开源后，社区用户们纷纷上手测试，在网上分享了许多测试结果。而在本文中，我将面向之前已经熟悉">
 <meta property="og:locale" content="en_US">
@@ -52,7 +52,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zhouyifan.net/2024/07/14/20240703-SD3/1.jpg">
 
-<link rel="canonical" href="https://zhouyifan.net/2024/07/14/20240703-SD3/">
+<link rel="canonical" href="https://zhouyifan.net/en/2024/07/14/20240703-SD3/">
 
 
 <script id="page-configurations">
@@ -114,7 +114,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/en/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
       <h1 class="site-title">周弈帆的博客</h1>
       <span class="logo-line-after"><i></i></span>
@@ -134,27 +134,32 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-switch_lang">
+
+    <a href="https://zhouyifan.net" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a>
 
   </li>
   </ul>
@@ -185,12 +190,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/2024/07/14/20240703-SD3/">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/en/2024/07/14/20240703-SD3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/en/images/avatar.gif">
       <meta itemprop="name" content="Zhou Yifan">
-      <meta itemprop="description" content="A foresighted strategist with big-picture thinking. 大局观选手。">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -216,11 +221,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                  <a href="/en/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0/%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">代码阅读</span></a>
+                  <a href="/en/categories/%E5%AD%A6%E4%B9%A0/%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">代码阅读</span></a>
                 </span>
             </span>
 
@@ -388,9 +393,9 @@ z_t = x_0 + b_t \epsilon</script><p>由于整流最后学习出来的生成路�
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
-              <a href="/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" rel="tag"># 扩散模型</a>
+              <a href="/en/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/en/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/en/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/" rel="tag"># 扩散模型</a>
           </div>
 
         
@@ -399,11 +404,11 @@ z_t = x_0 + b_t \epsilon</script><p>由于整流最后学习出来的生成路�
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/06/24/20240622-CVPR2024/" rel="prev" title="顽抗生活中的厄运">
+    <a href="/en/2024/06/24/20240622-CVPR2024/" rel="prev" title="顽抗生活中的厄运">
       <i class="fa fa-chevron-left"></i> 顽抗生活中的厄运
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/07/27/20240605-diffusers-training/" rel="next" title="定制适合自己的 Diffusers 扩散模型训练脚本">
+    <a href="/en/2024/07/27/20240605-diffusers-training/" rel="next" title="定制适合自己的 Diffusers 扩散模型训练脚本">
       定制适合自己的 Diffusers 扩散模型训练脚本 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -471,25 +476,25 @@ z_t = x_0 + b_t \epsilon</script><p>由于整流最后学习出来的生成路�
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Zhou Yifan</p>
-  <div class="site-description" itemprop="description">A foresighted strategist with big-picture thinking. 大局观选手。</div>
+  <div class="site-description" itemprop="description">Designer, artist, philosopher, researcher.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/en/archives/">
         
           <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/en/categories/">
           
         <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
+            <a href="/en/tags/">
           
         <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">tags</span></a>
@@ -541,19 +546,19 @@ z_t = x_0 + b_t \epsilon</script><p>由于整流最后学习出来的生成路�
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/en/lib/anime.min.js"></script>
+  <script src="/en/lib/velocity/velocity.min.js"></script>
+  <script src="/en/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/en/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
+<script src="/en/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/en/js/schemes/muse.js"></script>
+
+
+<script src="/en/js/next-boot.js"></script>
 
 
 
