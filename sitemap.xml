@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhouyifan.net/blog-en/2024/12/21/20241218-VAR/</loc>
+    
+    <lastmod>2024-12-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhouyifan.net/blog-en/2024/11/28/20241128-diffusion-forcing/</loc>
     
     <lastmod>2024-12-15</lastmod>
@@ -40,7 +49,7 @@
 
   <url>
     <loc>https://zhouyifan.net/blog-en</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -48,21 +57,35 @@
   
   <url>
     <loc>https://zhouyifan.net/blog-en/tags/Deep-Learning/</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhouyifan.net/blog-en/tags/Diffusion-Models/</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhouyifan.net/blog-en/tags/Paper-Overview/</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/tags/Autoregressive/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhouyifan.net/blog-en/tags/Multi-scale-Generation/</loc>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -71,14 +94,14 @@
   
   <url>
     <loc>https://zhouyifan.net/blog-en/categories/Study/</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhouyifan.net/blog-en/categories/Study/Knowledge-Record/</loc>
-    <lastmod>2024-12-15</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
