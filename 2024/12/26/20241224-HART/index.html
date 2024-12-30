@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog-en/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog-en/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog-en/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog-en/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog-en/css/main.css">
+
+
+<link rel="stylesheet" href="/blog-en/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhouyifan.net","root":"/blog-en/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="At the beginning of this year, the multiscale autoregressive model VAR opened a new direction for image generation: by modeling image generation as next-scale prediction, and generating all pixels of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper Overview | HART: Mitigating VQ Encoding Errors with Diffusion Models">
+<meta property="og:url" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/index.html">
+<meta property="og:site_name" content="Yifan Zhou&#39;s Blog">
+<meta property="og:description" content="At the beginning of this year, the multiscale autoregressive model VAR opened a new direction for image generation: by modeling image generation as next-scale prediction, and generating all pixels of">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/1.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/2.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/3.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/4.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/5.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/6.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/7.jpg">
+<meta property="og:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/8.jpg">
+<meta property="article:published_time" content="2024-12-26T08:15:06.000Z">
+<meta property="article:modified_time" content="2024-12-30T08:14:43.508Z">
+<meta property="article:author" content="Yifan Zhou">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Diffusion Models">
+<meta property="article:tag" content="Paper Overview">
+<meta property="article:tag" content="Autoregressive">
+<meta property="article:tag" content="Multiscale Generation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/1.jpg">
+
+<link rel="canonical" href="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Paper Overview | HART: Mitigating VQ Encoding Errors with Diffusion Models | Yifan Zhou's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog-en/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yifan Zhou's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog-en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog-en/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog-en/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog-en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog-en/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-switch_lang">
+
+    <a href="https://zhouyifan.net" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog-en/images/avatar.gif">
+      <meta itemprop="name" content="Yifan Zhou">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yifan Zhou's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Paper Overview | HART: Mitigating VQ Encoding Errors with Diffusion Models
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-12-26 16:15:06" itemprop="dateCreated datePublished" datetime="2024-12-26T16:15:06+08:00">2024-12-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Learning/" itemprop="url" rel="index"><span itemprop="name">Learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Learning/Knowledge-Record/" itemprop="url" rel="index"><span itemprop="name">Knowledge Record</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>At the beginning of this year, the multiscale autoregressive model VAR opened a new direction for image generation: by modeling image generation as next-scale prediction, and generating all pixels of the same scale at once per round, VAR achieves high-quality image generation at extremely fast speeds. Subsequently, many works have attempted to improve upon it. To compensate for the information loss introduced by the VQ (Vector Quantization) operation in VAR, HART (Hybrid Autoregressive Transformer) represents the lost information through a residual image and uses a lightweight diffusion model to generate this residual image. With these improvements, the authors used HART to accomplish text-to-image generation at a high resolution of $1024 \times 1024$. In this blog post, we will learn about the core methods of HART and analyze its experimental results on text-to-image tasks.</p>
+<p><strong>Paper link:</strong> <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.10812">https://arxiv.org/abs/2410.10812</a></p>
+<h2 id="Previous-Work"><a href="#Previous-Work" class="headerlink" title="Previous Work"></a>Previous Work</h2><p>All the autoregressive image generation methods involved in this paper originate from VQVAE and VQGAN. Before reading this paper, it is recommended that readers familiarize themselves with these two classic works.</p>
+<p>HART is developed directly based on VAR (<em>Visual Autoregressive Modeling: Scalable Image Generation via Next-Scale Prediction</em>), and some of its ideas are similar to MAR (Masked Autoregressive models, from the paper <em>Autoregressive Image Generation without Vector Quantization</em>). You are welcome to read my previous posts on these.</p>
+<p><a href="https://zhouyifan.net/blog-en/2024/12/21/20241218-VAR/">VAR explaination</a></p>
+<p>On top of the two-stage generation method in VQGAN, VAR makes the encoder output multiple scales of image tokens (instead of only the highest-scale tokens). During generation, VAR autoregressively generates token maps of different scales, and the token map at each scale is generated all at once in a single round of Transformer inference.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/1.jpg" alt></p>
+<p>The VQ operation causes loss of information in the encoder output, so all image generation models using VQ-based autoencoders end up with slightly reduced quality. Methods like VAR and VQGAN have no choice but to use VQ because they model the distribution of tokens using a categorical distribution. To completely remove VQ, MAR replaces the categorical distribution with a diffusion model, allowing to use a more precise VAE for image compression.</p>
+<h2 id="Compensating-for-VQ’s-Information-Loss"><a href="#Compensating-for-VQ’s-Information-Loss" class="headerlink" title="Compensating for VQ’s Information Loss"></a>Compensating for VQ’s Information Loss</h2><p>To mitigate the quality degradation caused by VQ in VAR, HART uses a straightforward approach: since VQ inevitably causes information loss, we can treat that lost information as a residual image. After generating the image with the standard VAR, we use a diffusion model to generate the residual image. Adding the residual image to the original output yields a higher-quality final image.</p>
+<p>Let’s get a direct feel for this idea from the figures in the paper. The first row shows reconstruction results from the VAR autoencoder and from HART’s hybrid autoencoder. Due to the VQ operation, the VQ autoencoder struggles to reconstruct the input image. The second row shows the original output from VAR and the residual image. We can see that after adding the residual image, the details become richer, no longer blurry as before.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/2.jpg" alt></p>
+<p>In the next two sections, we will learn how HART respectively improves the token generation model of VAR and its autoencoder.</p>
+<h2 id="Generating-Residual-Image-Using-a-Diffusion-Model"><a href="#Generating-Residual-Image-Using-a-Diffusion-Model" class="headerlink" title="Generating Residual Image Using a Diffusion Model"></a>Generating Residual Image Using a Diffusion Model</h2><p>To understand the entire method, we first need to see how HART’s “residual image” comes about. Therefore, let’s look at the modifications on the token generation model, then see the corresponding modifications in the autoencoder.</p>
+<p>First, let’s review how VQ errors are introduced in VAR. VAR borrows the classic Laplacian pyramid idea to model token maps at multiple scales.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/3.jpg" alt></p>
+<p>In other words, VAR does not split the full image into token maps at different resolutions but with the same content. Instead, it splits it into the lowest-resolution image plus the information lost at each scale. This “information loss” includes not only what comes from downsampling but also what results from VQ.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/4.jpg" alt></p>
+<p>Even though the multiscale decomposition takes into account the information loss from VQ, the final reconstructed features (i.e., the decoder inputs, obtained by summing up the token lookups) still cannot perfectly match the encoder output features. The “residual image” HART wants to generate with a diffusion model is precisely the difference between the reconstructed features and the encoder output features shown in the figure above.</p>
+<p>Unlike the discrete token maps, the residual image is continuous. To generate this continuous image, HART refers to MAR, employing an image-conditioned diffusion model. The goal of this diffusion model can be interpreted as: given the decoded image from the discrete token map, how do we use a diffusion model to generate additional details to improve image quality?</p>
+<p>A schematic of HART’s generation model is shown below. The generation process before the last step is exactly the same as VAR. In the final step, the intermediate hidden state of the Transformer is fed into an MLP diffusion model. The diffusion model predicts a residual value <strong>independently</strong> for each token. In other words, this is not an image diffusion model but rather a per-token pixel diffusion model. Tokens are sampled independently from each other. Thanks to this independence assumption, HART can use a lightweight diffusion model to generate the residual image, adding almost no extra time to the overall generation process.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/5.jpg" alt></p>
+<blockquote>
+<p>HART also changes VAR’s class conditioning to text conditioning. We will discuss this later in the experiments section.</p>
+</blockquote>
+<h2 id="AE-VQVAE-Hybrid-Autoencoder"><a href="#AE-VQVAE-Hybrid-Autoencoder" class="headerlink" title="AE + VQVAE Hybrid Autoencoder"></a>AE + VQVAE Hybrid Autoencoder</h2><p>Now that we know where HART’s residual image comes from, we can go back and look at the corresponding modifications in the autoencoder. Currently, the autoencoder decoder has two types of inputs: (1) the approximate reconstructed features formed by summing up the discrete tokens from VAR, and (2) the precise reconstructed features (equal to the encoder output features) when the residual image from HART is added. To handle both types of input simultaneously, the decoder is trained such that half of the time it takes the encoder’s output, and the other half it takes the reconstructed features from the discrete tokens. Of course, during generation, since the residual image is added, the decoder’s input can be considered the same as the encoder output.</p>
+<blockquote>
+<p>The figure below uses “token” terminology differently from VAR. VAR calls both the encoder outputs and decoder inputs “feature maps,” and calls the index map after the VQ operation the “token map.” HART, however, calls the encoder outputs “continuous tokens” and the reconstructed features “discrete tokens”. In this blog post, we follow VAR’s naming. Likewise, what HART calls “residual token” is referred to here as the “residual image.”</p>
+</blockquote>
+<p><img src="/blog-en/2024/12/26/20241224-HART/6.jpg" alt></p>
+<p>In this sense, HART’s hybrid autoencoder is like a VAE without KL loss (i.e., an ordinary autoencoder) and also like a VQVAE.</p>
+<h2 id="High-Resolution-Text-to-Image-Implementation-Details"><a href="#High-Resolution-Text-to-Image-Implementation-Details" class="headerlink" title="High-Resolution Text-to-Image Implementation Details"></a>High-Resolution Text-to-Image Implementation Details</h2><p>Let’s briefly see how HART extends the class-conditioned ImageNet $256 \times 256$ VAR to a $1024 \times 1024$ text-to-image model.</p>
+<ul>
+<li><strong>Text conditioning</strong>: Instead of using cross-attention to incorporate text condition, as in many T2I models, HART follows VAR’s approach to class embeddings, adding the text embedding as the input to the first scale and as input to the AdaLN layers.</li>
+<li><strong>Positional encoding</strong>: For the scale and image position indices, VAR uses learnable absolute position embeddings. HART, however, uses sinusoidal encoding for scale and 2D RoPE (rotary position encoding) for the image coordinates.</li>
+<li><strong>Larger scales</strong>: In the original VAR, the largest token map side length is <code>16</code>, HART appends additional side lengths <code>21,27,36,48,64</code>.</li>
+<li><strong>Lightweight diffusion model</strong>: Since the diffusion model only needs to model the distribution of single tokens, it has only 37M parameters and needs just 8 steps to achieve high-quality sampling.</li>
+</ul>
+<h2 id="Quantitative-Results"><a href="#Quantitative-Results" class="headerlink" title="Quantitative Results"></a>Quantitative Results</h2><ul>
+<li>Let’s first look at the most popular “benchmark” metric—ImageNet $256 \times 256$ class-conditioned generation. The authors did not include results for the best MAR model, so I’ve added them here.</li>
+</ul>
+<p><img src="/blog-en/2024/12/26/20241224-HART/7.jpg" alt></p>
+<p>In this task, the main difference between HART and VAR is whether or not a diffusion model is used to produce the residual image. As we can see, the residual diffusion model hardly increases the inference time, yet it significantly improves the FID metric (considering the lower the value, the harder it is to improve). Moreover, comparing the speeds of different models, we see that the greatest advantage of VAR-like models lies in their fast inference.</p>
+<p>Next, let’s look at the text-to-image generation metrics, which are the main focus of this paper. In addition to the commonly used GenEval (mainly measuring text-image alignment), the authors also show two metrics introduced this year: metrics on the MJHQ-30K dataset and DPG-Bench.</p>
+<p><img src="/blog-en/2024/12/26/20241224-HART/8.jpg" alt></p>
+<p>These metrics may not be very convincing. According to user-voted rankings at <a target="_blank" rel="noopener" href="https://imgsys.org/rankings">https://imgsys.org/rankings</a>, Playground v2.5 is the best, while SD3 and PixelArt-Σ are about the same. However, the MJHQ FID and DPG-Bench metrics do not reflect that ranking. In particular, since the FID uses the Inception V3 network trained on ImageNet $299 \times 299$, FID does not accurately capture high-resolution image similarity, nor does it capture similarity in more complex images.</p>
+<p>In summary, HART’s performance on high-resolution text-to-image tasks cannot yet be reflected by the experimental results. According to some community feedback (<a target="_blank" rel="noopener" href="https://www.reddit.com/r/StableDiffusion/comments/1glig4u/mits_hart_fast_texttoimage_model_you_need_to_see/">https://www.reddit.com/r/StableDiffusion/comments/1glig4u/mits_hart_fast_texttoimage_model_you_need_to_see/</a>), HART has issues in generating high-frequency details. Looking back at HART’s method, we can infer that this might be caused by the suboptimal design of the residual diffusion model.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>To mitigate the information loss caused by the VQ operation in VQ-based autoencoders, HART treats the lost information as a residual image and uses a lightweight pixel diffusion model to independently generate each pixel of that residual image. HART applies this improvement directly to VAR and boosts the ImageNet FID metric. However, HART still cannot compete with diffusion models in high-resolution text-to-image tasks, and since diffusion models have various acceleration tricks, HART does not have an advantage in generation speed either.</p>
+<p>VQ operations transform complex images into image tokens. This makes the distrbution of image tokens easy to learn, but sacrifice autoencoder reconstruction quality. Many works have tried to improve the original nearest-neighbor VQ operation in VQVAE. Regardless, the error introduced by VQ is inevitably present. From another aspect, HART alleviates VQ reconstruction errors by generating a residual image with a separate model. This design idea is promising—it may be possible to eliminate VQ errors entirely. But there’s no free lunch: improving generation quality typically means increasing training and inference time. Although HART’s approach of using a lightweight pixel diffusion model to generate the residual image does not slow down the model, its effectiveness is still not sufficient. Perhaps replacing it with a diffusion model with larger receptive field could improve the quality of the residual image without significantly increasing generation time.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog-en/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+              <a href="/blog-en/tags/Diffusion-Models/" rel="tag"># Diffusion Models</a>
+              <a href="/blog-en/tags/Paper-Overview/" rel="tag"># Paper Overview</a>
+              <a href="/blog-en/tags/Autoregressive/" rel="tag"># Autoregressive</a>
+              <a href="/blog-en/tags/Multiscale-Generation/" rel="tag"># Multiscale Generation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog-en/2024/12/21/20241218-VAR/" rel="prev" title="An In-Depth Analysis of VAR (NIPS 2024 Best Paper): Why Next-scale Prediciton Beats Diffusion Models?">
+      <i class="fa fa-chevron-left"></i> An In-Depth Analysis of VAR (NIPS 2024 Best Paper): Why Next-scale Prediciton Beats Diffusion Models?
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Previous-Work"><span class="nav-number">1.</span> <span class="nav-text">Previous Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compensating-for-VQ%E2%80%99s-Information-Loss"><span class="nav-number">2.</span> <span class="nav-text">Compensating for VQ’s Information Loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generating-Residual-Image-Using-a-Diffusion-Model"><span class="nav-number">3.</span> <span class="nav-text">Generating Residual Image Using a Diffusion Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AE-VQVAE-Hybrid-Autoencoder"><span class="nav-number">4.</span> <span class="nav-text">AE + VQVAE Hybrid Autoencoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High-Resolution-Text-to-Image-Implementation-Details"><span class="nav-number">5.</span> <span class="nav-text">High-Resolution Text-to-Image Implementation Details</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quantitative-Results"><span class="nav-number">6.</span> <span class="nav-text">Quantitative Results</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">7.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yifan Zhou</p>
+  <div class="site-description" itemprop="description">Designer, artist, philosopher, researcher.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog-en/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog-en/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog-en/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yifan Zhou</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog-en/lib/anime.min.js"></script>
+  <script src="/blog-en/lib/velocity/velocity.min.js"></script>
+  <script src="/blog-en/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog-en/js/utils.js"></script>
+
+<script src="/blog-en/js/motion.js"></script>
+
+
+<script src="/blog-en/js/schemes/muse.js"></script>
+
+
+<script src="/blog-en/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
