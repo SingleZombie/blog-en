@@ -167,6 +167,153 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/blog-en/2025/01/22/20250115-R3GAN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog-en/images/avatar.gif">
+      <meta itemprop="name" content="Yifan Zhou">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yifan Zhou's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog-en/2025/01/22/20250115-R3GAN/" class="post-title-link" itemprop="url">What Research Improvements Has R3GAN, Proclaiming “Long Live GAN!”, Made?</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-01-22 23:30:36" itemprop="dateCreated datePublished" datetime="2025-01-22T23:30:36+08:00">2025-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Learning/" itemprop="url" rel="index"><span itemprop="name">Learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Learning/Knowledge-Records/" itemprop="url" rel="index"><span itemprop="name">Knowledge Records</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Recently, a paper swept through tech media with its eye-catching title: “The GAN is dead; long live the GAN! A Modern Baseline GAN”. I’m not a fan of such extravagant titles—truly valuable research doesn’t need a flashy headline to attract attention. After reading the paper with a hint of resentment, I found that it indeed did not present any particularly significant innovations.</p>
+<p>This paper proposes a baseline GAN model called <em>R3GAN</em> (pronounced “Re-GAN”). R3GAN combines the RpGAN loss and a special gradient penalty (GP) loss, and redesigns the GAN architecture based on the state-of-the-art convolutional network ConvNeXt. Experiments show that R3GAN achieves FID scores comparable to those of diffusion models on FFHQ and low-resolution ImageNet image generation. The work mainly contributes through engineering experiments and does not propose many scientific innovations. In this blog post, I will briefly introduce the main implementation details of R3GAN and provide references for each aspect without delving too deeply. Interested readers can refer to the references summarized at the end.</p>
+<h2 id="A-Review-of-GANs"><a href="#A-Review-of-GANs" class="headerlink" title="A Review of GANs"></a>A Review of GANs</h2><p>In this section, we will review the necessary knowledge related to Generative Adversarial Networks (GANs) that is essential for understanding R3GAN.</p>
+<h3 id="Fundamentals-of-GANs"><a href="#Fundamentals-of-GANs" class="headerlink" title="Fundamentals of GANs"></a>Fundamentals of GANs</h3><p>Like most other generative models, the training objective of a GAN is to model a mapping from an easily sampled distribution (typically a Gaussian distribution) to a distribution that is difficult to train (the training dataset). Specifically, a GAN uses a <strong>Generator</strong> to transform noise $z$ drawn from a Gaussian distribution into images $x$. While most other generative models have their own theoretical foundations that define the generator’s learning objective, GANs employ another neural network—the <strong>Discriminator</strong>—to determine the training objective for the generator.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/1.jpg" alt></p>
+<p>The two models learn via a game: the discriminator attempts to distinguish whether an image is “fake” (i.e., generated) or real, while the generator strives to improve the quality of the generated images so that the discriminator cannot tell the difference. They share the same optimization objective, though one aims to minimize it while the other aims to maximize it.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/2.jpg" alt></p>
+<p>In the above loss function, there are various choices for the function $f$. R3GAN opts for the softplus function, as illustrated in the figure above.</p>
+<h3 id="Two-Classic-Architectures-DCGAN-and-StyleGAN"><a href="#Two-Classic-Architectures-DCGAN-and-StyleGAN" class="headerlink" title="Two Classic Architectures: DCGAN and StyleGAN"></a>Two Classic Architectures: DCGAN and StyleGAN</h3><p>The pioneering GANs were implemented with fully connected networks. In the subsequent development of GANs, two classic architectures emerged: DCGAN in 2016 and StyleGAN in 2019.</p>
+<p>DCGAN is a GAN whose generator is based on convolutional neural networks (CNNs). Its hallmark is that it gradually upsamples low-channel features while simultaneously reducing the number of channels, until a three-channel image of the target size is generated.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/3.jpg" alt></p>
+<p>StyleGAN, on the other hand, is known for its stable training and suitability for image editing. Unlike traditional GAN generators, StyleGAN takes a noise vector $z$ that is preprocessed by a mapping network via a bypass, and injects the information using the AdaIN operation from style transfer. Because the method of inputting the noise changes, the original low-resolution feature map input is replaced by a constant.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/4.jpg" alt></p>
+<h3 id="Two-Major-Challenges-Difficult-Convergence-and-Mode-Collapse"><a href="#Two-Major-Challenges-Difficult-Convergence-and-Mode-Collapse" class="headerlink" title="Two Major Challenges: Difficult Convergence and Mode Collapse"></a>Two Major Challenges: Difficult Convergence and Mode Collapse</h3><p>Compared to other generative models, GANs are often criticized for being “difficult to train”. This difficulty is evident in issues of convergence and mode collapse. Poor convergence implies that the model does not fit the dataset well, and we can use FID to evaluate the similarity between the model’s outputs and the training set. Mode collapse refers to the phenomenon where, for a multi-category dataset, the model generates only a few of the categories, as illustrated below (<a target="_blank" rel="noopener" href="https://www.researchgate.net/figure/Generated-images-by-GAN-and-WGAN-models-trained-on-MNIST-after-1-100k-500k-1000k_fig2_329705388">Image source</a>). To detect mode collapse, we can either have the network randomly generate a large number of images and use another classification network to count the number of categories present, or use the generation recall metric to roughly assess the diversity of the model’s sampling.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/5.jpg" alt></p>
+<h2 id="R3GAN-Implementation"><a href="#R3GAN-Implementation" class="headerlink" title="R3GAN Implementation"></a>R3GAN Implementation</h2><p>In the introduction, R3GAN criticizes the various small tricks in StyleGAN that are used to enhance GAN stability and advocates for using a generator as simple as possible. Although the paper is written in this manner, R3GAN is in fact based on the earlier DCGAN, with an updated loss function and the incorporation of the latest CNN architectures—making it almost unrelated to the StyleGAN architecture. Let’s examine R3GAN from these two aspects: the loss function and the model architecture.</p>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>Regarding the GAN loss that defines the adversarial game, R3GAN replaces the standard GAN loss with the one from the RpGAN (Relativistic Pairing GAN) paper. In contrast, the RpGAN loss feeds the difference between the discriminator outputs for a pair of real and fake samples into the activation function $f$, rather than feeding the outputs separately.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/6.jpg" alt></p>
+<p>Based on previous research findings, the authors briefly explain the benefits of the RpGAN loss both intuitively and theoretically:</p>
+<ul>
+<li>Traditional GAN losses only require the discriminator to distinguish between real and fake samples, without enforcing that the gap between real and fake samples be as large as possible. By feeding the difference between a pair of real and fake samples into the loss function, the RpGAN loss encourages this gap to be maximized.</li>
+<li>According to theoretical analyses from previous work, under some simple configurations the standard GAN loss can have a number of suboptimal local minima that grow exponentially, whereas every local minimum of the RpGAN loss is a global minimum.</li>
+</ul>
+<p>R3GAN also re-examines the optimal gradient penalty (GP) loss through ablation experiments. The term <em>n-GP</em> indicates that the model’s gradient with respect to the input should be as close as possible to the constant $n$, thereby stabilizing training. The commonly used GPs are 0-GP and 1-GP:</p>
+<ul>
+<li><strong>0-GP:</strong> In the optimal case, the model produces exactly the same output for any input.</li>
+<li><strong>1-GP:</strong> In the optimal case, the model’s output changes smoothly with the input; that is, if the norm of the input tensor changes by 1, the norm of the output tensor also changes by 1.</li>
+</ul>
+<p>The authors argue that 0-GP is more suitable for the GAN discriminator, because when the generator’s outputs are identical to the training data, the discriminator should be unable to distinguish between any inputs and should give the same output for all.</p>
+<p>For applying GP to the discriminator, there are two forms: $R_1$ and $R_2$, which apply the penalty to real and fake data respectively. The authors found that using both $R_1$ and $R_2$ yields better results.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/7.jpg" alt></p>
+<p>To summarize, R3GAN uses the loss function combination of RpGAN + $R_1$ + $R_2$. The authors demonstrate through simple experiments that this configuration is optimal. As shown in the figure below, on a simple dataset with 1000 categories, the optimal loss configuration is able to generate data for all categories, with a smaller distribution distance $D_{KL}$ (similar to the FID metric—the smaller, the better). Omitting the RpGAN loss results in reduced output diversity and convergence, while omitting $R_2$ causes training to fail completely.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/8.jpg" alt></p>
+<h3 id="Modernized-Convolutional-Networks"><a href="#Modernized-Convolutional-Networks" class="headerlink" title="Modernized Convolutional Networks"></a>Modernized Convolutional Networks</h3><p>After identifying a simple yet effective loss function, the R3GAN paper further explores improved convolutional network architectures. The paper mentions five configurations:</p>
+<ul>
+<li><strong>A:</strong> The original StyleGAN2.</li>
+<li><strong>B:</strong> Removing most of the design elements from StyleGAN2, making the model nearly identical to DCGAN.</li>
+<li><strong>C:</strong> Replacing the loss function with the new one discussed in the previous section.</li>
+<li><strong>D:</strong> Adding ResNet-style residual connections to the VGG-like network.</li>
+<li><strong>E:</strong> Updating ResNet with modules from ConvNeXt.</li>
+</ul>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/9.jpg" alt></p>
+<p>Let’s skip configuration A and look directly at the differences between configuration B and the early DCGAN. According to the authors, the key differences in configuration B are:</p>
+<ul>
+<li><strong>a)</strong> Using the $R_1$ loss.</li>
+<li><strong>b)</strong> Employing a smaller learning rate and disabling momentum in the Adam optimizer.</li>
+<li><strong>c)</strong> Eliminating normalization layers in all parts of the network.</li>
+<li><strong>d)</strong> Replacing transposed convolution with bilinear upsampling.</li>
+</ul>
+<p>Notably, if changes <strong>a)</strong>, <strong>b)</strong>, or <strong>c)</strong> are not implemented, training fails. Item <strong>d)</strong> is the standard configuration for upsampling in modern neural networks and helps prevent checkerboard artifacts.</p>
+<p>The new loss function in configuration C has already been discussed in the previous section.</p>
+<p>Prior to this work—including in StyleGAN—most GAN architectures used VGG-like structures without residual blocks. Configuration D introduces the standard 1-3-1 residual blocks from ResNet into the network.</p>
+<p>Configuration E further updates the design of the convolutional layers. It first introduces the group convolution operation (dividing channels into groups so that channels within the same group are connected; note that group=1 corresponds to depthwise convolution). Because this operation is more efficient, the network can incorporate more parameters without increasing overall runtime. Additionally, configuration E employs the inverted bottleneck blocks from ConvNeXt, whose design is inspired by the fully connected layers in Transformers.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/10.jpg" alt></p>
+<p>Let’s review the simple ablation study results for each configuration once more. It appears that the new loss function does not offer much improvement; ultimately, the modifications to the network architecture prove to be more effective. The best configuration, model E, slightly outperforms StyleGAN2.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/9.jpg" alt></p>
+<h2 id="Quantitative-Experimental-Results"><a href="#Quantitative-Experimental-Results" class="headerlink" title="Quantitative Experimental Results"></a>Quantitative Experimental Results</h2><p>Finally, let’s examine the quantitative results presented in the paper. As mentioned earlier, we mainly care about two metrics for GANs: diversity and convergence/image quality. The former can be reflected by the number of classes or recall, and the latter can be assessed using FID (and the $D_{KL}$ used in this post).</p>
+<h3 id="Diversity"><a href="#Diversity" class="headerlink" title="Diversity"></a>Diversity</h3><p>On small multi-class datasets, R3GAN is able to generate all classes and exhibits the best similarity to the training set, whereas StyleGAN2 fails to generate some classes.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/11.jpg" alt></p>
+<p>Another metric that reflects image diversity is recall, which roughly indicates how much of the training set’s content can be found in the generated set. The paper does not provide detailed tables but merely notes that on CIFAR-10, StyleGAN-XL achieves a recall of 0.47, while R3GAN reaches 0.57. However, overall, R3GAN’s recall is still lower than that of diffusion models.</p>
+<h3 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h3><p>A major highlight touted by this work is that, on certain datasets, its FID scores surpass those of diffusion models. Let’s look at the FID results on both single-class and multi-class datasets.</p>
+<p>First, consider the classic FFHQ face dataset. On this dataset, which has relatively low diversity, GANs have generally performed very well. R3GAN achieves a better FID than StyleGAN2 and most diffusion models—and it does so with only a single inference pass (NFE=1). However, its FID does not surpass that of the best previous GAN models. (But those earlier GANs employed a trick to improve FID without enhancing image quality, which R3GAN did not use.)</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/12.jpg" alt></p>
+<p>Next, consider the more diverse CIFAR-10 and ImageNet datasets. R3GAN’s performance is superior to that of all diffusion models and most GANs. However, R3GAN has not been tested on higher-resolution ImageNet. Nowadays, state-of-the-art generative models are typically evaluated on ImageNet-256, but R3GAN does not provide corresponding experimental results.</p>
+<p><img src="/blog-en/2025/01/22/20250115-R3GAN/13.jpg" alt></p>
+<h2 id="Summary-and-Comments"><a href="#Summary-and-Comments" class="headerlink" title="Summary and Comments"></a>Summary and Comments</h2><p>R3GAN is essentially a modernized version of DCGAN. It introduces improvements in two main aspects: the loss function and the model architecture. On the loss function side, DCGAN employs the RpGAN + $R_1$ + $R_2$ loss; on the architecture side, R3GAN replaces the original VGG-like structure with the latest convolutional design from ConvNeXt. Experiments indicate that R3GAN surpasses all diffusion models and most GANs in terms of FID scores on FFHQ-256 and ImageNet-64, although it falls slightly short of the best previous GANs. In terms of generation diversity, however, R3GAN still does not match the performance of diffusion models.</p>
+<p>In terms of research contribution, this paper does not introduce any new theories or ideas—it entirely repurposes methods proposed in previous work. Its main contribution lies in offering engineering insights that may help us develop better CNN-based GANs. In terms of experiment results, R3GAN has not been tested on the current mainstream benchmark, ImageNet-256, and there is no evidence that it can outperform diffusion models. From the experimental results on other datasets, one can infer that R3GAN’s best performance is roughly on par with earlier GANs, without making any fundamental improvements to the GAN framework. In summary, I believe this paper is a mediocre work that just meets top conference standards, making its selection as a Poster at NIPS 2024 quite reasonable.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>DCGAN: <em>Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks</em></li>
+<li>StyleGAN: <em>A Style-Based Generator Architecture for Generative Adversarial Networks</em></li>
+<li>StyleGAN2: <em>Analyzing and Improving the Image Quality of StyleGAN</em></li>
+<li>GP (WGAN-GP): <em>Improved Training of Wasserstein GANs</em></li>
+<li>RpGAN: <em>The Relativistic Discriminator: A Key Element Missing from Standard GAN</em></li>
+<li>RpGAN Landscape Explanation: <em>Towards a Better Global Loss Landscape of GANs</em></li>
+<li>ConvNeXt: <em>A ConvNet for the 2020s</em></li>
+<li>ImageNet FID Trick: <em>The Role of ImageNet Classes in Fréchet Inception Distance</em></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/blog-en/2024/12/26/20241224-HART/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -203,7 +350,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog-en/categories/Learning/Knowledge-Record/" itemprop="url" rel="index"><span itemprop="name">Knowledge Record</span></a>
+                  <a href="/blog-en/categories/Learning/Knowledge-Records/" itemprop="url" rel="index"><span itemprop="name">Knowledge Records</span></a>
                 </span>
             </span>
 
@@ -321,7 +468,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog-en/categories/Learning/Knowledge-Record/" itemprop="url" rel="index"><span itemprop="name">Knowledge Record</span></a>
+                  <a href="/blog-en/categories/Learning/Knowledge-Records/" itemprop="url" rel="index"><span itemprop="name">Knowledge Records</span></a>
                 </span>
             </span>
 
@@ -504,7 +651,7 @@ p(r_k|r_1, r_2, ..., r_{k-1}) = \prod_{i=1}^{I_k}p(r_k^i|r_1, r_2, ..., r_{k-1})
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog-en/categories/Learning/Knowledge-Record/" itemprop="url" rel="index"><span itemprop="name">Knowledge Record</span></a>
+                  <a href="/blog-en/categories/Learning/Knowledge-Records/" itemprop="url" rel="index"><span itemprop="name">Knowledge Records</span></a>
                 </span>
             </span>
 
@@ -639,7 +786,7 @@ p(r_k|r_1, r_2, ..., r_{k-1}) = \prod_{i=1}^{I_k}p(r_k^i|r_1, r_2, ..., r_{k-1})
       <div class="site-state-item site-state-posts">
           <a href="/blog-en/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -652,7 +799,7 @@ p(r_k|r_1, r_2, ..., r_{k-1}) = \prod_{i=1}^{I_k}p(r_k^i|r_1, r_2, ..., r_{k-1})
       <div class="site-state-item site-state-tags">
             <a href="/blog-en/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -679,7 +826,7 @@ p(r_k|r_1, r_2, ..., r_{k-1}) = \prod_{i=1}^{I_k}p(r_k^i|r_1, r_2, ..., r_{k-1})
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
