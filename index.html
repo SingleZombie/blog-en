@@ -167,6 +167,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/blog-en/2025/12/19/20251211-llsa-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog-en/images/avatar.gif">
+      <meta itemprop="name" content="Yifan Zhou">
+      <meta itemprop="description" content="Designer, artist, philosopher, researcher.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yifan Zhou's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog-en/2025/12/19/20251211-llsa-1/" class="post-title-link" itemprop="url">Log-linear Sparse Attention: The First High-Performance Sparse Attention with O(N log N) Complexity</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-12-19 10:39:13" itemprop="dateCreated datePublished" datetime="2025-12-19T10:39:13+08:00">2025-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Creation/" itemprop="url" rel="index"><span itemprop="name">Creation</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog-en/categories/Creation/Research/" itemprop="url" rel="index"><span itemprop="name">Research</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>The quadratic $O(N^2)$ complexity of self-attention has long been a major computational bottleneck in modern large models. This year, one of the most active directions for improving attention mechanisms has been <em>sparse attention</em>: instead of attending to all key–value (KV) tokens, each query attends only to a small subset of important tokens. Representative works in this direction include MoBA from Kimi and NSA from DeepSeek.</p>
+<p>However, despite their sparsity, these methods do not fundamentally reduce the asymptotic complexity of attention. Their overall runtime still grows with sequence length $N$ following an $O(N^2)$ trend.</p>
+<p>To address this limitation, our recent work, <em>Log-linear Sparse Attention (LLSA)</em>, reduces the complexity of sparse attention to $O(N \log N)$ at the algorithmic level. In addition, we provide a highly optimized Triton implementation of LLSA tailored to modern GPU architectures, and employ efficient sparse algorithms to minimize the overhead introduced by sparsity itself. We validate the effectiveness of LLSA on <strong>pure pixel-space DiT generation tasks without VAE and without patchification</strong>. On pixel sequences as long as $512 \times 512$, LLSA achieves generation quality comparable to full attention, while significantly reducing computation time.</p>
+<p>In this blog post, I introduce our arXiv paper <em>Trainable Log-linear Sparse Attention for Efficient Diffusion Transformers</em>, and conclude with my own assessment of the work and possible future directions. Our high-performance Triton implementation of LLSA has also been open-sourced. We warmly welcome fellow researchers to use our method, and to discuss or collaborate with us after reading the paper.</p>
+<p>arXiv: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2512.16615">https://arxiv.org/abs/2512.16615</a><br>GitHub: <a target="_blank" rel="noopener" href="https://github.com/SingleZombie/LLSA">https://github.com/SingleZombie/LLSA</a></p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/0.png" alt></p>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>First, let us clarify the scope of LLSA. As stated in the paper title, LLSA is a <em>trainable</em> attention mechanism. Therefore, it differs fundamentally from inference-time acceleration methods for pretrained models such as Sparse VideoGen. LLSA does not aim to approximate full attention outputs as closely as possible; instead, it only needs to enable successful training of Transformers equipped with this attention mechanism. In this sense, LLSA is more directly comparable to mechanisms such as MoBA (Mixture of Block Attention) and NSA (Native Sparse Attention), and enjoys a much larger design space.</p>
+<p>In this section, I first provide background to clarify the problem we aim to solve, and then briefly review related prior work.</p>
+<h2 id="Sparsifying-Attention"><a href="#Sparsifying-Attention" class="headerlink" title="Sparsifying Attention"></a>Sparsifying Attention</h2><p>The attention operation can be written as</p>
+<script type="math/tex; mode=display">
+\mathbf{P} = \text{softmax}(\mathbf{Q}\mathbf{K}^{\intercal}), \quad \mathbf{O} = \mathbf{P}\mathbf{V}.</script><p>Here, $\mathbf{Q}, \mathbf{K}, \mathbf{V} \in \mathbb{R}^{N \times d}$, where $N$ is the sequence length and $d$ is the feature dimension. We refer to these as queries, keys, and values.</p>
+<p>This formulation aggregates $N$ queries into matrix form. If we consider a single query $q \in \mathbb{R}^{1 \times d}$, the operation is easier to interpret: we compute normalized similarities $p = \text{softmax}(q\mathbf{K}^{\intercal})$, then obtain the attention output $o = p\mathbf{V}$. Concatenating all $o$ yields the final output $\mathbf{O}$.</p>
+<p>From a complexity perspective, standard full attention is slow because each of the $N$ queries attends to all $N$ keys and values, resulting in $O(N^2)$ complexity. Equivalently, the matrix multiplication $\mathbf{Q}\mathbf{K}^{\intercal}$ has complexity $O(N^2 d)$, which reduces to $O(N^2)$ when $d$ is treated as a constant. As sequence length increases, attention quickly dominates runtime compared to linear-time components such as MLPs or normalization layers.</p>
+<p>Many studies have observed that attention matrices $\mathbf{P}$ in pretrained models are sparse: for each query, most key similarities are close to zero and can be ignored. This naturally leads to the idea of Top-$K$ attention—selecting only the $K$ most important keys and values per query.</p>
+<p>While this idea is correct in principle, it does not automatically lead to acceleration. To find the Top-$K$, one must first compute all $O(N^2)$ query–key similarities. If those similarities are already computed, applying sparsity afterward provides little benefit. Thus, Top-$K$ sparse attention can only be efficient if query–key similarities can themselves be computed efficiently.</p>
+<p>Modern Top-$K$ sparse attention methods therefore rely on <em>approximate</em> similarity estimation. To understand them, we first review Block Sparse FlashAttention.</p>
+<h2 id="Block-Sparse-FlashAttention"><a href="#Block-Sparse-FlashAttention" class="headerlink" title="Block Sparse FlashAttention"></a>Block Sparse FlashAttention</h2><p>Modern GPU programming is fundamentally based on parallelism: a GPU can process $B$ identical operations simultaneously. For example, when summing two vectors of length $N$, we do not write a loop of length $N$ that processes one element at a time; instead, we process $B$ elements per iteration using a loop of length $N/B$.</p>
+<p>FlashAttention adopts this principle by performing attention computation in blocks. Suppose $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are partitioned into $N/B$ blocks, where block $i$ contains $\mathbf{Q}_i, \mathbf{K}_i, \mathbf{V}_i \in \mathbb{R}^{B \times d}$. We can then launch $N/B$ programs, each computing outputs $\mathbf{O}_i$ for one query block. Inside each program, a loop of length $N/B$ iterates over key–value blocks.</p>
+<p>This structure naturally supports <em>block sparsity</em>. If a sparse algorithm determines that $\mathbf{Q}_i$ does not need to attend to $\mathbf{K}_j$, the $j$-th iteration of the $i$-th program can be skipped. The choice of sparsity pattern is unrestricted—for example, sliding-window attention.</p>
+<h2 id="Top-K-Block-Sparse-Attention"><a href="#Top-K-Block-Sparse-Attention" class="headerlink" title="Top-$K$ Block Sparse Attention"></a>Top-$K$ Block Sparse Attention</h2><p>With Block Sparse FlashAttention in mind, an efficient Top-$K$ sparse attention algorithm emerges naturally. The key idea is to construct coarse representations that summarize each block, compute Top-$K$ sparsity on these coarse features, and then apply block-sparse attention. The steps are:</p>
+<ol>
+<li>Apply $B$-stride average pooling to $\mathbf{Q}$ and $\mathbf{K}$, producing $\mathbf{Q}’, \mathbf{K}’ \in \mathbb{R}^{T \times d}$ with $T = N/B$.</li>
+<li>Compute inner products between $\mathbf{Q}’$ and $\mathbf{K}’$, and select the Top-$K$ key blocks for each query block.</li>
+<li>Execute Block Sparse FlashAttention using the resulting sparse block indices.</li>
+</ol>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/1.png" alt></p>
+<p>This description abstracts the core idea behind many modern Top-$K$ sparse attention methods, including MoBA, NSA, and later VMoBA, VSA, and SLA.</p>
+<p>Let us analyze the complexity. The runtime is dominated by Top-$K$ search (step 2) and sparse attention computation (step 3).</p>
+<ul>
+<li>Top-$K$ search involves $O((N/B)^2)$ inner products.</li>
+<li>Sparse attention costs $O(NKB)$, since each query attends to $KB$ keys.</li>
+</ul>
+<p>When $N$ is small, sparse attention dominates. As $N$ grows, the $O(N^2)$ term inevitably dominates. Thus, such methods do not fundamentally improve attention complexity; they only yield a constant-factor speedup (at most $B^2$). In contrast, the goal of Log-linear Sparse Attention (LLSA) is to eliminate the $O(N^2)$ term entirely.</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>In NLP, popular <em>trainable</em> sparse attention mechanisms include MoBA and NSA. Concurrently, SpargeAttention was proposed as a pooling-and-filtering-based sparse attention applicable to both NLP and CV. In CV, VMoBA adapts MoBA to vision tasks, while VSA (Video Sparse Attention) and SLA (Sparse-Linear Attention) ressolve the information loss caused by sparsity in VMoBA. VSA computes a coarse attention output and adds it to sparse attention, while SLA uses linear attention to approximate contributions from non-Top-$K$ keys.</p>
+<p>Hierarchical decompositions with $O(\log N)$ levels are a recurring idea in attention optimization. Early examples include H-Transformer and Fast Multipole Attention. More recently, Radial Attention achieves $O(N\log N)$ complexity via a static sparsity pattern for video. Log-linear Attention improves linear attention quality by maintaining $O(\log N)$ states per query using Fenwick Tree. The method most similar to ours is Multi-Resolution Attention (MRA), which lacks an efficient FlashAttention-compatible GPU implementation and was not validated on ultra-long sequence generation.</p>
+<p>LLSA targets Pixel DiT. At the time of this work, Pixel DiT research was limited to PixelFlow and PixNerd. More recently, JiT, DiP, DeCo, and PixelDiT appeared on arXiv, but all rely on patchification to reduce token counts. No prior work trained DiT <strong>without VAE and without patchification</strong>, due to the prohibitive attention cost. Our work directly addresses this challenge and validates LLSA on high-resolution pure pixel DiT generation.</p>
+<h2 id="Log-linear-Sparse-Attention-Method"><a href="#Log-linear-Sparse-Attention-Method" class="headerlink" title="Log-linear Sparse Attention: Method"></a>Log-linear Sparse Attention: Method</h2><p>The figure below provides an overview of the method.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/2.png" alt></p>
+<p>In short, LLSA upgrades the conventional two-level sparsity structure into a multi-level hierarchy. Moreover, in the final sparse attention computation, LLSA not only uses the finest-grained keys/values, but also incorporates coarser keys/values from multiple hierarchy levels. Details are as follows.</p>
+<h2 id="Attention-Algorithm"><a href="#Attention-Algorithm" class="headerlink" title="Attention Algorithm"></a>Attention Algorithm</h2><h3 id="Hierarchical-Compression"><a href="#Hierarchical-Compression" class="headerlink" title="Hierarchical Compression"></a>Hierarchical Compression</h3><p>We partition the token sequence into $<br>L = \log_B N - 1<br>$ levels. Concretely, we repeatedly apply $B$-stride average pooling to compress the original token features</p>
+<script type="math/tex; mode=display">
+\mathbf{Q}^{(0)},\mathbf{K}^{(0)},\mathbf{V}^{(0)} \in \mathbb{R}^{N\times d}</script><p>into $L$ sets of coarser tokens. At level $l$, we have</p>
+<script type="math/tex; mode=display">
+\mathbf{Q}^{(l)},\mathbf{K}^{(l)},\mathbf{V}^{(l)} \in \mathbb{R}^{\frac{N}{B^l}\times d}.</script><h3 id="Hierarchical-Top-K-Selection"><a href="#Hierarchical-Top-K-Selection" class="headerlink" title="Hierarchical Top-$K$ Selection"></a>Hierarchical Top-$K$ Selection</h3><p>We perform Top-$K$ selection in a top-down manner, refining from coarse to fine, to identify the Top-$K$ most similar key blocks for each query block.</p>
+<p>Consider the example $N=8, B=2, K=1$. We start by computing full similarities at the top level (level $L$) between coarse queries and keys.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/3.png" alt></p>
+<p>Starting from the second-coarsest level, we recursively leverage the sparse indices from the previous level to further select Top-$K$ candidates. Here, we assume that all fine queries within the same coarse block share the same sparse pattern at this level. For example, in the figure below, both $\mathbf{Q}^{(1)}_1$ and $\mathbf{Q}^{(1)}_2$ belong to the coarser block $\mathbf{Q}^{(2)}_1$, and thus they should only attend to the key tokens corresponding to $\mathbf{K}^{(2)}_2$.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/4.png" alt></p>
+<p>At the previous level, each query has $K$ candidate coarse key blocks. At the current (finer) level, since the granularity increases, each query has $KB$ candidate key blocks. Among these $KB$ candidates, we run Top-$K$ selection again. This recursion continues until the bottom level.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/5.png" alt></p>
+<p>In the end, we obtain the indices of Top-$K$ key blocks for each query block at all levels. </p>
+<h3 id="Hierarchical-KV-Enrichment"><a href="#Hierarchical-KV-Enrichment" class="headerlink" title="Hierarchical KV Enrichment"></a>Hierarchical KV Enrichment</h3><p>In standard sparse attention, attending only to a sparse subset of K/V tokens inevitably causes information loss.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/6.png" alt></p>
+<p>LLSA mitigates this issue by exploiting the multi-level sparse patterns discovered during hierarchical Top-$K$ selection. Instead of attending only to the finest K/V tokens, LLSA also includes coarser K/V tokens from multiple levels in the final sparse attention computation. This allows each query to preserve global context.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/7.png" alt></p>
+<h3 id="KV-Reweighting"><a href="#KV-Reweighting" class="headerlink" title="KV Reweighting"></a>KV Reweighting</h3><p>The above is not yet optimal. Intuitively, coarser tokens summarize more information and should have higher importance. However, a naive implementation assigns the same weight to K/V tokens from all levels.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/8.png" alt></p>
+<p>We therefore assume that the information in a coarse K/V token can be approximately reconstructed into its fine tokens via nearest-neighbor upsampling (i.e., repeat). Under this assumption, we do not need to explicitly upsample; instead, we can assign different weights to tokens from different levels during attention. Specifically, a level-$l$ token is assigned weight $B^l$, and this weight is applied multiplicatively to both K and V.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/9.png" alt></p>
+<h2 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h2><p>Does LLSA truly accelerate prior sparse attention methods? Let us analyze its complexity (assuming $B$ is a constant).</p>
+<p><strong>Hierarchical compression.</strong> We can count the total number of tokens across levels. Token counts form a geometric series, whose sum is bounded by a constant (dependent on $B$) times $N$. Hence, the complexity is $O(N)$.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/10.png" alt></p>
+<p><strong>Hierarchical Top-$K$ selection.</strong> Similarly, the total number of queries across levels is $O(N)$. At each level, the number of candidate key tokens evaluated per query is $KB$, yielding total complexity $O(NK)$.</p>
+<blockquote>
+<p>For simplicity, we do not analyze the complexity of the Top-$K$ algorithm itself. Its complexity depends on the specific implementation, and runtime is tightly coupled with sequence length and the parallel algorithm used. In terms of asymptotic scaling with $N$, when $K$ and $B$ are constants, Top-$K$ selection is also $O(N)$.</p>
+</blockquote>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/11.png" alt></p>
+<p><strong>Final attention computation.</strong> There are $O(N)$ queries and $O(K\log N)$ key/value blocks per query. Therefore, this step costs $O(NK\log N)$.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/12.png" alt></p>
+<p>If we treat $K$ as a constant as well (which is typical in practice), the overall complexity of LLSA is $O(N\log N)$. In other words, we have reduced the $O(N^2)$ complexity of prior sparse attention mechanisms.</p>
+<h2 id="High-Performance-GPU-Implementation"><a href="#High-Performance-GPU-Implementation" class="headerlink" title="High-Performance GPU Implementation"></a>High-Performance GPU Implementation</h2><p>In modern deep learning frameworks, a new operator must be adapted to GPU parallel programming. LLSA is designed to be compatible with FlashAttention.</p>
+<p>Concretely, for all parts involving sparse access (sparse Top-$K$, sparse attention), we can replace dense iteration over all K/V tokens with iteration over sparse indices. We then gather the corresponding K/V values by index. Dense loops that were originally $O(N)$ are reduced to $O(K)$.</p>
+<p>However, there is one key challenge in implementation: Top-$K$ selection naturally yields <strong>Q-major</strong> sparse indices (i.e., which K each Q attends to), but does not directly provide <strong>K-major</strong> sparse indices (i.e., which Q attends to a given K). Efficient gradient computation for K/V requires K-major indices. Therefore, we must implement a <strong>sparse index transpose</strong> algorithm that converts Q-major indices into K-major indices.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/13.png" alt></p>
+<p>Fortunately, this problem is well studied in sparse matrix multiplication. We directly adopt mature algorithms from that literature. The basic idea is as follows: since the length of K-major indices is variable, we store all K-to-Q indices in a flattened 1D array. This corresponds to flattening a ragged 2D K-major structure. To locate the segment belonging to each K, we maintain an auxiliary offset array that stores the start and end offsets for each K.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/14.png" alt></p>
+<p>Without this optimized approach, one would have to represent sparsity using a dense mask matrix indicating whether each (Q, K) pair is valid. This would degrade complexity back to $O(N^2)$. Many prior methods rely on this less efficient strategy.</p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="Pixel-DiT-Setup"><a href="#Pixel-DiT-Setup" class="headerlink" title="Pixel DiT Setup"></a>Pixel DiT Setup</h3><p>To verify that LLSA indeed reduces the complexity of attention, we train a <strong>pure pixel-space DiT without VAE and without patchification</strong> on long pixel token sequences. To adapt LLSA to 2D data, we employ <strong>index reordering</strong>. To accelerate training, we use <strong>noise rescaling</strong> and <strong>low-resolution pretraining</strong>.</p>
+<p><strong>Index reordering.</strong> LLSA is designed for 1D sequences. Since it repeatedly applies average downsampling over adjacent groups of $B$ tokens, it is beneficial if adjacent tokens are semantically correlated. For 2D images, the most natural approach is to map 2D patches into a 1D ordering that preserves locality as much as possible. Following prior work, we adopt the index reordering scheme below.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/15.png" alt></p>
+<p><strong>Noise rescaling.</strong> Prior works such as Simple Diffusion and SD3 suggest that higher-resolution data should receive stronger noise. In our experiments, the most effective approach is to multiply the noise term by a factor $s ,(s\ge 1)$. For example, under rectified flow, the noising formula becomes</p>
+<script type="math/tex; mode=display">
+\mathbf{x}_t = (1-t)\mathbf{x}_0 + s\cdot t\epsilon.</script><p>Empirically, for images of sequence length $n\times n,(n&gt;64)$, we set $<br>s = \frac{n}{64},<br>$ i.e., we align the signal-to-noise ratio to that of $64\times 64$ images.</p>
+<p><strong>Pretraining.</strong> Following multi-stage training strategies used in large-scale text-to-image models such as SD3, we first pretrain on low-resolution images and then progressively finetune at higher resolutions.</p>
+<p><strong>DiT architecture.</strong> We replace standard DiT positional encoding with RoPE, and add qk-norm to stabilize bfloat16 training.</p>
+<blockquote>
+<p>We do not upgrade the backbone to LightningDiT or DDT, nor do we use REPA.</p>
+</blockquote>
+<p><strong>Metrics.</strong> Unless otherwise stated, our default evaluation protocol is: FID is computed on 10,000 samples generated with 20 denoising steps. Throughput is measured in 1,000 pixel tokens per second. All throughput numbers are reported on a single H200 GPU.</p>
+<h3 id="Ablations"><a href="#Ablations" class="headerlink" title="Ablations"></a>Ablations</h3><p>Unless otherwise specified, ablations are evaluated on models trained for 20 epochs on FFHQ-128. The default hyperparameters are $B=16$ and $K=8$. Key ablation results are shown below.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/16.png" alt></p>
+<p>In the table, $L$ denotes the number of hierarchy levels, and $L_e$ denotes how many levels use KV Enrichment. The main takeaways are:</p>
+<ul>
+<li><p>Comparing $L=1$ vs. $L=2$, moving to $L=2$ significantly improves speed while slightly degrading FID (primarily because the number of KV tokens accessed is greatly reduced). This supports that the $\log N$-level hierarchical design indeed improves computational efficiency.</p>
+</li>
+<li><p>Both KV Enrichment and KV Reweighting are effective. In fact, the resulting sparse attention can even outperform full attention in terms of FID.</p>
+</li>
+</ul>
+<p>We also train an $L=3$ LLSA model on FFHQ at $512\times 512$. The outcome matches expectations: as sequence length increases, increasing $L$ yields runtime that grows roughly as $O(N\log N)$. However, since fewer KV tokens are used, speed improves at the cost of slightly worse quality.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/16_5.png" alt></p>
+<p>The paper and appendix contain more ablation results. Overall, every design choice—both in attention and in training—contributes positively.</p>
+<h3 id="Comparisons"><a href="#Comparisons" class="headerlink" title="Comparisons"></a>Comparisons</h3><p>We compare LLSA against VSA and SLA, and briefly discuss VMoBA. To my knowledge, these are the three recent works on trainable sparse attention for DiT. If we focus only on which key blocks are used (ignoring image/video handling details), the methods can be summarized as:</p>
+<ul>
+<li><strong>VMoBA:</strong> VMoBA (and MoBA) are equivalent to the Top-$K$ attention described earlier.</li>
+<li><strong>VSA:</strong> Compute a coarse attention output on pooled Q/K/V, then add it to the sparse attention output.</li>
+<li><strong>SLA:</strong> Use an additional linear attention to approximate contributions from keys outside Top-$K$, then add it to the sparse attention output.</li>
+</ul>
+<p>To ensure fairness, we re-implement VSA and SLA inside our training environment and match hyperparameters as closely as possible. Since their GPU backward implementations are relatively inefficient, <strong>for a fair speed comparison, we upgrade the backward pass of VSA and SLA to a sparse-index-convolution style implementation</strong>.</p>
+<p>Moreover, because we enable KV Enrichment, for the same $K$, LLSA accesses more K/V tokens during sparse attention. For fairness in quality comparison, we increase $K$ for VSA and SLA so that the number of K/V tokens they actually access matches LLSA’s effective K/V count.</p>
+<p>Results on FFHQ are as follows: LLSA is both faster and better.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/17.png" alt></p>
+<p>We also run a validation experiment on ImageNet-256. To finish training within limited time, we adopt PixelFlow with patch size = 4 as the DiT backbone, and replace its full attention with VSA, SLA, or LLSA. Results after 10 epochs are shown below.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/18.png" alt></p>
+<p>Metrics during the first four epochs are shown below.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/19.png" alt></p>
+<p>We can see that—even under a conservative experimental setup—LLSA is consistently faster and better than prior sparse attention methods on both FFHQ and ImageNet. This outcome is unsurprising. When designing the attention mechanism, I experimented with many ways of incorporating coarse K/V information. Ultimately, I found that introducing multiple computation branches and summing their outputs (as in VSA/SLA) is consistently inferior to performing a <em>single</em> attention operation that jointly attends to pooled K/V and fine K/V. Thus, even ignoring the $O(\log N)$ acceleration itself, the “coarse+fine K/V in one attention” design improves generation quality compared to prior approaches.</p>
+<h3 id="Efficiency"><a href="#Efficiency" class="headerlink" title="Efficiency"></a>Efficiency</h3><p>We separately compare inference and training costs (reported as speedup over full attention) across different $B$ values and sequence lengths. Here we use the unoptimized VSA/SLA code. LLSA exhibits a clear efficiency advantage.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/20.png" alt></p>
+<p>We also validate the effectiveness of sparse-index-transpose-based backward. We compare the backward speed of LLSA against a baseline backward that uses a dense sparse mask. Since our algorithm is $O(N)$, throughput remains nearly constant across different sequence lengths.</p>
+<p><img src="/blog-en/2025/12/19/20251211-llsa-1/21.png" alt></p>
+<p>These experiments demonstrate that LLSA also improves upon prior methods in terms of GPU implementation efficiency.</p>
+<h2 id="Personal-Assessment-of-the-Paper"><a href="#Personal-Assessment-of-the-Paper" class="headerlink" title="Personal Assessment of the Paper"></a>Personal Assessment of the Paper</h2><p>Based on the experimental results, LLSA consistently outperforms prior methods in terms of efficiency, quality, and GPU implementation. Rather than repeating these results, I will focus on what I consider to be the more interesting limitations of the work.</p>
+<p>That said, the paper has two notable weaknesses.</p>
+<p><strong>First weakness:</strong> One clear limitation of this work is that we do not report fully converged ImageNet-256 results.This is primarily due to the extreme training cost required when attention is applied over full-resolution pixel tokens.</p>
+<p>Then <strong>why we choose pixel DiT as validation task</strong>? Prior methods such as VSA/SLA validate on pretrained video DiTs, where token counts are indeed large and suitable. However, their experimental datasets and evaluation protocols are not very standardized. Furthermore, the VSA paper explicitly states it used 128 GPUs, far beyond what I have access to. Thus, for both fairness and resource reasons, I did not want to choose video generation as the validation task.</p>
+<p>High-resolution pure pixel DiT generation is arguably the most fair and clean task for our purpose. Yet even in this setting, the token count is so large that we cannot train as long as DiTs on compressed ImageNet-256 setups. Typically, such DiTs have an effective compression ratio of $16\times 16$. Even under the most optimistic linear scaling assumption, we would need $256\times$ more compute to match their number of training steps. Once we choose “optimize attention complexity” as the goal, it becomes almost inevitable that we cannot afford fully converged training. We therefore settle for comparing methods under limited training budgets.</p>
+<p><strong>Second weakness:</strong> the paper does not analyze why the hierarchical design is effective. It lacks “theoretical analysis” or strong motivation, and focuses more on implementation details.</p>
+<p>This issue is not as severe. Many attention optimization papers primarily present implementation designs. Missing theoretical explanations might lower review scores, but does not invalidate the method. Effectiveness is mainly supported by experiments. If reviewers question this point, we can only acknowledge the limitation.</p>
+<p>Finally, there is another point that only attention experts might notice. The method design is extremely similar to Multi-Resolution Attention (MRA), with the key difference that MRA does not provide a high-performance implementation. Does this imply insufficient novelty?</p>
+<p>Frankly speaking, when the project started, my goal was to improve upon NSA/VSA-style methods, and I was unaware that an early hierarchical $O(\log N)$ paper already existed. I never believed such an optimization is “unthinkable”—hierarchical algorithmic ideas are common in computer science. However, I do believe that delivering a high-performance GPU implementation is both technically challenging and a substantial contribution. Providing an efficient, ready-to-use implementation likely accounts for more than half of the paper’s value.</p>
+<p>Moreover, as discussed earlier, the paper also contributes an algorithmic optimization unrelated to hierarchical attention itself but directly related to sparse attention implementation: the sparse-index-transpose based backward optimization can immediately improve existing VSA/SLA implementations. Overall, I do not think the algorithmic similarity materially undermines the paper’s contribution.</p>
+<h2 id="Future-Directions"><a href="#Future-Directions" class="headerlink" title="Future Directions"></a>Future Directions</h2><p>With current resources, my plan is to train a stronger DiT on ImageNet using LLSA. There has been recent work in this direction, such as PixelDiT. I want to see whether we can use LLSA to compute pixel-wise attention somewhere in the model without significantly increasing compute. For example, keep PixelDiT’s patchified encoder unchanged, and only increase attention cost in the decoder. But my recent experiments suggest this does not help much—removing patchification across the entire Transformer seems necessary. For now, I am still exploring low-cost variants.</p>
+<p>If we switch validation strategy, another idea is 4K image generation: finetune a pretrained FLUX model on an ultra-high-resolution dataset. Prior work has done similar things but used window attention. Replacing it with LLSA should improve quality substantially. However, such application-driven work requires a much larger engineering effort, and shifts the focus from attention design to a specific task. It is better treated as a separate research project.</p>
+<p>In my view, the most efficient path forward is collaboration—validating LLSA on more standard and suitable tasks such as NLP or video DiT generation. For NLP, I would need to connect with researchers working on attention optimization to seek feedback. For video generation, the main bottlenecks are data and compute, so we likely need to collaborate with an industry team. Since the paper studies attention mechanisms themselves, a serious follow-up should not be “small-scale finetuning of existing video models”; ideally, LLSA should be used throughout large-scale training.</p>
+<p>Ignoring collaborators and compute constraints entirely, I believe the real stage for LLSA is tasks previously considered infeasible due to quadratic attention, such as voxel-based 3D generation. This year, there is already 3D generation work using sparse attention—for example, Direct3D-S2 adapts NSA to 3D generation and can handle up to 45K 3D latents. If GPU performance continues to improve linearly, and if a task’s quality depends directly on token count, then LLSA should have significant room to shine, because it truly reduces attention complexity.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In this work, we introduce Log-linear Sparse Attention (LLSA), a novel attention mechanism that reduces self-attention complexity from $O(N^2)$ to $O(N \log N)$. Its main contributions are:</p>
+<ul>
+<li><p>A hierarchical design that reduces sparse attention complexity, which can be applied to essentially all types of sparse attention mechanisms.</p>
+</li>
+<li><p>KV Enrichment, a sparse-attention strategy that better preserves global context than VSA/SLA by attending jointly to sparse fine K/V and coarser K/V tokens.</p>
+</li>
+<li><p>A high-performance GPU implementation that we open-source. It can be directly adopted by future work, and its GPU programming insights may also inspire follow-up research.</p>
+</li>
+</ul>
+<p>I see significant potential for LLSA in future large-scale generative models. If I were leading video DiT training, I would immediately replace full attention with LLSA.</p>
+<p>My experience in MLSys is still limited, and the paper and research methodology may have room for improvement. We welcome collaboration in various forms, including but not limited to:</p>
+<ul>
+<li>Critiques and suggestions on the paper.</li>
+<li>Academic collaborations with university labs.</li>
+<li>Industry internships or project collaborations.</li>
+</ul>
+<p>I will continue to promote and explain the paper. Planned follow-ups include an “exclusive interpretation” blog post beyond the paper content (this post is essentially a restatement of the paper).</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p>(FlashAttention) FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness<br>(MoBA) MoBA: Mixture of Block Attention for Long-Context LLMs<br>(NSA) Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention<br>(SpargeAttention) SpargeAttention: Accurate and Training-free Sparse Attention Accelerating Any Model Inference<br>(Sparse VideoGen) Sparse VideoGen: Accelerating Video Diffusion Transformers with Spatial-Temporal Sparsity<br>(VMoBA) VMoBA: Mixture-of-Block Attention for Video Diffusion Models<br>(VSA) VSA: Faster Video Diffusion with Trainable Sparse Attention<br>(SLA) SLA: Beyond Sparsity in Diffusion Transformers via Fine-Tunable Sparse-Linear Attention<br>(MRA) Multi Resolution Analysis (MRA) for Approximate Self-Attention<br>(Radial Attention) Radial Attention: $O(n\log n)$ Sparse Attention with Energy Decay for Long Video Generation<br>Log-Linear Attention</p>
+<h3 id="Pixel-DiT"><a href="#Pixel-DiT" class="headerlink" title="Pixel DiT"></a>Pixel DiT</h3><p>(PixelFlow) PixelFlow: Pixel-Space Generative Models with Flow<br>(PixNerd) PixNerd: Pixel Neural Field Diffusion<br>(JiT) Back to Basics: Let Denoising Generative Models Denoise<br>(DiP) DiP: Taming Diffusion Models in Pixel Space<br>(DeCo) DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation<br>(PixelDiT) PixelDiT: Pixel Diffusion Transformers for Image Generation</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://zhouyifan.net/blog-en/2025/01/22/20250115-R3GAN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -786,20 +1010,20 @@ p(r_k|r_1, r_2, ..., r_{k-1}) = \prod_{i=1}^{I_k}p(r_k^i|r_1, r_2, ..., r_{k-1})
       <div class="site-state-item site-state-posts">
           <a href="/blog-en/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog-en/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog-en/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
